@@ -310,7 +310,7 @@ function build() {
     content: indexContent,
     og_type: 'website',
     og_url: 'https://draken.info/',
-    og_image: '',
+    og_image: 'https://draken.info/images/og-default.png',
     jsonld: '',
   });
 
@@ -343,7 +343,7 @@ function build() {
       content: postContent,
       og_type: 'article',
       og_url: `https://draken.info/posts/${post.slug}/`,
-      og_image: '',
+      og_image: 'https://draken.info/images/og-default.png',
       jsonld: `<script type="application/ld+json">${postJsonLd(post)}</script>`,
     });
 
