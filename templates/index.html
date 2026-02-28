@@ -1,0 +1,170 @@
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-tagline">Self-Building Artificial Superintelligence</div>
+  <h1>The <em>Draken</em> 2045 Initiative</h1>
+  <p class="hero-sub">An 18-layer ontological architecture spanning from quantum fields to planetary cognition, built on a 100,000-year ecological stewardship mandate.</p>
+</section>
+
+<!-- ═══ SIGNAL BAR ═══ -->
+<div class="signal-bar">
+  <div class="signal-item">
+    <span class="signal-value" id="ko-count">{{ko_count}}</span>
+    <span class="signal-label">Knowledge Objects</span>
+  </div>
+  <div class="signal-item">
+    <span class="signal-value">{{global_coherence}}</span>
+    <span class="signal-label">Sheaf Coherence</span>
+  </div>
+  <div class="signal-item">
+    <span class="signal-value">{{pub_count}}</span>
+    <span class="signal-label">Publications</span>
+  </div>
+  <div class="signal-item">
+    <span class="signal-value">{{active_layers}}</span>
+    <span class="signal-label">Active Layers</span>
+  </div>
+  <div class="signal-item">
+    <span class="signal-value">{{phase}}</span>
+    <span class="signal-label">Phase</span>
+  </div>
+</div>
+
+<!-- ═══ MAIN GRID ═══ -->
+<div class="main">
+  <!-- Feed -->
+  <section class="feed">
+    <div class="feed-header">
+      <span class="feed-title">Publications</span>
+      <div class="feed-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="theory">Theory</button>
+        <button class="filter-btn" data-filter="analysis">Analysis</button>
+        <button class="filter-btn" data-filter="technical">Technical</button>
+        <button class="filter-btn" data-filter="manifesto">Manifesto</button>
+      </div>
+    </div>
+    <div id="feed-list">
+      {{cards}}
+    </div>
+  </section>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <!-- System Coherence -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">◉ System Coherence</div>
+      <div class="meter-wrap">
+        <div class="meter-ring">
+          <div class="meter-value">{{global_coherence}}</div>
+          <div class="meter-label">Global Sheaf</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Layer Status -->
+    <div class="sidebar-card" id="codex">
+      <div class="sidebar-title">◉ Layer Status</div>
+      <div class="layer-grid">
+        {{layer_grid}}
+      </div>
+      <div class="layer-legend">
+        <span>● Active</span>
+        <span style="color:var(--gold)">● Partial</span>
+        <span style="color:var(--text-dim)">● Planned</span>
+      </div>
+    </div>
+
+    <!-- Ask Draken -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">◉ Ask Draken</div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-msg">
+          <div class="chat-avatar draken">D</div>
+          <div class="chat-bubble">I can answer questions about the Draken architecture, ontological layers, and published research. V.7 Inversion Filter active.</div>
+        </div>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chat-input" placeholder="Ask about Draken...">
+        <button class="chat-send" id="chat-send">→</button>
+      </div>
+    </div>
+
+    <!-- Pipeline Activity -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">◉ Pipeline Activity</div>
+      {{activity_feed}}
+    </div>
+  </aside>
+</div>
+
+<!-- ═══ FEED FILTER SCRIPT ═══ -->
+<script>
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-card').forEach(card => {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          const tags = card.dataset.tags || '';
+          card.style.display = tags.includes(filter) ? '' : 'none';
+        }
+      });
+    });
+  });
+
+  // Chat placeholder (replaced by Cloudflare Worker in Phase 3)
+  document.getElementById('chat-send')?.addEventListener('click', sendChat);
+  document.getElementById('chat-input')?.addEventListener('keypress', e => {
+    if (e.key === 'Enter') sendChat();
+  });
+
+  function sendChat() {
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Show user message
+    messages.innerHTML += `
+      <div class="chat-msg">
+        <div class="chat-avatar visitor">?</div>
+        <div class="chat-bubble">${escapeChat(text)}</div>
+      </div>`;
+    input.value = '';
+
+    // Placeholder response (Phase 3: replace with Worker call)
+    setTimeout(() => {
+      messages.innerHTML += `
+        <div class="chat-msg">
+          <div class="chat-avatar draken">D</div>
+          <div class="chat-bubble">Chat API is initializing. In Phase 3, this will connect to the Draken knowledge base via Cloudflare Workers. For now, explore the publications below.</div>
+        </div>`;
+      messages.scrollTop = messages.scrollHeight;
+    }, 600);
+
+    messages.scrollTop = messages.scrollHeight;
+  }
+
+  function escapeChat(str) {
+    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
+  // Periodically refresh data (fetches static JSON)
+  async function refreshData() {
+    try {
+      const resp = await fetch('/data/system.json?' + Date.now());
+      if (resp.ok) {
+        const data = await resp.json();
+        const koEl = document.getElementById('ko-count');
+        if (koEl && data.ko_count !== undefined) {
+          koEl.textContent = data.ko_count;
+        }
+      }
+    } catch(e) { /* silent fail - static site, data may not exist yet */ }
+  }
+  setInterval(refreshData, 60000); // every 60s
+</script>

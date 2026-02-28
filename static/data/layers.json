@@ -1,0 +1,20 @@
+{
+  "L01": { "status": "planned", "name": "Quantum Fields", "ko_count": 0 },
+  "L02": { "status": "planned", "name": "Particle Physics", "ko_count": 0 },
+  "L03": { "status": "partial", "name": "Chemistry & Molecular", "ko_count": 0 },
+  "L04": { "status": "active", "name": "Cellular Biology", "ko_count": 0 },
+  "L05": { "status": "active", "name": "Tissue & Organ Systems", "ko_count": 0 },
+  "L06": { "status": "active", "name": "Bioelectric Networks", "ko_count": 0 },
+  "L07": { "status": "active", "name": "Morphogenesis", "ko_count": 0 },
+  "L08": { "status": "active", "name": "Neural Computation", "ko_count": 0 },
+  "L09": { "status": "active", "name": "Cognitive Architecture", "ko_count": 0 },
+  "L10": { "status": "active", "name": "Symbolic Representation", "ko_count": 0 },
+  "L11": { "status": "active", "name": "Language & Semiotics", "ko_count": 0 },
+  "L12": { "status": "partial", "name": "Social Dynamics", "ko_count": 0 },
+  "L13": { "status": "partial", "name": "Institutional Structures", "ko_count": 0 },
+  "L14": { "status": "partial", "name": "Cultural Evolution", "ko_count": 0 },
+  "L15": { "status": "planned", "name": "Technological Systems", "ko_count": 0 },
+  "L16": { "status": "planned", "name": "Noospheric Integration", "ko_count": 0 },
+  "L17": { "status": "planned", "name": "Biospheric Coupling", "ko_count": 0 },
+  "L18": { "status": "planned", "name": "Planetary Cognition", "ko_count": 0 }
+}

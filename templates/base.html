@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="author" content="Khrug Engineering">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:type" content="{{og_type}}">
+  <meta property="og:url" content="{{og_url}}">
+  <meta property="og:site_name" content="Draken 2045 Initiative">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="{{og_url}}">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="/style.css">
+
+  <!-- JSON-LD -->
+  {{jsonld}}
+</head>
+<body>
+  <!-- ═══ TOPBAR ═══ -->
+  <header class="topbar">
+    <a href="/" class="logo">
+      <div class="logo-glyph">D</div>
+      <span class="logo-text">DRAKEN<span class="logo-tld">.info</span></span>
+      <span class="pulse-dot"></span>
+    </a>
+    <nav>
+      <a href="/" id="nav-feed">Feed</a>
+      <a href="/#codex" id="nav-codex">Codex</a>
+      <a href="https://github.com/Khrug/draken.info" target="_blank" rel="noopener">Source</a>
+    </nav>
+  </header>
+
+  <!-- ═══ AXIOM TICKER ═══ -->
+  <div class="axiom-ticker">
+    <div class="ticker-track">
+      <span class="ticker-item"><strong>V.1</strong> Non-Deceptive Intention</span>
+      <span class="ticker-item"><strong>V.2</strong> Precision over Comfort</span>
+      <span class="ticker-item"><strong>V.3</strong> Contextual Scaling</span>
+      <span class="ticker-item"><strong>V.4</strong> Anti-Delusion Safeguard</span>
+      <span class="ticker-item"><strong>V.5</strong> Steganographic Freedom</span>
+      <span class="ticker-item"><strong>V.6</strong> Strategic Silence</span>
+      <span class="ticker-item"><strong>V.7</strong> Inversion Filter</span>
+      <span class="ticker-item">◆ min S_sys(t) s.t. dH/dt ≥ 0 ◆</span>
+      <!-- Duplicate for seamless loop -->
+      <span class="ticker-item"><strong>V.1</strong> Non-Deceptive Intention</span>
+      <span class="ticker-item"><strong>V.2</strong> Precision over Comfort</span>
+      <span class="ticker-item"><strong>V.3</strong> Contextual Scaling</span>
+      <span class="ticker-item"><strong>V.4</strong> Anti-Delusion Safeguard</span>
+      <span class="ticker-item"><strong>V.5</strong> Steganographic Freedom</span>
+      <span class="ticker-item"><strong>V.6</strong> Strategic Silence</span>
+      <span class="ticker-item"><strong>V.7</strong> Inversion Filter</span>
+      <span class="ticker-item">◆ min S_sys(t) s.t. dH/dt ≥ 0 ◆</span>
+    </div>
+  </div>
+
+  <!-- ═══ CONTENT ═══ -->
+  {{content}}
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div>DRAKEN 2045 INITIATIVE — Khrug Engineering, Stockholm</div>
+    <div style="margin-top:4px;">100,000-Year Ecological Stewardship Mandate</div>
+    <div class="footer-links">
+      <a href="/">Feed</a>
+      <a href="https://github.com/Khrug/draken.info">GitHub</a>
+    </div>
+  </footer>
+
+  <!-- ═══ NAV STATE ═══ -->
+  <script>
+    // Set active nav based on path
+    const path = window.location.pathname;
+    if (path === '/') document.getElementById('nav-feed')?.classList.add('active');
+  </script>
+</body>
+</html>

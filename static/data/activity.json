@@ -1,0 +1,7 @@
+[
+  { "type": "deploy", "detail": "draken.info deployed — Genesis Phase", "time": "2026-02-28T09:23:00Z", "status": "green" },
+  { "type": "publish", "detail": "DRK-105 published — Kaiju Manifesto", "time": "2026-02-28T09:20:00Z", "status": "green" },
+  { "type": "publish", "detail": "DRK-101 published — KO Schema v2", "time": "2026-02-15T10:30:00Z", "status": "green" },
+  { "type": "system", "detail": "Build pipeline initialized", "time": "2026-02-28T09:15:00Z", "status": "gold" },
+  { "type": "system", "detail": "Awaiting Pinecone integration", "time": "2026-02-28T09:10:00Z", "status": "gray" }
+]
