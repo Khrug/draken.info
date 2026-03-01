@@ -40,7 +40,7 @@ This capacity — what cognitive scientists call symbolic representation — was
 
 We define *abstraction depth* as the number of representational layers between a claim to power and the capacity that underlies it:
 
-$$\alpha = \text{number of representational layers between signal and substance}$$
+> **α = number of representational layers between signal and substance**
 
 For the water monitor: α = 0. The claim *is* the capacity. You claim this territory by defending it with your body.
 
@@ -62,7 +62,7 @@ This is α ≈ 1. The power signal now passes through one representational layer
 
 The domestication of *humans* — slavery, serfdom, indentured servitude — raised α further. Now the power of a lord was not his own fighting capacity, nor even the capacity of animals he personally controlled, but the aggregate labor of people bound to his land or person by social, legal, and military convention. A feudal lord's power signal was his estate: the land, the serfs, the soldiers, the fortifications. But this power was still geographically grounded and periodically tested — through rebellion, through war, through the necessity of holding territory against rival lords.
 
-$$\alpha_{\text{feudal}} \approx 1\text{-}2 \quad (\text{lord} \leftrightarrow \text{land/soldiers} \leftrightarrow \text{military defense capacity})$$
+> **α_feudal ≈ 1–2** (lord ↔ land/soldiers ↔ military defense capacity)
 
 Women became property within this system — "belonging" to husbands in legal codes from Hammurabi through English common law — because the system's logic demanded that all productive and reproductive capacity be assigned to a hierarchy. Pets and cattle alike were classified by their utility within the owner's power calculus. Everything received a *purpose for us*, a designation within the human project of accumulation.
 
@@ -70,7 +70,7 @@ Women became property within this system — "belonging" to husbands in legal co
 
 Religion introduced the most powerful abstraction layer of all. By positing an omnipotent, invisible authority — God, the gods, the divine order — human power structures could claim legitimacy from a source that was by definition unchallengeable. The Pharaoh was not merely a strong man with an army; he was the living incarnation of Horus. The Chinese Emperor held the Mandate of Heaven. European monarchs ruled by divine right, their authority sanctioned by a Church that controlled the interpretive apparatus — who God chose, what God demanded, which wars were holy.
 
-$$\alpha_{\text{theocratic}} \approx 3 \quad (\text{king} \leftrightarrow \text{divine mandate} \leftrightarrow \text{church institution} \leftrightarrow \text{military/social control})$$
+> **α_theocratic ≈ 3** (king ↔ divine mandate ↔ church institution ↔ military/social control)
 
 The genius of this architecture was that it *removed the clinch phase entirely*. You cannot wrestle God. You cannot challenge a divine mandate through sequential assessment. The moment power claims to derive from the supernatural, honest testing becomes categorically impossible — it becomes not merely difficult but *blasphemous*. The challenger is not merely weak; the challenger is *sinful*. The immune suppression is built into the theology.
 
@@ -94,7 +94,7 @@ But capital, once established as the organizing principle, immediately began to 
 
 Karl Marx, writing in the 1860s, identified the foundational move. In *Capital, Volume I*, he described commodity fetishism: the process by which social relations between human laborers are disguised as relations between things. The worker produces a commodity. The commodity is sold. The profit accrues to the owner. But the commodity *appears* to have value as a property of itself — as if the shoe's worth inheres in the leather rather than in the hours of human labor that shaped it.
 
-$$\alpha_{\text{industrial}} \geq 2 \quad (\text{owner} \leftrightarrow \text{commodity} \leftrightarrow \text{labor relation} \leftrightarrow \text{human capacity})$$
+> **α_industrial ≥ 2** (owner ↔ commodity ↔ labor relation ↔ human capacity)
 
 Each arrow is a representational layer. Each layer is an opportunity for the signal to decouple from substance. But at least in industrial capitalism, the factory must exist. The commodity must be manufactured. The owner's claim, while mediated, retains a connection to productive reality.
 
@@ -102,7 +102,7 @@ Each arrow is a representational layer. Each layer is an opportunity for the sig
 
 Vladimir Lenin, in *Imperialism, the Highest Stage of Capitalism* (1917), identified the next abstraction layer. When industrial capital merges with banking capital — what Rudolf Hilferding had earlier termed *Finanzkapital* — the power signal detaches from production. The financier's claim is on *future projected returns* of productive capacity that may or may not materialize. The security, the bond, the derivative — these are representations of representations of representations of labor.
 
-$$\alpha_{\text{finance}} \geq 4 \quad (\text{financier} \leftrightarrow \text{security} \leftrightarrow \text{projected returns} \leftrightarrow \text{firm} \leftrightarrow \text{production} \leftrightarrow \text{labor})$$
+> **α_finance ≥ 4** (financier ↔ security ↔ projected returns ↔ firm ↔ production ↔ labor)
 
 Lenin's insight was that this isn't an aberration — it's the system's mature form. Capital naturally seeks maximum abstraction because each layer insulates the power holder from honest challenge. The factory owner can be undercut by a more efficient competitor. The financier merely restructures the portfolio.
 
@@ -150,7 +150,7 @@ The response, every time, was to abolish the clinch. Not by wrestling better, bu
 
 Guy Debord, writing in 1967, identified the terminal stage. In *The Society of the Spectacle*, he described a condition in which the image of life replaces life itself. The representation of democracy replaces democracy. The image of combat replaces combat.
 
-$$\alpha_{\text{spectacle}} \to \infty$$
+> **α_spectacle → ∞**
 
 This is where sport becomes theoretically precise.
 
@@ -166,9 +166,9 @@ Football extends the pattern. You "support" your team. You invest cognitive ener
 
 In Draken formalism:
 
-$$\beta_{\text{capture}} = \frac{T_{\text{spectacle}}}{T_{\text{real}}}$$
+> **β_capture = T_spectacle / T_real**
 
-where $\beta_{\text{capture}}$ measures the fraction of combative potential redirected from genuine power-testing into spectacle consumption. In a healthy varanid system, $\beta_{\text{capture}} = 0$. In the contemporary spectacle economy, $\beta_{\text{capture}} \to 1$.
+where **β_capture** measures the fraction of combative potential redirected from genuine power-testing into spectacle consumption. In a healthy varanid system, **β_capture = 0**. In the contemporary spectacle economy, **β_capture → 1**.
 
 You vote for the party most aligned with your feelings. You cheer for your team. You watch fighters grapple in the octagon. And the core structural question — *why do we exist, who do we serve, and to what end?* — that question labels you a communist and a threat to western values. Forever a minority voice.
 
