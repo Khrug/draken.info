@@ -1,7 +1,17 @@
-# The Manufactured Void: Narrative Engineering from Nixon to Neural Networks
+---
+title: "The Manufactured Void: Narrative Engineering from Nixon to Neural Networks"
+drk: DRK-110
+date: 2026-03-02
+tags: [analysis]
+layers: [L07, L09, L10, L12, L13, L14, L15]
+coherence: 0.91
+excerpt: "A six-decade structural analysis of civilizational psychosis — from the Fairness Doctrine to algorithmic radicalization — through the Draken diagnostic framework."
+status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
+---
 
-**Khrug Engineering — Draken 2045 Initiative**
-**DRK-110 · Layers: L07 · L09 · L10 · L12 · L13 · L14 · L15**
+# The Manufactured Void: Narrative Engineering from Nixon to Neural Networks
 
 ---
 
