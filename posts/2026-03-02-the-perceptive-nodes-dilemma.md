@@ -1,14 +1,12 @@
 ---
 title: "The Perceptive Node's Dilemma: Why the Sharpest Diagnosticians Retreat from the Arena They Could Rebuild"
-subtitle: "A Structural Analysis of Civilizational Blindspots, Governance Clinch, and the Deterministic Surrender"
-date: 2026-03-02
-type: analysis
 drk: DRK-114
-slug: perceptive-nodes-dilemma
+date: 2026-03-02
+tags: [analysis]
 layers: [L08, L09, L10, L12, L14, L15, L17]
-coherence_score: 0.87
+coherence: 0.87
 excerpt: "When a man who has spent fifty years studying violence, deception, and institutional corruption concludes that we are all robots watching a predetermined movie — the diagnosis is not wrong. The diagnosis is incomplete. And the incompleteness is the most dangerous part."
-status: draft
+status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
 ---
