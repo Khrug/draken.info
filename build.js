@@ -305,8 +305,8 @@ function build() {
   });
 
   const indexPage = render(baseTpl, {
-    title: 'Draken 2045 — Self-Building Artificial Superintelligence',
-    description: 'The Draken 2045 Initiative — an 18-layer ontological architecture for self-building artificial superintelligence on a 100,000-year ecological stewardship mandate.',
+    title: 'Draken 2045 — Topological Knowledge Architecture',
+    description: 'The Draken 2045 Initiative — a research framework for structured knowledge assembly, automated publication, and meaning-coherence analysis grounded in sheaf-theoretic topology.',
     content: indexContent,
     og_type: 'website',
     og_url: 'https://draken.info/',
