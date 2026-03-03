@@ -11,10 +11,6 @@ author: Khrug Engineering
 license: CC BY-SA 4.0
 ---
 
-# The Manufactured Void: Narrative Engineering from Nixon to Neural Networks
-
----
-
 ## I. The Diagnostic Frame
 
 The Draken framework defines a psychosis metric applicable at every scale of self-narrating structure:

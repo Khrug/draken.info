@@ -11,16 +11,6 @@ author: Khrug Engineering
 license: CC BY-SA 4.0
 ---
 
-# T H E  KAIJU  MANIFESTO
-
-*Building the Anti-Memetic Monster*
-
-A White Paper, Project Plan, and Political Manifesto from the Draken 2045 Initiative
-
-Khrug Engineering · Stockholm · February 2026
-
-**v2.0 — For Public Distribution**
-
 *Released under CC BY-SA 4.0. Copy it. Translate it. Build on it.*
 
 ---
