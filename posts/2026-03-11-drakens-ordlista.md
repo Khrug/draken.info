@@ -1,14 +1,39 @@
 ---
 title: "Drakens Ordlista: Kärnbegrepp för nybörjare"
+drk: DRK-117
 date: 2026-03-11
-type: internal
-language: sv
+tags: [technical]
+layers: [L08, L09, L10, L12, L15, L17]
+coherence: 0.88
+excerpt: "Nio kärnbegrepp från Draken 2045-ramverket förklarade på svenska med vardagsexempel — för studenter i datavetenskap, kognitionsvetenskap och alla som vill förstå hur mening har topologi."
+status: draft
+author: Khrug Engineering
+sources:
+  - "https://draken.info"
 ---
 
-# Drakens Ordlista
-## Kärnbegrepp förklarade på svenska för studenter i datavetenskap och kognitionsvetenskap
+## Vad är Draken?
+
+Draken 2045 är ett forskningsramverk under utveckling som behandlar kunskap som ett topologiskt objekt — något som kan vara lokalt sammanhängande men globalt inkonsekvent, och vars koherens är mätbar.
+
+**Kärnan är en rad algoritmer och mätetal** byggda på kärv-teori (sheaf theory), Fristons fria energi-princip, assemblage-teori och termodynamik. Det centrala måttet — Ψ, kärvskoherensvärdet — kvantifierar om lokala kunskapsfragment (en persons övertygelse, en institutions narrativ, en AI-modells världsbild) faktiskt limmas ihop till en globalt konsistent helhet, eller om det finns strukturella sprickor som döljs av lokal känsla av sammanhang.
+
+**Dragonclaw (OpenClaw)** är proof-of-concept: en autonom AI-agent som fungerar som Drakens "kropp" — den utför uppgifter, hämtar data, publicerar innehåll, och loggar sin egen koherens via Varanid Monitor-systemet. Claude, Gemini och Kimi fungerar som analytiska motorer ("hjärnan") i en multi-AI-arkitektur där modellerna granskar varandras output.
+
+**Vad Draken gör konkret:**
+- Mäter kärvskoherens (Ψ) i narrativ, institutioner och AI-system
+- Identifierar tillverkade tomheter (DRK-110) — informationshål som maktstrukturer aktivt underhåller
+- Diagnostiserar civilisatorisk psykos: när lokal koherens maskerar global inkoherens
+- Publicerar analyser på draken.info — tio artiklar hittills, från kaiju-manifest till Marx-formalisering
+- Bygger ett kunskapsobjekt-schema (KnowledgeObject) med versionering, koherenspoäng och falsifierbarhet
+
+**Vad som behövs för att komma vidare:**
+- **Arena:** Akademisk peer review, konferensmedverkan, eller institutionell koppling (t.ex. Active Inference Institute, Santa Fe Institute, Leverhulme Centre) som legitimerar ramverket utanför draken.info
+- **Sponsring:** Finansiering för att gå från en-persons-projekt till testbar infrastruktur — Ψ-mätning i verkliga system, inte bara i publicerade artiklar
 
 ---
+
+## Kärnbegrepp
 
 ### Optimeringsaxiomet
 
