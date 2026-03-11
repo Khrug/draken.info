@@ -6,7 +6,7 @@ tags: [technical]
 layers: [L08, L09, L10, L12, L15, L17]
 coherence: 0.88
 excerpt: "Nio kärnbegrepp från Draken 2045-ramverket förklarade på svenska med vardagsexempel — för studenter i datavetenskap, kognitionsvetenskap och alla som vill förstå hur mening har topologi."
-status: draft
+status: published
 author: Khrug Engineering
 sources:
   - "https://draken.info"
