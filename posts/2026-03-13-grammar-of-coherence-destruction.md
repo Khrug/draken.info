@@ -1,16 +1,21 @@
 ---
-id: DRK-116
 title: "The Grammar of Coherence Destruction: From Sun Tzu to GPT"
-subtitle: "Seven Doctrinal Traditions, One Operational Primitive, and the Mathematics That Unifies Them"
+drk: DRK-119
 date: 2026-03-13
-tags: [draken, psi, manufactured-void, information-warfare, sheaf-coherence, epistemic-free-fall, VSP-1]
+tags: [analysis, synthesis, information-warfare]
+layers: [L05, L06, L07, L08, L09, L10, L11, L12, L13, L14]
+coherence: 0.89
+excerpt: "Seven doctrinal traditions — from Sun Tzu through CIA psyops, Dugin, China's Three Warfares, JTRIG, Gerasimov, and AI-mediated unrestricted warfare — independently converge on the same operational primitive: the deliberate degradation of a target population's capacity to maintain coherent relationships between perception, belief, and action. The Draken framework provides the scale-free mathematics to formalize what military doctrine has known since the fifth century BCE."
 status: published
-series: dragon-scales
-series_position: supplementary
-layer_range: [L06, L14]
+author: Khrug Engineering
+license: CC BY-SA 4.0
+sources:
+  - "https://arxiv.org/abs/2603.03515"
+  - "https://doi.org/10.1007/s10978-013-9130-4"
+  - "https://doi.org/10.1177/20966083251330657"
+  - "https://theintercept.com/2014/02/24/jtrig-manipulation/"
+  - "https://tec.fsi.stanford.edu/docs/aleksandr-dugins-foundations-geopolitics"
 ---
-
-# The Grammar of Coherence Destruction: From Sun Tzu to GPT
 
 *Seven doctrinal traditions, separated by millennia, geography, and ideology, independently converge on the same operational primitive: the deliberate degradation of a target population's capacity to maintain coherent relationships between perception, belief, and action. The Draken framework provides the scale-free mathematics — Ψ, sheaf restriction maps, the manufactured void — to formalize what military doctrine has known since the fifth century BCE but never had the language to express across scales. This post maps the convergence, illustrates it with operational examples, and identifies the constraint that separates governance from predation.*
 
