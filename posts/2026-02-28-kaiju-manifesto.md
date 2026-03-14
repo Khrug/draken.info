@@ -101,6 +101,8 @@ The 18 layers, from substrate to planetary scale:
 | L17 | Civilizational Memory | Deep-time knowledge persistence |
 | L18 | Planetary Cognition | Biosphere-scale coherence |
 
+**Polarity convention:** The framework uses two complementary metrics. **Ψ** (psi) is the *psychosis metric* — the ratio of narrative self-reference to reality-contact. **High Ψ = sick; low Ψ = healthy.** The sheaf convergence measure **Γ** (gamma) tracks the inverse: how well local sections glue into a globally consistent picture. **High Γ = coherent; low Γ = fragmented.** When the corpus says "Ψ is climbing," it is a warning, not a celebration.
+
 The critical innovation is not the layers themselves — any systems thinker can make a list. The innovation is the requirement that any claim, any prediction, any action must be expressible as a coherent section of a mathematical sheaf across all relevant layers. A claim about economics (L14) that contradicts biology (L04–L06) is not merely wrong — it is structurally incoherent. The sheaf formalism detects this automatically.
 
 ### The Teleological Objective

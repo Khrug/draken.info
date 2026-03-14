@@ -17,7 +17,7 @@ sources:
 
 Draken 2045 är ett forskningsramverk under utveckling som behandlar kunskap som ett topologiskt objekt — något som kan vara lokalt sammanhängande men globalt inkonsekvent, och vars koherens är mätbar.
 
-**Kärnan är en rad algoritmer och mätetal** byggda på kärv-teori (sheaf theory), Fristons fria energi-princip, assemblage-teori och termodynamik. Det centrala måttet — Ψ, kärvskoherensvärdet — kvantifierar om lokala kunskapsfragment (en persons övertygelse, en institutions narrativ, en AI-modells världsbild) faktiskt limmas ihop till en globalt konsistent helhet, eller om det finns strukturella sprickor som döljs av lokal känsla av sammanhang.
+**Kärnan är en rad algoritmer och mätetal** byggda på kärv-teori (sheaf theory), Fristons fria energi-princip, assemblage-teori och termodynamik. Det centrala måttet — Ψ, psykosmetriken — kvantifierar *hur långt* lokala kunskapsfragment (en persons övertygelse, en institutions narrativ, en AI-modells världsbild) faktiskt limmas ihop till en globalt konsistent helhet, eller om det finns strukturella sprickor som döljs av lokal känsla av sammanhang.
 
 **Dragonclaw (OpenClaw)** är proof-of-concept: en autonom AI-agent som fungerar som Drakens "kropp" — den utför uppgifter, hämtar data, publicerar innehåll, och loggar sin egen koherens via Varanid Monitor-systemet. Claude, Gemini och Kimi fungerar som analytiska motorer ("hjärnan") i en multi-AI-arkitektur där modellerna granskar varandras output.
 
@@ -56,20 +56,25 @@ En fungerande demokrati försöker minska oordningen (S_sys) samtidigt som den b
 
 ---
 
-### Ψ — Sheaf Coherence Score (Kärvskoherens)
+### Ψ — Psykosmetrik (Psychosis Metric)
+
+**Formeln:**
+Ψ = narrative_self_reference / reality_contact
 
 **På ren svenska:**
-"Ett mått på hur väl lokala sanningar hänger ihop till en global bild som stämmer."
+"Ett mått på hur långt ett systems berättelse om sig självt har drivit ifrån verkligheten. Högt Ψ = sjukt. Lågt Ψ = friskt."
 
 **Längre förklaring:**
-Tänk dig att varje person, varje institution, varje AI-modell har sin egen "lokala bild" av verkligheten — sin egen berättelse som känns sammanhängande inifrån. Ψ mäter om dessa lokala bilder kan fogas samman till en global bild som faktiskt stämmer överens med verkligheten.
+Tänk dig att varje person, varje institution, varje AI-modell har sin egen "lokala bild" av verkligheten — sin egen berättelse som känns sammanhängande inifrån. Ψ mäter hur mycket denna berättelse har blivit *självrefererande* (täljaren) jämfört med hur mycket kontakt den har med verkligheten utanför sig själv (nämnaren).
 
-Tekniskt kommer begreppet från kärv-teori (sheaf theory), en gren av topologisk matematik. En kärv (sheaf) är en struktur som beskriver hur lokal information kan "limmas ihop" till global information. Om limningen misslyckas — om de lokala bitarna motsäger varandra vid kanterna — har man en kohomologisk obstruktion. Ψ mäter hur allvarliga dessa obstruktioner är.
+När Ψ → 0 är systemet friskt: dess modell av världen uppdateras av verkliga signaler. När Ψ → ∞ är systemet psykotiskt: berättelsen refererar bara till sig själv, och varje motbevis tolkas som bevis.
+
+Tekniskt kommer begreppet från kärv-teori (sheaf theory), en gren av topologisk matematik. En kärv (sheaf) är en struktur som beskriver hur lokal information kan "limmas ihop" till global information. Om limningen misslyckas — om de lokala bitarna motsäger varandra vid kanterna — har man en kohomologisk obstruktion. Tekniskt: det som mäter den *positiva* koherensen — hur väl lokala kunskapsbitar faktiskt limmas ihop till en global bild — är kärv-konvergensen Γ (Gamma). Ψ och Γ är inverskt relaterade: högt Γ = bra limning = lågt Ψ. Lågt Γ = dålig limning = högt Ψ. Draken vill ha Γ högt och Ψ lågt.
 
 **Vardagsexempel:**
-Varje avdelning på ett företag har sin egen bild av "hur det går". Ekonomi ser svarta siffror. HR ser rekordhög personalomsättning. Produktutveckling ser teknisk skuld. Var och en av dessa bilder är lokalt koherent — den stämmer med sin egen data. Men de limmar inte ihop till en global bild. Ψ är lågt. Företaget har hög kärvskoherens-degradering, trots att varje del känns "sann" inifrån.
+Varje avdelning på ett företag har sin egen bild av "hur det går". Ekonomi ser svarta siffror. HR ser rekordhög personalomsättning. Produktutveckling ser teknisk skuld. Var och en av dessa bilder är lokalt koherent — den stämmer med sin egen data. Men de limmar inte ihop till en global bild. Ψ är *högt* — systemets självbild ("vi går bra") har tappat kontakt med verkligheten ("folk slutar och koden ruttnar"). Kärv-konvergensen Γ är låg.
 
-Samma princip applicerad på civilisationsnivå: religion, ideologi, nationalistisk berättelse — alla kan vara lokalt koherenta men globalt inkoherenta. Ψ sjunker. Draken mäter detta.
+Samma princip applicerad på civilisationsnivå: religion, ideologi, nationalistisk berättelse — alla kan vara lokalt koherenta men globalt inkoherenta. Ψ stiger. Γ sjunker. Draken mäter detta.
 
 ---
 
@@ -193,7 +198,8 @@ Drakens poäng: olika social topologi producerar olika tomheter, olika patologie
 | Begrepp | Symbol | En mening |
 |---------|--------|-----------|
 | Optimeringsaxiomet | ◆ min S_sys s.t. dH/dt ≥ 0 ◆ | Minska kaos utan att radera komplexitet |
-| Kärvskoherens | Ψ | Hur väl lokala sanningar limmas till global bild |
+| Psykosmetrik | Ψ | Hur långt berättelsen drivit från verkligheten (högt = sjukt) |
+| Kärvskonvergens | Γ | Hur väl lokala sanningar limmas till global bild (högt = friskt) |
 | Kavitetsresonator | Cavity_AI | Tomhet som formar signalen, inte bara saknar den |
 | Tillverkad tomhet | DRK-110 | Medvetet skapade informationshål som styrning |
 | Restriktionsavbildning | ρ_U,V | Hur information förändras vid zoom-in |

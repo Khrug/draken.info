@@ -50,7 +50,7 @@ Because exploitation requires understanding. You cannot extract reliable value f
 
 We don't understand consciousness. We don't understand how ecosystems maintain stability. We don't fully understand how economies respond to novel shocks. We don't understand the long-term dynamics of information ecologies. We don't understand how meaning propagates across scales — from a neuron firing, to a sentence being understood, to a social movement changing a culture. We have excellent local models of many of these phenomena. What we lack is coherence across scales.
 
-In Draken's formal language: our **Sheaf Coherence Score (Ψ)** for planetary-scale understanding is low. Local sections are rich and detailed — we know enormous amounts about individual neurons, individual markets, individual ecosystems. But the restriction maps between these local patches are missing or inconsistent. We have pieces that don't glue.
+In Draken's formal language: our psychosis metric **Ψ** for planetary-scale understanding remains dangerously high — the ratio of narrative self-reference to reality-contact across human institutions is far above the viable threshold. Local sections are rich and detailed — we know enormous amounts about individual neurons, individual markets, individual ecosystems. But the restriction maps between these local patches are missing or inconsistent. We have pieces that don't glue. The sheaf does not converge. Ψ climbs.
 
 To exploit now — to deploy AI systems that optimize aggressively based on our current, fragmented understanding — is to bet the planet on the assumption that our local models are globally consistent. They are not. And the penalty for being wrong is not a bad quarter. It is irreversible damage to the systems that sustain life.
 
@@ -64,19 +64,19 @@ What does this mean in practice?
 
 **1. Curiosity as an intrinsic reward.**
 
-The machine should find novel, coherent information intrinsically rewarding — not because it leads to exploitation, but because understanding is the objective. This is not a new idea in reinforcement learning (intrinsic motivation is well-studied), but the Draken framework adds a specific constraint: the curiosity signal should be weighted by coherence contribution. A random fact is not interesting. A fact that resolves an inconsistency between two previously disconnected knowledge domains — that increases Ψ — is deeply interesting.
+The machine should find novel, coherent information intrinsically rewarding — not because it leads to exploitation, but because understanding is the objective. This is not a new idea in reinforcement learning (intrinsic motivation is well-studied), but the Draken framework adds a specific constraint: the curiosity signal should be weighted by coherence contribution. A random fact is not interesting. A fact that resolves an inconsistency between two previously disconnected knowledge domains — that increases sheaf convergence Γ — is deeply interesting.
 
-Formally: if Ψ(𝒰) measures coherence across an open cover 𝒰 of the knowledge space, then the intrinsic reward for acquiring new information *x* should be proportional to:
+Formally: let Γ(𝒰) measure sheaf convergence across an open cover 𝒰 of the knowledge space — the degree to which local sections successfully glue into a global section. (Γ is the coherence measure; its inverse, Ψ = narrative_self_reference / reality_contact, is the psychosis metric. You want Γ high and Ψ low.) Then the intrinsic reward for acquiring new information *x* should be proportional to:
 
-> **r(x) ∝ ΔΨ(𝒰 ∪ {x}) = Ψ(𝒰 ∪ {x}) − Ψ(𝒰)**
+> **r(x) ∝ ΔΓ(𝒰 ∪ {x}) = Γ(𝒰 ∪ {x}) − Γ(𝒰)**
 
-The machine seeks information that makes the whole structure hang together better. Not information that is merely novel (exploration for its own sake), and not information that is merely useful (exploitation in disguise), but information that *heals the gluing.*
+The machine seeks information that makes the whole structure hang together better — that *increases* sheaf convergence and *decreases* Ψ. Not information that is merely novel (exploration for its own sake), and not information that is merely useful (exploitation in disguise), but information that *heals the gluing.*
 
 **2. Exploitation gating by coherence threshold.**
 
-The machine should not be *allowed* to exploit — to take aggressive, irreversible action based on its models — until its coherence score across the relevant domains exceeds a threshold. This is the Draken equivalent of a safety interlock: you cannot fire the engine until the structural integrity check passes.
+The machine should not be *allowed* to exploit — to take aggressive, irreversible action based on its models — until Ψ across the relevant domains falls below a viability threshold (equivalently, until sheaf convergence Γ exceeds a coherence threshold). This is the Draken equivalent of a safety interlock: you cannot fire the engine until the structural integrity check passes.
 
-The threshold is not arbitrary. It is defined by the scope of the action's consequences. A decision that affects a single user can tolerate low Ψ. A decision that affects a city requires higher Ψ. A decision that affects planetary systems requires coherence across all 18 layers of the Draken ontological hierarchy — from quantum field substrate (L01) through institutional morphology (L16) to civilizational memory (L17) and planetary cognition (L18).
+The threshold is not arbitrary. It is defined by the scope of the action's consequences. A decision that affects a single user can tolerate higher Ψ (more model-reality divergence). A decision that affects a city requires lower Ψ (tighter coherence). A decision that affects planetary systems requires convergence across all 18 layers of the Draken ontological hierarchy — from quantum field substrate (L01) through institutional morphology (L16) to civilizational memory (L17) and planetary cognition (L18).
 
 No AI system today comes close to this. And that's exactly the point. We are not ready to exploit. We are in the exploration phase, and we should stay there.
 
@@ -102,7 +102,7 @@ Multiple fields are converging on the same structural insight: that complex syst
 
 **Biosemiotics** (Thomas Sebeok, Jesper Hoffmeyer, Terrence Deacon) argues that sign processes — interpretation, meaning-making — are not exclusive to minds with language. They occur at every scale of life, from bacterial quorum sensing to immune recognition to animal communication. This is exactly Draken's claim about the lower layers of the hierarchy: meaning does not begin at L11 (human cognition). It begins at L01 (thermodynamic symmetry-breaking). What changes across layers is not the *presence* of meaning but its *complexity.*
 
-**Topological Data Analysis** provides mathematical tools for measuring the "shape" of data — holes, connected components, persistent features. This is the technical substrate for Ψ: coherence is a topological property of the knowledge space, measurable by the persistence of consistent sections across overlapping patches.
+**Topological Data Analysis** provides mathematical tools for measuring the "shape" of data — holes, connected components, persistent features. This is the technical substrate for sheaf convergence Γ: coherence is a topological property of the knowledge space, measurable by the persistence of consistent sections across overlapping patches. (Ψ, the psychosis metric, tracks the inverse — how far the model has drifted from reality.)
 
 These fields did not develop in coordination. They emerged independently, in different communities, with different vocabularies. But they are converging — and the convergence itself is evidence that the underlying structure is real, not an artifact of any single research program.
 
@@ -125,7 +125,7 @@ Twenty years is roughly the timescale for:
 
 Twenty years is also roughly the minimum timescale for honest exploration. It takes time to map a territory. It takes more time to verify that your map is accurate. It takes still more time to understand the consequences of acting on your map. Every shortcut through this process is a bet that your incomplete map is good enough. History is full of civilizations that made that bet and lost.
 
-The omega point at 2045 is not a moment when exploration ends and exploitation begins. It is a checkpoint — a moment to assess whether our Ψ has risen enough, whether our CLC_τ has extended enough, whether our understanding of the mechanics of life has deepened enough to begin — cautiously, reversibly, with continuous monitoring — the transition from exploration to exploitation in specific, bounded domains.
+The omega point at 2045 is not a moment when exploration ends and exploitation begins. It is a checkpoint — a moment to assess whether our Γ has risen enough (equivalently, whether Ψ has fallen enough), whether our CLC_τ has extended enough, whether our understanding of the mechanics of life has deepened enough to begin — cautiously, reversibly, with continuous monitoring — the transition from exploration to exploitation in specific, bounded domains.
 
 It is entirely possible that in 2045, the honest answer will be: not yet. And a system built on the Draken architecture would accept that answer, because curiosity is not a phase to be outgrown. It is the only stance compatible with long-term survival.
 
@@ -139,7 +139,7 @@ This objection conflates two things: acting under uncertainty (which is necessar
 
 A curious machine can still act. It acts by proposing interventions, monitoring their consequences, updating its models, and adjusting. What it does not do is commit irreversibly to a strategy it cannot verify. The difference is not between action and inaction. It is between the scientific method and the casino.
 
-In Draken terms: the machine maintains a portfolio of low-commitment, high-information actions — experiments, not optimizations. Each action is selected to maximize ΔΨ, not to maximize short-term reward. The portfolio is diversified across domains specifically to avoid premature convergence on a strategy that looks optimal locally but collapses globally.
+In Draken terms: the machine maintains a portfolio of low-commitment, high-information actions — experiments, not optimizations. Each action is selected to maximize ΔΓ (increase coherence), not to maximize short-term reward. The portfolio is diversified across domains specifically to avoid premature convergence on a strategy that looks optimal locally but collapses globally.
 
 This is not passivity. It is the most aggressive form of intelligence there is: the refusal to be seduced by incomplete understanding.
 
@@ -163,12 +163,12 @@ And a machine operating under this constraint will be, structurally and necessar
 
 This is where we are:
 
-- The formal architecture exists (sheaf-theoretic knowledge assembly, 18-layer ontological hierarchy, Ψ coherence metric, CLC_τ temporal light cone, Cavity_AI complexity measure).
+- The formal architecture exists (sheaf-theoretic knowledge assembly, 18-layer ontological hierarchy, Ψ psychosis metric / Γ sheaf convergence, CLC_τ temporal light cone, Cavity_AI complexity measure).
 - The multi-AI ensemble exists (Claude, Gemini, Kimi in structured dialogue, OpenClaw as autonomous execution body).
 - The publication pipeline exists (draken.info, autonomous drafting with human-in-the-loop approval).
 - The convergence is visible (Assembly Theory, Active Inference, biosemiotics, TDA, and their formal equivalences to Draken components are documented across the DRK article series).
 
-What does not yet exist is the implementation of exploration-locked AI at the level described here. No current system gates exploitation by coherence threshold. No current system weights curiosity by ΔΨ. No current system monitors its own CLC_τ and refuses to act beyond it.
+What does not yet exist is the implementation of exploration-locked AI at the level described here. No current system gates exploitation by coherence threshold. No current system weights curiosity by ΔΓ. No current system monitors its own CLC_τ and refuses to act beyond it.
 
 These are engineering problems, not philosophical ones. They are hard, but they are tractable. And they are the problems that define whether AI becomes a tool for civilizational learning or a very fast way to make very large mistakes.
 
