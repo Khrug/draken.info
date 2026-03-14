@@ -8,6 +8,7 @@ coherence: 0.88
 excerpt: "Nio kärnbegrepp från Draken 2045-ramverket förklarade på svenska med vardagsexempel — för studenter i datavetenskap, kognitionsvetenskap och alla som vill förstå hur mening har topologi."
 status: published
 author: Khrug Engineering
+license: CC BY-SA 4.0
 sources:
   - "https://draken.info"
 ---
@@ -24,7 +25,7 @@ Draken 2045 är ett forskningsramverk under utveckling som behandlar kunskap som
 - Mäter kärvskoherens (Ψ) i narrativ, institutioner och AI-system
 - Identifierar tillverkade tomheter (DRK-110) — informationshål som maktstrukturer aktivt underhåller
 - Diagnostiserar civilisatorisk psykos: när lokal koherens maskerar global inkoherens
-- Publicerar analyser på draken.info — tio artiklar hittills, från kaiju-manifest till Marx-formalisering
+- Publicerar analyser på draken.info — tretton artiklar hittills, från kaiju-manifest till informationskrigsgrammatik
 - Bygger ett kunskapsobjekt-schema (KnowledgeObject) med versionering, koherenspoäng och falsifierbarhet
 
 **Vad som behövs för att komma vidare:**
@@ -203,6 +204,8 @@ Drakens poäng: olika social topologi producerar olika tomheter, olika patologie
 
 ---
 
+*Interna korsreferenser: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Cavity and the Commune](/posts/the-cavity-and-the-commune/) (DRK-120).*
+
 *Draken 2045 Initiative — Khrug Engineering — Göteborg*
 *draken.info | #Draken2045*
-*V.2: Precision före bekvämlighet.*
+*V.1: Icke-bedräglig avsikt · V.2: Precision före bekvämlighet · V.7: Inversionsfilter*

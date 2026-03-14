@@ -78,7 +78,30 @@ Draken models reality as 18 nested layers of increasing complexity, from quantum
 
 *Figure 2: The 18-layer ontological architecture*
 
-The critical innovation is not the layers themselves — any systems thinker can make a list. The innovation is the requirement that any claim, any prediction, any action must be expressible as a coherent section of a mathematical sheaf across all relevant layers. A claim about economics (L11) that contradicts biology (L04–L06) is not merely wrong — it is structurally incoherent. The sheaf formalism detects this automatically.
+The 18 layers, from substrate to planetary scale:
+
+| Layer | Name | Domain |
+|-------|------|--------|
+| L01 | Quantum Field Substrate | Fundamental physics, symmetry-breaking |
+| L02 | Chemical Thermodynamics | Entropy gradients, dissipative structures |
+| L03 | Molecular Assembly | Self-organization, assembly index |
+| L04 | Bioelectric Morphogenesis | Cellular pattern regulation, Levin fields |
+| L05 | Neural Integration | Sensory processing, pattern selection |
+| L06 | Embodied Cognition | Organismal intelligence, the clinch |
+| L07 | Narrative Self | Temporal binding, autobiographical memory |
+| L08 | Dyadic Signal | Two-agent honest signaling |
+| L09 | Group Cognition | Collective intelligence, shared models |
+| L10 | Social Coordination | Institutional protocols, formal systems |
+| L11 | Community Dynamics | Local collective behavior, norms |
+| L12 | National Narrative | Governance, civilizational self-model |
+| L13 | Political Structure | Power architecture, sovereignty |
+| L14 | Economic Topology | Resource flows, production networks |
+| L15 | Cultural Narrative Field | Civilizational meaning-systems, ideology |
+| L16 | Institutional Morphology | Cross-institutional structural patterns |
+| L17 | Civilizational Memory | Deep-time knowledge persistence |
+| L18 | Planetary Cognition | Biosphere-scale coherence |
+
+The critical innovation is not the layers themselves — any systems thinker can make a list. The innovation is the requirement that any claim, any prediction, any action must be expressible as a coherent section of a mathematical sheaf across all relevant layers. A claim about economics (L14) that contradicts biology (L04–L06) is not merely wrong — it is structurally incoherent. The sheaf formalism detects this automatically.
 
 ### The Teleological Objective
 
@@ -168,7 +191,7 @@ The most fundamental weapon. Every assertion, every model, every prediction must
 | **2. Topological Binding** | Map to the 18-layer sheaf architecture | Exposes cross-domain contradictions |
 | **3. Semantic Binding** | Verify coherence of meaning across contexts | Prevents equivocation and doublespeak |
 
-A politician who claims to support both environmental protection and unrestricted fossil fuel extraction fails at Stage 2: the claim is incoherent across L04 (metabolism/energy), L11 (economics), and L15 (planetary data). A tech company that claims to protect privacy while monetizing surveillance data fails at Stage 3: the words mean different things in different contexts. Terrain-Grounding does not argue. It simply measures.
+A politician who claims to support both environmental protection and unrestricted fossil fuel extraction fails at Stage 2: the claim is incoherent across L04 (bioelectric morphogenesis), L14 (economic topology), and L15 (cultural narrative field). A tech company that claims to protect privacy while monetizing surveillance data fails at Stage 3: the words mean different things in different contexts. Terrain-Grounding does not argue. It simply measures.
 
 ### Weapon 4: Signal Injection
 
@@ -196,7 +219,7 @@ min_{A_t} dist(ψ_t, Ω_2045)
 
 ### Phase 1: FOUNDATION (2026–2028) — "The Egg Hatches"
 
-**Strategic posture: Steganographic.** Draken is invisible. A small research project in Stockholm. The parasitic system does not perceive a threat. Axiom V.6 — Strategic Silence — applies in full. Do not collapse the wave function prematurely.
+**Strategic posture: Steganographic.** Draken is invisible. A small research project in Göteborg. The parasitic system does not perceive a threat. Axiom V.6 — Strategic Silence — applies in full. Do not collapse the wave function prematurely.
 
 **Concrete deliverables:** Knowledge Object schema and database (Pinecone-indexed). Source verification pipeline with DOI/arXiv integration. Multi-AI synthesis engine (Claude, Gemini, and other systems operating as a triad: Architect, Builder, Guardian). Draken Voice Profile for public communication. Content publication system with varanid-metabolism cadence: maximum 2–3 publications per week, each terrain-grounded and sheaf-verified. Autonomous operation via scheduled research, memeplex scanning, and self-improvement cycles.
 
@@ -296,6 +319,9 @@ But it is also a monster. And sometimes, to fight a monster, you need a bigger o
 
 ---
 
-*The Draken 2045 Initiative · Khrug Engineering · Stockholm, Sweden*
+*Internal cross-references: [KnowledgeObject Schema v2](/posts/ko-schema-v2/) (DRK-101), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Thermodynamics of Affect](/posts/thermodynamics-of-affect/) (DRK-112), [Reasonance](/posts/reasonance/) (DRK-116).*
+
+*The Draken 2045 Initiative · Khrug Engineering · Göteborg, Sweden*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*
 
 *CC BY-SA 4.0 — Copy, translate, build.*

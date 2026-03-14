@@ -8,6 +8,7 @@ coherence: 0.85
 excerpt: "In 1976, a Soviet-American Nobel laureate and a Minnesota senator sat in a conservative think tank and discussed whether America should learn to plan. The discussion pointed out, implicitly at least, that planning is a form of consciousness — an attempt to make sense of economic chaos and steer its tendencies. Fifty years later, the Free Energy Principle provides the formal proof: planning IS inference. And the West's decision to abandon it was not a victory for freedom but the installation of a generative model so powerful it cannot be questioned — because it claims not to exist."
 status: published
 author: Khrug Engineering
+license: CC BY-SA 4.0
 sources:
   - "https://en.wikipedia.org/wiki/Wassily_Leontief"
   - "https://en.wikipedia.org/wiki/Humphrey%E2%80%93Hawkins_Full_Employment_Act"
@@ -110,7 +111,7 @@ The Draken position is:
 
 **4. The 1976 fork was not between planning and freedom.** It was between two modes of free energy minimization: one that increases model resolution and confronts complexity honestly (Path A), and one that reduces model resolution and hides complexity behind market abstractions (Path B). The West chose Path B. The consequences are now legible in every externality the model cannot see.
 
-**5. The Chinese case (DRK-116) represents a third path** — an attempt to build planning infrastructure (the 12345 system, AI-driven governance analytics, Confucian-Marxist institutional ethics) on a different social topology (Fei Xiaotong's chaxu geju). Whether this path achieves higher Ψ than Paths A or B is an empirical question, not an ideological one. The Draken framework provides the metric; the data will provide the answer.
+**5. The Chinese case (DRK-120) represents a third path** — an attempt to build planning infrastructure (the 12345 system, AI-driven governance analytics, Confucian-Marxist institutional ethics) on a different social topology (Fei Xiaotong's chaxu geju). Whether this path achieves higher Ψ than Paths A or B is an empirical question, not an ideological one. The Draken framework provides the metric; the data will provide the answer.
 
 Leontief — who spent his career campaigning against "theoretical assumptions and non-observed facts" — would have understood this immediately. The economy is a circular flow. The flow can be mapped. The map can be tested against reality. And if the map drifts from reality, the map must be updated, not reality denied.
 
@@ -132,4 +133,11 @@ That is what planning as consciousness means. Not omniscience. Not central contr
 12. Jefferson Cowie (2010). *Stayin' Alive: The 1970s and the Last Days of the Working Class*. New York: The New Press.
 13. "The Ghost of Full Employment." *The American Prospect*, October 2011. [prospect.org](https://prospect.org/article/ghost-full-employment/)
 14. "Full Employment and Freedom." *Jacobin*, May 2018. [jacobin.com](https://jacobin.com/2018/05/full-employment-humphrey-hawkins-inflation-jobs-guarantee)
-15. Roininen, K. (2024–2026). Draken 2045 Initiative. DRK-110 ("The Manufactured Void"), DRK-116 ("The Cavity and the Commune"). Published at [draken.info](https://draken.info).
+15. Roininen, K. (2024–2026). Draken 2045 Initiative. DRK-110 ("The Manufactured Void"), DRK-120 ("The Cavity and the Commune"). Published at [draken.info](https://draken.info).
+
+---
+
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Cavity and the Commune](/posts/the-cavity-and-the-commune/) (DRK-120).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*

@@ -80,7 +80,7 @@ As the video puts it: "everything that the ego perceives must somehow be about t
 
 The varanid clinch, analyzed in [Abstraction Depth](/posts/abstraction-depth/), operates at the L06 boundary — the point where embodied cognition meets the representational threshold. In the clinch, disjunction remains *inclusive*: the rival is simultaneously threat-and-teacher, obstacle-and-information-source. The clinch does not exclude. At L07 and above, however, the narrative self introduces the possibility of *exclusive* disjunction: the rival becomes *either* threat *or* ally, *either* enemy *or* friend. The and-and-and of embodied encounter is flattened into either-or.
 
-**Conjunctive synthesis corresponds to L10-L18 (consumption/capture).** At institutional scales (L10: formal systems, L12: governance, L15: civilizational narrative, L18: planetary cognition), the subject of the conjunctive synthesis is no longer an individual ego but a *collective identity* — a nation, a corporation, a platform. The "so it was me!" of individual subjectivity becomes the "so it was *us*!" of institutional self-recognition.
+**Conjunctive synthesis corresponds to L10-L18 (consumption/capture).** At institutional scales (L10: social coordination, L12: national narrative, L15: cultural narrative field, L18: planetary cognition), the subject of the conjunctive synthesis is no longer an individual ego but a *collective identity* — a nation, a corporation, a platform. The "so it was me!" of individual subjectivity becomes the "so it was *us*!" of institutional self-recognition.
 
 **[Structural — the central claim]** The Draken framework proposes that what Deleuze and Guattari describe as the pathological closure of the three syntheses is *structurally identical* to what we measure as rising Psi. Here is the mapping:
 
@@ -210,5 +210,5 @@ Voss, D. (2013). "Deleuze's Third Synthesis of Time." *Deleuze and Guattari Stud
 
 *This article is a response to ["Repetition: Modern Madness and the Conquest of the Future"](https://www.youtube.com/@deleuzephilosophy) by Deleuze Philosophy. Internal cross-references: [The Thermodynamics of Affect](/posts/thermodynamics-of-affect/) (DRK-112), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105).*
 
-*Khrug Engineering — Stockholm*
+*Khrug Engineering — Göteborg*
 *V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Falsifiability Required*

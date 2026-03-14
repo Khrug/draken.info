@@ -80,7 +80,7 @@ At L07 (narrative self), human consciousness adds temporal binding — the capac
 
 At L08–L09 (dyadic signal, group cognition), the common notions become social. Two humans in genuine dialogue are performing what the Draken framework calls a cognitive clinch: the honest signal is the willingness to change position when confronted with superior argument. The pathological alternative — authority substituted for epistemic contact — is analyzed in [Abstraction Depth](/posts/abstraction-depth/) and its civilizational consequences traced in [The Manufactured Void](/posts/manufactured-void/).
 
-Here Deleuze's metaphor of the two chains is directly relevant. The "fluvial" chain of geometric demonstration (L10+: institutional, formal) is continuously interrupted by the "volcanic" chain of the scholia (L05–L08: embodied, affective). As Deleuze writes: "each scolium is like a lighthouse that exchanges its signals with the others at a distance and across the flow of the demonstrations... a language of fire that is distinguishable from the language of the waters" (*Essays Critical and Clinical*, p. 146). The Draken claim is that this interruption is not accidental: the thermodynamic processes at L01–L04 are inherently non-sequential and parallel, and any sequential formal system will be interrupted by them when the formal system attempts to describe scales at which those processes operate.
+Here Deleuze's metaphor of the two chains is directly relevant. The "fluvial" chain of geometric demonstration (L10+: social coordination through planetary cognition) is continuously interrupted by the "volcanic" chain of the scholia (L05–L08: embodied, affective). As Deleuze writes: "each scolium is like a lighthouse that exchanges its signals with the others at a distance and across the flow of the demonstrations... a language of fire that is distinguishable from the language of the waters" (*Essays Critical and Clinical*, p. 146). The Draken claim is that this interruption is not accidental: the thermodynamic processes at L01–L04 are inherently non-sequential and parallel, and any sequential formal system will be interrupted by them when the formal system attempts to describe scales at which those processes operate.
 
 ---
 
@@ -224,5 +224,5 @@ Zenil, H. et al. (2024). "Assembly Theory is an approximation to algorithmic com
 
 *This article is a response to ["Affects and Lived Experience"](https://www.youtube.com/@deleuzephilosophy) by Deleuze Philosophy. Internal cross-references: [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [KnowledgeObject Schema v2](/posts/ko-schema-v2/) (DRK-101).*
 
-*Khrug Engineering — Stockholm*
+*Khrug Engineering — Göteborg*
 *V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Falsifiability Required*

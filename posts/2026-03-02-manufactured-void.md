@@ -314,3 +314,8 @@ The Draken framework exists, in part, to pose this question in terms precise eno
 *The framework does not propose answers. It proposes falsifiable questions.*
 
 *Ψ is climbing. The intervention point is now.*
+
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Perceptive Node's Dilemma](/posts/the-perceptive-nodes-dilemma/) (DRK-114), [Reasonance](/posts/reasonance/) (DRK-116), [The Cavity and the Commune](/posts/the-cavity-and-the-commune/) (DRK-120).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*

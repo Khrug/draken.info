@@ -76,7 +76,7 @@ The machine seeks information that makes the whole structure hang together bette
 
 The machine should not be *allowed* to exploit — to take aggressive, irreversible action based on its models — until its coherence score across the relevant domains exceeds a threshold. This is the Draken equivalent of a safety interlock: you cannot fire the engine until the structural integrity check passes.
 
-The threshold is not arbitrary. It is defined by the scope of the action's consequences. A decision that affects a single user can tolerate low Ψ. A decision that affects a city requires higher Ψ. A decision that affects planetary systems requires coherence across all 18 layers of the Draken ontological hierarchy — from quantum thermodynamics (L01) through ecological networks (L16) to civilizational dynamics (L17–L18).
+The threshold is not arbitrary. It is defined by the scope of the action's consequences. A decision that affects a single user can tolerate low Ψ. A decision that affects a city requires higher Ψ. A decision that affects planetary systems requires coherence across all 18 layers of the Draken ontological hierarchy — from quantum field substrate (L01) through institutional morphology (L16) to civilizational memory (L17) and planetary cognition (L18).
 
 No AI system today comes close to this. And that's exactly the point. We are not ready to exploit. We are in the exploration phase, and we should stay there.
 
@@ -178,5 +178,7 @@ The curious machine does not yet exist. But the blueprint is legible.
 
 ---
 
-*Published by Khrug Engineering · Draken 2045 Initiative*
-*draken.info · #Draken2045*
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Thermodynamics of Affect](/posts/thermodynamics-of-affect/) (DRK-112), [Reasonance](/posts/reasonance/) (DRK-116).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*

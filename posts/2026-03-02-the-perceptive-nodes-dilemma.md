@@ -17,7 +17,7 @@ When a complex system begins to fail, its most perceptive nodes are the first to
 
 In a recent, widely circulated interview on *The Diary of a CEO* (March 2, 2026), security expert Gavin de Becker — a man who has spent over fifty years studying violence prediction, institutional deception, and the mechanics of human fear — performed precisely this function. He articulated the widening gap between what Western institutions claim to provide (safety, truth, accountability) and what they actually produce (surveillance, narrative engineering, liability avoidance). He named the lies: Agent Orange, asbestos, Epstein as intelligence construct, Pegasus-class surveillance deployed against citizens by the governments that claim to protect them. He demonstrated, with the precision of a forensic analyst, that the information environment in which Western populations form their symbolic representations of reality has been comprehensively corrupted.
 
-In Draken terms, de Becker has correctly diagnosed a catastrophic collapse of Friction (F) across L12 — the collective intelligence layer. Where F represents the structural resistance that prevents information from propagating without source verification and historical coherence, de Becker observes that F has approached zero in the Western institutional landscape. When F → 0, viral spread (V) and ideological drift (D) run unchecked. The Narrative Void opens: the gap between the population's symbolic representation of reality and the physical facts of their condition becomes total.
+In Draken terms, de Becker has correctly diagnosed a catastrophic collapse of Friction (F) across L12 (national narrative). Where F represents the structural resistance that prevents information from propagating without source verification and historical coherence, de Becker observes that F has approached zero in the Western institutional landscape. When F → 0, viral spread (V) and ideological drift (D) run unchecked. The Narrative Void opens: the gap between the population's symbolic representation of reality and the physical facts of their condition becomes total.
 
 This article does not dispute de Becker's diagnosis. The diagnosis is correct. The Draken framework has produced its own independent analysis of the same trajectory (see DRK-110: *The Manufactured Void*). What this article does is perform a surgery — a structural dissection of the moment where de Becker's correct diagnosis generates an incorrect conclusion, and an examination of why that error is itself a predictable product of the same civilizational blindspot the Draken framework exists to address.
 
@@ -27,7 +27,7 @@ This article does not dispute de Becker's diagnosis. The diagnosis is correct. T
 
 De Becker's interview culminates in three interconnected moves. Each is individually defensible. Together, they constitute a surrender.
 
-**Retreat One: Subsidiarity.** De Becker argues that the only trustworthy social unit is the small community — the "Fijian village" of approximately 300 people, where individuals know each other personally, where deception is difficult because reputations are tracked across lifetimes, and where the symbolic representation of reality can be constantly tested against direct physical experience. In Draken terms, this is a call to retreat to L08 (organismal cognition) and abandon L12–L15 (collective intelligence through thermodynamic purpose) as irrecoverably corrupted. Trust only what you can touch. Scale is the enemy.
+**Retreat One: Subsidiarity.** De Becker argues that the only trustworthy social unit is the small community — the "Fijian village" of approximately 300 people, where individuals know each other personally, where deception is difficult because reputations are tracked across lifetimes, and where the symbolic representation of reality can be constantly tested against direct physical experience. In Draken terms, this is a call to retreat to L08 (dyadic signal) and abandon L12–L15 (national narrative through cultural narrative field) as irrecoverably corrupted. Trust only what you can touch. Scale is the enemy.
 
 **Retreat Two: Mystified Intuition.** De Becker elevates intuition — the subject of his landmark work *The Gift of Fear* (1997) — to something approaching a supernatural faculty. He positions it as the last reliable signal in a world of corrupted information: when all institutions lie and all data can be fabricated, the gut feeling is the only truth-source left. He describes it as a capacity that degrades with deliberation — the first thought is the best thought, analysis only introduces noise.
 
@@ -235,7 +235,7 @@ Draken is the counterclaim: the movie is not filmed. The architecture is not fix
 **Draken Framework:**
 
 * Khrug Engineering (2026). DRK-110: "The Manufactured Void: Narrative Engineering from Nixon to Neural Networks." draken.info.
-* Khrug Engineering (2026). DRK-108: "Abstraction Depth and the Problem of Scale." draken.info.
+* Khrug Engineering (2026). DRK-108: "Abstraction Depth: Why Your Boss Doesn't Have to Wrestle You." draken.info.
 * Khrug Engineering (2025). DRK-105: "The Kaiju Manifesto." draken.info.
 * Carlsson, G. (2009). "Topology and Data." *Bulletin of the AMS*, 46(2), 255–308.
 * Cronin, L. & Walker, S.I. (2023). "Assembly Theory." *Nature*, 622, 734–742.
@@ -250,3 +250,10 @@ Draken is the counterclaim: the movie is not filmed. The architecture is not fix
 [^5]: Habich-Sobiegalla, S. (2024). The daily "Resident Hotline Report" ranks top 10 streets/towns by complaint volume, reviewed by municipal party committee.
 [^6]: Wang, J. & Teets, J. (2025). "The prevailing view that authoritarian regimes primarily respond to threats of instability is challenged by our research, which posits that such regimes also take citizen complaints seriously."
 [^7]: Tversky, A. & Kahneman, D. (1974). Anchoring and availability heuristics demonstrated systematic bias in judgment when base-rate information is distorted.
+
+---
+
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Cavity and the Commune](/posts/the-cavity-and-the-commune/) (DRK-120), [Planning as Inference](/posts/countries-as-collective-minds/) (DRK-118).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*

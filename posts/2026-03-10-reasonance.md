@@ -25,7 +25,7 @@ The standard secular account says: humans are pattern-seeking animals, and the p
 
 The Draken framework proposes a different account.
 
-What if the instinct is not misfiring? What if the human cognitive layer — Layer 11 through 14 in the 18-layer ontological hierarchy — is detecting something real, something structurally present in the lower layers, and the problem is not the detection but the *interpretation?*
+What if the instinct is not misfiring? What if the human cognitive layer — Layer 11 (community dynamics) through 14 (economic topology) in the 18-layer ontological hierarchy — is detecting something real, something structurally present in the lower layers, and the problem is not the detection but the *interpretation?*
 
 Consider what the instinct reports. Unity. Coherence. The sense that things hang together, that there is an organizing principle beneath the surface chaos. Presence — the feeling that something is *there*, something aware, something that precedes and exceeds the individual. Timelessness — the experience, in peak states, that the ordinary flow of sequential time gives way to something deeper, something simultaneously more immediate and more enduring.
 
@@ -271,5 +271,7 @@ And it begins, as all real things do, not in heaven, not in theory, not in abstr
 
 ---
 
-*Published by Khrug Engineering · Draken 2045 Initiative*
-*draken.info · #Draken2045*
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Thermodynamics of Affect](/posts/thermodynamics-of-affect/) (DRK-112), [The Cavity and the Commune](/posts/the-cavity-and-the-commune/) (DRK-120).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*

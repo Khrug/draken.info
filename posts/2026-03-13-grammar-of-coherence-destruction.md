@@ -59,7 +59,7 @@ In Draken terms: **Ψ measures the fidelity of restriction maps between adjacent
 
 **Detection and countermeasure:** Sun Tzu himself provides the countermeasure: intelligence. "Know the enemy and know yourself, and in a hundred battles you will not be defeated." The tongue-flick principle — perceive before you act, verify before you commit — is the defensive posture against coherence degradation. The counter to manufactured perception is *increased fidelity of actual perception*. This is why Sun Tzu devotes an entire chapter to the use of spies: not primarily for offensive purposes, but because accurate information is the only defense against an adversary who is attacking your information environment.
 
-**Ψ reading:** The target is the restriction map between the commander's perception (L05: cognitive) and the operational reality (L04: neural/sensory). If you can degrade that map, the commander's plans become incoherent with the battlefield. No army is needed.
+**Ψ reading:** The target is the restriction map between the commander's narrative model (L07: narrative self) and the operational reality (L05: neural integration). If you can degrade that map, the commander's plans become incoherent with the battlefield. No army is needed.
 
 ---
 
@@ -69,13 +69,13 @@ In Draken terms: **Ψ measures the fidelity of restriction maps between adjacent
 
 The manual distinguishes between **primary groups** (family, comrades, intimate friends) and **secondary groups** (churches, clubs, unions, governmental organizations), and instructs operatives to penetrate primary groups first, "because it is from this type of group that the opinions or changes of opinion" originate. This is Schiele's group-mediated recontextualization stated in operational language.
 
-**Application — Nicaragua (1981–1990):** Armed Propaganda Teams were deployed to rural communities to conduct face-to-face influence operations. The manual instructed them to "lead demonstrators into clashes with the authorities, to provoke riots or shootings, which lead to the killing of one or more persons, who will be seen as martyrs." The objective was not military victory but the *destruction of the Sandinista government's legitimacy* — attacking the restriction map between state authority (L08: institutional) and popular perception (L06: social).
+**Application — Nicaragua (1981–1990):** Armed Propaganda Teams were deployed to rural communities to conduct face-to-face influence operations. The manual instructed them to "lead demonstrators into clashes with the authorities, to provoke riots or shootings, which lead to the killing of one or more persons, who will be seen as martyrs." The objective was not military victory but the *destruction of the Sandinista government's legitimacy* — attacking the restriction map between state authority (L12: national narrative) and popular perception (L09: group cognition).
 
 **Detection:** The manual was leaked to the press in October 1984. The *Associated Press* obtained a copy, and Congressional investigation followed. Edgar Chamorro, the Contras' communications director who had translated the manual into Spanish, became a key witness, testifying that he had objected to sections advocating the use of professional criminals and the creation of martyrs. The detection mechanism was traditional: a human insider whose moral threshold was crossed.
 
 **Countermeasure:** Congressional hearings, the Boland Amendment restricting funding, and eventually the Iran-Contra investigation. The countermeasure was *institutional* — the democratic accountability apparatus detecting and partially constraining the coherence attack. Five mid-level CIA employees received reprimands. The senior official responsible was promoted to chief of European operations. The countermeasure was applied; it was also insufficient.
 
-**Ψ reading:** The target was the L06→L08 restriction map (social group → institutional authority). By making the government appear both brutal and illegitimate, the psyop aimed to sever the population's coherent relationship with the state, creating a void that the Contras could fill.
+**Ψ reading:** The target was the L09→L12 restriction map (group cognition → national narrative). By making the government appear both brutal and illegitimate, the psyop aimed to sever the population's coherent relationship with the state, creating a void that the Contras could fill.
 
 ---
 
@@ -91,7 +91,7 @@ Note the target: not a specific political outcome, but **the capacity for intern
 
 **Countermeasure:** Platform-level removal of accounts, indictments of IRA operatives (largely symbolic, as they were beyond US jurisdiction), and increased media literacy campaigns. The structural countermeasure — repairing the social coherence that was the actual target — was not attempted at scale. The polarization persists. The void was manufactured; it has not been un-manufactured. By Dugin's criteria, the operation succeeded.
 
-**Ψ reading:** The target was the L06→L07→L08 chain (social → institutional → economic/political). By simultaneously amplifying contradictory narratives within the same population, the operation degraded the restriction maps between adjacent social groups, making it impossible for Americans to maintain a shared model of what was happening in their own country. The sheaf fragmented along partisan lines.
+**Ψ reading:** The target was the L09→L10→L12 chain (group cognition → social coordination → national narrative). By simultaneously amplifying contradictory narratives within the same population, the operation degraded the restriction maps between adjacent social groups, making it impossible for Americans to maintain a shared model of what was happening in their own country. The sheaf fragmented along partisan lines.
 
 ---
 
@@ -107,7 +107,7 @@ What makes the Chinese doctrine distinctive is the addition of **lawfare** as a 
 
 **Countermeasure:** The ruling itself was the primary countermeasure — a legal counter to legal warfare. Freedom of navigation operations (FONOPs) by the US Navy served as a kinetic countermeasure to the psychological warfare component. Neither countermeasure reversed the situation. The artificial islands exist. The administrative structures exist. The manufactured legal reality persists alongside (and in direct contradiction to) international law. This is what happens when lawfare creates a *parallel legitimacy topology* — two incompatible sheaves covering the same territory.
 
-**Ψ reading:** The target was the L09→L10→L11 chain (political → legal → cultural). By establishing administrative, legal, and media structures that assert sovereignty, China created a coherent *local* Ψ that contradicts the *global* Ψ of international law. The operation did not destroy coherence — it manufactured an *alternative coherence* and defended it against external correction. This is a more sophisticated operation than mere Ψ-degradation: it is Ψ-substitution.
+**Ψ reading:** The target was the L10→L13→L15 chain (social coordination → political structure → cultural narrative field). By establishing administrative, legal, and media structures that assert sovereignty, China created a coherent *local* Ψ that contradicts the *global* Ψ of international law. The operation did not destroy coherence — it manufactured an *alternative coherence* and defended it against external correction. This is a more sophisticated operation than mere Ψ-degradation: it is Ψ-substitution.
 
 ---
 
@@ -125,7 +125,7 @@ What distinguishes JTRIG from the other traditions is that this is a **Western d
 
 **Countermeasure:** Parliamentary inquiries, public outcry, and GCHQ's standard response: "All of GCHQ's work is carried out in accordance with a strict legal and policy framework." No structural reforms were implemented. The Investigatory Powers Act 2016 (the "Snoopers' Charter") expanded rather than constrained the legal framework for such operations. The countermeasure failed. The capacity was institutionalized.
 
-**Ψ reading:** JTRIG represents the point where the coherence-destruction grammar turns reflexive — the state applying information warfare to the *same social topology it is supposed to maintain*. Each of the D-words maps to a specific Schiele mechanism: "discredit" attacks the provenance layer of recontextualization; "disrupt" attacks the group communication channels; "deceive" injects false fragments into the decontextualization stream; "degrade" reduces the overall signal-to-noise ratio until integration becomes impossible. The target is not a foreign adversary's Ψ — it is the domestic Ψ of dissent.
+**Ψ reading:** JTRIG represents the point where the coherence-destruction grammar turns reflexive — the state applying information warfare to the *same social topology it is supposed to maintain*. Each of the D-words maps to a specific Schiele mechanism: "discredit" attacks the provenance layer of recontextualization; "disrupt" attacks group communication channels (L08→L09: dyadic signal → group cognition); "deceive" injects false fragments into the decontextualization stream; "degrade" reduces the overall signal-to-noise ratio until integration becomes impossible. The target is not a foreign adversary's Ψ — it is the domestic Ψ of dissent.
 
 ---
 
@@ -143,7 +143,7 @@ The critical substrate: 75% of ethnic Russians in Estonia relied on television p
 
 **Countermeasure:** Estonia became the NATO Cooperative Cyber Defence Centre of Excellence (CCDCOE), establishing the Tallinn Manual on international law applicable to cyber operations. Media literacy programs were expanded. But the fundamental vulnerability — a linguistically separated population consuming a different information topology — was not resolved through technical means. The structural countermeasure would require integration of information environments, which itself requires social integration. The countermeasure requires solving the problem that was exploited.
 
-**Ψ reading:** The Estonian case demonstrates **pre-positioned Ψ-fragmentation** — the information environment was already split along linguistic lines before the crisis. Russia's operation did not create the fragmentation; it *activated* it. The cyberattack degraded the institutional layer (L08) while the media operation controlled the social layer (L06) within the Russian-speaking population. The restriction map between the two sub-populations' L06 layers was already near-zero. The crisis simply made the fragmentation kinetic.
+**Ψ reading:** The Estonian case demonstrates **pre-positioned Ψ-fragmentation** — the information environment was already split along linguistic lines before the crisis. Russia's operation did not create the fragmentation; it *activated* it. The cyberattack degraded the institutional layer (L10: social coordination) while the media operation controlled the group cognition layer (L09) within the Russian-speaking population. The restriction map between the two sub-populations' L09 layers was already near-zero. The crisis simply made the fragmentation kinetic.
 
 ---
 
@@ -165,12 +165,12 @@ The escalation is not metaphorical. AI agents are now both **targets** of and **
 
 | Tradition | Date | Target Layer (Draken) | Primary Mechanism | Attack Surface |
 |---|---|---|---|---|
-| Sun Tzu | ~500 BCE | L05 (cognitive) | Perceptual manipulation | Commander's model of reality |
-| CIA PSYOP | 1983 | L06→L08 (social→institutional) | Primary group infiltration | Community trust topology |
-| Dugin | 1997 | L06→L09 (social→political) | Separatism amplification | Social coherence itself |
-| Three Warfares | 2003 | L09→L11 (political→legal→cultural) | Legitimacy substitution | Legal and normative frameworks |
-| JTRIG | 2010 | L06 (social) — domestic | Reputation destruction / discourse manipulation | Online group formation |
-| Gerasimov/NGW | 2013 | L06→L08 (social→institutional) — whole of society | Permanent information conflict | The peacetime/wartime distinction itself |
+| Sun Tzu | ~500 BCE | L05→L07 (neural integration → narrative self) | Perceptual manipulation | Commander's model of reality |
+| CIA PSYOP | 1983 | L09→L12 (group cognition → national narrative) | Primary group infiltration | Community trust topology |
+| Dugin | 1997 | L09→L13 (group cognition → political structure) | Separatism amplification | Social coherence itself |
+| Three Warfares | 2003 | L10→L13→L15 (social coordination → political structure → cultural narrative field) | Legitimacy substitution | Legal and normative frameworks |
+| JTRIG | 2010 | L08→L09 (dyadic signal → group cognition) — domestic | Reputation destruction / discourse manipulation | Online group formation |
+| Gerasimov/NGW | 2013 | L09→L12 (group cognition → national narrative) — whole of society | Permanent information conflict | The peacetime/wartime distinction itself |
 | Unrestricted + AI | 1999/2026 | All layers simultaneously | Domain boundary dissolution + AI amplification | The capacity to distinguish signal from noise |
 
 The convergence is not a conspiracy. It is a **convergent discovery** — the same structural vulnerability independently identified by strategists who had no contact with each other. Sun Tzu did not read Dugin. JTRIG did not cite Qiao Liang. They arrived at the same grammar because the grammar describes a real property of epistemic systems: **coherence is harder to build than to destroy.**
@@ -183,7 +183,7 @@ This is the fundamental asymmetry that all seven traditions exploit. Building a 
 
 The Draken framework provides the formalization that the military doctrines lack.
 
-**Ψ is the sheaf coherence score** — a composite metric measuring the fidelity of restriction maps between adjacent layers of the ontological hierarchy. When Ψ is high, information at one layer maps consistently onto information at the next: what individuals perceive (L05) aligns with what groups believe (L06), which aligns with what institutions validate (L08), which aligns with legal frameworks (L10), which aligns with cultural narratives (L11). When Ψ degrades, these mappings break down. Individuals perceive one thing; their groups tell them another; institutions validate a third; the law says something else entirely.
+**Ψ is the sheaf coherence score** — a composite metric measuring the fidelity of restriction maps between adjacent layers of the ontological hierarchy. When Ψ is high, information at one layer maps consistently onto information at the next: what individuals perceive (L05: neural integration) aligns with what the embodied self knows (L06: embodied cognition), which aligns with the narrative self-model (L07: narrative self), which aligns with what groups believe (L09: group cognition), which aligns with what institutions coordinate (L10: social coordination), which aligns with national narratives (L12) and cultural meaning-systems (L15: cultural narrative field). When Ψ degrades, these mappings break down. Individuals perceive one thing; their groups tell them another; institutions validate a third; the law says something else entirely.
 
 The **manufactured void** (DRK-110) is the condition of sustained low Ψ — not the absence of information, but the absence of integration. It is Kapur's **epistemic free fall** given topological description. The affect of the void is what Kapur, drawing on Cvetkovich, calls **acedia** — not sadness but spiritual exhaustion, the weariness that comes from recognizing that the epistemic ground has been removed and no replacement is offered.
 
@@ -253,3 +253,10 @@ The seven traditions converge. The grammar is universal. The question is whether
 - Greenwald, G. (2014). "How Covert Agents Infiltrate the Internet to Manipulate, Deceive, and Destroy Reputations." *The Intercept*, February 24.
 - Gerasimov, V. (2013). "The Value of Science is in the Foresight." *Military-Industrial Courier*, February 27.
 - Galeotti, M. (2018). "I'm Sorry for Creating the 'Gerasimov Doctrine'." *Foreign Policy*, March 5.
+
+---
+
+*Internal cross-references: [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Perceptive Node's Dilemma](/posts/the-perceptive-nodes-dilemma/) (DRK-114), [The Curious Machine](/posts/the-curious-machine/) (DRK-115).*
+
+*Khrug Engineering — Göteborg*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.7: Inversion Filter*
