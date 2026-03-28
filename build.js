@@ -330,7 +330,7 @@ function buildSlaskPage(baseTpl) {
       listHtml += '<span class="sk-icon">' + icon(e) + '</span>';
       listHtml += '<a href="' + rawUrl + '" target="_blank" class="sk-name" title="' + f.name + '">' + f.name + '</a>';
       listHtml += '<span class="sk-size">' + fmtSize(f.size) + '</span>';
-      listHtml += '<button class="sk-copy" onclick="window._skCopy(\'' + liveUrl + '\')" title="Copy draken.info link">🔗</button>';
+      listHtml += '<button class="sk-copy" data-url="' + liveUrl + '" title="Copy draken.info link">🔗</button>';
       listHtml += '</div>';
     }
     listHtml += '</div>';
@@ -350,9 +350,12 @@ function buildSlaskPage(baseTpl) {
     document.getElementById('sk-gallery-view').innerHTML = galHtml;
   }
 
-  window._skCopy = function(url) {
-    navigator.clipboard.writeText(url).then(function(){ toast('Link copied!'); });
-  };
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('.sk-copy');
+    if (btn && btn.dataset.url) {
+      navigator.clipboard.writeText(btn.dataset.url).then(function(){ toast('Link copied!'); });
+    }
+  });
 
   window.skView = function(mode) {
     document.getElementById('sk-list-view').style.display = mode==='list'?'block':'none';
