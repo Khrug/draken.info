@@ -1,50 +1,51 @@
-<!-- Sheaf Game v2: Vanilla JS for draken.info static site -->
+<!-- Sheaf Game v2.1: Full-width layout, readable text -->
 <!-- Drop this file into static/pages/sheaf-game.html -->
 <!-- The build-patch.js wraps it in the base template -->
 
 <style>
-.sg{font-family:Inter,'Helvetica Neue',sans-serif;max-width:860px;margin:0 auto;padding:12px 0;color:#e6edf3}
-.sg h2{font-size:20px;font-weight:700;color:#fff;margin:4px 0}
-.sg-sub{font-size:11px;color:#8b949e;max-width:500px;margin:0 auto}
-.sg-btns{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;margin:10px 0}
-.sg-b{padding:5px 10px;border-radius:5px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:10px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s}
+.sg{font-family:Inter,'Helvetica Neue',sans-serif;max-width:1400px;margin:0 auto;padding:20px 24px;color:#e6edf3}
+.sg h2{font-size:32px;font-weight:700;color:#fff;margin:8px 0}
+.sg-sub{font-size:16px;color:#8b949e;max-width:700px;margin:0 auto;line-height:1.5}
+.sg-btns{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin:16px 0}
+.sg-b{padding:8px 16px;border-radius:6px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:all .15s}
+.sg-b:hover{border-color:#484f58;color:#c9d1d9}
 .sg-b.on{border-color:#e94560;background:#e9456018;color:#fff}
-.sg-flex{display:flex;gap:14px;flex-wrap:wrap}
-.sg-l{flex:1 1 360px;min-width:280px}
-.sg-r{flex:1 1 320px;min-width:260px}
-.sg-c{background:#161b22;border-radius:8px;padding:14px;margin-bottom:10px}
-.sg-ly{display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;cursor:pointer;margin:1px 0;transition:background .1s}
+.sg-flex{display:flex;gap:24px;flex-wrap:wrap}
+.sg-l{flex:1 1 480px;min-width:360px}
+.sg-r{flex:1 1 420px;min-width:340px}
+.sg-c{background:#161b22;border-radius:10px;padding:20px;margin-bottom:14px}
+.sg-ly{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:6px;cursor:pointer;margin:2px 0;transition:background .1s}
 .sg-ly:hover{background:rgba(255,255,255,.04)}
-.sg-lid{font-size:10px;font-weight:700;width:32px;flex-shrink:0}
-.sg-ln{font-size:9.5px;color:#8b949e;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sg-lb{width:50px;height:10px;background:#21262d;border-radius:3px;overflow:hidden;flex-shrink:0}
-.sg-lf{height:100%;border-radius:3px;transition:width .4s}
-.sg-lv{font-size:8px;font-weight:600;width:28px;text-align:right;flex-shrink:0}
-.sg-ml{font-size:7.5px;padding:0 0 1px 38px;font-weight:600}
-.sg-mv{font-size:22px;font-weight:700}
-.sg-ml2{font-size:9px;color:#8b949e}
-.sg-mr{display:flex;gap:16px;justify-content:center;margin-top:10px}
+.sg-lid{font-size:14px;font-weight:700;width:64px;flex-shrink:0}
+.sg-ln{font-size:14px;color:#8b949e;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sg-lb{width:80px;height:14px;background:#21262d;border-radius:4px;overflow:hidden;flex-shrink:0}
+.sg-lf{height:100%;border-radius:4px;transition:width .4s}
+.sg-lv{font-size:13px;font-weight:600;width:40px;text-align:right;flex-shrink:0}
+.sg-ml{font-size:11px;padding:2px 0 2px 74px;font-weight:600}
+.sg-mv{font-size:36px;font-weight:700}
+.sg-ml2{font-size:14px;color:#8b949e}
+.sg-mr{display:flex;gap:28px;justify-content:center;margin-top:16px}
 .sg-mr>div{text-align:center}
-.sg-mr .v{font-size:15px;font-weight:700}
-.sg-mr .l{font-size:8px;color:#8b949e}
-.sg-sn{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
-.sg-sf{font-size:9px;font-weight:600;color:#e94560;margin-bottom:6px}
-.sg-so{font-size:10.5px;color:#c9d1d9;line-height:1.6;margin-bottom:8px}
-.sg-fx{border-left:3px solid #30363d;padding:5px 10px;margin-bottom:4px;background:#0d111780;border-radius:0 4px 4px 0}
+.sg-mr .v{font-size:22px;font-weight:700}
+.sg-mr .l{font-size:12px;color:#8b949e}
+.sg-sn{font-size:18px;font-weight:700;color:#fff;margin-bottom:4px}
+.sg-sf{font-size:13px;font-weight:600;color:#e94560;margin-bottom:10px}
+.sg-so{font-size:14px;color:#c9d1d9;line-height:1.7;margin-bottom:12px}
+.sg-fx{border-left:3px solid #30363d;padding:8px 14px;margin-bottom:6px;background:#0d111780;border-radius:0 6px 6px 0}
 .sg-fx.a{border-color:#e94560}.sg-fx.w{border-color:#f59e0b}.sg-fx.o{border-color:#2d8659}
-.sg-fl{font-size:8px;font-weight:600;margin-bottom:1px}
-.sg-ft{font-size:10px;color:#c9d1d9;line-height:1.4}
-.sg-rw{font-size:9px;color:#8b949e;border-top:1px solid #21262d;padding-top:6px;margin-top:4px}
-.sg-kd{font-size:9px;margin-top:4px}
-.sg-sr{display:flex;align-items:center;gap:4px;margin-bottom:3px}
-.sg-sr label{font-size:8px;color:#8b949e;width:55px;flex-shrink:0}
-.sg-sr input[type=range]{flex:1;height:3px}
-.sg-sr span{font-size:8px;font-weight:600;width:26px;text-align:right}
+.sg-fl{font-size:12px;font-weight:600;margin-bottom:2px}
+.sg-ft{font-size:14px;color:#c9d1d9;line-height:1.5}
+.sg-rw{font-size:13px;color:#8b949e;border-top:1px solid #21262d;padding-top:10px;margin-top:8px;line-height:1.5}
+.sg-kd{font-size:13px;margin-top:6px}
+.sg-sr{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.sg-sr label{font-size:12px;color:#8b949e;width:100px;flex-shrink:0}
+.sg-sr input[type=range]{flex:1;height:5px}
+.sg-sr span{font-size:12px;font-weight:600;width:36px;text-align:right}
 </style>
 
 <div class="sg" id="sg-app">
-  <div style="text-align:center;padding:12px 0 8px">
-    <div style="font-size:10px;color:#e94560;letter-spacing:3px;font-weight:700">DRAKEN 2045 — INTERACTIVE PEDAGOGY</div>
+  <div style="text-align:center;padding:20px 0 14px">
+    <div style="font-size:13px;color:#e94560;letter-spacing:4px;font-weight:700">DRAKEN 2045 — INTERACTIVE PEDAGOGY</div>
     <h2>The Sheaf Game: Failure Modes</h2>
     <p class="sg-sub">How layered agents build world-models — and exactly what breaks when the gluing fails</p>
   </div>
@@ -53,14 +54,14 @@
     <div class="sg-l" id="sg-left"></div>
     <div class="sg-r" id="sg-right"></div>
   </div>
-  <div style="text-align:center;font-size:10px;color:#555;padding:14px;margin-top:10px;background:#161b22;border-radius:8px">
+  <div style="text-align:center;font-size:13px;color:#555;padding:20px;margin-top:14px;background:#161b22;border-radius:10px">
     <strong style="color:#8b949e">The Sheaf Game</strong> — Interactive pedagogy for the <a href="/" style="color:#e94560;text-decoration:none">Draken 2045 Framework</a><br>
     <a href="/" style="color:#e94560;text-decoration:none">← Feed</a> · <a href="/thesis/" style="color:#e94560;text-decoration:none">Thesis</a>
   </div>
 </div>
 
 <script>
-// Sheaf Game v2 — Vanilla JS
+// Sheaf Game v2.1 — Vanilla JS (full-width, readable)
 (function() {
   var LAYERS = [
     {n:"Molecules",e:"\u{1f9ec}",c:"#1565C0",d:"Chemical agents exchanging energy via thermodynamic gradients",wm:"Thermodynamic gradients"},
@@ -119,7 +120,7 @@
       }
     }
     if (editing) {
-      h += '<div style="background:#161b22;border-radius:8px;padding:10px;margin-top:8px"><div style="font-size:10px;font-weight:600;color:#2d8659;margin-bottom:6px">\u{1f527} Drag to break or repair</div>';
+      h += '<div style="background:#161b22;border-radius:10px;padding:16px;margin-top:12px"><div style="font-size:14px;font-weight:600;color:#2d8659;margin-bottom:10px">\u{1f527} Drag to break or repair</div>';
       for (var i=0; i<LAYERS.length; i++) {
         h += '<div class="sg-sr"><label>'+LAYERS[i].e+' '+esc(LAYERS[i].n)+'</label><input type="range" min="0" max="100" value="'+Math.round(aligns[i]*100)+'" oninput="SG.sd('+i+',this.value)" style="accent-color:'+LAYERS[i].c+'"><span style="color:'+bc(aligns[i])+'">'+aligns[i].toFixed(2)+'</span></div>';
       }
@@ -153,10 +154,10 @@
     if (selL !== null) {
       var sl=LAYERS[selL], sa=aligns[selL];
       r += '<div class="sg-c" style="border-left:3px solid '+sl.c+'">';
-      r += '<div style="font-size:12px;font-weight:600;color:'+sl.c+'">'+sl.e+' '+esc(sl.n)+'</div>';
-      r += '<div style="font-size:10px;color:#8b949e;margin:3px 0">'+esc(sl.d)+'</div>';
-      r += '<div style="font-size:10px;color:#c9d1d9"><b>World-model:</b> '+esc(sl.wm)+'</div>';
-      r += '<div style="font-size:10px;font-weight:600;color:'+bc(sa)+';margin-top:4px">Local \u0393 = '+sa.toFixed(2)+(sa<.35?' \u26a0\ufe0f SEVERED':sa<.5?' \u26a0 DEGRADED':'')+'</div></div>';
+      r += '<div style="font-size:16px;font-weight:600;color:'+sl.c+'">'+sl.e+' '+esc(sl.n)+'</div>';
+      r += '<div style="font-size:14px;color:#8b949e;margin:4px 0">'+esc(sl.d)+'</div>';
+      r += '<div style="font-size:14px;color:#c9d1d9"><b>World-model:</b> '+esc(sl.wm)+'</div>';
+      r += '<div style="font-size:14px;font-weight:600;color:'+bc(sa)+';margin-top:6px">Local \u0393 = '+sa.toFixed(2)+(sa<.35?' \u26a0\ufe0f SEVERED':sa<.5?' \u26a0 DEGRADED':'')+'</div></div>';
     }
 
     document.getElementById('sg-right').innerHTML = r;
