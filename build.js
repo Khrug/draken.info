@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * build.js — draken.info static site generator (v2 — with thesis + sheaf game)
+ * build.js — draken.info static site generator (v2.1 — with thesis + sheaf game + slask)
  */
 
 const fs = require('fs');
@@ -118,7 +118,7 @@ function buildActivityFeed() {
 // ── THESIS PAGE ──
 function buildThesisPage(baseTpl) {
   const tp = path.join(STATIC_DIR, 'pages', 'thesis.html');
-  let body = '<div class="article-wrap"><h1>Thesis — Loading...</h1><p>The monograph file (thesis.html) was not found in static/pages/. Place draken-thesis-v3 body content there.</p><a href="/" class="back-link">← Back</a></div>';
+  let body = '<div class="article-wrap"><h1>Thesis — Loading...</h1><p>The monograph file (thesis.html) was not found in static/pages/.</p><a href="/" class="back-link">← Back</a></div>';
   if (fs.existsSync(tp)) body = fs.readFileSync(tp, 'utf-8');
 
   const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
@@ -167,6 +167,282 @@ function buildSheafGamePage(baseTpl) {
   console.log('  ✓ sheaf-game/');
 }
 
+// ── SLASK PAGE (dynamic GitHub-powered file dump) ──
+function buildSlaskPage(baseTpl) {
+  // Also copy any existing static slask files
+  const slaskSrc = path.join(STATIC_DIR, 'slask');
+  const slaskDist = path.join(DIST_DIR, 'slask');
+  if (fs.existsSync(slaskSrc)) copyDirSync(slaskSrc, slaskDist);
+  else fs.mkdirSync(slaskDist, { recursive: true });
+
+  // The page is fully dynamic — lists files from GitHub API, uploads via GitHub API
+  const content = `
+<style>
+.sk{max-width:1200px;margin:0 auto;padding:20px 24px;font-family:Inter,'Helvetica Neue',sans-serif;color:#e6edf3}
+.sk h2{font-size:24px;font-weight:700;color:#fff;margin:8px 0 4px}
+.sk-sub{font-size:13px;color:#8b949e;margin-bottom:16px;line-height:1.5}
+.sk-toolbar{display:flex;gap:8px;margin-bottom:16px;align-items:center;flex-wrap:wrap}
+.sk-count{font-size:12px;color:#8b949e;margin-right:auto}
+.sk-btn{padding:6px 14px;border-radius:5px;border:1px solid #30363d;background:#161b22;color:#8b949e;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s}
+.sk-btn:hover{border-color:#484f58;color:#c9d1d9}
+.sk-btn.on{border-color:#e94560;background:#e9456018;color:#fff}
+.sk-btn.green{border-color:#2d8659;color:#2d8659}
+.sk-btn.green:hover{background:#2d865918;color:#3fb950}
+.sk-list{background:#161b22;border-radius:10px;overflow:hidden}
+.sk-row{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #21262d;transition:background .1s}
+.sk-row:last-child{border-bottom:none}
+.sk-row:hover{background:rgba(255,255,255,.03)}
+.sk-icon{font-size:16px;flex-shrink:0;width:24px;text-align:center}
+.sk-name{flex:1;color:#58a6ff;text-decoration:none;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sk-name:hover{text-decoration:underline}
+.sk-size{font-size:12px;color:#8b949e;width:70px;text-align:right;flex-shrink:0}
+.sk-copy{background:none;border:1px solid #30363d;border-radius:4px;padding:3px 8px;cursor:pointer;font-size:13px;color:#8b949e;transition:all .15s}
+.sk-copy:hover{border-color:#58a6ff;color:#58a6ff}
+.sk-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+.sk-thumb{background:#161b22;border-radius:8px;overflow:hidden;border:1px solid #21262d;text-decoration:none;transition:border-color .15s;display:block}
+.sk-thumb:hover{border-color:#e94560}
+.sk-thumb img{width:100%;height:150px;object-fit:cover;display:block}
+.sk-thumb-name{display:block;padding:8px 10px;font-size:12px;color:#8b949e;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sk-drop{border:2px dashed #30363d;border-radius:10px;padding:40px 20px;text-align:center;margin-bottom:16px;transition:all .2s;cursor:pointer}
+.sk-drop:hover,.sk-drop.over{border-color:#e94560;background:#e9456008}
+.sk-drop-text{font-size:14px;color:#8b949e}
+.sk-drop-text strong{color:#e94560}
+.sk-progress{margin-top:8px;font-size:12px;color:#2d8659;display:none}
+.sk-auth{background:#161b22;border-radius:10px;padding:20px;margin-bottom:16px}
+.sk-auth label{font-size:13px;color:#8b949e;display:block;margin-bottom:6px}
+.sk-auth input{background:#0d1117;border:1px solid #30363d;border-radius:5px;padding:8px 12px;color:#e6edf3;font-size:13px;font-family:monospace;width:100%;box-sizing:border-box}
+.sk-auth input:focus{outline:none;border-color:#e94560}
+.sk-auth-hint{font-size:11px;color:#484f58;margin-top:6px;line-height:1.4}
+.sk-toast{position:fixed;bottom:20px;right:20px;background:#2d8659;color:#fff;padding:10px 18px;border-radius:6px;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s;pointer-events:none;z-index:999}
+.sk-toast.show{opacity:1}
+.sk-toast.err{background:#e94560}
+.sk-empty{text-align:center;padding:40px;color:#8b949e;font-size:14px}
+.sk-loading{text-align:center;padding:30px;color:#8b949e;font-size:13px}
+.sk-deployed{display:inline-block;font-size:10px;padding:2px 6px;border-radius:3px;background:#2d865920;color:#2d8659;margin-left:6px}
+.sk-pending{display:inline-block;font-size:10px;padding:2px 6px;border-radius:3px;background:#f59e0b20;color:#f59e0b;margin-left:6px}
+#sk-gallery-view{display:none}
+</style>
+
+<div class="sk">
+  <h2>📁 Slask</h2>
+  <p class="sk-sub">Drag files here or click upload — they commit to GitHub and deploy automatically via Cloudflare Pages (~60s). Click 🔗 to copy the share link.</p>
+
+  <!-- Auth (shown only if no token) -->
+  <div class="sk-auth" id="sk-auth" style="display:none">
+    <label>GitHub Personal Access Token <span style="color:#484f58">(stored in your browser only)</span></label>
+    <input type="password" id="sk-token-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off">
+    <div class="sk-auth-hint">Create at <a href="https://github.com/settings/tokens/new?scopes=repo&description=draken-slask" target="_blank" style="color:#58a6ff">github.com/settings/tokens</a> with <code>repo</code> scope. Entered once, saved in this browser.</div>
+  </div>
+
+  <!-- Drop zone -->
+  <div class="sk-drop" id="sk-drop">
+    <div class="sk-drop-text">
+      <strong>Drop files here</strong> or click to browse<br>
+      <input type="file" id="sk-file-input" multiple style="display:none">
+    </div>
+    <div class="sk-progress" id="sk-progress"></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="sk-toolbar">
+    <span class="sk-count" id="sk-count">Loading...</span>
+    <button class="sk-btn on" id="sk-list-btn" onclick="skView('list')">📋 List</button>
+    <button class="sk-btn" id="sk-gal-btn" onclick="skView('gallery')">🖼️ Gallery</button>
+    <button class="sk-btn" onclick="skRefresh()">🔄 Refresh</button>
+  </div>
+
+  <!-- File list -->
+  <div id="sk-list-view">
+    <div class="sk-loading" id="sk-loading">Loading files from GitHub...</div>
+  </div>
+  <div id="sk-gallery-view"></div>
+</div>
+<div class="sk-toast" id="sk-toast"></div>
+
+<script>
+(function() {
+  var REPO = 'Khrug/draken.info';
+  var PATH = 'static/slask';
+  var API = 'https://api.github.com';
+  var SITE = 'https://draken.info/slask/';
+  var RAW = 'https://raw.githubusercontent.com/' + REPO + '/main/' + PATH + '/';
+  var IGNORE = {'.gitkeep':1,'README.txt':1,'README.md':1,'.DS_Store':1,'Thumbs.db':1,'index.html':1};
+  var IMG = {'.png':1,'.jpg':1,'.jpeg':1,'.gif':1,'.webp':1,'.svg':1,'.bmp':1};
+  var VID = {'.mp4':1,'.webm':1,'.mov':1};
+  var files = [];
+
+  function token() { return (localStorage.getItem('sk_token')||'').trim(); }
+  function setToken(t) { localStorage.setItem('sk_token', t.trim()); }
+
+  function ext(name) { var i=name.lastIndexOf('.'); return i>0?name.slice(i).toLowerCase():''; }
+  function icon(e) { return IMG[e]?'🖼️':VID[e]?'🎬':{'.pdf':1,'.doc':1,'.docx':1,'.pptx':1,'.xlsx':1}[e]?'📄':{'.html':1,'.htm':1,'.css':1,'.js':1,'.json':1,'.md':1,'.txt':1,'.yml':1}[e]?'📝':'📎'; }
+  function fmtSize(b) { return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
+
+  function toast(msg, err) {
+    var t=document.getElementById('sk-toast');
+    t.textContent=msg; t.className='sk-toast'+(err?' err':'')+' show';
+    setTimeout(function(){t.className='sk-toast';},2000);
+  }
+
+  function checkAuth() {
+    var t = token();
+    document.getElementById('sk-auth').style.display = t ? 'none' : 'block';
+    document.getElementById('sk-drop').style.display = t ? 'block' : 'none';
+  }
+
+  // Token input
+  document.getElementById('sk-token-input').addEventListener('change', function(e) {
+    var v = e.target.value.trim();
+    if (v) { setToken(v); checkAuth(); toast('Token saved'); skRefresh(); }
+  });
+
+  // List files from GitHub
+  function skRefresh() {
+    document.getElementById('sk-loading') && (document.getElementById('sk-list-view').innerHTML = '<div class="sk-loading">Loading files from GitHub...</div>');
+    var headers = {'Accept':'application/vnd.github.v3+json'};
+    var t = token(); if (t) headers['Authorization'] = 'Bearer ' + t;
+
+    fetch(API + '/repos/' + REPO + '/contents/' + PATH, {headers: headers})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if (!Array.isArray(data)) { document.getElementById('sk-list-view').innerHTML='<div class="sk-empty">Could not load files. Check token or repo access.</div>'; return; }
+      files = data.filter(function(f){ return f.type==='file' && !IGNORE[f.name]; }).sort(function(a,b){ return a.name.localeCompare(b.name); });
+      renderFiles();
+    })
+    .catch(function(e){ document.getElementById('sk-list-view').innerHTML='<div class="sk-empty">Error: '+e.message+'</div>'; });
+  }
+
+  function renderFiles() {
+    document.getElementById('sk-count').textContent = files.length + ' file' + (files.length!==1?'s':'');
+
+    // List view
+    if (!files.length) {
+      document.getElementById('sk-list-view').innerHTML = '<div class="sk-empty">No files yet. Drop something above!</div>';
+      document.getElementById('sk-gallery-view').innerHTML = '<div class="sk-empty">No images.</div>';
+      return;
+    }
+    var listHtml = '<div class="sk-list">';
+    for (var i=0; i<files.length; i++) {
+      var f = files[i], e = ext(f.name);
+      var liveUrl = SITE + f.name;
+      var rawUrl = RAW + f.name;
+      listHtml += '<div class="sk-row">';
+      listHtml += '<span class="sk-icon">' + icon(e) + '</span>';
+      listHtml += '<a href="' + rawUrl + '" target="_blank" class="sk-name" title="' + f.name + '">' + f.name + '</a>';
+      listHtml += '<span class="sk-size">' + fmtSize(f.size) + '</span>';
+      listHtml += '<button class="sk-copy" onclick="window._skCopy(\'' + liveUrl + '\')" title="Copy draken.info link">🔗</button>';
+      listHtml += '</div>';
+    }
+    listHtml += '</div>';
+    document.getElementById('sk-list-view').innerHTML = listHtml;
+
+    // Gallery view
+    var imgs = files.filter(function(f){ return IMG[ext(f.name)]; });
+    if (!imgs.length) { document.getElementById('sk-gallery-view').innerHTML = '<div class="sk-empty">No images.</div>'; return; }
+    var galHtml = '<div class="sk-gallery">';
+    for (var i=0; i<imgs.length; i++) {
+      var f = imgs[i], rawUrl = RAW + f.name;
+      galHtml += '<a href="' + rawUrl + '" target="_blank" class="sk-thumb" title="' + f.name + '">';
+      galHtml += '<img src="' + rawUrl + '" alt="' + f.name + '" loading="lazy">';
+      galHtml += '<span class="sk-thumb-name">' + f.name + '</span></a>';
+    }
+    galHtml += '</div>';
+    document.getElementById('sk-gallery-view').innerHTML = galHtml;
+  }
+
+  window._skCopy = function(url) {
+    navigator.clipboard.writeText(url).then(function(){ toast('Link copied!'); });
+  };
+
+  window.skView = function(mode) {
+    document.getElementById('sk-list-view').style.display = mode==='list'?'block':'none';
+    document.getElementById('sk-gallery-view').style.display = mode==='gallery'?'block':'none';
+    document.getElementById('sk-list-btn').className = 'sk-btn'+(mode==='list'?' on':'');
+    document.getElementById('sk-gal-btn').className = 'sk-btn'+(mode==='gallery'?' on':'');
+  };
+
+  window.skRefresh = skRefresh;
+
+  // Upload via GitHub API
+  function uploadFile(file) {
+    var t = token();
+    if (!t) { toast('Enter GitHub token first', true); return Promise.resolve(); }
+    var prog = document.getElementById('sk-progress');
+    prog.style.display = 'block';
+    prog.textContent = 'Uploading ' + file.name + '...';
+
+    return new Promise(function(resolve) {
+      var reader = new FileReader();
+      reader.onload = function() {
+        var base64 = reader.result.split(',')[1];
+        fetch(API + '/repos/' + REPO + '/contents/' + PATH + '/' + file.name, {
+          method: 'PUT',
+          headers: {
+            'Authorization': 'Bearer ' + t,
+            'Content-Type': 'application/json',
+            'Accept': 'application/vnd.github.v3+json'
+          },
+          body: JSON.stringify({
+            message: 'slask: add ' + file.name,
+            content: base64
+          })
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.content) {
+            toast(file.name + ' uploaded!');
+          } else {
+            toast('Error: ' + (data.message||'unknown'), true);
+          }
+          resolve();
+        })
+        .catch(function(e){ toast('Upload failed: ' + e.message, true); resolve(); });
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function uploadFiles(fileList) {
+    for (var i=0; i<fileList.length; i++) {
+      await uploadFile(fileList[i]);
+    }
+    document.getElementById('sk-progress').style.display = 'none';
+    skRefresh();
+  }
+
+  // Drop zone
+  var drop = document.getElementById('sk-drop');
+  var fileInput = document.getElementById('sk-file-input');
+
+  drop.addEventListener('click', function(){ fileInput.click(); });
+  fileInput.addEventListener('change', function(){ if (fileInput.files.length) uploadFiles(fileInput.files); });
+
+  drop.addEventListener('dragover', function(e){ e.preventDefault(); drop.classList.add('over'); });
+  drop.addEventListener('dragleave', function(){ drop.classList.remove('over'); });
+  drop.addEventListener('drop', function(e){
+    e.preventDefault(); drop.classList.remove('over');
+    if (e.dataTransfer.files.length) uploadFiles(e.dataTransfer.files);
+  });
+
+  // Init
+  checkAuth();
+  skRefresh();
+})();
+</script>`;
+
+  const html = render(baseTpl, {
+    title: 'Slask — Draken File Dump',
+    description: 'Quick-share file repository for the Draken 2045 Initiative.',
+    content, og_type: 'website', og_url: 'https://draken.info/slask/',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  });
+
+  fs.writeFileSync(path.join(slaskDist, 'index.html'), html);
+  var fileCount = 0;
+  try { fileCount = fs.readdirSync(slaskSrc).filter(f => !f.startsWith('.') && f !== 'README.txt').length; } catch(e) {}
+  console.log('  ✓ slask/ (dynamic, ' + fileCount + ' static files)');
+}
+
 // ── Sitemap ──
 function genSitemap(posts) {
   const b = 'https://draken.info';
@@ -194,7 +470,7 @@ function copyDirSync(src, dest) {
 // ═══ MAIN BUILD ═══
 function build() {
   console.log('╔══════════════════════════════════════╗');
-  console.log('║  draken.info v2 — building...        ║');
+  console.log('║  draken.info v2.1 — building...      ║');
   console.log('╚══════════════════════════════════════╝');
 
   cleanDist();
@@ -253,9 +529,10 @@ function build() {
     console.log(`  ✓ posts/${p.slug}/`);
   }
 
-  // ── Thesis + Sheaf Game (INSIDE build, AFTER cleanDist) ──
+  // ── Thesis + Sheaf Game + Slask ──
   buildThesisPage(baseTpl);
   buildSheafGamePage(baseTpl);
+  buildSlaskPage(baseTpl);
 
   // ── Static assets ──
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
