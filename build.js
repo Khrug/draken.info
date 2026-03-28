@@ -123,11 +123,11 @@ function buildThesisPage(baseTpl) {
 
   const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
 <article><header class="article-header"><span class="pub-tag tag-theory">monograph</span>
-<h1>The Draken 2045 Framework — Research Monograph v3</h1>
+<h1>The Draken 2045 Framework — Research Monograph v4.4</h1>
 <div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, Göteborg</span><span>All 18 Layers</span></div></header>
 <div class="article-body thesis-body">${body}</div></article>
 <div class="reader-feedback"><h3 class="feedback-title">◉ Peer Review Feedback</h3>
-<p class="feedback-desc">Reviewed by DeepSeek, Perplexity, Kimi, and Grok. Human peer review is next.</p>
+<p class="feedback-desc">Reviewed by Claude, ChatGPT, Kimi, Grok, DeepSeek, and Gemini. See monograph for details.</p>
 <form class="feedback-form" action="https://formsubmit.co/khrrug@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="[THESIS] Peer Review"><input type="hidden" name="_captcha" value="true"><input type="hidden" name="_next" value="https://draken.info/thesis/?feedback=sent"><input type="text" name="_honey" style="display:none">
 <div class="form-row form-row-half"><input type="text" name="name" placeholder="Name" class="form-input"><input type="email" name="email" placeholder="Email" class="form-input"></div>

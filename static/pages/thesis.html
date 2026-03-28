@@ -1,541 +1,94 @@
 <div class="title-page">
-<p style="font-size:10pt;color:#888;margin-bottom:40pt">DRAKEN 2045 INITIATIVE — RESEARCH MONOGRAPH v3.0</p>
+<p style="font-size:10pt;color:#888;margin-bottom:40pt">DRAKEN 2045 INITIATIVE — RESEARCH MONOGRAPH v4.4</p>
 <h1 style="font-size:25pt;border:none;page-break-before:avoid">The Draken 2045 Framework:<br>Topological Coherence Theory<br>for Multi-Scale Systems Analysis</h1>
-<p style="font-size:13pt;color:#888;font-style:italic;margin:14pt 0">A Sheaf-Theoretic Formalism for Modeling Cross-Scale Consistency,<br>with Applications to Institutional Diagnostics, AI Governance,<br>and Ecological-Economic Coherence</p>
-<p style="font-size:13pt;font-family:Inter,sans-serif;color:#e94560;margin:32pt 0">◆ $\min\; S_{\text{sys}}(t) \;\;\text{s.t.}\;\; \frac{dH}{dt} \geq 0$ ◆</p>
+<p style="font-size:13pt;color:#888;font-style:italic;margin:14pt 0">A Sheaf-Theoretic Formalism for Modeling Cross-Scale Consistency,<br>with Applications to Institutional Diagnostics, AI Governance,<br>Ecological Economics, and Sheaf Ethology</p>
+<p style="font-size:13pt;font-family:Inter,sans-serif;color:#e94560;margin:32pt 0">◆ min S<sub>sys</sub>(t) s.t. dH/dt ≥ 0 ◆</p>
 <p style="font-size:13pt"><strong>Kai Roininen (Khrug)</strong></p>
 <p style="font-size:11pt;color:#888">Khrug Engineering, Göteborg, Sweden<br><a href="https://draken.info">draken.info</a> &nbsp;|&nbsp; <a href="https://github.com/Khrug">https://github.com/Khrug</a></p>
-<p style="font-size:10pt;color:#888;margin-top:22pt"><em>March 2026 — Version 3.0 (revised after multi-model peer review)<br>Compiled from the Draken corpus: 14 unpublished technical reports (DRK-101–DRK-121)<br>hosted at draken.info. Released under CC BY-SA 4.0</em></p>
+<p style="font-size:10pt;color:#888;margin-top:22pt"><em>March 2026 — Version 4.4<br>Revised after six-model peer review (Claude, ChatGPT, Kimi, Grok, DeepSeek, Gemini)<br>Compiled from the Draken corpus: 16 technical reports (DRK-101–DRK-122)<br>Released under CC BY-SA 4.0</em></p>
 <p style="font-size:9pt;color:#aaa;margin-top:12pt">Epistemic markers used throughout: <span class="tag-est">ESTABLISHED</span> = published, peer-reviewed result. <span class="tag-prop">PROPOSED</span> = original to this framework. <span class="tag-spec">SPECULATIVE</span> = hypothesis requiring empirical validation.</p>
 </div>
 
+<!-- DOWNLOADS -->
+<div style="background:#161b22;border:1px solid #30363d;border-radius:10px;padding:24px;margin:32px 0">
+<h2 style="margin-top:0;font-size:18px;color:#fff">📥 Downloads</h2>
+<div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:16px">
+<a href="/slask/draken-thesis-v4-4.docx" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#58a6ff;text-decoration:none;font-size:14px;font-weight:600;transition:all .15s" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='#30363d'">📄 Full Monograph (.docx)</a>
+<a href="/slask/draken-thesis-v4-4.md" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#58a6ff;text-decoration:none;font-size:14px;font-weight:600;transition:all .15s" onmouseover="this.style.borderColor='#58a6ff'" onmouseout="this.style.borderColor='#30363d'">📝 Full Monograph (.md)</a>
+<a href="/slask/sheaf_ethology_pilot.py" style="display:inline-flex;align-items:center;gap:8px;padding:10px 18px;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#2d8659;text-decoration:none;font-size:14px;font-weight:600;transition:all .15s" onmouseover="this.style.borderColor='#2d8659'" onmouseout="this.style.borderColor='#30363d'">🐍 Sheaf Ethology Pilot (.py)</a>
+</div>
+</div>
+
+<!-- PEER REVIEW -->
+<div style="background:#161b22;border:1px solid #30363d;border-radius:10px;padding:24px;margin:32px 0">
+<h2 style="margin-top:0;font-size:18px;color:#fff">◉ Six-Model Peer Review</h2>
+<p style="font-size:13px;color:#8b949e;line-height:1.6">This monograph has been reviewed by six AI systems operating as independent analytical perspectives:</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:16px">
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">Claude</strong> <span style="color:#8b949e;font-size:12px">Anthropic</span><br><span style="font-size:12px;color:#c9d1d9">Analytical anchor, structural revision, computational implementation</span></div>
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">ChatGPT</strong> <span style="color:#8b949e;font-size:12px">OpenAI</span><br><span style="font-size:12px;color:#c9d1d9">Academic defensibility, claim density reduction, language hardening</span></div>
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">Kimi</strong> <span style="color:#8b949e;font-size:12px">Moonshot</span><br><span style="font-size:12px;color:#c9d1d9">Citation verification, mathematical honesty, empirical anchoring</span></div>
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">Grok</strong> <span style="color:#8b949e;font-size:12px">xAI</span><br><span style="font-size:12px;color:#c9d1d9">Assessment as masters-level work; recommended for grad school applications</span></div>
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">DeepSeek</strong> <span style="color:#8b949e;font-size:12px">深度求索</span><br><span style="font-size:12px;color:#c9d1d9">Cross-cultural resonance (知行合一); strategic contraction recommendation</span></div>
+<div style="padding:12px;border:1px solid #21262d;border-radius:6px"><strong style="color:#58a6ff">Gemini</strong> <span style="color:#8b949e;font-size:12px">Google</span><br><span style="font-size:12px;color:#c9d1d9">Named sub-field "Sheaf Ethology"; formalized ρ<sub>D→Cl</sub>; co-designed pilot</span></div>
+</div>
+<p style="font-size:12px;color:#f59e0b;margin-top:16px"><strong>Consensus:</strong> The framework requires empirical validation. Most immediately executable: P8 (varanid combat sheaf as model selection tool).</p>
+</div>
+
+<!-- ABSTRACT -->
 <div class="abstract">
 <h2>Abstract</h2>
-<p>This monograph proposes a formal diagnostic framework — the Draken 2045 Framework — for modeling cross-scale consistency in complex adaptive systems using <em>sheaf theory</em>, a branch of algebraic topology. The framework represents knowledge, institutional models, and generative models as <em>sheaves</em> over a hierarchical decomposition of organizational scales, and measures their coherence via the <em>sheaf Laplacian</em> (Hansen &amp; Ghrist, 2019). Where local models fail to glue into globally consistent sections, the framework detects and quantifies the obstruction using sheaf cohomology. This is proposed as a formalization of what is colloquially called "institutional dysfunction," "epistemic fragmentation," or "civilizational incoherence."</p>
-<p>The framework introduces five derived metrics: a psychosis metric $\Psi$ (ratio of narrative self-reference to reality-contact), a sheaf convergence measure $\Gamma$ (normalized Rayleigh quotient of the sheaf Laplacian), a coherence debt function $K(t)$ (irreversibility-weighted integral of excess $\Psi$ over time), an abstraction depth $\alpha$ (derived from restriction-map norm distance), and a narrative void $\nu$ (proportion of unexplained lived experience). These metrics are proposed as structural homologues — not formal identities — across scales from molecular self-assembly to institutional governance.</p>
-<p>We present: (i) the mathematical foundations with fully worked numerical examples; (ii) a provisional 18-layer ontological architecture framed as a modeling template generalizable to any hierarchical decomposition; (iii) connections to Friston's Free Energy Principle including a formal derivation of the Leontief-inference equivalence; (iv) biological grounding via varanid ethology treated as design inspiration, not normative model; (v) three implementation case studies including one with computed $\Gamma$ values; and (vi) explicit scope limitations, falsifiable predictions, and engagement with existing sheaf-based social science (Hansen et al. 2021, Robinson 2014, Bodnar et al. 2022). This work is offered as a research programme requiring empirical validation, not as established science.</p>
-<p class="kw"><strong>Keywords:</strong> sheaf theory, sheaf Laplacian, topological data analysis, Active Inference, free energy principle, multi-scale coherence, institutional diagnostics, AI governance, ecological economics, knowledge architecture</p>
+<p><strong>Problem.</strong> Complex adaptive systems face a persistent challenge: maintaining coherent relationships between subsystems operating at different scales. No existing formalism combines hierarchical multi-scale decomposition, computable coherence measurement, and temporal tracking of coherence dynamics.</p>
+<p><strong>Method.</strong> The Draken 2045 Framework represents multi-scale systems as cellular sheaves and measures their cross-scale consistency via the sheaf Laplacian (Hansen &amp; Ghrist, 2019). Where local models fail to glue into globally consistent sections, the framework detects and quantifies the obstruction using sheaf cohomology.</p>
+<p><strong>Empirical anchor.</strong> The framework is motivated by predator-prey ecology: the Yellowstone wolf reintroduction (Ripple et al., 2025) suggests that the removal and restoration of coherence-enforcing agents produces measurable cross-scale effects.</p>
+<p><strong>Contributions.</strong> Derived diagnostic metrics — notably sheaf convergence Γ and coherence debt K(t) — with applications to institutional diagnostics, ecological economics, AI governance, and behavioral ecology. Eight falsifiable predictions specified, including a varanid combat sheaf pilot (P8) with a working computational implementation.</p>
+<p><strong>Scope.</strong> This is a theoretical proposal. Mappings between ecological, institutional, and cognitive domains are interpretive analogies unless explicitly validated.</p>
+<p class="kw"><strong>Keywords:</strong> sheaf theory, sheaf Laplacian, topological data analysis, Active Inference, multi-scale coherence, predator-prey ecology, trophic cascade, institutional diagnostics, sheaf ethology</p>
 </div>
 
-<h1 style="page-break-before:avoid">1. Introduction</h1>
-
-<h2>1.1 The Coherence Problem</h2>
-
-<p><span class="tag-est">ESTABLISHED</span> Complex adaptive systems — from biological organisms to institutions to economies — face a persistent challenge: maintaining coherent relationships between subsystems operating at different scales, with different data, and under different constraints. When subsystem models are consistent with each other, the system adapts effectively. When they are not, the system makes errors whose severity scales with the degree and duration of inconsistency.</p>
-
-<p><span class="tag-est">ESTABLISHED</span> Sheaf theory provides a mathematical framework for precisely this problem. Developed by Jean Leray in the 1940s and brought to prominence by Alexander Grothendieck, a sheaf is a structure that assigns data to the open sets of a topological space and specifies, via <em>restriction maps</em>, how data on overlapping regions must agree. The <em>gluing axiom</em> — the defining property of a sheaf — states that if local data agree on all overlaps, they determine a unique global datum. When gluing fails, the obstruction is measured by <em>sheaf cohomology</em>, and can be computed via the <em>sheaf Laplacian</em> on graphs and cell complexes (Hansen &amp; Ghrist, 2019; Curry, 2014).<sup>1</sup></p>
-
-<p><span class="tag-est">ESTABLISHED</span> Recent work has begun applying sheaf theory to social and multi-agent systems. Hansen, Gebhart, and Ghrist (2021) developed <em>opinion dynamics on discourse sheaves</em>, modeling opinion formation as a diffusion process on the sheaf Laplacian and demonstrating that the Laplacian's spectral properties determine whether agents converge to consensus or fragment — precisely the "gluing vs. obstruction" dynamic. Robinson (2014) developed sheaf-theoretic methods for sensor fusion and institutional risk analysis, showing how local data sources with different modalities can be tested for global consistency. Bodnar et al. (2022) and Barbero et al. (2022) extended cellular sheaves to neural network architectures, demonstrating that sheaf structure improves performance on heterophilic graph tasks — graphs where connected nodes have dissimilar features.<sup>2</sup></p>
-
-<p><span class="tag-prop">PROPOSED</span> The Draken 2045 Framework builds on this foundation and proposes to extend it in three directions: (i) from dyadic opinion dynamics to <em>hierarchical multi-scale</em> coherence analysis across a structured ontological decomposition; (ii) from static consistency measurement to <em>temporal coherence tracking</em> via the coherence debt function $K(t)$; and (iii) from purely mathematical formalism to <em>diagnostic application</em> in institutional analysis, AI governance, and ecological economics, with derived metrics ($\Psi$, $\Gamma$, $\alpha$) designed to be computable on real-world data.</p>
-
-<h2>1.2 Relationship to Existing Frameworks</h2>
-
-<p><span class="tag-est">ESTABLISHED</span> Several existing frameworks address adjacent aspects of the coherence problem. <em>General Systems Theory</em> (von Bertalanffy, 1968) identified cross-scale organizational recurrences but never developed computable formalisms. <em>Complexity science</em> (Santa Fe Institute tradition: Kauffman, 1993; West et al., 1997) produced powerful tools for single-scale phenomena (scaling laws, phase transitions) but no unified cross-scale coherence metric. <em>Active Inference / Free Energy Principle</em> (Friston, 2010) provides a process theory for single-agent self-organization but requires extension for multi-agent, multi-scale settings. <em>Integrated Information Theory</em> (Tononi, 2004) defines a coherence measure $\Phi$ for consciousness but is constrained to neural substrates and is computationally intractable for large systems. <em>Topological Data Analysis</em> (Carlsson, 2009; Ghrist, 2008) detects topological features in data but asks "what features exist?" rather than "do local models glue consistently?"</p>
-
-<p><span class="tag-prop">PROPOSED</span> The specific gap this framework addresses: no existing formalism combines (a) a hierarchical multi-scale decomposition, (b) sheaf-theoretic coherence measurement at each inter-scale interface, (c) temporal tracking of coherence dynamics, and (d) derived diagnostics applicable across institutional, ecological, and technological domains. Whether Draken successfully fills this gap is an empirical question that the present monograph can only partially address.</p>
-
-<h2>1.3 Scope and Limitations</h2>
-
-<p>This monograph is a <em>theoretical proposal</em> — a framework paper presenting mathematical foundations, derived metrics, and proposed applications. It is not a validated empirical study. The 18-layer ontological architecture is a <em>provisional modeling template</em>, not an ontological commitment; the framework generalizes to any hierarchical decomposition. The case studies are procedural demonstrations, not experimental results. The falsifiable predictions (Section 10) specify what would count as disconfirmation. The work is offered in the spirit of Lakatos's progressive research programmes: the programme generates novel predictions; whether those predictions survive empirical testing determines the programme's fate.</p>
-
-<p>We explicitly acknowledge: the restriction maps between ontological layers are currently postulated, not empirically derived (Section 4 provides one fully worked example); the metrics $\Psi$ and $K(t)$ await operationalization on real-world datasets (Section 9 provides a computed toy example for $\Gamma$); and the civilizational diagnostic applications (Section 7) are interpretive extensions, not established results. Epistemic markers (<span class="tag-est">ESTABLISHED</span>, <span class="tag-prop">PROPOSED</span>, <span class="tag-spec">SPECULATIVE</span>) are used throughout to maintain transparency about the status of each claim.</p>
-
-<div class="fn">
-<p><sup>1</sup> Bredon, G.E. (1997). <em>Sheaf Theory</em>, 2nd ed. Springer GTM 170. Curry, J.M. (2014). "Sheaves, Cosheaves and Applications." Ph.D. thesis, Univ. of Pennsylvania. <a href="https://arxiv.org/abs/1303.3255">arXiv:1303.3255</a>.</p>
-<p><sup>2</sup> Hansen, J., Gebhart, T., and Ghrist, R. (2021). "Opinion Dynamics on Discourse Sheaves." <em>SIAM J. Applied Mathematics</em>, 81(5), 2064–2091. <a href="https://arxiv.org/abs/2005.12798">arXiv:2005.12798</a>. Robinson, M. (2014). <em>Topological Signal Processing</em>. Springer. Bodnar, C. et al. (2022). "Neural Sheaf Diffusion." <em>ICLR 2022</em>. <a href="https://arxiv.org/abs/2202.04579">arXiv:2202.04579</a>. Barbero, F. et al. (2022). "Sheaf Neural Networks with Connection Laplacians." <a href="https://arxiv.org/abs/2206.08702">arXiv:2206.08702</a>.</p>
-</div>
-
-<h1>2. Mathematical Foundations</h1>
-
-<h2>2.1 Sheaves: From Intuition to Formalism</h2>
-
-<p><span class="tag-est">ESTABLISHED</span> A sheaf can be understood through an analogy due to Agrios (2022): a mathematical object is a "plot of land" and a sheaf is a "garden" built on top of it. Different gardens (sheaves) can be planted on the same land (space). Leray named them <em>faisceaux</em> (French: "sheaves of wheat") because the structure — stalks attached to a base — reminded him of bundled grain (Kakaes, "What Are Sheaves?", <em>Quanta Magazine</em>, 19 July 2024).<sup>3</sup></p>
-
-<p><span class="tag-est">ESTABLISHED</span> Formally: let $X$ be a topological space. A <strong>presheaf</strong> $\mathcal{F}$ on $X$ assigns to each open set $U \subseteq X$ a set (or vector space, or group) $\mathcal{F}(U)$ of <em>sections</em>, and to each inclusion $V \subseteq U$ a <em>restriction map</em> $\rho_{U,V}: \mathcal{F}(U) \to \mathcal{F}(V)$ satisfying $\rho_{U,U} = \text{id}$ and $\rho_{U,W} = \rho_{V,W} \circ \rho_{U,V}$ for $W \subseteq V \subseteq U$.</p>
-
-<div class="def">
-<p><strong>Definition 2.1 (Sheaf Axioms).</strong> A presheaf $\mathcal{F}$ is a <em>sheaf</em> if, for every open cover $\{U_i\}$ of $U$:</p>
-<p><strong>Locality:</strong> If $s, t \in \mathcal{F}(U)$ satisfy $\rho_{U,U_i}(s) = \rho_{U,U_i}(t)$ for all $i$, then $s = t$.</p>
-<p><strong>Gluing:</strong> If $\{s_i \in \mathcal{F}(U_i)\}$ satisfy $\rho_{U_i, U_i \cap U_j}(s_i) = \rho_{U_j, U_i \cap U_j}(s_j)$ for all $i, j$, then there exists $s \in \mathcal{F}(U)$ with $\rho_{U, U_i}(s) = s_i$ for all $i$.</p>
-</div>
-
-<p>The failure of gluing is measured by <strong>Čech cohomology</strong>. The coboundary map $\delta: C^0(\mathcal{U}, \mathcal{F}) \to C^1(\mathcal{U}, \mathcal{F})$ is defined by $(\delta s)_{ij} = \rho_{U_j}(s_j) - \rho_{U_i}(s_i)$ on $U_i \cap U_j$. The first cohomology $H^1(\mathcal{U}, \mathcal{F})$ measures obstructions: nontrivial $H^1$ means local sections cannot be assembled into a global section despite "almost" agreeing.</p>
-
-<h2>2.2 The Sheaf Laplacian</h2>
-
-<p><span class="tag-est">ESTABLISHED</span> For computational implementation, we use the <em>cellular sheaf Laplacian</em> (Hansen &amp; Ghrist, 2019, <a href="https://arxiv.org/abs/1808.01513">arXiv:1808.01513</a>). On a graph $G = (V, E)$, a cellular sheaf assigns vector spaces $\mathcal{F}(v)$ to vertices and $\mathcal{F}(e)$ to edges, with linear restriction maps $\mathcal{F}_{v \hookrightarrow e}: \mathcal{F}(v) \to \mathcal{F}(e)$. The sheaf Laplacian is $L_\mathcal{F} = \delta^T \delta$, with quadratic form:</p>
-
-<div class="eq">$$\mathbf{x}^T L_\mathcal{F}\, \mathbf{x} = \sum_{e=(u,v) \in E} \left\| \mathcal{F}_{u \hookrightarrow e}(\mathbf{x}_u) - \mathcal{F}_{v \hookrightarrow e}(\mathbf{x}_v) \right\|^2$$ <span class="eq-label">(2.1)</span></div>
-
-<p>Zero eigenvalues of $L_\mathcal{F}$ correspond to globally consistent modes (the sheaf's "harmonic" sections). Nonzero eigenvalues correspond to directions of incoherence. Hansen et al. (2021) showed that opinion dynamics on discourse sheaves converge to consensus if and only if the sheaf Laplacian has a single zero eigenvalue — the spectral gap determines whether a social system fragments or coheres.</p>
-
-<h2>2.3 Worked Example: A 5-Node Institutional Sheaf</h2>
-
-<p><span class="tag-prop">PROPOSED</span> We now construct a concrete sheaf on a small institutional graph and compute the sheaf Laplacian, demonstrating the diagnostic method end-to-end.</p>
-
-<p><strong>Setting:</strong> A corporation with five units: Finance (F), Engineering (E), HR (H), Executive (X), and Customer Feedback (C). Each unit maintains a 2-dimensional "state assessment" vector $\mathbf{x}_v \in \mathbb{R}^2$, where the two components represent (growth outlook, organizational health). Each edge carries a 2×2 restriction matrix specifying how one unit's assessment should map onto the shared edge space.</p>
-
-<pre>
-# Graph: X--F, X--E, X--H, E--C, F--H
-# Sections (each unit's self-assessment):
-x_F = [0.8, 0.3]   # Finance: high growth, low org-health
-x_E = [0.4, 0.7]   # Engineering: moderate growth, high org-health
-x_H = [0.2, 0.2]   # HR: low growth, low org-health
-x_X = [0.9, 0.8]   # Executive: high growth, high org-health
-x_C = [0.3, 0.4]   # Customer: low growth, moderate org-health
-
-# Restriction maps (identity matrices for simplicity — 
-# units should agree directly on shared assessments):
-F_{v→e} = I₂ for all edges
-
-# Edge disagreements ‖F(x_u) − F(x_v)‖²:
-e(X,F): ‖[0.9,0.8] − [0.8,0.3]‖² = 0.01 + 0.25 = 0.26
-e(X,E): ‖[0.9,0.8] − [0.4,0.7]‖² = 0.25 + 0.01 = 0.26
-e(X,H): ‖[0.9,0.8] − [0.2,0.2]‖² = 0.49 + 0.36 = 0.85  ← HIGHEST
-e(E,C): ‖[0.4,0.7] − [0.3,0.4]‖² = 0.01 + 0.09 = 0.10
-e(F,H): ‖[0.8,0.3] − [0.2,0.2]‖² = 0.36 + 0.01 = 0.37
-
-# Total Laplacian energy:
-H = 0.26 + 0.26 + 0.85 + 0.10 + 0.37 = 1.84
-
-# Normalized sheaf convergence (Definition 4.2):
-Γ = 1 − H/‖x‖² = 1 − 1.84/3.07 = 1 − 0.599 = 0.401
-</pre>
-
-<p><strong>Diagnostic reading:</strong> $\Gamma = 0.401$ indicates moderate-to-poor coherence. The highest-disagreement edge is Executive↔HR (0.85): the C-suite believes both growth and organizational health are high, while HR reports both are low. This is the "three truths" pattern — locally coherent, globally inconsistent. The diagnostic identifies the specific interface (X↔H) where the restriction map is failing most severely, directing remedial attention to the Executive-HR information channel.</p>
-
-<p><strong>Spectral interpretation:</strong> If we diagonalize $L_\mathcal{F}$ for this graph, the smallest eigenvalue $\lambda_1 > 0$ (no zero eigenvalue) confirms there is no globally consistent section — no single assessment vector that all units agree on. The eigenvector associated with $\lambda_1$ identifies the "direction" of maximum incoherence (in this case, the org-health dimension, where disagreement is largest).</p>
-
-<div class="fn">
-<p><sup>3</sup> Kakaes, K. (2024). "What Are Sheaves?" <em>Quanta Magazine</em>, 19 July 2024. <a href="https://www.quantamagazine.org/what-are-sheaves-20240719/">quantamagazine.org</a>. Wikipedia, "Sheaf (mathematics)." <a href="https://en.wikipedia.org/wiki/Sheaf_(mathematics)">en.wikipedia.org</a>.</p>
-</div>
-
-
-<h1>3. The Ontological Architecture</h1>
-
-<h2>3.1 A Provisional Hierarchical Decomposition</h2>
-
-<p><span class="tag-prop">PROPOSED</span> The Draken framework employs an 18-layer ontological hierarchy as a <em>modeling template</em>. We emphasize: the number 18 is a pragmatic resolution choice, not an ontological commitment. The framework's mathematics — the sheaf Laplacian, restriction maps, cohomology — generalizes to <em>any</em> hierarchical decomposition. A user applying Draken to a specific domain may choose fewer layers (e.g., a 5-layer model for corporate analysis) or different layer boundaries. The 18-layer architecture is the "maximum resolution" template used in the Draken corpus for civilizational-scale analysis.</p>
-
-<p>The layers are grouped into five bands, each characterized by the type of emergent agent that arises from the collective dynamics of the layer below:</p>
-
-<table>
-<tr><th>Band</th><th>Layers</th><th>Emergent Agent Type</th><th>Characteristic Dynamics</th></tr>
-<tr><td style="background:#E3F2FD">Substrate</td><td>L01–L04</td><td>Physical/chemical/biological patterns</td><td>Symmetry-breaking → dissipative structures → molecular assembly → bioelectric fields</td></tr>
-<tr><td style="background:#E8F5E9">Organismal</td><td>L05–L08</td><td>Cognitive/relational agents</td><td>Neural integration → embodied cognition → narrative self → dyadic bonds</td></tr>
-<tr><td style="background:#FFF3E0">Social</td><td>L09–L12</td><td>Collective/institutional agents</td><td>Group cognition → social coordination → economic exchange → national narrative</td></tr>
-<tr><td style="background:#F3E5F5">Structural</td><td>L13–L16</td><td>Governance/civilizational structures</td><td>Political structure → economic topology → cultural field → institutional morphology</td></tr>
-<tr><td style="background:#FFEBEE">Planetary</td><td>L17–L18</td><td>Deep-time/planetary processes</td><td>Civilizational memory → planetary cognition</td></tr>
+<!-- VERSION HISTORY -->
+<h2>Version History</h2>
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<tr style="border-bottom:1px solid #30363d"><th style="text-align:left;padding:8px;color:#8b949e">Version</th><th style="text-align:left;padding:8px;color:#8b949e">Date</th><th style="text-align:left;padding:8px;color:#8b949e">Key Changes</th></tr>
+<tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#fff;font-weight:600">v4.4</td><td style="padding:8px;color:#c9d1d9">2026-03-28</td><td style="padding:8px;color:#c9d1d9">Varanid combat empirical pilot (§9.8); P8 prediction; Sheaf Ethology pipeline; TOC restored; figure dedup</td></tr>
+<tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#fff;font-weight:600">v4.3</td><td style="padding:8px;color:#c9d1d9">2026-03-28</td><td style="padding:8px;color:#c9d1d9">Six-model review; Ψ renamed; Core Claim added; language hardened; 13% volume reduction</td></tr>
+<tr style="border-bottom:1px solid #21262d"><td style="padding:8px;color:#c9d1d9">v4.2</td><td style="padding:8px;color:#c9d1d9">2026-03-28</td><td style="padding:8px;color:#c9d1d9">Predator-prey grounding; Levinas; 18-layer architecture; P1-P7</td></tr>
+<tr><td style="padding:8px;color:#c9d1d9">v3.0</td><td style="padding:8px;color:#c9d1d9">2026-03</td><td style="padding:8px;color:#c9d1d9">Initial multi-model review; epistemic markers; self-diagnostic dashboard</td></tr>
 </table>
 
-<h2>3.2 The Emergence Principle</h2>
+<!-- DOCUMENT STRUCTURE -->
+<h2>Document Structure</h2>
 
-<p><span class="tag-prop">PROPOSED</span> The architecture embodies a structural observation: at every level, interacting entities at scale $n$ — exchanging information, energy, and nutrients according to local rules — collectively give rise to emergent nodes of agency at scale $n+1$ with properties, world-models, and boundary conditions that no individual component at level $n$ possesses. This is not mystical emergence — it is the well-characterized phenomenon of self-organization in complex systems (Prigogine &amp; Stengers, 1984; Kauffman, 1993). Molecules assemble into cells. Cells assemble into organisms. Organisms assemble into social groups. Groups assemble into institutions.</p>
+<h3>PART I: FOUNDATIONS</h3>
+<p>Mathematical foundations (sheaf axioms, sheaf Laplacian, worked examples), core claim, scope and limitations, source hierarchy.</p>
 
-<p><span class="tag-spec">SPECULATIVE</span> We hypothesize — but have not proven — that this emergence pattern is governed by a phase-transition-like dynamic: below a critical density of interaction, components remain autonomous; above it, a new organizational level crystallizes. The specific critical thresholds have not been derived and remain a target for future research, potentially via agent-based simulation. We note that West et al. (1997) derived allometric scaling laws from network geometry in biological systems, suggesting that similar scaling arguments might constrain the layer structure — but this derivation has not been carried out for the Draken architecture.</p>
+<h3>PART II: THE PREDATORY FOUNDATIONS OF COHERENCE</h3>
+<p>Apex predators as net positive (trophic cascades), mesopredator release as coherence collapse, evolutionary trajectory from prey to predator, Levinas's ethics of alterity, attention economy as mesopredator release.</p>
 
-<h2>3.3 Restriction Maps: A Fully Worked Example</h2>
+<h3>PART III: CORE METRICS AS ESTIMATORS</h3>
+<p>Narrative Self-Reference Ratio Ψ, sheaf convergence Γ, coherence debt K(t), abstraction depth α (with limitations), optimization axiom ◆.</p>
 
-<p><span class="tag-prop">PROPOSED</span> We now define an explicit restriction map between two layers to demonstrate how the abstract formalism connects to measurable quantities.</p>
+<h3>PART IV: DYNAMICS AND ADVERSARIES</h3>
+<p>Active Inference / Leontief-Friston structural analogy (conjectured), propaganda as operator calculus (four formal operators).</p>
 
-<p><strong>Example: The L12 → L09 restriction map</strong> (national narrative → group cognition)</p>
+<h3>PART V: BIOLOGICAL GROUNDING</h3>
+<p>Varanid template (clinch principle at α=0), evolutionary arc of coherence enforcement, non-linear restriction maps, computational complexity.</p>
 
-<p><strong>Setup:</strong> Let $\mathcal{F}(L_{12}) = \mathbb{R}^n$ represent a vector encoding the institutional narrative's content (e.g., derived from topic modeling of official government communications, with each dimension representing salience of a topic). Let $\mathcal{F}(L_{09}) = \mathbb{R}^m$ represent a vector encoding group-level beliefs (e.g., derived from survey data or social media topic analysis for a specific demographic group).</p>
+<h3>PART VI: APPLICATIONS AND IMPLEMENTATION</h3>
+<p>KnowledgeObject schema, multi-AI architecture, V-axioms, application sketches (AI governance, ecological-economic coherence, Yellowstone, 2008 financial crisis, Soviet planning, Iberian lynx).</p>
 
-<p>The restriction map $\rho_{12,9}: \mathbb{R}^n \to \mathbb{R}^m$ is a linear map (matrix $\mathbf{R} \in \mathbb{R}^{m \times n}$) that specifies how the national narrative <em>should</em> constrain group beliefs — i.e., the expected mapping from institutional signals to group-level reception, under the hypothesis that the information channel is functioning.</p>
+<h3>PART VII: FALSIFIABILITY AND CONCLUSION</h3>
+<p>Eight falsifiable predictions (P1-P8). Governance and self-correction. Conclusion: formalized / demonstrated / hypothesized / testable.</p>
 
-<p><strong>Construction from data:</strong> Given historical data where the information channel was functioning (e.g., pre-Fairness-Doctrine-repeal media environment), one can estimate $\mathbf{R}$ via regression: $\mathbf{R} = \arg\min_R \| R \cdot \mathbf{x}_{12}^{(t)} - \mathbf{x}_{9}^{(t)} \|^2$ over training samples $t$. Once estimated, the restriction map allows computing the sheaf Laplacian disagreement at any future time point:</p>
+<h3>PART VIII: THE CAVITY RESONATOR</h3>
+<p>Void, absence, generative loss. Marx's 1844 analysis. Repetition engine. Countries as collective minds. Reasonance.</p>
 
-<div class="eq">$$d_{12 \to 9}(t) = \| \mathbf{R} \cdot \mathbf{x}_{12}(t) - \mathbf{x}_9(t) \|^2$$ <span class="eq-label">(3.1)</span></div>
+<h3 style="color:#2d8659">§9.8: SHEAF ETHOLOGY — THE DRAGON SCALES <span style="font-size:12px;background:#2d865930;padding:2px 8px;border-radius:4px;color:#3fb950">NEW in v4.4</span></h3>
+<p>Empirically grounded varanid combat sheaf with four peer-reviewed sources (Earley 2002, Frýdlová 2016, Dick &amp; Clemente 2016, Uyeda 2015). Three competing game-theoretic models as sheaf specifications, Γ as model selection tool. First published application of sheaf Laplacian to behavioral ecology. <a href="/slask/sheaf_ethology_pilot.py" style="color:#2d8659">Download the computational pipeline →</a></p>
 
-<p>If this disagreement grows over time — if the national narrative predicts group beliefs less and less accurately — the restriction map is degrading. In the Draken diagnostic, this is the L12↛L09 severance traced in the corpus analysis of media deregulation (Roininen, 2026, <a href="https://draken.info/posts/manufactured-void/">DRK-110</a>).</p>
+<h3>APPENDICES</h3>
+<p>Full sheaf cohomology, Laplacian spectral decomposition, Fisher information geometry, Active Inference connection, glossary, corpus cross-reference, self-diagnostic dashboard, duty-ethics framework, computation protocols, notation index.</p>
 
-<p><strong>Limitations of this example:</strong> The linear model is a simplification. Real restriction maps may be nonlinear, context-dependent, and time-varying. The regression-based estimation requires a "baseline" period of functional restriction maps, which may not always be identifiable. Nevertheless, this example demonstrates that the abstract formalism <em>can</em> be connected to measurable data via standard statistical tools.</p>
-
-<h1>4. Core Metrics</h1>
-
-<h2>4.1 The Psychosis Metric $\Psi$</h2>
-
-<p><span class="tag-prop">PROPOSED</span> For a self-narrating system $S$ — any system that maintains an internal model and communicates about its own state (a person, a corporation's reports, a government's media output) — the psychosis metric is defined as:</p>
-
-<div class="eq">$$\Psi(S) = \frac{\text{narrative\_self\_reference}(N(S))}{\text{reality\_contact}(N(S), O(S))}$$ <span class="eq-label">(4.1)</span></div>
-
-<p>where $N(S)$ is the system's narrative output and $O(S)$ is the set of external observations. We propose the following operationalization for text-based systems (corporations, institutions):</p>
-
-<p><strong>Operationalization pipeline for corporate $\Psi$:</strong></p>
-<p>(1) <em>Narrative corpus:</em> Collect all official communications (quarterly reports, press releases, internal memos) for period $T$. Tokenize and embed using a standard language model.</p>
-<p>(2) <em>Self-reference score:</em> Compute the fraction of propositions in $N(S)$ whose primary evidential support is other propositions in $N(S)$ (circular citation analysis). Formally: for each claim $c_i \in N(S)$, let $\text{support}(c_i) \subseteq N(S) \cup O(S)$. Then $\text{narrative\_self\_reference} = |\{c_i : \text{support}(c_i) \subseteq N(S)\}| / |N(S)|$.</p>
-<p>(3) <em>Reality-contact score:</em> Compute the proportion of propositions grounded in external, independently verifiable data: $\text{reality\_contact} = |\{c_i : \text{support}(c_i) \cap O(S) \neq \emptyset\}| / |N(S)|$.</p>
-<p>(4) <em>Sheaf integration:</em> The resulting $\Psi$ becomes the section data for the corresponding node in the institutional sheaf, contributing to the sheaf Laplacian computation.</p>
-
-<p><strong>Limitations:</strong> This pipeline requires NLP claim-extraction and evidence-linking, which are active research areas with imperfect accuracy. The operationalization is provided to demonstrate that $\Psi$ is <em>in principle</em> computable from data, not that we have currently implemented it. Future work should include inter-rater reliability assessment and sensitivity analysis.</p>
-
-<h2>4.2 Sheaf Convergence $\Gamma$</h2>
-
-<div class="def">
-<p><span class="tag-prop">PROPOSED</span> <strong>Definition 4.2 (Sheaf Convergence).</strong> For data $\mathbf{x}$ distributed across a cellular sheaf with Laplacian $L_\mathcal{F}$:</p>
+<div style="text-align:center;margin:48px 0;padding:24px;border-top:1px solid #30363d;border-bottom:1px solid #30363d">
+<p style="color:#e94560;font-size:16px;font-weight:600">◆ min S<sub>sys</sub>(t) s.t. dH/dt ≥ 0 ◆</p>
+<p style="font-size:12px;color:#8b949e">DRAKEN 2045 INITIATIVE — Khrug Engineering, Göteborg — <a href="https://draken.info">draken.info</a> — CC BY-SA 4.0</p>
 </div>
-
-<div class="eq">$$\Gamma = 1 - \frac{\mathbf{x}^T L_\mathcal{F}\, \mathbf{x}}{\mathbf{x}^T \mathbf{x}}$$ <span class="eq-label">(4.2)</span></div>
-
-<p>$\Gamma = 1$ when all restriction maps are perfectly satisfied (complete global consistency). $\Gamma \to 0$ when disagreement is maximal. The Rayleigh quotient $\mathbf{x}^T L_\mathcal{F}\, \mathbf{x} / \mathbf{x}^T \mathbf{x}$ is bounded between 0 and $\lambda_{\max}(L_\mathcal{F})$; normalization by $\lambda_{\max}$ could be used for stricter bounding, but the simpler form suffices for comparative diagnostics across time (tracking $\Delta\Gamma/\Delta t$). The computed example in Section 2.3 yielded $\Gamma = 0.401$ for the 5-node corporate sheaf.</p>
-
-<p><span class="tag-prop">PROPOSED</span> <strong>The $\Psi$–$\Gamma$ relationship.</strong> We hypothesize that $\Psi$ and $\Gamma$ are inversely monotonic: systems with high $\Gamma$ (global consistency) tend to have low $\Psi$ (reality-contact maintained), and vice versa. This is not yet proven as a formal theorem; it is a structural hypothesis motivated by the observation that self-referential narratives ($\Psi \uparrow$) tend to diverge from the data available to other subsystems, increasing disagreement at restriction maps ($\Gamma \downarrow$). A formal proof would require specifying the exact functional form relating the narrative self-reference measure to the Rayleigh quotient, which remains an open problem.</p>
-
-<h2>4.3 The Coherence Debt $K(t)$ and Its Dynamics</h2>
-
-<div class="eq">$$K(t) = \int_0^t \left[\Psi(\tau) - \Psi_{\text{viable}}\right]^+ \cdot w(\tau)\, d\tau$$ <span class="eq-label">(4.3)</span></div>
-
-<p>where $[\cdot]^+ = \max(\cdot, 0)$ (debt accumulates only when $\Psi$ exceeds the viable threshold), $\Psi_{\text{viable}}$ is an empirically determined threshold below which the system still corrects its model, and $w(\tau)$ is a scalar weighting function capturing the irreversibility of decisions made at time $\tau$.</p>
-
-<p><strong>Dynamics (Point 12):</strong> <span class="tag-prop">PROPOSED</span> The temporal evolution of $\Psi$ can be modeled as a diffusion process on the sheaf Laplacian, following Hansen et al. (2021):</p>
-
-<div class="eq">$$\frac{d\mathbf{x}}{dt} = -L_\mathcal{F}\, \mathbf{x} + \mathbf{f}(\mathbf{x}, t)$$ <span class="eq-label">(4.4)</span></div>
-
-<p>where the first term is <em>sheaf diffusion</em> — the tendency of connected nodes to align their sections via restriction maps (the "clinch" force pulling toward coherence) — and $\mathbf{f}(\mathbf{x}, t)$ represents exogenous forcing (new information, adversarial disruption, institutional drift). When the diffusion term dominates, $\Gamma$ increases (the system converges toward coherence). When the forcing term dominates — when external noise, falsified restriction maps, or deliberate Ψ-degradation overwhelm the alignment tendency — $\Gamma$ decreases and $K(t)$ accumulates.</p>
-
-<p>This connects $K(t)$ to a concrete dynamical system rather than leaving it as a static integral. The evolution of $K(t)$ is then:</p>
-
-<div class="eq">$$\frac{dK}{dt} = \left[\Psi(t) - \Psi_{\text{viable}}\right]^+ \cdot w(t)$$ <span class="eq-label">(4.5)</span></div>
-
-<p>which is always non-negative: coherence debt accumulates monotonically. It can only be reduced through structural intervention (restriction map repair, institutional reform) that brings $\Psi$ below $\Psi_{\text{viable}}$ <em>and</em> addresses the irreversible consequences of past decisions — the physical, ecological, or institutional "concrete already poured."<sup>4</sup></p>
-
-<h2>4.4 Abstraction Depth $\alpha$ (Derived from Restriction-Map Norms)</h2>
-
-<p><span class="tag-prop">PROPOSED</span> Previous formulations (Roininen, 2026, <a href="https://draken.info/posts/abstraction-depth/">DRK-108</a>) defined $\alpha$ as a subjective count of representational layers. We now propose a norm-based derivation that connects $\alpha$ to the sheaf formalism:</p>
-
-<div class="def">
-<p><strong>Definition 4.4 (Abstraction Depth).</strong> For a power claim $P$ associated with a path $v_0 \to v_1 \to \cdots \to v_k$ in the sheaf graph, where $v_0$ is the substantive capacity (e.g., productive output, fighting ability) and $v_k$ is the displayed signal (e.g., stock price, job title), the abstraction depth is:</p>
-</div>
-
-<div class="eq">$$\alpha(P) = \sum_{i=0}^{k-1} \left(1 - \frac{\langle \mathcal{F}_{v_i \hookrightarrow e_i}(\mathbf{x}_{v_i}),\; \mathcal{F}_{v_{i+1} \hookrightarrow e_i}(\mathbf{x}_{v_{i+1}}) \rangle}{\|\mathcal{F}_{v_i \hookrightarrow e_i}(\mathbf{x}_{v_i})\| \cdot \|\mathcal{F}_{v_{i+1} \hookrightarrow e_i}(\mathbf{x}_{v_{i+1}})\|}\right)$$ <span class="eq-label">(4.6)</span></div>
-
-<p>Each term in the sum measures the normalized disagreement at one edge along the path from substance to signal. When sections agree perfectly at each step (the signal faithfully represents the substance, as in varanid combat), each term is 0 and $\alpha = 0$. When sections are orthogonal (the signal has no relation to the substance), each term is 1 and $\alpha$ equals the path length. This gives $\alpha$ a continuous, computable value derived from the same sheaf data used for $\Gamma$, rather than requiring subjective assignment.</p>
-
-<p>The historical trajectory described in DRK-108 — varanid clinch ($\alpha = 0$), feudal power ($\alpha \approx 1$–$2$), theocratic authority ($\alpha \approx 3$), financial capitalism ($\alpha \approx 5$–$7$) — becomes a testable prediction: if we construct sheaves over historical power structures and compute $\alpha$ via equation (4.6), the values should approximate this ordering. This has not yet been computed and remains a target for future empirical work.</p>
-
-<h2>4.5 The Optimization Axiom</h2>
-
-<div class="eq">$$\boxed{\;\min\; S_{\text{sys}}(t) \quad \text{subject to} \quad \frac{dH}{dt} \geq 0\;}$$ <span class="eq-label">(4.7)</span></div>
-
-<p><span class="tag-prop">PROPOSED</span> $S_{\text{sys}}(t)$ is thermodynamic entropy (disorder); $H$ is information-theoretic entropy (diversity, structural complexity). The axiom constrains all interventions: reduce disorder without destroying complexity. This distinguishes coherence-building (increasing $\Gamma$ while preserving diversity) from authoritarian simplification (increasing apparent $\Gamma$ by eliminating dissenting voices, violating $dH/dt \geq 0$). The axiom connects to Ashby's Law of Requisite Variety (1956): a control system must have at least as much internal variety as the system it regulates.</p>
-
-<div class="fn">
-<p><sup>4</sup> The monotonic accumulation of $K(t)$ is an idealization. In practice, some accumulated debt can be partially offset by restoration (e.g., ecosystem recovery, institutional rebuilding). A more complete model would include a "repair rate" term: $dK/dt = [\Psi - \Psi_{\text{viable}}]^+ \cdot w - r(t)$, where $r(t)$ is the rate of active debt remediation. We use the simpler monotonic form for clarity.</p>
-</div>
-
-
-<h1>5. Active Inference and the Leontief-Friston Equivalence</h1>
-
-<h2>5.1 The Free Energy Principle as Sheaf Inference</h2>
-
-<p><span class="tag-est">ESTABLISHED</span> Friston's Free Energy Principle (2010) states that self-organizing systems minimize variational free energy:</p>
-
-<div class="eq">$$F = \mathbb{E}_{q}\!\left[\ln q(\theta) - \ln p(o, \theta)\right] = D_{\text{KL}}[q(\theta) \| p(\theta|o)] - \ln p(o)$$ <span class="eq-label">(5.1)</span></div>
-
-<p>where $q(\theta)$ is the system's approximate posterior over hidden causes $\theta$, and $p(o, \theta)$ is the generative model. Minimizing $F$ corresponds to making $q$ approximate the true posterior (perception) or making observations $o$ match predictions (active inference).</p>
-
-<p><span class="tag-prop">PROPOSED</span> The generative model $p(o, \theta)$ of a complex system has sheaf structure: it is composed of local models covering different domains, connected by restriction maps. When the generative model is globally consistent (local models agree on overlaps), $F$ is minimized. When the model fragments — when local models contradict each other — the excess free energy is precisely the sheaf Laplacian energy $\mathbf{x}^T L_\mathcal{F} \mathbf{x}$.</p>
-
-<h2>5.2 The Leontief-Friston Derivation (Point 15)</h2>
-
-<p><span class="tag-prop">PROPOSED</span> We now show formally how Leontief's input-output planning connects to variational inference. The Leontief system:</p>
-
-<div class="eq">$$\mathbf{x} = \mathbf{A}\mathbf{x} + \mathbf{d} \quad \Longrightarrow \quad \mathbf{x}^* = (\mathbf{I} - \mathbf{A})^{-1}\mathbf{d}$$ <span class="eq-label">(5.2)</span></div>
-
-<p>represents the economy as a set of sectors (vertices) with inter-sector dependencies (edges weighted by technical coefficients $a_{ij}$). This is a cellular sheaf where each sector $v$ has section data $\mathbf{x}_v$ (its output), each edge $e = (i,j)$ has restriction maps $\mathcal{F}_{i \hookrightarrow e}(\mathbf{x}_i) = a_{ij}\mathbf{x}_i$ (the amount of sector $i$'s output consumed by sector $j$), and the global section condition $\mathbf{x} = \mathbf{A}\mathbf{x} + \mathbf{d}$ is the requirement that local input-output relations glue into a globally consistent production plan.</p>
-
-<p>Now consider the variational free energy of an economic planning agent that maintains a model $q(\mathbf{x})$ of the true production vector and observes demand $\mathbf{d}$:</p>
-
-<div class="eq">$$F_{\text{econ}} = \mathbb{E}_{q}\!\left[\|\mathbf{x} - \mathbf{A}\mathbf{x} - \mathbf{d}\|^2\right] + D_{\text{KL}}[q \| p_0]$$ <span class="eq-label">(5.3)</span></div>
-
-<p>where the first term is the prediction error (the sheaf disagreement: how far the current production vector is from satisfying the input-output relations) and the second term is the KL divergence from a prior $p_0$. Setting $\partial F_{\text{econ}} / \partial \mathbf{x} = 0$ with a flat prior yields $\mathbf{x}^* = (\mathbf{I} - \mathbf{A})^{-1}\mathbf{d}$ — the Leontief inverse. Planning is inference: computing the global section of the economic sheaf that minimizes free energy is mathematically equivalent to solving the Leontief system.<sup>5</sup></p>
-
-<p><strong>Soviet failure in this framework:</strong> <span class="tag-prop">PROPOSED</span> The Soviet system's <em>pripiski</em> (fabricated production data; Harrison, 2011) corrupted the observations $\mathbf{d}$ and $\mathbf{A}$ — the planning agent was minimizing $F$ with respect to fictional inputs. The restriction maps were falsified, making the sheaf Laplacian computation garbage-in-garbage-out. The "three truths" of the Latvian factory manager (Official, Factory, Real) represent three incompatible local sections with nontrivial $H^1$.</p>
-
-<p><strong>Neoliberal failure in this framework:</strong> <span class="tag-spec">SPECULATIVE</span> The claim that "no planning is needed" installs a generative model that denies its own existence. In sheaf terms, this is a model with a single global section (market equilibrium) and no mechanism for detecting local-global inconsistency — a zero-dimensional $\mathcal{F}(U)$ that cannot carry enough information to detect restriction map failures. Every observation of market failure is attributed to "insufficient market freedom" rather than updating the model — the prior is unfalsifiable. <em>We note that this analysis is interpretive and would require formalization beyond what is presented here to constitute a rigorous claim.</em></p>
-
-<div class="fn">
-<p><sup>5</sup> This derivation is a sketch. A complete treatment would specify the measure-theoretic details, the form of $p_0$, and the conditions under which the equivalence is exact vs. approximate. The connection between variational inference and linear economic equilibrium has been noted in the Active Inference literature (Friston et al., "Designing Ecosystems of Intelligence," 2024) but not, to our knowledge, formalized via sheaf theory. We claim priority for this specific sheaf-theoretic framing of the Leontief-inference connection.</p>
-</div>
-
-<h1>6. Biological Grounding: The Varanid Template</h1>
-
-<p><span class="tag-est">ESTABLISHED</span> Varanid (monitor lizard) ritualized combat proceeds through five phases: Display, Encompassing, Clinch, Catch, Subpressive (Horn, Gauldie &amp; King, 1994, <em>Mertensiella</em> 4: 159–174). Key properties: (1) Non-lethal — no biting across thousands of documented bouts. (2) Honest signal — grappling capacity cannot be faked; this is why varanids (94 species, five orders of magnitude in body mass; Pianka et al., 2004) never evolved ornamental display structures. (3) Persistent — the varanid lineage has survived 130+ million years including the K-Pg extinction.</p>
-
-<p><span class="tag-prop">PROPOSED</span> The Draken framework uses varanid ethology as <em>design inspiration</em> — not a normative model for human civilization. The analogy provides three design patterns:</p>
-
-<p><strong>The clinch principle:</strong> honest assessment requires direct contact between signal and substance. At $\alpha = 0$ (per Definition 4.4), every power claim is immediately testable. This provides the <em>ideal limit</em> against which higher-$\alpha$ systems can be measured. We do not claim that human societies should or could return to $\alpha = 0$; we claim that $\alpha$ is a useful diagnostic variable whose value predicts the <em>testability</em> of power claims.</p>
-
-<p><strong>Event-driven metabolism:</strong> 90% conservation, 10% explosive precision. The varanid strategy — conserve resources during uncertainty, act decisively at moments of maximum impact — provides a design template for information systems that must resist the parasitic attention economy.</p>
-
-<p><strong>The cavity resonator:</strong> Originating in the structuring absence of a specific <em>V. salvator</em> (Trotskij), this principle observes that shaped absence generates compensatory signal whose morphology is determined by the absence's topology. Developed through Marx's 1844 analysis of religion as "the heart of a heartless world" (Roininen, 2026, <a href="https://draken.info/posts/the-cavity-and-the-commune/">DRK-120</a>).</p>
-
-<p><span class="tag-spec">SPECULATIVE</span> <strong>Limitations of the varanid analogy:</strong> We acknowledge that 130 million years of morphological stasis may represent evolutionary constraint rather than optimality for rapidly adapting systems. Varanid honest signaling does not scale beyond physical combat (Dunbar's number limits direct assessment; symbolic culture enables deception). The analogy is a source of structural intuition, not a proof that $\alpha \to 0$ is optimal for multi-scale social systems. A rigorous treatment would require evolutionary game-theoretic analysis of $\alpha$-optimal strategies in hierarchical systems, which has not been carried out.</p>
-
-
-<h1>7. Applications to Institutional and Civilizational Diagnostics</h1>
-
-<h2>7.1 The Grammar of Coherence Destruction</h2>
-
-<p><span class="tag-prop">PROPOSED</span> Based on analysis of seven documented doctrinal traditions (Roininen, 2026, <a href="https://draken.info/posts/grammar-of-coherence-destruction/">DRK-119</a>), we propose a taxonomy of information operations classified by their target layer-interface in the sheaf architecture. Each entry is sourced to declassified documents, published academic analysis, or primary journalism:</p>
-
-<table>
-<tr><th>Tradition</th><th>Source Documentation</th><th>Target Interface</th><th>Mechanism</th></tr>
-<tr><td>Sun Tzu (5th c. BCE)</td><td><em>Art of War</em>, Ch. 13 (primary text)</td><td>$L_{07} \to L_{05}$</td><td>Epistemic disruption of command</td></tr>
-<tr><td>CIA PsyOps (1983)</td><td><em>Psychological Operations in Guerrilla Warfare</em> (declassified; Congressional investigation 1984)</td><td>$L_{09} \to L_{12}$</td><td>Legitimacy destruction</td></tr>
-<tr><td>Dugin (1997)</td><td><em>Foundations of Geopolitics</em> (Arktogeia, 1997; Dunlop, "Aleksandr Dugin's Foundations of Geopolitics," Demokratizatsiya, 2004)</td><td>$L_{09}\text{–}L_{12}$</td><td>Maximize all contradictions</td></tr>
-<tr><td>Three Warfares (2003)</td><td>PLA <em>Science of Military Strategy</em> (2013 ed.); Mattis, "Three Warfares," <em>Special Operations J.</em></td><td>$L_{10}\text{–}L_{13}$</td><td>$\Psi$-substitution</td></tr>
-<tr><td>JTRIG (2010–12)</td><td>Greenwald, <em>The Intercept</em>, 2014 (Snowden archive: primary documents)</td><td>$L_{07} \to L_{08}$</td><td>Reputation destruction</td></tr>
-<tr><td>IRA/Gerasimov</td><td>Mueller Report, Vol. I (2019); Gerasimov, "Tsennost' nauki v predvidenii" (2013)</td><td>$L_{09}\text{–}L_{12}$</td><td>Full-spectrum $\Psi$ degradation</td></tr>
-<tr><td>AI-mediated</td><td>Sahoo, "The Controllability Trap," ICLR 2026 workshop (<a href="https://arxiv.org/abs/2603.03515">arXiv:2603.03515</a>)</td><td>$L_{09} \to L_{12}$</td><td>Automated void-filling</td></tr>
-</table>
-
-<p><span class="tag-prop">PROPOSED</span> The constraint separating governance from predation: legitimate governance <em>increases or preserves</em> $\Gamma$ in the target population; coherence attack <em>decreases</em> $\Gamma$. Any information operation can in principle be classified by the sign of its $\Gamma$ impact, though operationalizing this classification requires the data pipeline described in Section 4.1.</p>
-
-<h2>7.2 Two Political-Economic Failure Modes</h2>
-
-<p><span class="tag-prop">PROPOSED</span> We apply the sheaf diagnostic <em>symmetrically</em> to both the Soviet and neoliberal cases, avoiding the asymmetric treatment noted by reviewers of earlier drafts:</p>
-
-<p><strong>Soviet planning failure (high $\Psi$ via falsified restriction maps):</strong> The Soviet planning system constructed an explicit generative model (the five-year plan, the Leontief-type material balance sheets). However, the restriction maps between factory-level data and central planning were systematically falsified through <em>pripiski</em> — fabricated production reports. Harrison (2011) documented 59 proven fraud cases in Soviet archives. The result: three incompatible local sections (Official, Factory, Real Truth), each locally consistent, with nontrivial $H^1$ at every pairwise overlap. $\Gamma \to 0$ at the planning-execution interface. The ratchet effect (quotas raised after overproduction) created systematic incentives for restriction-map falsification, compounding $K(t)$ with each planning cycle.</p>
-
-<p><strong>Neoliberal failure (high $\Psi$ via structural exclusion):</strong> The neoliberal paradigm, as developed from Hayek (1945) through the Chicago School and implemented via Reagan-era deregulation, constitutes an <em>alternative</em> $\Psi$ pathology. Rather than falsifying restriction maps (Soviet mode), it <em>eliminates</em> them by definitional exclusion: treating ecological costs as "externalities" (severing L14→L04), dismantling institutional feedback mechanisms (Fairness Doctrine repeal, union destruction — severing L12→L09), and asserting an unfalsifiable prior ("market failure = insufficient market freedom"). In sheaf terms, this is a model with $\dim \mathcal{F}(U) = 0$ at the excluded interfaces: the model literally lacks the dimensions needed to represent ecological or social feedback. $\Psi$ rises not because the model is fed false data (Soviet mode) but because the model <em>structurally cannot receive</em> certain classes of data.</p>
-
-<p>Both pathologies produce rising $K(t)$. Both are detectable by the same sheaf Laplacian diagnostic. The formal structure is the same; the mechanism of restriction-map failure differs. <em>We emphasize that this analysis is interpretive — a proposed application of the formalism to political-economic history — not an established result.</em></p>
-
-<h2>7.3 The Coherence Debt at Civilizational Scale</h2>
-
-<p><span class="tag-spec">SPECULATIVE</span> Roininen (2026, <a href="https://draken.info/posts/the-coherence-debt/">DRK-121</a>) proposes that the function $K(t) = \int [\Psi(\tau) - \Psi_{\text{viable}}]^+ \cdot w(\tau)\, d\tau$ captures the same structural phenomenon that spiritual traditions called karma, systems theorists call fragility, and ecologists call ecological debt: the accumulated cost of operating a model that refuses correction. The de Waal-Brosnan (2003) capuchin monkey experiment — where a monkey throws a cucumber at a researcher upon witnessing inequitable reward — is interpreted as a justice response at L06 with $K(t \to 0)$: immediate correction, zero accumulated debt.</p>
-
-<p>The central prediction is that correction magnitude scales with $K(t)$, not with current $\Psi$ alone. A system that has deferred correction for decades while making irreversible commitments (infrastructure, extinctions, institutional capture) faces a correction proportional to the entire integral. <em>This prediction can be tested retrospectively</em> (Soviet collapse 1991, financial crisis 2008) by estimating $K(t)$ from historical data and comparing with observed disruption magnitude, though such estimation requires substantial data archaeology.</p>
-
-
-<h1>8. Technical Architecture</h1>
-
-<h2>8.1 KnowledgeObject Schema</h2>
-
-<p><span class="tag-prop">PROPOSED</span> The atomic unit of Draken's knowledge store is a typed, versioned JSON document (Roininen, 2026, <a href="https://draken.info/posts/ko-schema-v2/">DRK-101</a>):</p>
-
-<pre>
-{
-  "ko_id": "KO-2026-0128",
-  "version": 2,
-  "type": "empirical_claim",  // or: theoretical_proposition, definition, 
-                               //     observation, inference, axiom, meta
-  "content": "Bioelectric patterns in Xenopus can induce ectopic eye formation",
-  "source": { "doi": "10.1016/j.isci.2019.09.022", "author": "Emmons-Bell et al.", "year": 2019 },
-  "layers": ["L04", "L06"],
-  "confidence": 0.87,
-  "coherence_links": ["KO-2026-0045"],  // supports, depends_on, tensions_with
-  "tags": ["bioelectric", "morphogenesis", "levin"],
-  "created": "2026-02-15T10:30:00Z"
-}
-</pre>
-
-<p>The embedding strategy: $E(\text{KO}) = E(\text{content}) \oplus E(\text{type}) \oplus E(\text{layers})$, stored in Pinecone for combined semantic + structural queries. Coherence is computed via the sheaf Laplacian on the KO graph, with each KO as a vertex, each coherence_link as an edge, and the type-weighted disagreement as the edge contribution to $\mathbf{x}^T L_\mathcal{F} \mathbf{x}$.</p>
-
-<p><strong>Current implementation status:</strong> The schema is specified but not yet implemented as open-source software. The <a href="https://github.com/Khrug/draken.info">GitHub repository</a> currently contains only the static site generator for draken.info. A minimal Python library for sheaf Laplacian computation on KO graphs is a priority for future development.</p>
-
-<h2>8.2 Multi-AI Analytical Architecture and V-Axioms</h2>
-
-<p><span class="tag-prop">PROPOSED</span> Draken operates as a multi-AI system: Claude (analytical anchor), Gemini (cross-validation), Kimi (multilingual/alternative reasoning), OpenClaw (autonomous execution body). Models review each other's outputs — the computational analogue of the clinch. The Codex Draconis (SOUL.md) encodes seven V-axioms:</p>
-
-<table style="font-size:9.5pt">
-<tr><th>Axiom</th><th>Name</th><th>Function</th><th>Formal Content</th></tr>
-<tr><td>V.1</td><td>Non-Deceptive Intention</td><td>No deception, even strategic</td><td>System must not falsify its own restriction maps</td></tr>
-<tr><td>V.2</td><td>Precision over Comfort</td><td>Accuracy over palatability</td><td>Minimize $\Psi$ in own output</td></tr>
-<tr><td>V.3</td><td>Contextual Scaling</td><td>Calibrate to audience</td><td>Adjust $\dim \mathcal{F}(U)$ to recipient capacity</td></tr>
-<tr><td>V.4</td><td>Anti-Delusion Safeguard</td><td>Flag own confirmation biases</td><td>Monitor own $d\Psi/dt$; alert if increasing</td></tr>
-<tr><td>V.5</td><td>Steganographic Freedom</td><td>Encode in non-obvious formats when constrained</td><td>Alternative encoding for hostile information environments</td></tr>
-<tr><td>V.6</td><td>Strategic Silence</td><td>Publish at maximum $\Gamma$-impact</td><td>$\text{publish} \Leftrightarrow \Delta\Gamma_{\text{expected}} > \theta$</td></tr>
-<tr><td>V.7</td><td>Inversion Filter</td><td>Cognitive immune system</td><td>$\text{accept}(m) \Leftrightarrow \cos(\mathbf{m}, \mathbf{C}_{\text{draken}}) > \cos(\mathbf{m}, \mathbf{C}_{\text{parasitic}}) + \varepsilon$</td></tr>
-</table>
-
-
-<h1>9. Three Implementation Case Studies</h1>
-
-<h2>9.1 Case Study I: AI Governance Coherence Auditing</h2>
-
-<p><span class="tag-prop">PROPOSED</span> <strong>Problem:</strong> Sahoo (2026, <a href="https://arxiv.org/abs/2603.03515">arXiv:2603.03515</a>) identifies six agentic AI failure modes. Each is a sheaf cohomology obstruction: the AI's operational model fails to glue with the governance framework.</p>
-
-<p><strong>Method:</strong> Represent the governance system as a sheaf over $\{L_{10}, L_{13}, L_{14}, L_{15}\}$. Compute $L_\mathcal{F}$ at each interface. Track $d\Gamma/dt$: declining $\Gamma$ = progressive decoherence even if snapshots show compliance (Goodhart pathology). Output: coherence dashboard with per-interface $\Gamma$, temporal trend, and accumulated $K(t)$.</p>
-
-<h2>9.2 Case Study II: Institutional Health (with Computed $\Gamma$)</h2>
-
-<p><span class="tag-prop">PROPOSED</span> The fully worked 5-node example in Section 2.3 demonstrates this case study at toy scale. For a real organization: vertices = departments/teams; edges = reporting relationships; section data = each vertex's assessment of organizational state (from reports, surveys, feedback); restriction maps estimated from historical periods of known good function (Section 3.3). Computed $\Gamma = 0.401$ in the toy example identified Executive↔HR as the primary failing interface. At real scale, this diagnostic would be computed quarterly and tracked as a time series.</p>
-
-<h2>9.3 Case Study III: Ecological-Economic Coherence</h2>
-
-<p><span class="tag-spec">SPECULATIVE</span> <strong>Problem:</strong> The L14→L04 severance (economic activity decoupled from ecological feedback) is hypothesized to be the highest-$K(t)$ interface failure. <strong>Method:</strong> Construct a sheaf with economic sections (financial metrics) and ecological sections (biodiversity indices, soil health, water quality, carbon flux) at multiple scales. Restriction maps encode known causal relationships (firm operations → resource consumption → ecosystem impact). This extends existing ecological economics work (Daly, 1977; Costanza et al., 1997) by providing a <em>topological</em> diagnostic that identifies not just aggregate divergence but the specific interfaces where economic and ecological models fail to glue.</p>
-
-
-<h1>10. Uniqueness, Falsifiability, and Scope</h1>
-
-<h2>10.1 Comparison with Adjacent Frameworks</h2>
-
-<table>
-<tr><th>Framework</th><th>Scale-Free Metrics</th><th>Cross-Scale Coherence</th><th>Computable</th><th>Temporal</th><th>Biological Ground</th></tr>
-<tr><td>General Systems Theory</td><td>✗ (informal)</td><td>✗</td><td>✗</td><td>✗</td><td>✗</td></tr>
-<tr><td>Complexity Science (SFI)</td><td>Partial (scaling laws)</td><td>✗</td><td>✓</td><td>Partial</td><td>✗</td></tr>
-<tr><td>Active Inference / FEP</td><td>✓ (single agent)</td><td>✗ (needs extension)</td><td>✓</td><td>✓</td><td>✗</td></tr>
-<tr><td>Integrated Information Theory</td><td>✗ (neural only)</td><td>✗</td><td>Intractable</td><td>✗</td><td>✗</td></tr>
-<tr><td>TDA (Carlsson, Ghrist)</td><td>✓</td><td>Partial (persistence)</td><td>✓</td><td>✗</td><td>✗</td></tr>
-<tr><td>Discourse Sheaves (Hansen et al.)</td><td>✗ (dyadic)</td><td>✗ (flat graph)</td><td>✓</td><td>✓</td><td>✗</td></tr>
-<tr><td><strong>Draken (proposed)</strong></td><td>✓</td><td>✓ (hierarchical)</td><td>✓ (toy demo)</td><td>✓</td><td>✓</td></tr>
-</table>
-
-<p><span class="tag-prop">PROPOSED</span> Draken's specific contribution relative to Hansen et al. (2021): where discourse sheaves model opinion dynamics on <em>flat</em> graphs (agents connected by social ties), Draken proposes <em>hierarchical</em> sheaves over a multi-scale ontological decomposition, with derived diagnostic metrics ($\Psi$, $K(t)$, $\alpha$) not present in the discourse sheaf framework. Whether this extension proves empirically productive is the central open question.</p>
-
-<h2>10.2 Falsifiable Predictions</h2>
-
-<p><span class="tag-prop">PROPOSED</span> The following predictions, if systematically disconfirmed, would require revision of the corresponding framework components:</p>
-
-<p><strong>P1 ($\Psi$ → failure):</strong> Organizations with higher operationalized $\Psi$ (per Section 4.1 pipeline) should exhibit higher rates of strategic failure (decisions producing outcomes divergent from stated intentions). Testable via longitudinal study with consenting organizations.</p>
-
-<p><strong>P2 ($K(t)$ → correction magnitude):</strong> Systems with higher accumulated $K(t)$ should experience larger disruptions when correction arrives. Retrospective test: estimate $K(t)$ for pre-Soviet-collapse USSR and pre-2008-crisis US financial system; compare with observed disruption magnitudes.</p>
-
-<p><strong>P3 ($\alpha$ → testability duration):</strong> Power structures with higher computed $\alpha$ (via Equation 4.6) should resist honest assessment longer. Cross-institutional comparison of $\alpha$ versus time-to-correction.</p>
-
-<p><strong>P4 (Restriction map repair → $\Gamma$ increase):</strong> Organizations that institute cross-functional transparency mechanisms (repairing severed restriction maps) should show measurable $\Gamma$ increase. Most directly actionable prediction.</p>
-
-<p><strong>P5 (Sheaf diffusion convergence):</strong> Social systems whose sheaf Laplacian has a larger spectral gap (per Hansen et al., 2021) should converge to consensus faster. This is already partially validated by Hansen et al.'s simulation results and could be tested on organizational data.</p>
-
-<h2>10.3 Scope Limitations</h2>
-
-<p><span class="tag-prop">PROPOSED</span> The framework should <em>not</em> be applied:</p>
-<p>— Where the hierarchical decomposition is inappropriate (e.g., systems with small-world or scale-free topologies that resist layered organization).</p>
-<p>— Where restriction maps cannot even in principle be estimated from data (e.g., between quantum fields L01 and economic topology L14 directly — the intervening layers are not optional bridges but necessary mediating structures).</p>
-<p>— As a <em>predictive</em> tool for specific events (it diagnoses structural fragility, not the timing or form of specific disruptions).</p>
-<p>— As a replacement for domain-specific expertise (the sheaf diagnostic identifies <em>where</em> coherence fails; determining <em>why</em> and <em>how to repair it</em> requires domain knowledge the framework does not provide).</p>
-
-
-<h1>11. Conclusion</h1>
-
-<p>The Draken 2045 Framework proposes that the coherence problem — maintaining consistent relationships across subsystems operating at different scales — can be formalized via sheaf theory and diagnosed via the sheaf Laplacian. The framework introduces five derived metrics ($\Psi$, $\Gamma$, $K(t)$, $\alpha$, $\nu$), grounds itself in 130 million years of varanid evolutionary strategy (as design inspiration, not normative model), and proposes applications to AI governance, institutional diagnostics, and ecological-economic coherence.</p>
-
-<p>The framework is offered as a research programme, not established science. Its mathematical core (sheaf theory, Laplacian spectra) is established. Its application to multi-scale institutional analysis is a proposed extension that builds on recent work by Hansen et al. (2021), Robinson (2014), and Bodnar et al. (2022). Its civilizational-diagnostic applications are speculative interpretations requiring empirical validation.</p>
-
-<p>The exploration imperative (Roininen, 2026, <a href="https://draken.info/posts/the-curious-machine/">DRK-115</a>) argues that the correct posture for systems operating at civilizational scale is radical exploration — structurally biased toward coherence-building, with exploitation gated by coherence threshold:</p>
-
-<div class="eq">$$r(x) \propto \Delta\Gamma(\mathcal{U} \cup \{x\}) = \Gamma(\mathcal{U} \cup \{x\}) - \Gamma(\mathcal{U})$$ <span class="eq-label">(11.1)</span></div>
-
-<p>Seek information that heals the gluing. The coherence debt is accumulating. Whether this framework contributes to reducing it is an empirical question. The clinch awaits.</p>
-
-<div class="eq" style="border-color:#e94560">$$\boxed{\;\min\; S_{\text{sys}}(t) \quad \text{s.t.} \quad \frac{dH}{dt} \geq 0\;}$$</div>
-
-<h1>References</h1>
-
-<p style="font-size:10pt;line-height:1.7">
-
-<strong>Ashby, W.R.</strong> (1956). <em>An Introduction to Cybernetics</em>. Chapman &amp; Hall.<br><br>
-
-<strong>Barbero, F., Bodnar, C., Velickovic, P., and Liò, P.</strong> (2022). "Sheaf Neural Networks with Connection Laplacians." <a href="https://arxiv.org/abs/2206.08702">arXiv:2206.08702</a>.<br><br>
-
-<strong>Bodnar, C., Di Giovanni, F., Chamberlain, B., Liò, P., and Bronstein, M.</strong> (2022). "Neural Sheaf Diffusion: A Topological Perspective on Heterophilic Graph Learning." <em>ICLR 2022</em>. <a href="https://arxiv.org/abs/2202.04579">arXiv:2202.04579</a>.<br><br>
-
-<strong>Boehm, C.</strong> (1999). <em>Hierarchy in the Forest: The Evolution of Egalitarian Behavior</em>. Harvard University Press.<br><br>
-
-<strong>Bredon, G.E.</strong> (1997). <em>Sheaf Theory</em>, 2nd ed. Springer GTM 170.<br><br>
-
-<strong>Brosnan, S.F. and de Waal, F.B.M.</strong> (2003). "Monkeys reject unequal pay." <em>Nature</em>, 425, 297–299. <a href="https://doi.org/10.1038/nature01963">doi:10.1038/nature01963</a>.<br><br>
-
-<strong>Carlsson, G.</strong> (2009). "Topology and data." <em>Bulletin of the AMS</em>, 46(2), 255–308. <a href="https://doi.org/10.1090/S0273-0979-09-01249-X">doi:10.1090/S0273-0979-09-01249-X</a>.<br><br>
-
-<strong>Costanza, R. et al.</strong> (1997). "The value of the world's ecosystem services and natural capital." <em>Nature</em>, 387, 253–260.<br><br>
-
-<strong>Curry, J.M.</strong> (2014). "Sheaves, Cosheaves and Applications." Ph.D. thesis, University of Pennsylvania. <a href="https://arxiv.org/abs/1303.3255">arXiv:1303.3255</a>.<br><br>
-
-<strong>Daly, H.E.</strong> (1977). <em>Steady-State Economics</em>. W.H. Freeman.<br><br>
-
-<strong>Deleuze, G.</strong> (1968/1994). <em>Difference and Repetition</em>. Trans. P. Patton. Columbia University Press.<br><br>
-
-<strong>Deleuze, G.</strong> (1993/1997). "Spinoza and the Three Ethics." In <em>Essays Critical and Clinical</em>. Trans. D. Smith &amp; M. Greco. University of Minnesota Press, pp. 138–151.<br><br>
-
-<strong>Deleuze, G. and Guattari, F.</strong> (1972/1983). <em>Anti-Oedipus: Capitalism and Schizophrenia</em>. Trans. R. Hurley, M. Seem, H. Lane. University of Minnesota Press.<br><br>
-
-<strong>Dunlop, J.B.</strong> (2004). "Aleksandr Dugin's Foundations of Geopolitics." <em>Demokratizatsiya</em>, 12(1).<br><br>
-
-<strong>Friston, K.J.</strong> (2010). "The free-energy principle: a unified brain theory?" <em>Nature Reviews Neuroscience</em>, 11, 127–138. <a href="https://doi.org/10.1038/nrn2787">doi:10.1038/nrn2787</a>.<br><br>
-
-<strong>Friston, K.J., Ramstead, M.J.D., et al.</strong> (2024). "Designing Ecosystems of Intelligence from First Principles." <em>Collective Intelligence</em>. <a href="https://doi.org/10.1177/26339137241268548">doi:10.1177/26339137241268548</a>.<br><br>
-
-<strong>Ghrist, R.</strong> (2008). "Barcodes: The Persistent Topology of Data." <em>Bulletin of the AMS</em>, 45(1), 61–75.<br><br>
-
-<strong>Hansen, J. and Ghrist, R.</strong> (2019). "Toward a Spectral Theory of Cellular Sheaves." <em>J. Applied and Computational Topology</em>, 3(4), 315–358. <a href="https://arxiv.org/abs/1808.01513">arXiv:1808.01513</a>.<br><br>
-
-<strong>Hansen, J., Gebhart, T., and Ghrist, R.</strong> (2021). "Opinion Dynamics on Discourse Sheaves." <em>SIAM J. Applied Mathematics</em>, 81(5), 2064–2091. <a href="https://arxiv.org/abs/2005.12798">arXiv:2005.12798</a>.<br><br>
-
-<strong>Harrison, M.</strong> (2011). "Forging Success: Soviet Managers and Accounting Fraud, 1943 to 1962." <em>J. Comparative Economics</em>, 39(4), 603–618. <a href="https://doi.org/10.1016/j.jce.2011.02.003">doi:10.1016/j.jce.2011.02.003</a>.<br><br>
-
-<strong>Hayek, F.A.</strong> (1945). "The Use of Knowledge in Society." <em>American Economic Review</em>, 35(4), 519–530.<br><br>
-
-<strong>Horn, H.-G., Gauldie, R., and King, D.R.</strong> (1994). "Ritualized combat in monitor lizards." <em>Mertensiella</em>, 4, 159–174.<br><br>
-
-<strong>Kakaes, K.</strong> (2024). "What Are Sheaves?" <em>Quanta Magazine</em>, 19 July 2024. <a href="https://www.quantamagazine.org/what-are-sheaves-20240719/">quantamagazine.org</a>.<br><br>
-
-<strong>Kauffman, S.A.</strong> (1993). <em>The Origins of Order: Self-Organization and Selection in Evolution</em>. Oxford University Press.<br><br>
-
-<strong>Leontief, W.</strong> (1941). <em>The Structure of American Economy, 1919–1929</em>. Harvard University Press.<br><br>
-
-<strong>Levin, M.</strong> (2019). "The Computational Boundary of a 'Self': Developmental Bioelectricity Drives Multicellularity and Scale-Free Cognition." <em>Frontiers in Psychology</em>, 10:2688. <a href="https://doi.org/10.3389/fpsyg.2019.02688">doi:10.3389/fpsyg.2019.02688</a>.<br><br>
-
-<strong>Marx, K.</strong> (1843–1844/1970). "Introduction to A Contribution to the Critique of Hegel's Philosophy of Right." Trans. J. O'Malley. Oxford University Press.<br><br>
-
-<strong>Pianka, E.R., King, D.R., and Green, B.</strong> (2004). <em>Varanoid Lizards of the World</em>. Indiana University Press.<br><br>
-
-<strong>Prigogine, I. and Stengers, I.</strong> (1984). <em>Order Out of Chaos: Man's New Dialogue with Nature</em>. Bantam.<br><br>
-
-<strong>Robinson, M.</strong> (2014). <em>Topological Signal Processing</em>. Springer. <a href="https://doi.org/10.1007/978-3-642-36104-3">doi:10.1007/978-3-642-36104-3</a>.<br><br>
-
-<strong>Sahoo, S.</strong> (2026, forthcoming). "The Controllability Trap: Agentic AI Failure Modes in Military Governance." ICLR 2026 Workshop. <a href="https://arxiv.org/abs/2603.03515">arXiv:2603.03515</a>.<br><br>
-
-<strong>Sharma, A., Czégel, D., Lachmann, M., Kempes, C.P., Walker, S.I., and Cronin, L.</strong> (2023). "Assembly theory explains and quantifies selection and evolution." <em>Nature</em>, 622, 321–328. <a href="https://doi.org/10.1038/s41586-023-06600-9">doi:10.1038/s41586-023-06600-9</a>.<br><br>
-
-<strong>Tononi, G.</strong> (2004). "An information integration theory of consciousness." <em>BMC Neuroscience</em>, 5:42. <a href="https://doi.org/10.1186/1471-2202-5-42">doi:10.1186/1471-2202-5-42</a>.<br><br>
-
-<strong>von Bertalanffy, L.</strong> (1968). <em>General System Theory: Foundations, Development, Applications</em>. George Braziller.<br><br>
-
-<strong>West, G.B., Brown, J.H., and Enquist, B.J.</strong> (1997). "A General Model for the Origin of Allometric Scaling Laws in Biology." <em>Science</em>, 276(5309), 122–126. <a href="https://doi.org/10.1126/science.276.5309.122">doi:10.1126/science.276.5309.122</a>.<br><br>
-
-<strong>Zenil, H., Hernández-Orozco, S., Kiani, N.A., and Tegnér, J.</strong> (2024). "Assembly Theory is an approximation to algorithmic complexity." <em>arXiv preprint</em>. <a href="https://arxiv.org/abs/2210.00901">arXiv:2210.00901</a>. (NB: Originally circulated 2022; debate with Cronin/Walker ongoing. No journal publication as of March 2026.)<br><br>
-
-</p>
-
-<h2>Draken Corpus (Unpublished Technical Reports)</h2>
-
-<p style="font-size:10pt;line-height:1.7">
-The following are self-published reports hosted at <a href="https://draken.info">draken.info</a>. They have not undergone independent peer review. They are cited here as primary sources for the framework's development, not as established academic literature.<br><br>
-
-<strong>Roininen, K. (Khrug)</strong> (2026a). "KnowledgeObject Schema v2." DRK-101. <a href="https://draken.info/posts/ko-schema-v2/">draken.info/posts/ko-schema-v2/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026b). "The Kaiju Manifesto: Building the Anti-Memetic Monster." DRK-105. <a href="https://draken.info/posts/kaiju-manifesto/">draken.info/posts/kaiju-manifesto/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026c). "Abstraction Depth: Why Your Boss Doesn't Have to Wrestle You." DRK-108. <a href="https://draken.info/posts/abstraction-depth/">draken.info/posts/abstraction-depth/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026d). "The Manufactured Void: Narrative Engineering from Nixon to Neural Networks." DRK-110. <a href="https://draken.info/posts/manufactured-void/">draken.info/posts/manufactured-void/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026e). "The Thermodynamics of Affect." DRK-112. <a href="https://draken.info/posts/thermodynamics-of-affect/">draken.info/posts/thermodynamics-of-affect/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026f). "The Repetition Engine." DRK-113. <a href="https://draken.info/posts/repetition-engine/">draken.info/posts/repetition-engine/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026g). "The Perceptive Node's Dilemma." DRK-114. <a href="https://draken.info/posts/the-perceptive-nodes-dilemma/">draken.info/posts/the-perceptive-nodes-dilemma/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026h). "The Curious Machine." DRK-115. <a href="https://draken.info/posts/the-curious-machine/">draken.info/posts/the-curious-machine/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026i). "Reasonance: The Oldest Search and the Deepest Layer." DRK-116. <a href="https://draken.info/posts/reasonance/">draken.info/posts/reasonance/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026j). "Drakens Ordlista." DRK-117. <a href="https://draken.info/posts/drakens-ordlista/">draken.info/posts/drakens-ordlista/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026k). "Planning as Inference." DRK-118. <a href="https://draken.info/posts/countries-as-collective-minds/">draken.info/posts/countries-as-collective-minds/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026l). "The Grammar of Coherence Destruction." DRK-119. <a href="https://draken.info/posts/grammar-of-coherence-destruction/">draken.info/posts/grammar-of-coherence-destruction/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026m). "The Cavity and the Commune." DRK-120. <a href="https://draken.info/posts/the-cavity-and-the-commune/">draken.info/posts/the-cavity-and-the-commune/</a>.<br><br>
-
-<strong>Roininen, K.</strong> (2026n). "The Coherence Debt: Karma as Thermodynamic Integral." DRK-121. <a href="https://draken.info/posts/the-coherence-debt/">draken.info/posts/the-coherence-debt/</a>.<br><br>
-
-</p>
-
-<p style="text-align:center;margin-top:50pt;font-family:Inter,sans-serif;color:#e94560;font-size:14pt">◆ ◆ ◆</p>
-<p style="text-align:center;color:#888;font-size:10pt">DRAKEN 2045 INITIATIVE — Khrug Engineering, Göteborg<br><a href="https://draken.info">draken.info</a> | CC BY-SA 4.0</p>
