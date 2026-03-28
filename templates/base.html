@@ -29,6 +29,10 @@
   <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐉</text></svg>">
 
+  <!-- MathJax for LaTeX rendering -->
+  <script>window.MathJax={tex:{inlineMath:[['$','$']],displayMath:[['$$','$$']]},svg:{fontCache:'global'}};</script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
+
   <!-- Stylesheet -->
   <link rel="stylesheet" href="/style.css">
 
@@ -45,8 +49,9 @@
     </a>
     <nav>
       <a href="/" id="nav-feed">Feed</a>
-      <a href="/#codex" id="nav-codex">Codex</a>
-      <a href="https://github.com/Khrug/draken.info" target="_blank" rel="noopener">Source</a>
+      <a href="/thesis/" id="nav-thesis">Thesis</a>
+      <a href="/sheaf-game/" id="nav-game" class="nav-game-btn">🎮 Sheaf Game</a>
+      <a href="https://github.com/Khrug/draken.info" target="_blank" rel="noopener">GitHub</a>
     </nav>
   </header>
 
@@ -78,19 +83,22 @@
 
   <!-- ═══ FOOTER ═══ -->
   <footer>
-    <div>DRAKEN 2045 INITIATIVE — Khrug Engineering, Stockholm</div>
+    <div>DRAKEN 2045 INITIATIVE — Khrug Engineering, Göteborg</div>
     <div style="margin-top:4px;">Research · Publication · Knowledge Assembly</div>
     <div class="footer-links">
       <a href="/">Feed</a>
+      <a href="/thesis/">Thesis</a>
+      <a href="/sheaf-game/">Sheaf Game</a>
       <a href="https://github.com/Khrug/draken.info">GitHub</a>
     </div>
   </footer>
 
   <!-- ═══ NAV STATE ═══ -->
   <script>
-    // Set active nav based on path
     const path = window.location.pathname;
     if (path === '/') document.getElementById('nav-feed')?.classList.add('active');
+    if (path.startsWith('/thesis')) document.getElementById('nav-thesis')?.classList.add('active');
+    if (path.startsWith('/sheaf-game')) document.getElementById('nav-game')?.classList.add('active');
   </script>
 </body>
 </html>

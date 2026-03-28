@@ -1,8 +1,42 @@
 {
-  "ko_count": 0,
-  "global_coherence": 0.000,
-  "pub_count": 2,
-  "active_layers": "8/18",
-  "phase": "GENESIS",
-  "last_updated": "2026-02-28T09:23:00Z"
+  "ko_count": 247,
+  "ko_embedded": 247,
+  "ko_pending": 0,
+  "global_coherence": 0.872,
+  "pub_count": 14,
+  "active_layers": "14/18",
+  "phase": "GENESIS → ALPHA",
+  "last_updated": "2026-03-28T12:00:00Z",
+  "layer_status": {
+    "L01": "active",   "L02": "active",   "L03": "active",   "L04": "active",
+    "L05": "active",   "L06": "active",   "L07": "active",   "L08": "active",
+    "L09": "active",   "L10": "active",   "L11": "partial",  "L12": "active",
+    "L13": "active",   "L14": "active",   "L15": "active",   "L16": "planned",
+    "L17": "partial",  "L18": "partial"
+  },
+  "corpus_stats": {
+    "total_words": 98420,
+    "total_sources_cited": 87,
+    "unique_layers_covered": 18,
+    "cross_layer_links": 42,
+    "avg_coherence": 0.872,
+    "highest_coherence": { "drk": "DRK-101", "score": 0.95 },
+    "lowest_coherence": { "drk": "DRK-120", "score": 0.82 }
+  },
+  "publications": [
+    { "drk": "DRK-101", "title": "KnowledgeObject Schema v2", "type": "technical", "layers": ["L10","L15"], "coherence": 0.95, "date": "2026-02-15", "kos_generated": 12 },
+    { "drk": "DRK-105", "title": "The Kaiju Manifesto", "type": "manifesto", "layers": ["L04","L06","L08","L10","L11","L12","L13","L14","L15","L18"], "coherence": 0.92, "date": "2026-02-28", "kos_generated": 31 },
+    { "drk": "DRK-108", "title": "Abstraction Depth", "type": "analysis", "layers": ["L04","L06","L08","L10","L12","L13","L14","L15","L18"], "coherence": 0.94, "date": "2026-03-01", "kos_generated": 24 },
+    { "drk": "DRK-110", "title": "The Manufactured Void", "type": "analysis", "layers": ["L07","L09","L10","L12","L13","L14","L15"], "coherence": 0.91, "date": "2026-03-02", "kos_generated": 28 },
+    { "drk": "DRK-112", "title": "Thermodynamics of Affect", "type": "theory", "layers": ["L01","L02","L03","L04","L05","L06","L07","L08","L09","L10","L11","L15","L18"], "coherence": 0.86, "date": "2026-03-03", "kos_generated": 22 },
+    { "drk": "DRK-113", "title": "The Repetition Engine", "type": "theory", "layers": ["L01","L02","L05","L06","L07","L08","L09","L10","L12","L15","L18"], "coherence": 0.84, "date": "2026-03-03", "kos_generated": 19 },
+    { "drk": "DRK-114", "title": "The Perceptive Node's Dilemma", "type": "analysis", "layers": ["L08","L09","L10","L12","L14","L15","L17"], "coherence": 0.87, "date": "2026-03-02", "kos_generated": 16 },
+    { "drk": "DRK-115", "title": "The Curious Machine", "type": "analysis", "layers": ["L07","L08","L09","L10","L11","L12","L14","L15","L17","L18"], "coherence": 0.85, "date": "2026-03-09", "kos_generated": 18 },
+    { "drk": "DRK-116", "title": "Reasonance", "type": "theory", "layers": ["L01","L02","L03","L04","L05","L06","L07","L08","L09","L10","L11","L12","L13","L14","L15","L16","L17","L18"], "coherence": 0.91, "date": "2026-03-10", "kos_generated": 26 },
+    { "drk": "DRK-117", "title": "Drakens Ordlista", "type": "technical", "layers": ["L08","L09","L10","L12","L15","L17"], "coherence": 0.88, "date": "2026-03-11", "kos_generated": 9 },
+    { "drk": "DRK-118", "title": "Planning as Inference", "type": "analysis", "layers": ["L08","L09","L10","L12","L14","L15","L17"], "coherence": 0.85, "date": "2026-03-11", "kos_generated": 21 },
+    { "drk": "DRK-119", "title": "Grammar of Coherence Destruction", "type": "analysis", "layers": ["L05","L06","L07","L08","L09","L10","L11","L12","L13","L14"], "coherence": 0.89, "date": "2026-03-13", "kos_generated": 27 },
+    { "drk": "DRK-120", "title": "The Cavity and the Commune", "type": "analysis", "layers": ["L06","L09","L12","L15","L17"], "coherence": 0.82, "date": "2026-03-11", "kos_generated": 14 },
+    { "drk": "DRK-121", "title": "The Coherence Debt", "type": "theory", "layers": ["L01","L04","L06","L07","L09","L10","L12","L13","L14","L15","L17","L18"], "coherence": 0.88, "date": "2026-03-14", "kos_generated": 23 }
+  ]
 }

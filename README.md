@@ -1,55 +1,134 @@
-# draken.info
+# Draken.info Site Update — Integration Guide
 
-**The Draken 2045 Initiative** — Self-Building Artificial Superintelligence
+## What's in this package
 
-An 18-layer ontological architecture spanning from quantum fields to planetary cognition, built on a 100,000-year ecological stewardship mandate.
-
-## Architecture
-
-Static site built from markdown. No framework, no CMS, no database.
-
-- **Posts**: Markdown files with YAML front matter in `/posts/`
-- **Build**: `node build.js` → renders to `/dist/`
-- **Deploy**: Cloudflare Pages auto-deploys on push
-- **Data**: Static JSON in `/static/data/` updated by OpenClaw
-
-## Publishing
-
-```bash
-# Write a post
-vim posts/2026-03-04-new-post.md
-
-# Build and deploy
-git add -A && git commit -m "Publish: DRK-XXX" && git push
+```
+draken-site-update/
+├── templates/
+│   ├── base.html          ← REPLACES existing base.html
+│   ├── index.html         ← REPLACES existing index.html  
+│   └── post.html          ← REPLACES existing post.html
+├── static/
+│   ├── data/
+│   │   └── system.json    ← REPLACES existing system.json (now has real data)
+│   └── pages/
+│       └── sheaf-game.html ← NEW: standalone sheaf game page
+├── build-patch.js         ← NEW: additions to build.js for thesis + game pages
+├── style-additions.css    ← APPEND to end of existing style.css
+└── README.md              ← This file
 ```
 
-Cloudflare Pages builds automatically in ~30 seconds.
+## Integration Steps
 
-## Local Development
-
+### 1. Backup current site
 ```bash
-npm install
+cd C:\Draken\draken.info
+git stash   # or commit current state
+```
+
+### 2. Copy templates (overwrite existing)
+```bash
+copy draken-site-update\templates\base.html templates\base.html
+copy draken-site-update\templates\index.html templates\index.html
+copy draken-site-update\templates\post.html templates\post.html
+```
+
+### 3. Copy static files
+```bash
+copy draken-site-update\static\data\system.json static\data\system.json
+mkdir static\pages
+copy draken-site-update\static\pages\sheaf-game.html static\pages\sheaf-game.html
+```
+
+### 4. Add the thesis HTML
+Copy the thesis v3 HTML content into `static/pages/thesis.html`:
+- Use the `draken-thesis-v3.html` file we generated earlier
+- Strip the `<html>`, `<head>`, `<body>` wrapper tags — keep only the inner content
+- The build-patch.js wraps it in the base template automatically
+
+### 5. Append CSS additions
+```bash
+type draken-site-update\style-additions.css >> style.css
+```
+
+### 6. Update build.js
+Add these lines at the end of your existing build.js, before any final console.log:
+
+```javascript
+// ── Additional pages (v2 update) ──
+const { buildEnhancedLayerGrid, buildThesisPage, buildSheafGamePage, getSystemData } = require('./build-patch');
+buildThesisPage();
+buildSheafGamePage();
+```
+
+Also update the index page builder to use the enhanced layer grid:
+- In the function that builds the index, replace `{{layer_grid}}` with `{{layer_grid_enhanced}}`
+- Use `buildEnhancedLayerGrid(getSystemData())` to generate the HTML
+- Add `{{ko_embedded}}` template variable from system.json
+
+### 7. Build and test locally
+```bash
 node build.js
-# Serve dist/ with any static server
-npx serve dist
+# Open dist/index.html in browser
+# Check: /thesis/ page exists
+# Check: /sheaf-game/ page exists
+# Check: contact form appears (replaces chat)
+# Check: post pages have feedback form at bottom
 ```
 
-## Stack
+### 8. Deploy
+```bash
+git add .
+git commit -m "v2: sheaf game, thesis page, contact forms, KO stats, enhanced layer grid"
+git push  # Cloudflare Pages auto-deploys
+```
 
-| Layer | Technology |
-|-------|-----------|
-| Domain | draken.info via Cloudflare Registrar |
-| Hosting | Cloudflare Pages (free tier) |
-| Build | Custom Node.js script |
-| Markdown | gray-matter + marked |
-| CSS | Single stylesheet, no preprocessor |
-| JS | Vanilla, no framework |
+## What Changed
 
-## License
+### Navigation (base.html)
+- **Added:** "Thesis" link → /thesis/
+- **Added:** "🎮 Sheaf Game" button (red accent) → /sheaf-game/
+- **Removed:** "Codex" link (was pointing to #codex anchor, now inline)
+- **Removed:** "Source" link to GitHub (moved to footer)
+- **Updated:** Footer says "Göteborg" not "Stockholm"
+- **Added:** MathJax CDN for LaTeX rendering in thesis
 
-Content © Khrug Engineering 2026. Architecture documentation is open for academic citation.
+### Main Page (index.html)
+- **Added:** "Embeddings Complete" to signal bar
+- **Added:** Corpus Coherence Map (mini bar chart of per-article Γ scores)
+- **Added:** KO embedding status bar with progress indicator
+- **Added:** Enhanced layer grid showing which articles cover which layers (colored dots)
+- **Replaced:** "Ask Draken" chat widget → Contact form (sends to khrrug@gmail.com via FormSubmit)
+- **Added:** Corpus stats (total words, sources cited, cross-layer links)
 
----
+### Post Pages (post.html)
+- **Added:** Article coherence bar (Γ, layer count, KOs generated)
+- **Added:** Reader feedback form with types: Comment, Question, Annotation, Correction, Extension
+- **Added:** Section reference field for precise annotations
+- **Added:** Link to thesis at bottom
 
-*Khrug Engineering — Stockholm*  
-*V.1: Non-Deceptive Intention*
+### New Pages
+- **/thesis/** — Full Draken Framework monograph v3, with peer review feedback form
+- **/sheaf-game/** — Interactive sheaf pedagogy with 8 failure mode scenarios
+
+### system.json
+- Updated from 2 publications → 14 publications with full metadata
+- Added per-publication KO counts, layer arrays, coherence scores
+- Added corpus_stats (words, sources, cross-layer links)
+- Added ko_embedded count
+- Added layer_status for all 18 layers
+- Phase updated to "GENESIS → ALPHA"
+
+## Email Setup (separate from site update)
+The contact form uses FormSubmit.co (free, no backend needed).
+On first submission, FormSubmit sends a confirmation email to khrrug@gmail.com.
+Click "Confirm" in that email to activate the form.
+
+For kai@draken.info email, see the Cloudflare Email Routing setup guide
+provided in the conversation.
+
+## Notes
+- The sheaf game is vanilla JS — no React dependency, works on the static site as-is
+- FormSubmit handles CAPTCHA and spam filtering automatically
+- The thesis page loads MathJax for LaTeX equations
+- All new CSS is in style-additions.css — append to existing, don't replace

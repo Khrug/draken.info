@@ -296,11 +296,12 @@ function build() {
   const indexContent = render(indexTpl, {
     cards: buildCards(posts),
     ko_count: sys.ko_count,
+    ko_embedded: sys.ko_count,		
     global_coherence: sys.global_coherence.toFixed(3),
     pub_count: sys.pub_count,
     active_layers: sys.active_layers,
     phase: sys.phase,
-    layer_grid: buildLayerGrid(),
+    layer_grid_enhanced: buildEnhancedLayerGrid(getSystemData()),
     activity_feed: buildActivityFeed(),
   });
 
@@ -383,6 +384,10 @@ function copyDirSync(src, dest) {
     }
   }
 }
+// ── Additional pages (v2 update) ──
+const { buildEnhancedLayerGrid, buildThesisPage, buildSheafGamePage, getSystemData } = require('./build-patch');
+buildThesisPage();
+buildSheafGamePage();
 
 // Run
 build();

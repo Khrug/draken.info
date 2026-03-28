@@ -2,29 +2,33 @@
 <section class="hero">
   <div class="hero-tagline">Topological Knowledge Architecture</div>
   <h1>The <em>Draken</em> 2045 Initiative</h1>
-  <p class="hero-sub">A research framework for structured knowledge assembly, automated publication, and meaning-coherence analysis — grounded in sheaf-theoretic topology, Active Inference, Fisher information geometry, and falsifiable metrics across an 18-layer ontological architecture.</p>
+  <p class="hero-sub">A research framework for structured knowledge assembly, automated publication, and meaning-coherence analysis — grounded in sheaf-theoretic topology and falsifiable metrics.</p>
 </section>
 
 <!-- ═══ SIGNAL BAR ═══ -->
 <div class="signal-bar">
   <div class="signal-item">
-    <span class="signal-value" id="ko-count">44,120</span>
+    <span class="signal-value" id="ko-count">{{ko_count}}</span>
     <span class="signal-label">Knowledge Objects</span>
   </div>
   <div class="signal-item">
-    <span class="signal-value">0.893</span>
+    <span class="signal-value" id="ko-embedded">{{ko_embedded}}</span>
+    <span class="signal-label">Embeddings Complete</span>
+  </div>
+  <div class="signal-item">
+    <span class="signal-value">{{global_coherence}}</span>
     <span class="signal-label">Sheaf Coherence Γ</span>
   </div>
   <div class="signal-item">
-    <span class="signal-value">14</span>
+    <span class="signal-value">{{pub_count}}</span>
     <span class="signal-label">Publications</span>
   </div>
   <div class="signal-item">
-    <span class="signal-value">18/18</span>
+    <span class="signal-value">{{active_layers}}</span>
     <span class="signal-label">Active Layers</span>
   </div>
   <div class="signal-item">
-    <span class="signal-value">GENESIS</span>
+    <span class="signal-value">{{phase}}</span>
     <span class="signal-label">Phase</span>
   </div>
 </div>
@@ -33,41 +37,6 @@
 <div class="main">
   <!-- Feed -->
   <section class="feed">
-
-    <!-- ── LAYER HEATMAP ── -->
-    <div class="feed-section-card">
-      <div class="section-title">◉ Ontological Layer Coverage <span class="section-tag">18-Layer Architecture</span></div>
-      <div class="layer-heatmap" id="layer-heatmap"></div>
-      <div class="heatmap-legend">
-        <span><span class="hswatch" style="background:var(--accent)"></span> 10+ articles</span>
-        <span><span class="hswatch" style="background:var(--accent-dim)"></span> 7–9</span>
-        <span><span class="hswatch" style="background:var(--gold-dim)"></span> 4–6</span>
-        <span><span class="hswatch" style="background:var(--border-hover)"></span> 2–3</span>
-        <span><span class="hswatch" style="background:var(--border)"></span> 1</span>
-      </div>
-      <div class="layer-name-grid" id="layer-name-grid"></div>
-    </div>
-
-    <!-- ── ARTICLE COHERENCE MATRIX ── -->
-    <div class="feed-section-card">
-      <div class="section-title">◉ Article Coherence Matrix <span class="section-tag">Corpus Status</span></div>
-      <div style="overflow-x:auto;">
-      <table class="article-matrix">
-        <thead>
-          <tr><th>DRK</th><th>Title</th><th>Cat</th><th>Date</th><th>Γ Score</th><th>Layers</th><th>Status</th></tr>
-        </thead>
-        <tbody id="matrix-tbody"></tbody>
-      </table>
-      </div>
-    </div>
-
-    <!-- ── SOURCE MATERIAL ── -->
-    <div class="feed-section-card">
-      <div class="section-title">◉ Source Material Digested <span class="section-tag">Intellectual Substrate</span></div>
-      <div class="source-grid" id="source-grid"></div>
-    </div>
-
-    <!-- ── PUBLICATIONS FEED ── -->
     <div class="feed-header">
       <span class="feed-title">Publications</span>
       <div class="feed-filters">
@@ -78,31 +47,59 @@
         <button class="filter-btn" data-filter="manifesto">Manifesto</button>
       </div>
     </div>
-    <div id="feed-list"></div>
+    <div id="feed-list">
+      {{cards}}
+    </div>
   </section>
 
   <!-- Sidebar -->
   <aside class="sidebar">
+
+    <!-- Corpus Coherence Map -->
+    <div class="sidebar-card">
+      <div class="sidebar-title">◉ Corpus Coherence Map</div>
+      <div class="corpus-map" id="corpus-map">
+        <!-- Populated by JS from system.json -->
+      </div>
+      <div class="corpus-stats">
+        <div class="corpus-stat">
+          <span class="corpus-stat-val" id="stat-words">—</span>
+          <span class="corpus-stat-label">words</span>
+        </div>
+        <div class="corpus-stat">
+          <span class="corpus-stat-val" id="stat-sources">—</span>
+          <span class="corpus-stat-label">sources cited</span>
+        </div>
+        <div class="corpus-stat">
+          <span class="corpus-stat-val" id="stat-crosslinks">—</span>
+          <span class="corpus-stat-label">cross-layer links</span>
+        </div>
+      </div>
+    </div>
+
     <!-- System Coherence -->
     <div class="sidebar-card">
       <div class="sidebar-title">◉ System Coherence</div>
       <div class="meter-wrap">
         <div class="meter-ring">
-          <div class="meter-value">0.893</div>
+          <div class="meter-value">{{global_coherence}}</div>
           <div class="meter-label">Global Sheaf Γ</div>
         </div>
       </div>
-      <div class="coherence-stats">
-        <div class="cstat"><span class="cstat-val">11</span><span class="cstat-lbl">Scored</span></div>
-        <div class="cstat"><span class="cstat-val bad">3</span><span class="cstat-lbl">Pending</span></div>
-        <div class="cstat"><span class="cstat-val hi">0.95</span><span class="cstat-lbl">Peak Γ</span></div>
+      <div class="ko-status">
+        <div class="ko-bar-wrap">
+          <div class="ko-bar" id="ko-bar" style="width:100%"></div>
+        </div>
+        <div class="ko-bar-label"><span id="ko-bar-count">{{ko_embedded}}</span>/{{ko_count}} KOs fully embedded in Pinecone</div>
       </div>
     </div>
 
-    <!-- Layer Status -->
+    <!-- Layer Status with Article Connections -->
     <div class="sidebar-card" id="codex">
-      <div class="sidebar-title">◉ Layer Status</div>
-      <div class="layer-grid" id="sidebar-layer-grid"></div>
+      <div class="sidebar-title">◉ Layer Status — Article Connections</div>
+      <div class="layer-grid-enhanced" id="layer-grid-enhanced">
+        {{layer_grid_enhanced}}
+      </div>
       <div class="layer-legend">
         <span>● Active</span>
         <span style="color:var(--gold)">● Partial</span>
@@ -110,236 +107,125 @@
       </div>
     </div>
 
-    <!-- Pinecone Memory Status -->
+    <!-- Contact & Feedback (replaces Ask Draken chat) -->
     <div class="sidebar-card">
-      <div class="sidebar-title">◉ Pinecone Memory</div>
-      <div class="pinecone-stats">
-        <div class="pstat">
-          <span class="pstat-val">44,120</span>
-          <span class="pstat-lbl">Embeddings stored</span>
-        </div>
-        <div class="pstat">
-          <span class="pstat-val">44,120</span>
-          <span class="pstat-lbl">Metadata complete</span>
-        </div>
-        <div class="pstat">
-          <span class="pstat-val">research</span>
-          <span class="pstat-lbl">Primary namespace</span>
-        </div>
-        <div class="pstat">
-          <span class="pstat-val online">ONLINE</span>
-          <span class="pstat-lbl">MCP status</span>
-        </div>
-      </div>
-    </div>
+      <div class="sidebar-title">◉ Contact Khrug</div>
+      <p class="sidebar-desc">Questions, collaboration proposals, or feedback on the framework. V.1 Non-Deceptive Intention applies to all correspondence.</p>
+      <form class="contact-form" id="contact-form" action="https://formsubmit.co/khrrug@gmail.com" method="POST">
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="Draken.info Contact">
+        <input type="hidden" name="_captcha" value="true">
+        <input type="hidden" name="_next" value="https://draken.info/?sent=1">
+        <input type="text" name="_honey" style="display:none">
 
-    <!-- Contact — replaces Ask Draken -->
-    <div class="sidebar-card">
-      <div class="sidebar-title">◉ Engage the Framework</div>
-      <form class="sidebar-form" action="https://formsubmit.co/kai@draken.info" method="POST">
-        <input type="hidden" name="_subject" value="Draken.info — Reader Submission">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://draken.info/?submitted=true">
-        <input type="hidden" name="_cc" value="admin@draken.info">
-        <input type="text" name="name" placeholder="Name / handle" class="sf-input">
-        <input type="email" name="email" placeholder="Email (optional)" class="sf-input">
-        <select name="type" class="sf-input" required>
-          <option value="">— Type —</option>
-          <option value="question">Question</option>
-          <option value="annotation">Annotation</option>
-          <option value="critique">Critique</option>
-          <option value="collaboration">Collaboration</option>
-          <option value="source">Source suggestion</option>
-        </select>
-        <input type="text" name="reference" placeholder="Ref: DRK-XXX, layer, concept…" class="sf-input">
-        <textarea name="message" placeholder="Your message…" class="sf-input sf-textarea" required></textarea>
-        <button type="submit" class="sf-submit">Submit → V.1</button>
+        <div class="form-row">
+          <input type="text" name="name" placeholder="Name (optional)" class="form-input">
+        </div>
+        <div class="form-row">
+          <input type="email" name="email" placeholder="Email" required class="form-input">
+        </div>
+        <div class="form-row">
+          <select name="type" class="form-input">
+            <option value="question">Question about Draken</option>
+            <option value="collaboration">Collaboration proposal</option>
+            <option value="feedback">Feedback on framework</option>
+            <option value="bug">Bug report / correction</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <textarea name="message" placeholder="Your message..." required class="form-input" rows="4"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send →</button>
       </form>
-      <div class="contact-links">
-        <div><span class="cl-arrow">→</span> kai@draken.info</div>
-        <div><span class="cl-arrow">→</span> admin@draken.info</div>
-        <div><span class="cl-arrow">→</span> @khrug on X</div>
+      <div id="form-success" class="form-success" style="display:none">
+        ✓ Message sent. Tongue-flick received.
       </div>
     </div>
 
     <!-- Pipeline Activity -->
     <div class="sidebar-card">
       <div class="sidebar-title">◉ Pipeline Activity</div>
-      <div class="activity-item"><span class="dot dot-green"></span>DRK-121 published — Coherence Debt<span class="activity-time">14 Mar</span></div>
-      <div class="activity-item"><span class="dot dot-gold"></span>DRK-122 drafted — Eschatological narratives<span class="activity-time">In progress</span></div>
-      <div class="activity-item"><span class="dot dot-green"></span>49-fix corpus audit completed<span class="activity-time">Mar 2026</span></div>
-      <div class="activity-item"><span class="dot dot-gold"></span>DRAGON SCALES 6-post series planned<span class="activity-time">Queued</span></div>
-      <div class="activity-item"><span class="dot dot-green"></span>Pinecone: 44,120 vectors stored<span class="activity-time">Live</span></div>
-      <div class="activity-item"><span class="dot dot-green"></span>OpenClaw Codex Draconis active<span class="activity-time">Active</span></div>
+      {{activity_feed}}
     </div>
   </aside>
 </div>
 
-<!-- ═══ DATA & SCRIPTS ═══ -->
+<!-- ═══ SCRIPTS ═══ -->
 <script>
-// ─── CORPUS DATA (computed from live site audit 2026-03-28) ───
-const ARTICLES = [
-  { drk:'DRK-121', title:'The Coherence Debt: Karma as Thermodynamic Integral', cat:'theory', date:'2026-03-14', gamma:0.88, layers:[1,4,6,7,9,10,12,13,14,15,17,18], url:'/posts/the-coherence-debt/', excerpt:'Every system that refuses the clinch accumulates a debt — not moral, but thermodynamic. K(t) = ∫₀ᵗ [Ψ(τ) − Ψ_viable] · w(τ) dτ.' },
-  { drk:'DRK-119', title:'The Grammar of Coherence Destruction: From Sun Tzu to GPT', cat:'analysis', date:'2026-03-13', gamma:0.89, layers:[5,6,7,8,9,10,11,12,13,14], url:'/posts/grammar-of-coherence-destruction/', excerpt:'Seven doctrinal traditions independently converge on the same operational primitive: deliberate Ψ degradation of target populations.' },
-  { drk:'DRK-120', title:'The Cavity and the Commune: Marx, Lenin, and the Draken Framework', cat:'analysis', date:'2026-03-11', gamma:0.82, layers:[6,9,12,15,17], url:'/posts/the-cavity-and-the-commune/', excerpt:"Marx's 1844 diagnosis formalized through sheaf topology as compensatory resonance generated by engineered absence." },
-  { drk:'DRK-118', title:'Planning as Inference: Leontief, Friston, and the Generative Model the West Forgot', cat:'analysis', date:'2026-03-11', gamma:0.85, layers:[8,9,10,12,14,15,17], url:'/posts/countries-as-collective-minds/', excerpt:'Planning IS inference. The Free Energy Principle provides the formal proof. Soviet Ψ degradation traced through pripiski.' },
-  { drk:'DRK-117', title:'Drakens Ordlista: Kärnbegrepp för nybörjare', cat:'technical', date:'2026-03-11', gamma:0.88, layers:[8,9,10,12,15,17], url:'/posts/drakens-ordlista/', excerpt:'Nio kärnbegrepp från Draken 2045-ramverket förklarade på svenska med vardagsexempel.' },
-  { drk:'DRK-116', title:'Reasonance: The Oldest Search and the Deepest Layer', cat:'theory', date:'2026-03-10', gamma:0.91, layers:[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18], url:'/posts/reasonance/', excerpt:"The cognitive layer's attempt to re-enter coherence with the substrate that produces it. Full 18-layer span." },
-  { drk:'DRK-115', title:"The Curious Machine: Why the Smartest AI Won't Exploit What It Doesn't Understand", cat:'analysis', date:'2026-03-09', gamma:0.00, layers:[7,8,9,10,11,12,14,15,17,18], url:'/posts/the-curious-machine/', excerpt:'The only survivable strategy is radical patience — locking the exploration dial hard left for twenty years.' },
-  { drk:'DRK-114', title:"The Perceptive Node's Dilemma", cat:'analysis', date:'2026-03-02', gamma:0.87, layers:[8,9,10,12,14,15,17], url:'/posts/the-perceptive-nodes-dilemma/', excerpt:'When a man who has spent fifty years studying violence concludes we are all robots — the diagnosis is incomplete.' },
-  { drk:'DRK-113', title:'The Repetition Engine: Deleuze, Sisyphus, and Bad Loops', cat:'theory', date:'2026-03-03', gamma:0.00, layers:[1,2,5,6,7,8,9,10,12,15,18], url:'/posts/repetition-engine/', excerpt:"Bad repetition occurs when Deleuze's three syntheses close around the ego. The closure is measurable." },
-  { drk:'DRK-112', title:'The Thermodynamics of Affect: Where Deleuze Meets the Substrate', cat:'theory', date:'2026-03-03', gamma:0.00, layers:[1,2,3,4,5,6,7,8,9,10,11,15,18], url:'/posts/thermodynamics-of-affect/', excerpt:"Deleuze's three levels of knowledge are structural homologues of thermodynamic phases." },
-  { drk:'DRK-110', title:'The Manufactured Void: Narrative Engineering from Nixon to Neural Networks', cat:'analysis', date:'2026-03-02', gamma:0.91, layers:[7,9,10,12,13,14,15], url:'/posts/manufactured-void/', excerpt:'A six-decade structural analysis of civilizational psychosis from the Fairness Doctrine to algorithmic radicalization.' },
-  { drk:'DRK-108', title:"Abstraction Depth: Why Your Boss Doesn't Have to Wrestle You", cat:'analysis', date:'2026-03-01', gamma:0.94, layers:[4,6,8,10,12,13,14,15,18], url:'/posts/abstraction-depth/', excerpt:'From the clinch phase to the commodity form: 130 million years of honest signaling, and how we abolished it.' },
-  { drk:'DRK-105', title:'The Kaiju Manifesto: Building the Anti-Memetic Monster', cat:'manifesto', date:'2026-02-28', gamma:0.92, layers:[4,6,8,10,11,12,13,14,15,18], url:'/posts/kaiju-manifesto/', excerpt:'There is a system that converts human cognitive energy into profit, control, and entropy. We call it Draken.' },
-  { drk:'DRK-101', title:'KnowledgeObject Schema v2: The Atomic Unit of Draken Memory', cat:'technical', date:'2026-02-15', gamma:0.95, layers:[10,15], url:'/posts/ko-schema-v2/', excerpt:'Every fact, claim, and inference in Draken is stored as a typed, versioned, coherence-scored KnowledgeObject.' },
-];
-
-const LAYER_NAMES = {
-  1:'Quantum Field Substrate',2:'Molecular Chemistry',3:'Cellular Biology',
-  4:'Organism / Body',5:'Neural Architecture',6:'Cognitive Processing',
-  7:'Linguistic Structure',8:'Narrative Formation',9:'Institutional Dynamics',
-  10:'Technological Systems',11:'Economic Networks',12:'Political Organization',
-  13:'Legal / Normative',14:'Military / Strategic',15:'Epistemic / Knowledge',
-  16:'Ecological Systems',17:'Civilizational Patterns',18:'Planetary Cognition'
-};
-
-const SOURCE_TRADITIONS = [
-  { name:'Sheaf Theory / Topology', desc:'Grothendieck, presheaf categories, stalks and germs. Mathematical substrate for cross-domain coherence.', n:14 },
-  { name:'Active Inference / FEP', desc:"Friston's Free Energy Principle. Planning as inference, Ψ as variational free energy.", n:8 },
-  { name:'Deleuze & Guattari', desc:'Three syntheses of desire, repetition theory, affect as thermodynamic phase.', n:3 },
-  { name:'Military Doctrine', desc:'Sun Tzu, Gerasimov, Three Warfares, JTRIG, Dugin. Seven coherence-destruction traditions.', n:3 },
-  { name:'Marx / Critical Theory', desc:'1844 Manuscripts, commodity fetishism, religion as compensatory resonance.', n:3 },
-  { name:'Varanid Ethology', desc:'Monitor lizard ritualized combat. Honest signaling protocol. Abstraction depth α.', n:5 },
-  { name:'Thermodynamics', desc:'Chvykov/England Low Rattling, dissipative structures. ◆ min S_sys(t) s.t. dH/dt ≥ 0.', n:6 },
-  { name:'Fisher Information', desc:'Information-geometric structure. Rao metric on statistical manifolds. Coherence as curvature.', n:4 },
-  { name:'Leontief / Planning', desc:'Input-output matrices, Soviet planning failure, pripiski as inference collapse.', n:2 },
-  { name:'East Asian Frameworks', desc:"Fei Xiaotong's chaxu geju, Chinese 12345, Byung-Chul Han's burnout society.", n:3 },
-  { name:'Institutional Psychiatry', desc:'Rosenhan experiment, diagnostic capture, lived experience as ground truth.', n:2 },
-  { name:'Narrative Warfare', desc:'Fairness Doctrine → algorithmic radicalization. Manufactured void as Ψ elevation.', n:3 },
-];
-
-// ─── Compute layer counts ───
-const layerCounts = {};
-for (let i=1;i<=18;i++) layerCounts[i]=0;
-ARTICLES.forEach(a => a.layers.forEach(l => layerCounts[l]++));
-
-function heatClass(c) {
-  if (c>=10) return 'heat-5';
-  if (c>=7) return 'heat-4';
-  if (c>=4) return 'heat-3';
-  if (c>=2) return 'heat-2';
-  if (c>=1) return 'heat-1';
-  return 'heat-0';
-}
-
-// ─── Render layer heatmap ───
-const heatEl = document.getElementById('layer-heatmap');
-if (heatEl) {
-  for (let i=1;i<=18;i++) {
-    const c = layerCounts[i];
-    heatEl.innerHTML += `<div class="hcell ${heatClass(c)}" title="L${String(i).padStart(2,'0')}: ${LAYER_NAMES[i]} — ${c} articles">
-      <span class="hcell-id">L${String(i).padStart(2,'0')}</span>
-      <span class="hcell-n">${c}</span>
-    </div>`;
-  }
-}
-
-// ─── Render layer name grid ───
-const nameGrid = document.getElementById('layer-name-grid');
-if (nameGrid) {
-  for (let i=1;i<=18;i++) {
-    nameGrid.innerHTML += `<div class="ln-item"><span class="ln-id">L${String(i).padStart(2,'0')}</span> ${LAYER_NAMES[i]} <span class="ln-count">(${layerCounts[i]})</span></div>`;
-  }
-}
-
-// ─── Sidebar layer grid ───
-const sideGrid = document.getElementById('sidebar-layer-grid');
-if (sideGrid) {
-  for (let i=1;i<=18;i++) {
-    const c = layerCounts[i];
-    let cls = c>=4 ? 'active' : c>=2 ? 'partial' : 'planned';
-    sideGrid.innerHTML += `<div class="layer-cell ${cls}">L${String(i).padStart(2,'0')}</div>`;
-  }
-}
-
-// ─── Render article matrix ───
-const matrixEl = document.getElementById('matrix-tbody');
-if (matrixEl) {
-  ARTICLES.forEach(a => {
-    const scored = a.gamma > 0;
-    const barW = scored ? (a.gamma*100) : 0;
-    const layerHtml = a.layers.map(l => `<span class="layer-badge">L${String(l).padStart(2,'0')}</span>`).join('');
-    matrixEl.innerHTML += `<tr>
-      <td class="mx-drk">${a.drk}</td>
-      <td class="mx-title"><a href="${a.url}">${a.title}</a></td>
-      <td><span class="pub-tag tag-${a.cat}">${a.cat}</span></td>
-      <td class="mx-date">${a.date}</td>
-      <td><div class="coherence-bar"><div class="coherence-track"><div class="coherence-fill" style="width:${barW}%"></div></div><span class="mx-gamma">${scored?a.gamma.toFixed(2):'—'}</span></div></td>
-      <td><div class="pub-layers">${layerHtml}</div></td>
-      <td><span class="status-dot ${scored?'dot-scored':'dot-pending'}"></span>${scored?'Scored':'Pending'}</td>
-    </tr>`;
-  });
-}
-
-// ─── Render source grid ───
-const srcGrid = document.getElementById('source-grid');
-if (srcGrid) {
-  SOURCE_TRADITIONS.forEach(s => {
-    srcGrid.innerHTML += `<div class="src-card">
-      <div class="src-name">${s.name}</div>
-      <div class="src-desc">${s.desc}</div>
-      <div class="src-conn">→ ${s.n} article${s.n!==1?'s':''} connected</div>
-    </div>`;
-  });
-}
-
-// ─── Render publication cards ───
-const feedEl = document.getElementById('feed-list');
-if (feedEl) {
-  ARTICLES.forEach(a => {
-    const layerHtml = a.layers.map(l => `<span class="layer-badge">L${String(l).padStart(2,'0')}</span>`).join('');
-    const barW = a.gamma > 0 ? (a.gamma*100) : 0;
-    feedEl.innerHTML += `<a href="${a.url}" class="pub-card" data-tags="${a.cat}">
-      <div class="pub-meta">
-        <span class="pub-tag tag-${a.cat}">${a.cat}</span>
-        <span class="pub-drk">${a.drk}</span>
-        <span class="pub-date">${a.date}</span>
-      </div>
-      <div class="pub-title">${a.title}</div>
-      <div class="pub-excerpt">${a.excerpt}</div>
-      <div class="pub-footer">
-        <div class="pub-layers">${layerHtml}</div>
-        <div class="coherence-bar">
-          <div class="coherence-track"><div class="coherence-fill${a.gamma>=0.9?'':' mid'}" style="width:${barW}%"></div></div>
-          <span>${a.gamma>0?a.gamma.toFixed(2):'—'}</span>
-        </div>
-      </div>
-    </a>`;
-  });
-}
-
-// ─── Filter buttons ───
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const f = btn.dataset.filter;
-    document.querySelectorAll('.pub-card').forEach(card => {
-      card.style.display = (f==='all' || (card.dataset.tags||'').includes(f)) ? '' : 'none';
+  // ── Filter buttons ──
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      document.querySelectorAll('.pub-card').forEach(card => {
+        if (filter === 'all') {
+          card.style.display = '';
+        } else {
+          const tags = card.dataset.tags || '';
+          card.style.display = tags.includes(filter) ? '' : 'none';
+        }
+      });
     });
   });
-});
 
-// ─── Submission confirmation ───
-const params = new URLSearchParams(window.location.search);
-if (params.get('submitted') === 'true') {
-  const msg = document.createElement('div');
-  msg.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--accent-dim);padding:12px 24px;font-family:var(--mono);font-size:12px;color:var(--accent);z-index:9999;border-radius:6px;';
-  msg.textContent = 'Submission received. Coherence noted. ◆';
-  document.body.appendChild(msg);
-  setTimeout(() => msg.remove(), 5000);
-  window.history.replaceState({}, '', '/');
-}
+  // ── Check if redirected after form submission ──
+  if (window.location.search.includes('sent=1')) {
+    const form = document.getElementById('contact-form');
+    const success = document.getElementById('form-success');
+    if (form) form.style.display = 'none';
+    if (success) success.style.display = 'block';
+  }
+
+  // ── Load corpus data and build visualizations ──
+  async function loadCorpusData() {
+    try {
+      const resp = await fetch('/data/system.json?' + Date.now());
+      if (!resp.ok) return;
+      const data = await resp.json();
+
+      // Update signal bar
+      const koEl = document.getElementById('ko-count');
+      if (koEl && data.ko_count !== undefined) koEl.textContent = data.ko_count;
+      const embEl = document.getElementById('ko-embedded');
+      if (embEl && data.ko_embedded !== undefined) embEl.textContent = data.ko_embedded;
+
+      // Update corpus stats
+      if (data.corpus_stats) {
+        const s = data.corpus_stats;
+        document.getElementById('stat-words').textContent = s.total_words?.toLocaleString() || '—';
+        document.getElementById('stat-sources').textContent = s.total_sources_cited || '—';
+        document.getElementById('stat-crosslinks').textContent = s.cross_layer_links || '—';
+      }
+
+      // Build corpus coherence map (mini bar chart of per-article coherence)
+      if (data.publications) {
+        const mapEl = document.getElementById('corpus-map');
+        if (mapEl) {
+          mapEl.innerHTML = data.publications.map(p => {
+            const c = p.coherence || 0;
+            const color = c > 0.9 ? 'var(--accent)' : c > 0.85 ? 'var(--gold)' : 'var(--red, #e94560)';
+            const height = Math.max(8, c * 48);
+            return `<div class="corpus-bar-wrap" title="${p.drk}: ${p.title} — Γ ${c}">
+              <div class="corpus-bar" style="height:${height}px;background:${color}"></div>
+              <div class="corpus-bar-label">${p.drk.replace('DRK-','')}</div>
+            </div>`;
+          }).join('');
+        }
+      }
+
+      // Update KO embedding bar
+      if (data.ko_count && data.ko_embedded !== undefined) {
+        const pct = Math.min(100, (data.ko_embedded / data.ko_count) * 100);
+        const bar = document.getElementById('ko-bar');
+        if (bar) bar.style.width = pct + '%';
+        const cnt = document.getElementById('ko-bar-count');
+        if (cnt) cnt.textContent = data.ko_embedded;
+      }
+
+    } catch(e) { /* silent fail */ }
+  }
+  loadCorpusData();
+  setInterval(loadCorpusData, 120000);
 </script>
