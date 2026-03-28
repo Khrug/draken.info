@@ -24,3 +24,121 @@
     <a href="/" class="back-link">← Back to Feed</a>
   </div>
 </div>
+<!-- ═══ POST ENGAGEMENT SECTION ═══ -->
+<!-- INSERT THIS AFTER {{content}} IN THE POST TEMPLATE, BEFORE THE FOOTER -->
+
+<section class="engage-section">
+  <h2>Engage This Post</h2>
+  <p class="engage-intro">
+    Annotations, questions, and critiques are part of the coherence audit.
+    All submissions are delivered to kai@draken.info. V.1: Non-Deceptive Intention applies.
+  </p>
+
+  <div class="engage-tabs">
+    <button class="engage-tab active" data-panel="comment">Comment</button>
+    <button class="engage-tab" data-panel="question">Question</button>
+    <button class="engage-tab" data-panel="annotate">Annotate Text</button>
+  </div>
+
+  <div class="engage-panels">
+
+    <!-- ── COMMENT ── -->
+    <div class="engage-panel active" id="panel-comment">
+      <form class="annotation-form" action="https://formsubmit.co/kai@draken.info" method="POST">
+        <input type="hidden" name="_subject" value="Draken Comment — {{drk}}: {{title}}">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="{{url}}?engaged=comment">
+        <input type="hidden" name="_cc" value="admin@draken.info">
+        <input type="hidden" name="post" value="{{drk}}">
+        <input type="hidden" name="type" value="comment">
+        <div class="form-row">
+          <div><label>Name / Handle</label><input type="text" name="name" placeholder="Anonymous welcome"></div>
+          <div><label>Email (optional)</label><input type="email" name="email" placeholder="Not published"></div>
+        </div>
+        <div><label>Comment</label><textarea name="message" required placeholder="Your response to this article…"></textarea></div>
+        <button type="submit" class="submit-btn">Submit Comment</button>
+      </form>
+    </div>
+
+    <!-- ── QUESTION ── -->
+    <div class="engage-panel" id="panel-question">
+      <form class="annotation-form" action="https://formsubmit.co/kai@draken.info" method="POST">
+        <input type="hidden" name="_subject" value="Draken Question — {{drk}}: {{title}}">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="{{url}}?engaged=question">
+        <input type="hidden" name="_cc" value="admin@draken.info">
+        <input type="hidden" name="post" value="{{drk}}">
+        <input type="hidden" name="type" value="question">
+        <div class="form-row">
+          <div><label>Name / Handle</label><input type="text" name="name" placeholder="Anonymous welcome"></div>
+          <div><label>Which concept / section?</label><input type="text" name="section_ref" placeholder="e.g. Ψ metric, Section II, L12…"></div>
+        </div>
+        <div><label>Your Question</label><textarea name="message" required placeholder="What do you want clarified, challenged, or expanded?"></textarea></div>
+        <p class="form-note">Questions that challenge the framework under V.7 (Inversion Filter) are especially valued.</p>
+        <button type="submit" class="submit-btn">Submit Question</button>
+      </form>
+    </div>
+
+    <!-- ── ANNOTATE ── -->
+    <div class="engage-panel" id="panel-annotate">
+      <form class="annotation-form" action="https://formsubmit.co/kai@draken.info" method="POST">
+        <input type="hidden" name="_subject" value="Draken Annotation — {{drk}}: {{title}}">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="{{url}}?engaged=annotation">
+        <input type="hidden" name="_cc" value="admin@draken.info">
+        <input type="hidden" name="post" value="{{drk}}">
+        <input type="hidden" name="type" value="annotation">
+        <div>
+          <label>Quoted Text (paste the passage)</label>
+          <textarea name="quoted_text" required placeholder="Paste the specific text you're annotating…" style="min-height:70px;font-style:italic;"></textarea>
+        </div>
+        <div>
+          <label>Annotation Type</label>
+          <select name="annotation_type" required>
+            <option value="">— Select —</option>
+            <option value="correction">Factual correction</option>
+            <option value="source">Additional source / reference</option>
+            <option value="counterargument">Counterargument</option>
+            <option value="extension">Extension / related concept</option>
+            <option value="clarification">Request for clarification</option>
+            <option value="connection">Cross-layer connection</option>
+          </select>
+        </div>
+        <div><label>Your Annotation</label><textarea name="message" required placeholder="Your annotation, source, counterargument, or revision…"></textarea></div>
+        <div class="form-row">
+          <div><label>Name / Handle</label><input type="text" name="name" placeholder="Anonymous welcome"></div>
+          <div><label>Email (optional)</label><input type="email" name="email" placeholder="For follow-up if desired"></div>
+        </div>
+        <p class="form-note">Annotations are the highest-value input to the coherence audit. Factual corrections and source suggestions directly improve Γ.</p>
+        <button type="submit" class="submit-btn">Submit Annotation</button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+// Tab switching
+document.querySelectorAll('.engage-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.engage-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.engage-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
+  });
+});
+// Submission confirmation
+const params = new URLSearchParams(window.location.search);
+if (params.get('engaged')) {
+  const type = params.get('engaged');
+  const msg = document.createElement('div');
+  msg.style.cssText = 'position:fixed;top:60px;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--accent-dim);padding:10px 20px;font-family:var(--mono);font-size:11px;color:var(--accent);z-index:9999;border-radius:6px;';
+  msg.textContent = type.charAt(0).toUpperCase() + type.slice(1) + ' received. Coherence noted. ◆';
+  document.body.appendChild(msg);
+  setTimeout(() => msg.remove(), 5000);
+  window.history.replaceState({}, '', window.location.pathname);
+}
+</script>
