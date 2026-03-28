@@ -1,0 +1,15 @@
+/* FIX: Game button - was white on red (unreadable). Now subtle outline style. */
+.nav-game-btn {
+  background: transparent !important;
+  color: var(--accent, #e94560) !important;
+  border: 1px solid var(--accent, #e94560) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  transition: background 0.2s, color 0.2s;
+}
+.nav-game-btn:hover {
+  background: var(--accent, #e94560) !important;
+  color: #fff !important;
+}
