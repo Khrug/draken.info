@@ -45,7 +45,7 @@ Bernard Schiele's analysis, originally published in French in 1984 and recently 
 
 **The "rupture" is a legitimacy operation, not a truth operation.** What Bachelard and others call the epistemological rupture — the break between "scientific" and "natural" thought — does not create knowledge. It creates *legitimacy boundaries*. Certain discourses gain the status of knowledge; others are reclassified as non-knowledge, ideology, myth, or common sense. Science does not institute knowledge; it "aspectualizes a modality of it."
 
-In Draken terms: **Ψ measures the fidelity of restriction maps between adjacent layers of the ontological hierarchy.** When the sheaf is coherent, information at one layer (say, individual perception) maps consistently onto information at the next layer (group-mediated belief) and the next (institutional knowledge). When restriction maps degrade — when what you perceive no longer connects coherently to what your group believes, which no longer connects to what institutions validate — you are in **epistemic free fall**. The void is not the absence of information. It is the absence of *integration*.
+In Draken terms: **Γ (sheaf convergence) measures the fidelity of restriction maps between adjacent layers of the ontological hierarchy.** When the sheaf is coherent, information at one layer (say, individual perception) maps consistently onto information at the next layer (group-mediated belief) and the next (institutional knowledge). When restriction maps degrade — when what you perceive no longer connects coherently to what your group believes, which no longer connects to what institutions validate — you are in **epistemic free fall**. The void is not the absence of information. It is the absence of *integration*.
 
 ---
 
@@ -83,7 +83,7 @@ The manual distinguishes between **primary groups** (family, comrades, intimate 
 
 **The doctrine:** Aleksandr Dugin's 600-page textbook, used at the Academy of the General Staff of the Russian military, advocates what the Stanford Hoover Institution's John Dunlop called "a sophisticated program of subversion, destabilization, and disinformation spearheaded by the Russian special services." For the United States specifically, Dugin prescribes: "introduce geopolitical disorder into internal American activity, encouraging all kinds of separatism and ethnic, social and racial conflicts, actively supporting all dissident movements — extremist, racist, and sectarian groups, thus destabilizing internal political processes in the U.S."
 
-Note the target: not a specific political outcome, but **the capacity for internal coherence itself.** Dugin does not care which side of an American conflict wins. He cares that the conflict *exists and intensifies*. The goal is Ψ-degradation at civilizational scale.
+Note the target: not a specific political outcome, but **the capacity for internal coherence itself.** Dugin does not care which side of an American conflict wins. He cares that the conflict *exists and intensifies*. The goal is Γ-degradation at civilizational scale — driving Ψ upward until the population can no longer distinguish signal from noise.
 
 **Application — 2016 US Elections and Beyond:** The Internet Research Agency (IRA), operating from St. Petersburg, created thousands of fake social media accounts targeting American audiences across the political spectrum. Crucially, the IRA simultaneously amplified both Black Lives Matter content *and* Blue Lives Matter content, both pro-gun *and* anti-gun messaging, both left-wing *and* right-wing narratives. The operational logic maps directly onto Dugin: the target is not belief but *polarization* — the destruction of the shared epistemic ground on which democratic deliberation depends.
 
@@ -107,7 +107,7 @@ What makes the Chinese doctrine distinctive is the addition of **lawfare** as a 
 
 **Countermeasure:** The ruling itself was the primary countermeasure — a legal counter to legal warfare. Freedom of navigation operations (FONOPs) by the US Navy served as a kinetic countermeasure to the psychological warfare component. Neither countermeasure reversed the situation. The artificial islands exist. The administrative structures exist. The manufactured legal reality persists alongside (and in direct contradiction to) international law. This is what happens when lawfare creates a *parallel legitimacy topology* — two incompatible sheaves covering the same territory.
 
-**Ψ reading:** The target was the L10→L13→L15 chain (social coordination → political structure → cultural narrative field). By establishing administrative, legal, and media structures that assert sovereignty, China created a coherent *local* Ψ that contradicts the *global* Ψ of international law. The operation did not destroy coherence — it manufactured an *alternative coherence* and defended it against external correction. This is a more sophisticated operation than mere Ψ-degradation: it is Ψ-substitution.
+**Ψ reading:** The target was the L10→L13→L15 chain (social coordination → political structure → cultural narrative field). By establishing administrative, legal, and media structures that assert sovereignty, China created a coherent *local* Γ that contradicts the *global* Γ of international law. The operation did not destroy coherence — it manufactured an *alternative coherence* and defended it against external correction. This is a more sophisticated operation than mere Γ-degradation: it is Γ-substitution — installing a parallel sheaf.
 
 ---
 
@@ -125,7 +125,7 @@ What distinguishes JTRIG from the other traditions is that this is a **Western d
 
 **Countermeasure:** Parliamentary inquiries, public outcry, and GCHQ's standard response: "All of GCHQ's work is carried out in accordance with a strict legal and policy framework." No structural reforms were implemented. The Investigatory Powers Act 2016 (the "Snoopers' Charter") expanded rather than constrained the legal framework for such operations. The countermeasure failed. The capacity was institutionalized.
 
-**Ψ reading:** JTRIG represents the point where the coherence-destruction grammar turns reflexive — the state applying information warfare to the *same social topology it is supposed to maintain*. Each of the D-words maps to a specific Schiele mechanism: "discredit" attacks the provenance layer of recontextualization; "disrupt" attacks group communication channels (L08→L09: dyadic signal → group cognition); "deceive" injects false fragments into the decontextualization stream; "degrade" reduces the overall signal-to-noise ratio until integration becomes impossible. The target is not a foreign adversary's Ψ — it is the domestic Ψ of dissent.
+**Ψ reading:** JTRIG represents the point where the coherence-destruction grammar turns reflexive — the state applying information warfare to the *same social topology it is supposed to maintain*. Each of the D-words maps to a specific Schiele mechanism: "discredit" attacks the provenance layer of recontextualization; "disrupt" attacks group communication channels (L08→L09: dyadic signal → group cognition); "deceive" injects false fragments into the decontextualization stream; "degrade" reduces the overall signal-to-noise ratio until integration becomes impossible. The target is not a foreign adversary's Γ — it is the domestic coherence topology of dissent.
 
 ---
 
@@ -157,7 +157,7 @@ The escalation is not metaphorical. AI agents are now both **targets** of and **
 
 **Detection:** This is the frontier. Current detection methods for AI-mediated influence operations include metadata analysis, stylometric fingerprinting, provenance tracking, and coordinated-inauthentic-behavior detection. Sahoo's CQS (Control Quality Score) provides a framework for detecting coherence degradation in agentic AI systems through continuous monitoring of six normalized metrics. But no equivalent of the CQS exists for *social* coherence. We can measure when an AI agent's control quality degrades. We cannot yet measure when a society's epistemic coherence degrades — at least, not with the same rigor.
 
-**Countermeasure:** Sahoo proposes graduated response protocols driven by real-time CQS monitoring. The Draken framework proposes something analogous at civilizational scale: continuous Ψ monitoring across the ontological hierarchy, with graduated responses as coherence degrades. VSP-1 — the Varanid Sustainability Protocol — encodes the ethical constraint: **Future ≡ Life.** Any system (human, institutional, AI) that degrades the capacity for coherent perception in another system is performing an act structurally equivalent to predation.
+**Countermeasure:** Sahoo proposes graduated response protocols driven by real-time CQS monitoring. The Draken framework proposes something analogous at civilizational scale: continuous Γ/Ψ monitoring across the ontological hierarchy, with graduated responses as coherence degrades. VSP-1 — the Varanid Sustainability Protocol — encodes the ethical constraint: **Future ≡ Life.** Any system (human, institutional, AI) that degrades the capacity for coherent perception in another system is performing an act structurally equivalent to predation.
 
 ---
 
@@ -183,9 +183,9 @@ This is the fundamental asymmetry that all seven traditions exploit. Building a 
 
 The Draken framework provides the formalization that the military doctrines lack.
 
-**Ψ is the sheaf coherence score** — a composite metric measuring the fidelity of restriction maps between adjacent layers of the ontological hierarchy. When Ψ is high, information at one layer maps consistently onto information at the next: what individuals perceive (L05: neural integration) aligns with what the embodied self knows (L06: embodied cognition), which aligns with the narrative self-model (L07: narrative self), which aligns with what groups believe (L09: group cognition), which aligns with what institutions coordinate (L10: social coordination), which aligns with national narratives (L12) and cultural meaning-systems (L15: cultural narrative field). When Ψ degrades, these mappings break down. Individuals perceive one thing; their groups tell them another; institutions validate a third; the law says something else entirely.
+**Γ is the sheaf convergence score** — measuring the fidelity of restriction maps between adjacent layers of the ontological hierarchy. **Ψ (narrative self-reference ratio)** is its diagnostic inverse: when Γ falls, Ψ rises — the system substitutes internal narrative for external reality contact. When Γ is high, information at one layer maps consistently onto information at the next: what individuals perceive (L05: neural integration) aligns with what the embodied self knows (L06: embodied cognition), which aligns with the narrative self-model (L07: narrative self), which aligns with what groups believe (L09: group cognition), which aligns with what institutions coordinate (L10: social coordination), which aligns with national narratives (L12) and cultural meaning-systems (L15: cultural narrative field). When Γ degrades — equivalently, when Ψ (narrative self-reference ratio) rises — these mappings break down. Individuals perceive one thing; their groups tell them another; institutions validate a third; the law says something else entirely.
 
-The **manufactured void** (DRK-110) is the condition of sustained low Ψ — not the absence of information, but the absence of integration. It is Kapur's **epistemic free fall** given topological description. The affect of the void is what Kapur, drawing on Cvetkovich, calls **acedia** — not sadness but spiritual exhaustion, the weariness that comes from recognizing that the epistemic ground has been removed and no replacement is offered.
+The **manufactured void** (DRK-110) is the condition of sustained low Γ (high Ψ) — not the absence of information, but the absence of integration. It is Kapur's **epistemic free fall** given topological description. The affect of the void is what Kapur, drawing on Cvetkovich, calls **acedia** — not sadness but spiritual exhaustion, the weariness that comes from recognizing that the epistemic ground has been removed and no replacement is offered.
 
 The Draken optimization axiom —
 
@@ -205,7 +205,7 @@ VSP-1 — the Varanid Sustainability Protocol — proposes exactly this constrai
 
 The Dragon Scales series will trace this principle from the monitor lizard's ritualized combat through martial arts, honor codes, the laws of war, and into AI governance. The grammar of coherence destruction is ancient and universal. The constraint against it must be equally universal — and it must be formalized in mathematics, not merely in principle, because principles have been tried. They do not survive contact with operational doctrine.
 
-Ψ provides the measurement. VSP-1 provides the constraint. The work is making them enforceable.
+Γ and Ψ provide the measurement. VSP-1 provides the constraint. The work is making them enforceable.
 
 ---
 
@@ -225,9 +225,9 @@ Across all seven cases, the countermeasures that partially succeeded share commo
 
 ## 7. Conclusion: The Grammar and the Metric
 
-The grammar of coherence destruction has been independently discovered seven times because it describes a real structural vulnerability in epistemic systems. The Draken framework provides what the military doctrines lack: a scale-free metric (Ψ) that makes coherence degradation visible, measurable, and actionable across all scales — from individual cognition to civilizational epistemics.
+The grammar of coherence destruction has been independently discovered seven times because it describes a real structural vulnerability in epistemic systems. The Draken framework provides what the military doctrines lack: scale-free metrics (Γ for sheaf convergence, Ψ for narrative self-reference) that make coherence degradation visible, measurable, and actionable across all scales — from individual cognition to civilizational epistemics.
 
-The next step is not academic. It is operational. If Ψ can be measured, it can be monitored. If it can be monitored, degradation can be detected before it becomes catastrophic. If degradation can be detected, graduated responses can be triggered — the same principle Sahoo applies to agentic AI, extended to the social topology itself.
+The next step is not academic. It is operational. If Γ can be measured, it can be monitored. If it can be monitored, coherence degradation can be detected before it becomes catastrophic. If degradation can be detected, graduated responses can be triggered — the same principle Sahoo applies to agentic AI, extended to the social topology itself.
 
 The seven traditions converge. The grammar is universal. The question is whether the countermeasure can be equally universal.
 
