@@ -6,7 +6,7 @@ tags: [analysis, theory, synthesis]
 layers: [L03, L05, L06, L07, L11, L12, L17]
 coherence: 0.93
 excerpt: "The fourth dimension of varanid combat section data encodes untested future capacity. The restriction map that eliminates it at physical contact is formally identical to a Wick rotation. Death is not the unmeasurable — it is the asymmetric: the one restriction map that functions in every direction except reflexively. Making death to stay alive. Civilisation is the project of keeping that map pointed outward."
-status: published
+status: draft
 author: Khrug Engineering
 license: CC BY-SA 4.0
 sources:
