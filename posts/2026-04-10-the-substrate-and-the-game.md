@@ -5,7 +5,7 @@ date: 2026-04-10
 tags: [theory, synthesis, ethology, philosophy]
 layers: [L01, L02, L04, L05, L06, L07, L08, L09, L10, L12, L15, L18]
 coherence: 0.92
-excerpt: "Two monitor lizards grapple through a suburban garden in Thailand, crashing through flowerpots, tumbling into swimming pools, ignoring brooms and water hoses and the screams of terrified homeowners. They are not choosing to fight. They are not deciding to ignore the interventions. An optimization protocol older than flowering plants is executing through their bodies, and their individual cognition is irrelevant to its operation. The replicator dynamics equation — ẋᵢ = xᵢ[fᵢ(x) − φ(x)] — does not model organisms making choices. It models frequencies shifting on a fitness landscape that no organism can perceive. We are substrate. The game plays us."
+excerpt: "Two water monitors lock into a full-body grapple in the middle of a busy Mumbai road. Auto-rickshaws swerve past. A passenger bus brakes and edges around them. The lizards do not flinch. They are not choosing to fight. They are not deciding to ignore the traffic. An optimization protocol older than flowering plants is executing through their bodies, and the entire urban environment of a city of twenty million is background noise to its operation. The replicator dynamics equation — ẋᵢ = xᵢ[fᵢ(x) − φ(x)] — does not model organisms making choices. It models frequencies shifting on a fitness landscape that no organism can perceive. We are substrate. The game plays us."
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
@@ -17,13 +17,13 @@ license: CC BY-SA 4.0
 
 ## I. The Video
 
-A video circulated on social media in 2023 showing two male water monitors (*Varanus salvator*) engaged in ritualized combat in a residential garden in Thailand. The animals — each roughly 1.5 meters long, muscular, clawed, venomous — crashed through potted plants, rolled across a patio, tumbled into a swimming pool, climbed out, and resumed grappling. Bystanders hit them with brooms. Sprayed them with garden hoses. Shouted. Threw objects.
+A video circulated on social media showing two water monitors (*Varanus salvator*) engaged in ritualized combat in the middle of a busy road in Mumbai. The animals squared up on the tarmac, rose onto their hind legs — tails braced against asphalt for balance — and locked into a full-body grapple. Around them, the city continued: auto-rickshaws swerved past within inches, scooters and bicycles threaded the gap, commuters stared from doorways.
 
 The monitors did not flinch.
 
-The combat continued for over twenty minutes. One animal eventually achieved a superior clinch position, pinned the other's torso beneath its body weight, and held. The subordinate stopped resisting. The dominant animal released. Both walked away. Neither was seriously injured.
+Halfway through the bout, a passenger bus bore down on them. The driver braked, edged the vehicle around the grappling pair. The lizards tumbled to the ground next to the massive tires, then immediately rose back onto their hind legs and resumed. The protocol did not pause. After more than two minutes of sustained clinch — twisting, pushing, trading leverage — one animal broke. He dropped to all fours, panting, and retreated slowly to the shade beneath a parked auto-rickshaw. The other remained in the road. Undisputed.
 
-The bystanders had attempted to intervene in a process that did not belong to them. They were trying to interrupt a protocol that predates the human species by roughly 130 million years. Their interventions were irrelevant — not because the monitors were brave or stubborn, but because the protocol that was executing through their bodies operated at a higher priority than any stimulus the bystanders could produce.
+No one intervened successfully. Not the rickshaws, not the bus, not the density of Mumbai traffic at midday. The animals were not being brave. They were not making a choice. A protocol that predates the human species by roughly 130 million years was executing through their bodies, and the entire urban environment of a city of twenty million was, to that protocol, background noise.
 
 This is the central claim of this post: **the ritualized combat protocol is not a behavior performed by individual varanids. It is an emergent algorithmic structure that executes through the individual.** The individual is substrate. The protocol is agent.
 
@@ -219,6 +219,7 @@ $$\iff \Gamma_{\text{protocol}} > \Gamma_{\text{species}} > \Gamma_{\text{indivi
 
 *Sources and Further Reading*
 
+- Water monitor ritualized combat, Mumbai street. — [YouTube](https://youtu.be/RzoMjuQ88Os)
 - Taylor, P. & Jonker, L. (1978). "Evolutionarily Stable Strategies and Game Dynamics." — [PNAS replicator dynamics overview](https://www.pnas.org/doi/10.1073/pnas.1400823111)
 - Constable & Kokko (2025). "Reconciling ecology and evolutionary game theory." — [PNAS](https://www.pnas.org/doi/10.1073/pnas.2413847122)
 - Cressman et al. (2026). "Global stability of ecological and evolutionary dynamics via equivalence." — [PNAS](https://www.pnas.org/doi/abs/10.1073/pnas.2534915123)
