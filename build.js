@@ -30,13 +30,47 @@ function cleanDist() {
   fs.mkdirSync(DIST_DIR, { recursive: true });
 }
 
+// ── Math protection: hide $$...$$ and $...$ from marked, restore after ──
+function protectMath(text) {
+  const store = [];
+  // Protect display math $$...$$ first (greedy across newlines)
+  text = text.replace(/\$\$([\s\S]+?)\$\$/g, (m, inner) => {
+    store.push({ type: 'display', content: inner });
+    return `%%MATH_BLOCK_${store.length - 1}%%`;
+  });
+  // Protect inline math $...$
+  text = text.replace(/\$([^\$\n]+?)\$/g, (m, inner) => {
+    store.push({ type: 'inline', content: inner });
+    return `%%MATH_INLINE_${store.length - 1}%%`;
+  });
+  return { text, store };
+}
+
+function restoreMath(html, store) {
+  // Restore display math
+  html = html.replace(/%%MATH_BLOCK_(\d+)%%/g, (m, i) => {
+    return `$$${store[parseInt(i)].content}$$`;
+  });
+  // Restore inline math
+  html = html.replace(/%%MATH_INLINE_(\d+)%%/g, (m, i) => {
+    return `$${store[parseInt(i)].content}$`;
+  });
+  return html;
+}
+
+function parseMathSafe(content) {
+  const { text, store } = protectMath(content);
+  let html = marked.parse(text);
+  return restoreMath(html, store);
+}
+
 function readPosts() {
   if (!fs.existsSync(POSTS_DIR)) return [];
   return fs.readdirSync(POSTS_DIR).filter(f => f.endsWith('.md')).map(file => {
     const { data, content } = matter(fs.readFileSync(path.join(POSTS_DIR, file), 'utf-8'));
     if (data.status && data.status !== 'published') return null;
     const slug = file.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
-    return { ...data, slug, filename: file, content: marked.parse(content), rawContent: content };
+    return { ...data, slug, filename: file, content: parseMathSafe(content), rawContent: content };
   }).filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
 }
 
