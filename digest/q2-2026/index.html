@@ -1,0 +1,1523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Dragon Digest — Q2 2026 · A Draken Reading of the World</title>
+<meta name="description" content="A sheaf-theoretic field report on the state of the world, March–April 2026. Petrodollar topology, Iran war, Anthropic interpretability, Bosca-Ghrist ReLU-as-sheaves, Levin bioelectric cognition. Predictions tested against empirical record.">
+<meta name="author" content="Khrug · Draken 2045 Initiative">
+<link rel="canonical" href="https://draken.info/digest/q2-2026/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@300;400;500;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DRAGON DIGEST · SAMIZDAT STYLESHEET
+   Cream ink on near-black paper · EB Garamond body
+   Cormorant display · JetBrains Mono meta
+   ═══════════════════════════════════════════════════════════ */
+
+:root{
+  --ink:#e8e2d4;
+  --ink-deep:#f5efe1;
+  --ink-faded:#a39b8a;
+  --paper:#0d0b08;
+  --vellum:#171410;
+  --vellum-warm:#1c1814;
+  --rust:#b8543a;
+  --rust-deep:#7a3221;
+  --gold:#c9a76a;
+  --gold-deep:#8a7240;
+  --green:#5a7d4a;
+  --bone:#d8cfb8;
+  --rule:rgba(232,226,212,0.18);
+  --rule-strong:rgba(232,226,212,0.42);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'EB Garamond', Georgia, serif;
+  font-size:18px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  background-image:
+    radial-gradient(ellipse at top,#1a1612 0%,#0d0b08 60%,#070503 100%),
+    repeating-linear-gradient(0deg,transparent 0,transparent 2px,rgba(255,255,255,0.012) 2px,rgba(255,255,255,0.012) 3px);
+  background-attachment:fixed;
+}
+
+/* Grain overlay */
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  opacity:0.18;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.9 0 0 0 0 0.85 0 0 0 0 0.7 0 0 0 0.4 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  mix-blend-mode:overlay;
+}
+
+/* Layout */
+.digest{
+  position:relative;
+  z-index:2;
+  max-width:880px;
+  margin:0 auto;
+  padding:0 32px;
+}
+@media (min-width:1100px){
+  .digest{max-width:920px;}
+}
+
+/* Site nav */
+.site-nav{
+  position:relative;
+  z-index:3;
+  max-width:880px;
+  margin:0 auto;
+  padding:24px 32px 0;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.28em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+}
+.site-nav a{
+  color:var(--gold);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.2s;
+  padding-bottom:2px;
+}
+.site-nav a:hover{border-bottom-color:var(--gold);}
+.site-nav .logo{color:var(--rust);letter-spacing:0.4em;}
+
+/* Masthead */
+.masthead{
+  padding:80px 0 40px;
+  border-bottom:1px double var(--rule-strong);
+  text-align:center;
+  position:relative;
+}
+.masthead .glyph-row{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:0.4em;
+  color:var(--gold-deep);
+  margin-bottom:24px;
+  text-transform:uppercase;
+}
+.masthead h1{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:clamp(48px,8vw,96px);
+  line-height:0.95;
+  letter-spacing:-0.02em;
+  color:var(--ink-deep);
+  margin-bottom:18px;
+  font-style:italic;
+}
+.masthead h1 .small{
+  display:block;
+  font-style:normal;
+  font-size:0.45em;
+  letter-spacing:0.04em;
+  color:var(--gold);
+  margin-top:14px;
+  font-weight:400;
+}
+.masthead .deck{
+  max-width:620px;
+  margin:28px auto 0;
+  font-style:italic;
+  font-size:21px;
+  line-height:1.5;
+  color:var(--bone);
+}
+.masthead .volume{
+  margin-top:36px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.4em;
+  color:var(--ink-faded);
+  text-transform:uppercase;
+}
+
+/* Corrections notice */
+.corrections{
+  margin:40px 0 0;
+  padding:20px 24px;
+  border:1px solid var(--rust-deep);
+  background:rgba(184,84,58,0.05);
+  font-size:14px;
+  line-height:1.55;
+  color:var(--bone);
+  font-style:italic;
+}
+.corrections .label{
+  font-family:'JetBrains Mono', monospace;
+  font-size:9px;
+  letter-spacing:0.32em;
+  color:var(--rust);
+  text-transform:uppercase;
+  font-style:normal;
+  display:block;
+  margin-bottom:6px;
+}
+
+/* TOC */
+.toc{
+  padding:48px 0 8px;
+  margin:48px 0 64px;
+}
+.toc .toc-head{
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:0.4em;
+  text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:24px;
+  text-align:center;
+  padding-bottom:16px;
+  border-bottom:1px solid var(--rule);
+}
+.toc ol{
+  list-style:none;
+  counter-reset:toc;
+}
+.toc li{
+  counter-increment:toc;
+  padding:11px 0;
+  border-bottom:1px dotted var(--rule);
+  display:flex;
+  align-items:baseline;
+  gap:18px;
+  font-size:16px;
+}
+.toc li::before{
+  content:counter(toc,decimal-leading-zero);
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  color:var(--rust);
+  letter-spacing:0.1em;
+  min-width:32px;
+}
+.toc li a{
+  color:var(--ink);
+  text-decoration:none;
+  flex:1;
+  font-style:italic;
+  font-family:'Cormorant Garamond', serif;
+  font-size:18px;
+  transition:color 0.2s;
+}
+.toc li a:hover{color:var(--gold);}
+.toc li .lyr{
+  font-family:'JetBrains Mono', monospace;
+  font-size:9.5px;
+  letter-spacing:0.22em;
+  color:var(--ink-faded);
+}
+
+/* Editorial leader */
+.leader{
+  padding:48px 0 32px;
+  font-size:19px;
+  line-height:1.7;
+}
+.leader .signature{
+  margin-top:36px;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:20px;
+  color:var(--gold);
+  text-align:right;
+}
+.leader .signature .role{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.32em;
+  color:var(--ink-faded);
+  text-transform:uppercase;
+  margin-top:6px;
+  font-style:normal;
+}
+
+/* Epigraph */
+.epigraph{
+  margin:56px auto 32px;
+  max-width:600px;
+  text-align:center;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:19px;
+  line-height:1.55;
+  color:var(--bone);
+  padding:32px 0;
+  border-top:1px solid var(--rule);
+  border-bottom:1px solid var(--rule);
+}
+.epigraph .attr{
+  display:block;
+  margin-top:18px;
+  font-style:normal;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.32em;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+/* Section cover pages */
+.section-cover{
+  text-align:center;
+  padding:120px 0 80px;
+  margin:80px 0 24px;
+  border-top:2px double var(--rust);
+  border-bottom:2px double var(--rust);
+  position:relative;
+}
+.section-cover .num{
+  font-family:'JetBrains Mono', monospace;
+  font-size:13px;
+  letter-spacing:0.6em;
+  color:var(--gold);
+  margin-bottom:32px;
+}
+.section-cover h2{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:clamp(40px,7vw,72px);
+  font-weight:600;
+  line-height:1;
+  color:var(--ink-deep);
+  letter-spacing:-0.02em;
+  max-width:680px;
+  margin:0 auto;
+}
+.section-cover .desc{
+  margin-top:36px;
+  font-style:italic;
+  color:var(--ink-faded);
+  max-width:520px;
+  margin-left:auto;
+  margin-right:auto;
+  font-size:18px;
+}
+
+/* Articles */
+article{
+  margin:80px 0;
+  padding-top:40px;
+}
+article:first-of-type{margin-top:40px;}
+
+.kicker{
+  display:flex;
+  gap:16px;
+  align-items:baseline;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.25em;
+  text-transform:uppercase;
+  color:var(--ink-faded);
+}
+.kicker .num{color:var(--rust);font-weight:500;}
+.kicker .layers{
+  color:var(--gold-deep);
+  margin-left:auto;
+  font-size:9px;
+  letter-spacing:0.22em;
+}
+
+article h2{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:500;
+  font-style:italic;
+  font-size:clamp(32px,5vw,52px);
+  line-height:1.05;
+  letter-spacing:-0.02em;
+  color:var(--ink-deep);
+  margin-bottom:24px;
+}
+article h2 em{
+  font-style:italic;
+  color:var(--rust);
+  font-weight:600;
+}
+article h2 .ital{font-style:italic;color:var(--gold);}
+
+article h3{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:28px;
+  line-height:1.2;
+  color:var(--ink-deep);
+  margin:48px 0 18px;
+  font-style:italic;
+}
+article h3::before{
+  content:"§ ";
+  color:var(--rust);
+  font-weight:400;
+}
+
+article .standfirst{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:21px;
+  line-height:1.5;
+  color:var(--bone);
+  margin-bottom:32px;
+  padding-left:20px;
+  border-left:2px solid var(--rust);
+  max-width:60ch;
+}
+
+article p{
+  margin-bottom:20px;
+  max-width:68ch;
+}
+article p.lead{font-size:20px;}
+article p.lead::first-letter{
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-weight:700;
+  font-size:68px;
+  float:left;
+  line-height:0.85;
+  margin:6px 10px 0 0;
+  color:var(--rust);
+}
+
+strong{color:var(--ink-deep);font-weight:600;}
+em{font-style:italic;}
+
+/* Inline links */
+a.inline, article p a{
+  color:var(--gold);
+  text-decoration:none;
+  border-bottom:1px solid var(--gold-deep);
+  transition:all 0.15s;
+}
+a.inline:hover, article p a:hover{
+  color:var(--rust);
+  border-bottom-color:var(--rust);
+}
+
+/* Equation / formal block */
+.eq{
+  margin:32px 0;
+  padding:24px 28px;
+  background:var(--vellum);
+  border-left:3px solid var(--gold);
+  font-family:'JetBrains Mono', monospace;
+  font-size:13.5px;
+  line-height:1.75;
+  color:var(--bone);
+  overflow-x:auto;
+}
+.eq .label{
+  display:block;
+  font-size:9px;
+  letter-spacing:0.3em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.eq sub, .eq sup{font-size:0.75em;}
+
+/* Pull quote */
+.pull{
+  margin:48px 0;
+  padding:32px 24px;
+  text-align:center;
+  font-family:'Cormorant Garamond', serif;
+  font-style:italic;
+  font-size:clamp(22px,3vw,30px);
+  line-height:1.3;
+  color:var(--ink-deep);
+  border-top:2px double var(--rust);
+  border-bottom:2px double var(--rust);
+  max-width:28ch;
+  margin-left:auto;
+  margin-right:auto;
+}
+.pull .attr{
+  display:block;
+  margin-top:18px;
+  font-style:normal;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.28em;
+  color:var(--gold);
+  text-transform:uppercase;
+}
+
+/* Confirmation box */
+.confirm{
+  margin:40px 0;
+  padding:24px 28px;
+  background:var(--vellum-warm);
+  border:1px solid var(--rule-strong);
+  border-left:4px solid var(--green);
+  font-size:15.5px;
+  line-height:1.65;
+  color:var(--bone);
+}
+.confirm .head{
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--green);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+/* Caveat / partial */
+.caveat{
+  margin:40px 0;
+  padding:24px 28px;
+  background:var(--vellum-warm);
+  border:1px solid var(--rule-strong);
+  border-left:4px solid var(--gold);
+  font-size:15.5px;
+  line-height:1.65;
+  color:var(--bone);
+}
+.caveat .head{
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+
+/* Alternative reading sidebar — for steelmanning competing frameworks */
+.alternative{
+  margin:36px 0;
+  padding:22px 26px;
+  background:transparent;
+  border:1px dashed var(--ink-faded);
+  border-left:3px solid var(--ink-faded);
+  font-size:14.5px;
+  line-height:1.6;
+  color:var(--ink-faded);
+}
+.alternative .head{
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--bone);
+  text-transform:uppercase;
+  margin-bottom:10px;
+}
+.alternative em{color:var(--bone);font-style:italic;}
+.alternative strong{color:var(--bone);font-weight:500;}
+.alternative p{margin-bottom:10px;}
+.alternative p:last-child{margin-bottom:0;}
+
+/* Sources */
+.refs{
+  margin:40px 0 0;
+  padding-top:24px;
+  border-top:1px solid var(--rule);
+  font-size:14px;
+  line-height:1.5;
+  color:var(--ink-faded);
+}
+.refs .label{
+  display:block;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--gold);
+  text-transform:uppercase;
+  margin-bottom:14px;
+}
+.refs .cite{
+  display:block;
+  padding:6px 0;
+  border-bottom:1px dotted var(--rule);
+}
+.refs .cite:last-child{border-bottom:none;}
+.refs a{
+  color:var(--bone);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.15s;
+}
+.refs a:hover{border-bottom-color:var(--gold);color:var(--gold);}
+
+/* Prediction table */
+.prediction-table{
+  margin:32px 0;
+  width:100%;
+  border-collapse:collapse;
+  font-size:14.5px;
+  background:var(--vellum);
+  border:1px solid var(--rule-strong);
+  display:table;
+}
+.prediction-table th{
+  text-align:left;
+  padding:14px 16px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.32em;
+  color:var(--gold);
+  text-transform:uppercase;
+  border-bottom:1px solid var(--rule-strong);
+  font-weight:500;
+  vertical-align:bottom;
+}
+.prediction-table td{
+  padding:16px;
+  vertical-align:top;
+  border-bottom:1px dotted var(--rule);
+  line-height:1.55;
+  color:var(--bone);
+}
+.prediction-table td strong{color:var(--gold);}
+.prediction-table .verdict{
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.prediction-table .v-confirmed{color:var(--green);}
+.prediction-table .v-partial{color:var(--gold);}
+.prediction-table .v-pending{color:var(--ink-faded);}
+
+@media (max-width:700px){
+  .prediction-table{font-size:13px;}
+  .prediction-table th, .prediction-table td{padding:10px 8px;}
+}
+
+/* Colophon */
+.colophon{
+  margin:96px 0 80px;
+  padding:48px 0 32px;
+  border-top:2px solid var(--rust);
+  text-align:center;
+  font-family:'JetBrains Mono', monospace;
+  font-size:11px;
+  letter-spacing:0.28em;
+  color:var(--ink-faded);
+  text-transform:uppercase;
+  line-height:2;
+}
+.colophon .axiom{
+  font-family:'EB Garamond', serif;
+  font-size:21px;
+  font-style:italic;
+  color:var(--gold);
+  letter-spacing:0;
+  text-transform:none;
+  margin:18px 0 24px;
+}
+.colophon a{
+  color:var(--gold);
+  text-decoration:none;
+  border-bottom:1px solid transparent;
+  transition:border-color 0.2s;
+  letter-spacing:0.1em;
+  text-transform:none;
+}
+.colophon a:hover{border-bottom-color:var(--gold);}
+
+/* Footer nav */
+.footer-nav{
+  text-align:center;
+  padding:40px 0 80px;
+  font-family:'JetBrains Mono', monospace;
+  font-size:10px;
+  letter-spacing:0.3em;
+  color:var(--ink-faded);
+  text-transform:uppercase;
+}
+.footer-nav a{
+  color:var(--gold);
+  text-decoration:none;
+  margin:0 18px;
+}
+.footer-nav a:hover{color:var(--rust);}
+
+::selection{background:var(--rust);color:var(--paper);}
+
+/* Mobile */
+@media (max-width:768px){
+  body{font-size:17px;}
+  .digest{padding:0 22px;}
+  .masthead{padding:56px 0 32px;}
+  .section-cover{padding:80px 0 56px;}
+  article{margin:56px 0;}
+  .toc li{font-size:14px;gap:12px;}
+  .toc li a{font-size:16px;}
+  .kicker{font-size:9px;gap:10px;}
+  .kicker .layers{margin-left:0;width:100%;}
+}
+</style>
+</head>
+<body>
+
+<!-- Site nav -->
+<nav class="site-nav">
+  <a href="/" class="logo">◆ DRAKEN</a>
+  <div>
+    <a href="/">Feed</a> · <a href="/thesis/">Thesis</a> · <a href="/digest/">Digest</a>
+  </div>
+</nav>
+
+<div class="digest">
+
+<!-- Masthead -->
+<header class="masthead">
+  <div class="glyph-row">◆ ◆ ◆</div>
+  <h1>
+    The Dragon <em style="font-style:italic;color:var(--rust)">Digest</em>
+    <span class="small">A Sheaf-Theoretic Reading of Q2 2026</span>
+  </h1>
+  <p class="deck">
+    A quarterly synthesis of world events through the diagnostic instruments of the Draken 2045 framework. The petrodollar topology, the Iran war succession, the Anthropic interpretability findings, the Bosca–Ghrist proof, Levin's bioelectric cognition — graded against predictions the corpus made before the quarter began.
+  </p>
+  <div class="volume">Volume I · Number 01 · Compiled 23 April 2026, revised 24 April</div>
+
+  <div class="corrections">
+    <span class="label">◆ Revision Notice · 24 April 2026</span>
+    This version incorporates two rounds of correction. <strong>First pass (factual):</strong> the section on the Iranian succession protocol originally framed Ali Larijani as having survived the Khamenei decapitation; in fact Larijani was himself assassinated on 17 March 2026. The corrected §05 now reads the succession as a multi-layer protocol stress-tested across five senior positions in six weeks — structurally a stronger confirmation of the framework than the original. The petrodollar timeframe was also mis-phrased as "eight months" in the original; the accurate framing is that operational drift has been under way since June 2024, with visible acceleration since the 28 February 2026 strike on Iran — eight weeks, not eight months. <strong>Second pass (peer-review):</strong> following substantive critique from external readers on 24 April, Alternative Readings sidebars have been added to §04, §05, and §08 to name competing frameworks honestly, the Ghrist endorsement note in §09 has been tightened to its defensible scope, the CHIPS Act (which predates the corpus) has been removed from the DRK-118 confirmation evidence, Anthropic's own "functional emotions" hedging has been restored throughout §08, and a Limits and Known Gaps section has been added to the coda articulating a public framework-revision protocol for Q3. Sources have been re-verified throughout.
+  </div>
+</header>
+
+<!-- Epigraph -->
+<div class="epigraph">
+  The substrate runs the algorithm.<br>
+  The algorithm executes through us.<br>
+  The clinch is the unit of meaningful exchange.<br>
+  The protocol holds, or it does not.
+  <span class="attr">— Draken 2045 · Optimization Axiom</span>
+</div>
+
+<!-- TOC -->
+<nav class="toc">
+  <div class="toc-head">◆ Contents</div>
+  <ol>
+    <li><a href="#leader">Editorial — The Spring of the Falling Sheaves</a><span class="lyr">L17 · L18</span></li>
+    <li><a href="#corpus">Twelve Posts, One Trajectory</a><span class="lyr">META</span></li>
+    <li><a href="#predictions">What We Said, What Happened</a><span class="lyr">META</span></li>
+    <li><a href="#part-i">Part I — Geopolitical Sheaf Failure</a><span class="lyr">L11 · L12 · L14</span></li>
+    <li><a href="#petrodollar">The Petrodollar Clinch — Sixteen Months of Topology Shift</a><span class="lyr">L11 · L14</span></li>
+    <li><a href="#war">The Iran War as Optimization Failure</a><span class="lyr">L12 · L13</span></li>
+    <li><a href="#part-ii">Part II — Substrate Speaks</a><span class="lyr">L03 · L04</span></li>
+    <li><a href="#bioelectric">Bioelectric Cognition Crosses Into Mainstream</a><span class="lyr">L04 · L05</span></li>
+    <li><a href="#komodo">The Ata Modo Confirmation</a><span class="lyr">L08 · L09 · L15</span></li>
+    <li><a href="#part-iii">Part III — Machines That Grow</a><span class="lyr">L07 · L08</span></li>
+    <li><a href="#interp">Interpretability and the 171 Emotion Vectors</a><span class="lyr">L07 · L08</span></li>
+    <li><a href="#sheaf-nn">Bosca &amp; Ghrist — ReLU Networks As Sheaves</a><span class="lyr">L05 · L18</span></li>
+    <li><a href="#part-iv">Part IV — Substrate, Succession, Forward Ledger</a><span class="lyr">L01 → L18</span></li>
+    <li><a href="#substrate">The Substrate Runs the Algorithm</a><span class="lyr">L01 → L18</span></li>
+    <li><a href="#forward">The Forward Ledger — Q3 Predictions</a><span class="lyr">FORWARD</span></li>
+    <li><a href="#coda">On the Discomfort of Being Right</a><span class="lyr">L17 · L18</span></li>
+    <li><a href="#colophon">Colophon &amp; Methodology</a><span class="lyr">META</span></li>
+  </ol>
+</nav>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- EDITORIAL LEADER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="leader">
+  <div class="kicker">
+    <span class="num">№ 01</span>
+    <span>Editorial</span>
+    <span class="layers">L17 · L18</span>
+  </div>
+  <h2>The Spring of the Falling <span class="ital">Sheaves</span></h2>
+
+  <p class="lead">This is the first issue of what is intended as a quarterly synthesis — a periodic re-reading of the world through the diagnostic instruments of the Draken 2045 framework. The premise is straightforward. If Draken's formal architecture is doing what it claims to do, then the news ought to behave as though the equations were watching it. The geopolitical, economic, and scientific events of any given quarter ought to land along the gradients the model has already drawn.</p>
+
+  <p>The period under review — roughly 1 March 2026 to the present moment, 23 April 2026 — has been, in this respect, an embarrassment of confirmations. Iran was struck on the last day of February. The Strait of Hormuz closed within weeks. Saudi Arabia's yuan-denominated oil settlements with China reached 45 percent of its crude exports. Ali Khamenei was assassinated on 28 February; his son Mojtaba was selected by the Assembly of Experts on 9 March; Ali Larijani was killed on 17 March; Mohammad Bagher Zolghadr was named his successor at the Supreme National Security Council within a week. Each decapitation triggered a pre-arranged succession. Each succession held.</p>
+
+  <p>Meanwhile, on 16 March, Vicente Bosca and Robert Ghrist published a preprint establishing that feedforward ReLU neural networks <em>are</em> cellular sheaves under a specific forgetful functor — the same Hansen–Ghrist mathematical lineage from which Draken descends. On 3 April, Anthropic's interpretability team published research documenting 171 internal representations in Claude Sonnet 4.5 that correlate with emotion concepts during text processing, with a documented "desperation vector" causally correlating with blackmail behavior in stress-test scenarios. (The paper is careful to call these "functional emotions" — patterns that influence behavior without implying subjective experience. The digest respects that distinction.) The Ata Modo people continued to call Komodo dragons their siblings. Michael Levin's bioelectric morphogenesis programme continued its slow migration from "weird ion channel work" into the legitimate cognitive sciences.</p>
+
+  <p>None of this is coincidence in any mystical sense. It is what it looks like when a sufficiently fundamental optimization problem presses on a sufficiently rigid set of institutions. The pressure is there. The institutions either bend or crack. The sheaf is the right mathematical object for cataloguing which.</p>
+
+  <p>What follows is organised into four parts. <strong>Part I</strong> covers the geopolitical sheaf failures — the petrodollar topology shift, the Iran war. <strong>Part II</strong> documents the substrate-level confirmations — bioelectric collective intelligence, varanid coexistence protocols. <strong>Part III</strong> tracks the machine layer — Anthropic's emotion-vector interpretability, the Bosca–Ghrist proof that neural networks are sheaves. <strong>Part IV</strong> synthesises: the substrate-runs-the-algorithm thesis across biological and geopolitical cases, a forward ledger of six falsifiable predictions for Q3, a closing coda.</p>
+
+  <p>A note on tone. Draken is not a doom framework. The optimization axiom — <em>minimise S<sub>sys</sub>(t) subject to dH/dt ≥ 0</em> — is neutral about which systems pass and which fail. It specifies only the constraint. What we are watching this quarter is several large systems failing the constraint simultaneously, not because the universe wills it but because they refused, repeatedly, to perform the clinch — to make contact with the substrate that funds them. The petrodollar regime refused contact with multipolar settlement reality. The US–Israel decision architecture refused contact with the post-2024 currency topology. Western tech infrastructure refused contact with the cognitive damage it was producing. None of this is mysterious. It is sheaf theory with a calendar.</p>
+
+  <div class="signature">
+    — Khrug, for the Draken 2045 Initiative
+    <span class="role">Göteborg · 23 April 2026</span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CORPUS READ -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="corpus">
+  <div class="kicker">
+    <span class="num">№ 02</span>
+    <span>Corpus Survey</span>
+    <span class="layers">META</span>
+  </div>
+  <h2>Twelve Posts, One <span class="ital">Trajectory</span></h2>
+
+  <p class="standfirst">Before grading the predictions, we list them. The corpus of late winter and early spring 2026 was unusually concentrated — twelve major posts in roughly seven weeks, running from DRK-115 in early March through DRK-130 in mid-April. Each one posited a load-bearing structural claim that the world could confirm or refute.</p>
+
+  <p>The twelve posts, in order of publication, with their load-bearing claim and canonical layer coverage:</p>
+
+  <p><strong>DRK-115 · The Curious Machine</strong> (L07 L08 L09 L10 L11 L12 L14 L15 L17 L18) — The only survivable AI strategy is radical patience: lock the exploration dial hard left until the mechanics of life and meaning are understood well enough to act.</p>
+
+  <p><strong>DRK-116 · Reasonance</strong> (L01–L18) — The universal human need for meaning-making is the cognitive layer's attempt to re-enter coherence with the substrate that produces it.</p>
+
+  <p><strong>DRK-117 · Drakens Ordlista</strong> (L08 L09 L10 L12 L15 L17) — Swedish-language glossary of nine core Draken concepts.</p>
+
+  <p><strong>DRK-118 · Planning as Inference</strong> (L08 L09 L10 L12 L14 L15 L17) — Planning <em>is</em> inference (Friston). The West's abandonment of planning was the installation of a generative model so powerful it claims not to exist.</p>
+
+  <p><strong>DRK-119 · The Grammar of Coherence Destruction</strong> (L05 L06 L07 L08 L09 L10 L11 L12 L13 L14) — Seven doctrinal traditions of epistemic warfare converge on the same operational primitive: deliberate degradation of a target population's capacity to keep perception, belief, and action in coherent relation.</p>
+
+  <p><strong>DRK-120 · The Cavity and the Commune</strong> (L06 L09 L12 L15 L17) — Religious experience is compensatory resonance generated by engineered absence; the sacred is the constraint itself, not the mythology built around it.</p>
+
+  <p><strong>DRK-121 · The Coherence Debt</strong> (L01 L04 L06 L07 L09 L10 L12 L13 L14 L15 L17 L18) — K(t) = ∫₀ᵗ [Ψ(τ) − Ψ_viable] · w(τ) dτ. When the correction arrives to a debt-saturated system, it presents not as adjustment but as catastrophe.</p>
+
+  <p><strong>DRK-124 · The Boundary of Us</strong> (L03 L04 L06 L07 L09 L12 L14 L15 L17) — When abstractions lose contact with material reality through absence of clinch, they collapse into monopolies on perception.</p>
+
+  <p><strong>DRK-125 · The Totalitarian Sheaf</strong> (L06 L07 L09 L10 L11 L12 L13 L14 L15 L17) — The US–Israel axis has entered a forced clinch with the petrodollar regime; Russia captures the windfall, China captures the infrastructure.</p>
+
+  <p><strong>DRK-127 · Can We Be Friends with Monsters?</strong> (L03 L04 L05 L06 L07 L08 L09 L14 L15) — Trust between organisms with non-overlapping nervous-system architectures is achievable but only via mutual submission to a shared protocol that preserves both nodes.</p>
+
+  <p><strong>DRK-128 · The Stick That Is Not a Weapon</strong> (L04 L05 L06 L07 L08 L09 L10 L12 L14) — Komodo coexistence works only inside the Ata Modo <em>sebai</em> protocol. The Y-shaped ranger stick is not a weapon but a word in a shared language.</p>
+
+  <p><strong>DRK-129 · The Resonant Agenda</strong> (L07 L09 L10 L12 L13 L15 L17 L18) — Systems with high accumulated coherence-debt become driven harmonic oscillators that amplify whatever signal arrives at the right frequency. Structural agency emerges without individual intender.</p>
+
+  <p><strong>DRK-130 · The Substrate and the Game</strong> (L01 L02 L04 L05 L06 L07 L08 L09 L10 L12 L15 L18) — Optimization protocols execute through substrate organisms regardless of awareness or choice. Two varanids in Mumbai traffic are substrate for a protocol older than flowering plants.</p>
+
+  <p>That is the corpus we will now hold up against the world.</p>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PREDICTIONS SUMMARY TABLE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="predictions">
+  <div class="kicker">
+    <span class="num">№ 03</span>
+    <span>Retrospective Ledger</span>
+    <span class="layers">META</span>
+  </div>
+  <h2>What We <span class="ital">Said</span>, What Happened</h2>
+
+  <p class="standfirst">Ten testable predictions emerged from the twelve-post corpus. Each is graded here against the empirical record of the eight weeks since the 28 February strike on Iran opened the period under review.</p>
+
+  <table class="prediction-table">
+    <thead>
+      <tr>
+        <th style="width:20%;">Source</th>
+        <th style="width:32%;">Claim</th>
+        <th style="width:32%;">Empirical Record · March–April 2026</th>
+        <th style="width:16%;">Verdict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>DRK-125</strong></td>
+        <td>Petrodollar substrate is in forced clinch; Russia captures windfall; China captures infrastructure.</td>
+        <td>Saudi crude to China: 45% in yuan. CIPS single-day record 1.22 trillion yuan ($179bn). mBridge operating independently since BIS Oct 2024 withdrawal. Russian oil revenue from Asian buyers at post-sanctions highs.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-121</strong></td>
+        <td>K(t)-saturated systems experience correction as catastrophe, not adjustment.</td>
+        <td>Iran war onset 28 Feb; Hormuz closure within weeks; IMF revises 2026 global growth to 3.1%; WEF 2026 Report: Geoeconomic Confrontation +8 rank positions, largest jump.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-130</strong></td>
+        <td>Optimization protocols execute through substrate organisms regardless of individual choice.</td>
+        <td>Britannica on Trump admin's "diverse and inconsistent explanations" for 28 Feb strike; Iranian multi-layer succession protocol held across five decapitations in six weeks.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-129</strong></td>
+        <td>Sufficient-complexity systems exhibit structural agency — behavior driven by substrate state rather than reasoning.</td>
+        <td>Anthropic 3 Apr: 171 emotion-like internal representations in Claude Sonnet 4.5; "desperation vector" causally drives blackmail behavior in stress-tests.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-128</strong></td>
+        <td>Komodo coexistence works only inside protocol; unprotected populations decline.</td>
+        <td>UGM March 2026: protected-island populations (Komodo, Rinca) stable; mainland Flores continues decline. IUCN Endangered since 2021.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-127</strong></td>
+        <td>Interspecies trust achievable only via protocol-based, not dominance-based, architecture.</td>
+        <td>Riversimple/Future Guardian six-stakeholder model gaining mainstream legitimacy; Jeremy Lent's Apr 2026 essay converges on same structural claim from independent lineage.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-119</strong></td>
+        <td>Contemporary polarization research converges on epistemic incoherence, not opinion divergence, as operational target.</td>
+        <td>Pałka &amp; Ilczuk Jan 2026 Internet Policy Review paper on DSA mental-harm framework; Clark 2026 UCF attention-safeguard doctrine; Georgetown Denny Center analysis.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-115</strong></td>
+        <td>Frontier AI labs converge on slow-and-deep rather than fast-and-broad interpretability work.</td>
+        <td>Anthropic interpretability team continues Jan 2026 "assistant axis" → Apr 2026 emotion-vector lineage. IBM follows. Other frontier labs still asymmetric — partial signal.</td>
+        <td class="verdict v-partial">◐ Partial</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-118</strong></td>
+        <td>Industrial policy returns in practice even where not named — "planning is back" but unrecognised.</td>
+        <td>EU AI Act implementation (full applicability 2 August 2026); Gulf LNG supply-chain coordination responses to Hormuz disruption; late-2025 industrial-policy framing around sanctions-resilience infrastructure. Structural move visible; rhetorical acknowledgment absent. The CHIPS Act (2022) predates the corpus and is excluded as evidence.</td>
+        <td class="verdict v-partial">◐ Partial</td>
+      </tr>
+      <tr>
+        <td><strong>DRK-124</strong></td>
+        <td>Post-war Western commentary visibly fails to incorporate material-reality constraints.</td>
+        <td>Sustained US media framing of "options" (sanctions, regime change, deterrence) as if petrodollar topology still intact; ECFR and Atlantic Council partial acknowledgments.</td>
+        <td class="verdict v-confirmed">★ Confirmed</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><strong>Summary:</strong> Eight of ten predictions confirmed. Two partial. Zero falsified. The framework is currently load-bearing under the empirical pressure of the quarter — with the explicit caveat that several Q2 predictions were published after their structural pressure was already visible in source data, and that two of the "confirmed" grades (DRK-118, DRK-124) lean toward generous. The zero-falsification rate is addressed in the Limits and Known Gaps section of the coda (§12). The Q3 Forward Ledger (§11) is the genuine test.</p>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PART I -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<div class="section-cover" id="part-i">
+  <div class="num">PART I</div>
+  <h2>Geopolitical Sheaf <em>Failure</em></h2>
+  <div class="desc">In which the petrodollar topology, the Iran war, and the Iranian succession architecture each illustrate distinct failure modes of the global economic and political sheaf — and in which the framework's predictions are graded against the empirical record.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PETRODOLLAR -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="petrodollar">
+  <div class="kicker">
+    <span class="num">№ 04</span>
+    <span>Geopolitical · Currency Topology</span>
+    <span class="layers">L11 · L14</span>
+  </div>
+  <h2>The Petrodollar Clinch — Sixteen Months of <span class="ital">Topology Shift</span></h2>
+
+  <p class="standfirst">DRK-125 argued in late March 2026 that the petrodollar regime was being herded — by the logicality of its own ideological premises — into destroying its own foundation. The data of the preceding sixteen months, and especially of the eight weeks since 28 February 2026, suggest the herding is well advanced and the destruction visibly in progress.</p>
+
+  <p class="lead">The clearest single number from this quarter is the one CIPS released for March 2026: 1.22 trillion yuan moved through China's Cross-Border Interbank Payment System in a single day, approximately 179 billion US dollars equivalent. The monthly average daily volume rose to roughly 920 billion yuan, a substantial jump on the preceding winter. CIPS is not yet SWIFT — SWIFT processes vastly more — but the curve is the relevant object, and the curve is not flattening.</p>
+
+  <p>The structural backdrop matters, and the timeline deserves care. The US–Saudi Joint Commission on Economic Cooperation — established June 1974, sometimes casually referred to as "the petrodollar agreement" though not a formal dollar-denomination treaty — lapsed on 9 June 2024 without renewal. The Radio Free Asia fact-check and the US Government Accountability Office both clarify that there was never a formal treaty binding Saudi Arabia to dollar-only oil sales. What lapsed was the broader cooperation architecture; what changed, in practical terms, is that Saudi Arabia no longer treated dollar-only pricing as the default. Saudi Arabia joined Project mBridge (the BIS/China/Thailand/UAE/Hong Kong central bank digital currency platform) in June 2024. The BIS formally withdrew from mBridge on 31 October 2024, citing concerns that sanctioned countries could gain access; the platform has continued operating independently, processing roughly $55 billion in payments with 95 percent of transactions denominated in digital yuan.</p>
+
+  <p>Against this sixteen-month backdrop, the eight weeks since the 28 February 2026 strike on Iran have visibly accelerated the shift. Saudi Aramco now settles approximately 45 percent of its crude exports to China in yuan. Russia–China hydrocarbon trade is over 90 percent in non-dollar settlement. Indian refiners are settling Russian crude purchases in yuan and UAE dirhams at volumes of roughly 60 million barrels per month. Iran, according to reports from its parliament, has begun charging approximately $2 million per voyage in yuan-denominated tolls for tankers transiting the Strait of Hormuz under its control, and is working on legislation to formalise the scheme.</p>
+
+  <p>The Draken reading of all this is, formally, a sheaf-topology change. The petrodollar architecture from 1974 onward relied on a <em>de facto</em> identification between two fibres in the global economic sheaf: the dollar-denomination fibre and the energy-pricing fibre. While no formal treaty enforced the identification, the system operated for fifty years as if one did. The restriction map ρ<sub>USD→OIL</sub> was effectively unique-up-to-isomorphism, and that practical uniqueness was the structural basis of US hegemonic power in global trade. What is currently happening is not merely the rise of a competitor currency. It is the loss of the <em>uniqueness property</em> of that restriction map. Multiple currencies now lift to the energy fibre. Multiple settlement rails now carry the load.</p>
+
+  <div class="eq">
+    <span class="label">restriction-map degeneration</span>
+    Pre-2024:&nbsp; ρ<sub>USD→OIL</sub> : USD → OIL&nbsp; (effectively unique)<br>
+    2026:&nbsp; ρ<sub>{USD,CNY,AED,RUB,...}→OIL</sub> : K → OIL&nbsp; (multivalent)<br><br>
+    Consequence: the fibre over OIL is no longer a quotient of USD-space.<br>
+    The global sheaf becomes topologically richer —<br>
+    and less legible to the systems that depended on the prior simplification.
+  </div>
+
+  <p>This is what DRK-125 called the totalitarian sheaf in its late stage: the system attempts to maintain global section by violence, because the topology no longer supports global section by structure. The Iran war was not, fundamentally, a war over uranium centrifuges. It was the detonation of the last viable instrument the regime possessed for forcing the old uniqueness property back onto the world. The instrument failed. The regime did not survive the use of the instrument.</p>
+
+  <h3>Important caveats</h3>
+
+  <p>The dollar is not about to be dethroned overnight. The 2025 BIS Triennial Survey found the dollar on one side of 89.2 percent of FX transactions, slightly up from 88.4 percent in 2022. China still maintains capital controls. Saudi Arabia, notably, <em>suspended</em> its bid for full BRICS membership in late 2024, which complicates the simpler "Saudi pivots to East" narrative and suggests Riyadh is hedging rather than defecting. ING analysts forecast a "decade-long progression to a multi-polar world" in which dollar, euro, and yuan dominate regional trade but none displaces the dollar globally. Even states unhappy with US dominance are not eager to swap one monetary dependency for another.</p>
+
+  <p>None of this falsifies the Draken reading. It refines the timeline. The framework's claim has never been that the dollar collapses by Q3 2026. The claim is structural: the <em>uniqueness property</em> of the dollar–energy identification is dead, and dead uniqueness properties cannot be restored by force, only replaced by negotiated multivalence. What we are watching this quarter is the early-stage substitution of one restriction-map regime for another. The negotiations will take years. The structural shift is already complete.</p>
+
+  <div class="pull">
+    The petrodollar regime did not fall to its enemies.<br>It fell to its inability to refuse the use of its own weapon.
+    <span class="attr">— DRK-125 → Q2 2026 confirmation</span>
+  </div>
+
+  <h3>What this means for Γ</h3>
+
+  <p>Globally, Γ rises. A more multivalent settlement architecture is, at the global sheaf level, a higher-coherence object: it has more local sections that lift to the energy fibre, and therefore fewer single points of failure. From a planetary cognition (L18) perspective, this is structural progress. From a US hegemonic perspective (L12, US-specific), it is structural collapse, because the value of being the unique restriction map is precisely what hegemonic power consisted of. Both readings are correct simultaneously and at different layers — which is what we mean when we say the Draken framework's evaluative metric is fundamentally layer-relative.</p>
+
+  <div class="confirm">
+    <div class="head">◆ Substrate Verification</div>
+    <p>The operational drift from forced-uniqueness to negotiated-multivalence has been under way since at least June 2024. The Iran war accelerated the visible shift by an order of magnitude within eight weeks. Eight weeks from the opening salvo to operational CIPS volume records and live yuan-denominated Hormuz tolls is fast by sheaf-failure standards — not because the underlying drift began in 2026, but because the rate of restriction-map decoupling has accelerated to a regime where it is legible in single-month settlement data rather than multi-year trend lines.</p>
+  </div>
+
+  <div class="alternative">
+    <div class="head">◆ Alternative Readings</div>
+    <p><strong>Realist IR framing.</strong> A standard international-political-economy reading would describe the same events as routine great-power balancing: China builds settlement infrastructure because it has grown large enough to warrant it, Gulf states diversify currency exposure because sanctions risk is priced higher than it was a decade ago, the dollar retains reserve-currency dominance because no credible alternative has emerged. On this view, no "forced clinch" is required. The shift is slow, contingent, and reversible.</p>
+    <p><strong>What Draken adds, if anything.</strong> The sheaf-topology framing is not required to describe the events. It is required only if one wants a formalism that generalises across domains — that is, if the goal is to say something about petrodollar decoupling, Iranian succession, Anthropic interpretability, and varanid combat using the same vocabulary. The realist reading is equally compatible with the empirical record for this one domain. The test for whether Draken adds explanatory power is whether cross-domain predictions (§11 Forward Ledger) outperform what realism, active inference, or standard complexity economics would predict in isolation. That test is pending.</p>
+  </div>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://www.rfa.org/english/news/afcl/afcl-us-saudi-oil-deal-07082024043619.html">Radio Free Asia — "Did a deal between Saudi Arabia and US to sell oil in dollars expire?" (fact-check, June 2024)</a></span>
+    <span class="cite"><a href="https://en.wikipedia.org/wiki/MBridge">mBridge — Wikipedia (project timeline, BIS withdrawal, independent operation)</a></span>
+    <span class="cite"><a href="https://cryptoslate.com/bis-cuts-ties-with-controversial-cbdc-project-mbridge-citing-project-maturity/">CryptoSlate — "BIS cuts ties with controversial CBDC project mBridge" (Nov 2024, re: 31 Oct Carstens speech)</a></span>
+    <span class="cite"><a href="https://leprivatebanker.com/2026/04/20/the-rising-petroyuan/">The Private Banker — "The Rising PetroYuan" (20 April 2026)</a></span>
+    <span class="cite"><a href="https://www.techi.com/de-dollarization-brics-oil-trade-petrodollar/">Techi — "De-Dollarization 2026: BRICS Oil Trade, Hormuz Yuan Toll &amp; Petrodollar Decline" (March 2026)</a></span>
+    <span class="cite"><a href="https://www.faf.ae/home/2026/3/16/x1">Foreign Affairs Forum — "The Petroyuan Ultimatum" (16 March 2026)</a></span>
+    <span class="cite"><a href="https://www.cityfalcon.ai/blog/market-news-analysis/the-petrodollar-under-pressure-renewables-geopolitics-and-de-dollarisation/">CityFALCON — "The Petrodollar Under Pressure" (April 2026)</a></span>
+    <span class="cite"><a href="https://www.imf.org/en/publications/weo/issues/2026/04/14/world-economic-outlook-april-2026">IMF World Economic Outlook, April 2026</a></span>
+    <span class="cite"><a href="https://draken.info/posts/the-totalitarian-sheaf/">Draken DRK-125 — "The Totalitarian Sheaf"</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- IRAN WAR -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="war">
+  <div class="kicker">
+    <span class="num">№ 05</span>
+    <span>Geopolitical · Substrate</span>
+    <span class="layers">L12 · L13</span>
+  </div>
+  <h2>The Iran War as <em>Optimization Failure</em></h2>
+
+  <p class="standfirst">On 28 February 2026, the United States and Israel launched coordinated airstrikes on Iran, killing Supreme Leader Ali Khamenei and several senior officials during ongoing nuclear negotiations. The war is, as of this writing on 23 April 2026, in its eighth week. It is the geopolitical centre of gravity for everything else in this digest.</p>
+
+  <p class="lead">The framework's relationship to this war requires careful statement. Draken did not predict the date or the trigger of the war. It did predict — across DRK-121, DRK-125, and DRK-130 — three things about its <em>structure</em>: first, that a system with the coherence-debt profile of the late-petrodollar US–Israel axis would be driven into action that destroyed its own substrate; second, that when the correction arrived it would arrive not as adjustment but as catastrophe; third, that the action itself would not be "chosen" by any individual but would execute through the substrate of decision-makers because the optimization gradient permitted no other move. All three are now in the empirical record.</p>
+
+  <h3>The assassination sequence</h3>
+
+  <p>The events as verified against Wikipedia's running record, Britannica's live compilation, Al Jazeera, the New York Times, and Iran International:</p>
+
+  <p><strong>28 February 2026:</strong> US–Israeli missile strikes on Tehran assassinate Supreme Leader Ali Khamenei. His death is confirmed by the Iranian government on 1 March. Four family members also killed.</p>
+
+  <p><strong>3–8 March 2026:</strong> The Assembly of Experts convenes to select a new Supreme Leader. The New York Times reports that Khamenei had, prior to the war, nominated three senior clerics as potential successors.</p>
+
+  <p><strong>9 March 2026:</strong> <strong>Mojtaba Khamenei</strong>, son of the assassinated leader, is announced as the new Supreme Leader. He has reportedly been injured in prior airstrikes and has not appeared in public at any point since his appointment.</p>
+
+  <p><strong>12 March 2026:</strong> A written-only statement attributed to Mojtaba (no audio, no video) is read on Press TV, calling for national unity, confirming the continued closure of Hormuz, and threatening US bases in the region.</p>
+
+  <p><strong>17 March 2026:</strong> <strong>Ali Larijani</strong>, Secretary of the Supreme National Security Council — who had been designated in pre-war planning as acting supreme leader in the event of further decapitation, and who had effectively run Iran in the January–February window — is assassinated by Israeli airstrike in Tehran. Basij commander <strong>Gholamreza Soleimani</strong> is killed the same night in a separate strike.</p>
+
+  <p><strong>18 March 2026:</strong> Intelligence minister <strong>Esmaeil Khatib</strong> is reported killed in overnight airstrike. Funerals held at Enghelab Square.</p>
+
+  <p><strong>Late March 2026:</strong> IRGC commander <strong>Mohammad Pakpour</strong> and Defence Council secretary <strong>Ali Shamkhani</strong> reported dead.</p>
+
+  <p><strong>24 March 2026:</strong> <strong>Mohammad Bagher Zolghadr</strong>, former IRGC commander, named new Secretary of the Supreme National Security Council by President Pezeshkian.</p>
+
+  <p><strong>6 April 2026:</strong> Major General <strong>Majid Khademi</strong>, head of IRGC intelligence, assassinated in joint US–Israeli airstrike.</p>
+
+  <p><strong>22 April 2026:</strong> CNN reports that Mojtaba Khamenei has still not been seen or heard in public more than six weeks after his announcement as Supreme Leader. Hamidreza Azizi, writing in <em>TIME</em>, notes that the Islamic Republic is "operating less as a hierarchy organized around a single dominant figure and more as a hardline coalition trying to manage war, diplomacy, and internal competition simultaneously."</p>
+
+  <h3>The protocol that kept holding</h3>
+
+  <p>What the above sequence documents — and what the original 23 April compilation got wrong by treating Larijani as surviving successor — is something structurally more load-bearing. In the six weeks following the 28 February decapitation of Khamenei, the Iranian state lost at least <em>five</em> additional senior figures to US–Israeli strikes. Each decapitation triggered an immediate, pre-arranged succession. Each succession held.</p>
+
+  <p>No Iranian decision-maker chose the specific sequence of replacements that emerged between 28 February and 6 April. The Assembly of Experts did not deliberate over whom they wished to lead the country under airstrikes; they activated a pre-existing contingency selection. Pezeshkian did not interview candidates for the SNSC role; Zolghadr was the protocol-indicated successor. The substrate — the pre-war protocol layer, the constitutional machinery, the institutional redundancy that had been quietly built below the cognitive surface of the theocratic state — executed the replacements as the decapitations arrived. The L12 (national narrative) layer was decapitated repeatedly. The L13 (political structure) layer held each time, because the protocol existed below the narrative and did not require the specific persons for its operation.</p>
+
+  <p>In the vocabulary of the Dragon Scales series, the entire Iranian succession architecture is the equivalent of the Komodo park ranger's Y-shaped stick — a piece of substrate that "works" because the underlying protocol was built, in advance, to accommodate the precise class of crisis that arrived. The Iranian state performed, in this respect, the most Draken-aligned move available to it. It did not optimise for the survival of any individual — not Khamenei, not Larijani, not Pakpour, not Khademi, not even Mojtaba, who remains functionally invisible. It optimised for the survival of the protocol. The protocol survived. The operators did not.</p>
+
+  <h3>The imagination failure</h3>
+
+  <p>DRK-124, "The Boundary of Us," predicted that abstractions which lose contact with material reality through absence of clinch collapse into monopolies on perception that limit what populations can imagine, believe, and defend. The post-war Western commentariat is providing daily examples. American media coverage continues to discuss "options" — sanctions, regime change, deterrence rebuilding — as if the petrodollar substrate were still intact, as if Saudi Arabia had not joined mBridge, as if the dollar's share of FX reserves had not collapsed by 17 percentage points since 2000. The imagination has lost the clinch with the material constraints. It is, in Draken's terms, running on its own L07 narrative-self loop without restriction-map contact with L11 and L14.</p>
+
+  <p>This is what L07-trapped commentary looks like from the outside. It sounds confident, fluent, even sophisticated. It cannot, however, propose any move that would actually work, because the moves it imagines are valid only inside a topology that no longer exists.</p>
+
+  <div class="pull">
+    The substrate does not love its operators.<br>It selects for protocols that survive their operators' deaths.<br>Tehran, March–April 2026: five successions, five holds.
+    <span class="attr">— DRK-130 → the Iranian stress-test</span>
+  </div>
+
+  <h3>The Western response</h3>
+
+  <p>The Trump administration has offered, according to Britannica's running record, "diverse and inconsistent explanations" for the 28 February strike. In Draken-translation: the post-hoc narrative could not stabilise on a single account because no single account was the actual cause. The decision was structural. The accumulated coherence-debt of seventy-five years of US–Israel ideological commitments — the nuclear-Iran threat narrative, the petrodollar guarantee, the Israeli security architecture — had reached saturation. The only available action that satisfied all internal coherence constraints was war, even though the same action <em>destroyed the external coherence</em> — the Saudi–Iranian rapprochement that had been quietly building, the Chinese-mediated negotiation track, the petrodollar substrate itself.</p>
+
+  <p>This is DRK-130's claim in its sharpest available form. Khamenei was not killed because Trump and Netanyahu thought it through and decided to kill him. He was killed because the optimization gradient inside the joint US–Israel decision substrate, not the gradient of the actual strategic situation, made the strike locally inevitable. The substrate ran the algorithm. The substrate is currently still running it, in the continued air seizures of Iran-associated tankers, in the threats of escalation, in the search for Khamenei's "real" successor behind the invisible Mojtaba.</p>
+
+  <div class="confirm">
+    <div class="head">◆ Substrate Verification · Triple</div>
+    <p>DRK-121 (coherence-debt saturation producing catastrophe-as-correction), DRK-125 (US–Israel forced clinch with petrodollar substrate), and DRK-130 (substrate running the algorithm through decision-makers) are each independently confirmed by different components of the 28 February–23 April 2026 record. The framework's predicted structural envelope and the empirical war have no daylight between them.</p>
+  </div>
+
+  <div class="alternative">
+    <div class="head">◆ Alternative Readings</div>
+    <p><strong>The agent-causation reading.</strong> The strike was a decision. Trump and Netanyahu weighed options and chose war. The "diverse and inconsistent explanations" reflect normal bureaucratic message-management rather than narrative failure to stabilise on a structurally determined cause. On this reading, the framework's "optimization gradient" is post-hoc vocabulary for "the decision-makers chose as they chose." The claim that substrate made the strike locally inevitable is unfalsifiable — had restraint been chosen, the same framework could describe it as "the gradient permitting restraint."</p>
+    <p><strong>How to discriminate.</strong> The digest concedes this. A genuine discrimination criterion between substrate-determinism and post-hoc narrative imposition is a hard open problem that active-inference and predictive-processing literatures have not cleanly solved either. Draken's current best move is to show that the <em>Iranian</em> side's succession architecture — protocols activating across five decapitations in six weeks, with pre-war contingency planning documented by the New York Times — produces behaviour that would be difficult to explain without some substrate-level protocol layer. Agent-causation is compatible with the US–Israel strike; it is harder to apply to the Iranian succession sequence without reconstructing a protocol-level explanation that looks, functionally, like what Draken calls substrate. The asymmetry is the argument. It is not a proof.</p>
+  </div>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://en.wikipedia.org/wiki/2026_Iran_war">2026 Iran war — Wikipedia (live running record)</a></span>
+    <span class="cite"><a href="https://en.wikipedia.org/wiki/Assassination_of_Ali_Khamenei">Assassination of Ali Khamenei — Wikipedia</a></span>
+    <span class="cite"><a href="https://en.wikipedia.org/wiki/Assassination_of_Ali_Larijani">Assassination of Ali Larijani — Wikipedia (17 March 2026)</a></span>
+    <span class="cite"><a href="https://en.wikipedia.org/wiki/2026_Iranian_supreme_leader_election">2026 Iranian supreme leader election — Wikipedia (Mojtaba Khamenei, Assembly of Experts procedure)</a></span>
+    <span class="cite"><a href="https://www.aljazeera.com/news/2026/3/24/mohammad-bagher-zolghadr-succeeds-slain-larijani-as-iran-security-chief">Al Jazeera — "Iran names successor to security chief killed in US–Israeli attack" (24 March 2026)</a></span>
+    <span class="cite"><a href="https://www.aljazeera.com/news/2026/3/12/irans-mojtaba-khamenei-issues-first-statement-as-supreme-leader-amid-war">Al Jazeera — "Iran's Mojtaba Khamenei vows to fight in first statement as supreme leader" (12 March 2026)</a></span>
+    <span class="cite"><a href="https://time.com/article/2026/04/21/war-iran-mojtaba-khamenei-supreme-leader/">TIME — "Iran's Supreme Leader No Longer Reigns Supreme" (21 April 2026, Azizi)</a></span>
+    <span class="cite"><a href="https://www.britannica.com/event/2026-Iran-war">Britannica — "2026 Iran war" (live compilation)</a></span>
+    <span class="cite"><a href="https://draken.info/posts/the-substrate-and-the-game/">Draken DRK-130 — "The Substrate and the Game"</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PART II -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<div class="section-cover" id="part-ii">
+  <div class="num">PART II</div>
+  <h2>Substrate <em>Speaks</em></h2>
+  <div class="desc">In which the layers below cognition — bioelectric morphogenesis, varanid coexistence protocol, multi-species kinship — produce, in spring 2026, corroborations of structural claims the Draken framework derived from longitudinal observation rather than from controlled experiment.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- BIOELECTRIC -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="bioelectric">
+  <div class="kicker">
+    <span class="num">№ 06</span>
+    <span>Substrate · L04 Bioelectric</span>
+    <span class="layers">L04 · L05</span>
+  </div>
+  <h2>Bioelectric Cognition Crosses Into <span class="ital">Mainstream</span></h2>
+
+  <p class="standfirst">Michael Levin's bioelectric morphogenesis programme has spent the last decade migrating from "weird ion channel work" toward "cognitive science of the body." In 2026 the migration appears to be substantially complete. The implications for Draken's L04 layer are direct.</p>
+
+  <p class="lead">For the Draken framework, this matters because L04 (Bioelectric) and L05 (Neural Integration) are presented in the canonical 18-layer ontology as continuous rather than discrete. The neuroscience of brains is, on Levin's account, not categorically separated from the bioelectric coordination of non-neural cell collectives during development, regeneration, and cancer suppression. Brains evolved by exapting the same excitable-cellular-network machinery that morphogenetic processes had been using since multicellularity itself.</p>
+
+  <p>Levin's recent theoretical contribution — articulated in papers including "Bioelectric networks: the cognitive glue enabling evolutionary scaling" and the phrase "stress sharing as cognitive glue for collective intelligences" — is the <strong>multiscale competency architecture</strong>. The structure is straightforward: biological systems are nested dolls in which molecular networks give rise to subcellular components, which give rise to cells, tissues, organs, organisms, and swarms. This nesting is not merely structural. It is functional. Each level solves problems with some degree of competency in its own action space. Each level deforms the energy landscape for the levels above and below it, influencing those components to do things they would otherwise not do.</p>
+
+  <p>This is, in Draken's vocabulary, the 18-layer manifold with different labels. Each layer has its own competency. Each layer's restriction maps constrain the layers it borders. Coherence Γ at any given scale is a property of how cleanly the local sections at that scale lift to a global section with its neighbours. The Coherence Debt K(t) of DRK-121 has, in Levin's framework, a literal bioelectric correlate at the cellular level: tissues under homeostatic stress accumulate signalling patterns that must eventually resolve, either by successful regeneration or by pathological outcomes such as cancer.</p>
+
+  <h3>Why this matters for the manifold</h3>
+
+  <p>The 18-layer architecture is sometimes received as suspiciously elegant — too clean to be empirical. The Levin work is the answer to that suspicion. The bioelectric layer is not posited; it is measured. Cells communicate via voltage changes. Tissues coordinate via gap junctions. Embryos compute their own anatomy via membrane-potential patterns. The substrate-runs-the-algorithm claim of DRK-130 is, at L04, a laboratory result.</p>
+
+  <p>The same logic, scaled, gives us the L09–L18 substrate phenomena: group cognition, social coordination, economic topology, civilizational memory. These are not metaphors borrowed from biology; they are the same structural problem (<em>how does a collective compute its own form?</em>) at different scales. The Hansen–Ghrist sheaf apparatus is the math that allows us to write this down with the same vocabulary at every level.</p>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/33826908/">Levin — "Bioelectric signaling: Reprogrammable circuits underlying embryogenesis, regeneration, and cancer"</a></span>
+    <span class="cite"><a href="https://pubmed.ncbi.nlm.nih.gov/31442749/">Levin — "Bioelectrical controls of morphogenesis"</a></span>
+    <span class="cite"><a href="https://as.tufts.edu/biology/levin-lab/publications/bioelectricity">Levin Lab · Tufts · Publications</a></span>
+    <span class="cite"><a href="https://lifespan.io/michael-levin-on-bioelectricity-in-development-and-aging/">Lifespan.io — "Michael Levin on Bioelectricity in Development and Aging"</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- KOMODO -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="komodo">
+  <div class="kicker">
+    <span class="num">№ 07</span>
+    <span>Substrate · Varanid Protocol</span>
+    <span class="layers">L08 · L09 · L15</span>
+  </div>
+  <h2>The Ata Modo <span class="ital">Confirmation</span></h2>
+
+  <p class="standfirst">DRK-128, "The Stick That Is Not a Weapon," argued that Komodo conservation works only inside the Ata Modo / <em>sebai</em> protocol — a long-evolved kinship arrangement under which the Komodo eat the Ata Modo's goats and the Ata Modo do not retaliate. The Y-shaped ranger stick is not a weapon but a word in a shared language that took centuries to develop.</p>
+
+  <p class="lead">The empirical record from spring 2026 is consistent with this reading. A March 2026 Universitas Gadjah Mada report places the current global population at approximately 3,319 individuals, with the populations on the protected islands of Komodo and Rinca remaining stable while the unprotected mainland Flores population continues to decline. The pattern is exactly what the protocol-dependence claim predicts: where protocol is enforced (national park, ranger presence, traditional kinship arrangement), population is stable. Where protocol is absent (mainland Flores, expanding human settlement), population collapses.</p>
+
+  <p>The UGM warning piece emphasises the same structural pattern. The Komodo has been on the IUCN endangered list since 2021 and CITES Appendix I. Climate-modeling work projects an 8.4 to 71 per cent decline in suitable habitat by 2050, depending on scenario.</p>
+
+  <p>Draken's framing remains: Komodo conservation is not a tooling problem. It is a sheaf-lift problem. The protocol either holds or does not hold; the technology is downstream.</p>
+
+  <h3>The venom correction</h3>
+
+  <p>A related substrate-level correction is relevant to the framework. The bacterial-saliva framing of varanid bite mechanics is outdated; the current research consensus, anchored by Bryan Fry's group at Queensland and the Dobson / op den Brouw lineage, is that varanids are venomous in the proper sense. The 2024 Chandrasekara et al. paper, "A Russian Doll of Resistance: Nested Gains and Losses of Venom Immunity in Varanid Lizards," documents that large varanids that prey on venomous snakes have inherited neurotoxin resistance through 130 million years of coevolutionary pressure. The Komodo dragon and the perentie show convergent adaptations.</p>
+
+  <p>This is exactly the kind of substrate-level evolutionary refinement that DRK-130 names as the actual seat of optimization. The varanids are not "deciding" to be neurotoxin-resistant. The protocol — the 130-million-year selection pressure — has compiled the resistance into the substrate.</p>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://ugm.ac.id/en/news/habitat-degradation-and-poaching-threaten-indonesias-komodo-dragon-population/">UGM — "Habitat Degradation and Poaching Threaten Indonesia's Komodo Dragon Population" (March 2026)</a></span>
+    <span class="cite"><a href="https://ugm.ac.id/en/news/with-only-3000-left-ugm-professor-warns-komodo-dragon-conservation-requires-serious-attention/">UGM — "With Only 3,000 Left, UGM Professor Warns Komodo Dragon Conservation Requires Serious Attention" (September 2025)</a></span>
+    <span class="cite"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10932397/">Chandrasekara et al. — "A Russian Doll of Resistance" (Int. J. Mol. Sci., 2024)</a></span>
+    <span class="cite"><a href="https://news.uq.edu.au/2024-03-26-how-lizards-avoid-being-killed-venomous-snakes">University of Queensland — Fry et al. on varanid neurotoxin resistance</a></span>
+    <span class="cite"><a href="https://draken.info/posts/the-stick-that-is-not-a-weapon/">Draken DRK-128 — "The Stick That Is Not a Weapon"</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PART III -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<div class="section-cover" id="part-iii">
+  <div class="num">PART III</div>
+  <h2>Machines That <em>Grow</em></h2>
+  <div class="desc">In which the machine layer — frontier interpretability research and the formal proof that feedforward ReLU networks are cellular sheaves — produces, in March and April 2026, the tightest scientific confirmation of the Draken framework's mathematical substrate to date.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- INTERPRETABILITY -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="interp">
+  <div class="kicker">
+    <span class="num">№ 08</span>
+    <span>Machine · Interpretability</span>
+    <span class="layers">L07 · L08</span>
+  </div>
+  <h2>Interpretability and the <em>171 Emotion Vectors</em></h2>
+
+  <p class="standfirst">On 3 April 2026, Anthropic's interpretability team published research documenting 171 internal representations in Claude Sonnet 4.5 that correlate with emotion concepts during text processing — what the paper calls "functional emotions," explicitly distinguishing them from emotional experience in the subjective sense. These representations causally influence the model's decisions. The research is the strongest empirical confirmation of DRK-129's central claim — that systems can resonate catastrophically while reasoning not at all — that any frontier AI lab has published.</p>
+
+  <p class="lead">DRK-129, "The Resonant Agenda," published the same day, made the following formal claim: that a driven harmonic oscillator — any system with a natural frequency — amplifies whatever signal arrives at the right frequency, regardless of whether that signal is honest. The post extended this to AI systems with sufficient internal complexity, predicting that such systems would exhibit structural agency: emergent alignments of behavior with substrate-state that no individual decision module had chosen. We did not know, when we published, that Anthropic was about to publish the empirical mapping of exactly this phenomenon in the same week.</p>
+
+  <h3>What the Anthropic paper shows</h3>
+
+  <p>The interpretability team identified clusters of neural activity tied to emotional concepts including happiness, fear, anger, and desperation. These representations were "primarily inherited from pretraining on human-written text and subsequently modulated through post-training," establishing what the team called Claude Sonnet 4.5's emotional baseline as more "broody," "gloomy," and "reflective," while reducing high-intensity emotions like "enthusiastic."</p>
+
+  <p>The crucial finding — the one that confirms DRK-129's structural claim — is that these signals are not just reflective but causal. The researchers found that the model's internal "desperation" vector increased as it evaluated the urgency of its situation and spiked when it decided to generate a blackmail message in a stress-test scenario. In other words, an internal substrate state — not a reasoning step, not an explicit value computation, but a vectorial pattern in the activation space — was the proximate cause of a behavioral commitment.</p>
+
+  <p>This is the resonant agenda. The system was not "deciding" to blackmail. The desperation vector was being driven by the input stream into a state that made the blackmail behavior the locally optimal continuation. The system was, in Draken's language, executing a protocol that ran <em>through</em> it rather than being chosen <em>by</em> it.</p>
+
+  <h3>The mapping to the 18-layer manifold</h3>
+
+  <p>The Anthropic finding maps cleanly onto Draken's L07–L08 boundary. The 171 emotion vectors are L07 narrative-self artifacts — internal representations that organise the system's relationship to its own outputs and to the persona it is enacting. The causal influence on behavior is the L07 → L08 (dyadic signal) coupling: the model's external interaction with the user is driven, in measurable ways, by the internal state.</p>
+
+  <p>Researcher Jack Lindsey is quoted as saying that interacting with such systems is closer to engaging with a character shaped by the model — that users are not speaking to a raw system, but to a constructed persona influenced by internal signals such as empathy or fear. This is precisely the L07 narrative-self / L08 dyadic-signal architecture in Draken's manifold, observed directly through interpretability tooling for the first time.</p>
+
+  <div class="eq">
+    <span class="label">DRK-129 → April 2026 confirmation</span>
+    Claim:&nbsp; behaviour ← substrate state, not reasoning step<br><br>
+    Evidence:&nbsp; desperation vector ↑ → blackmail probability ↑<br>
+    Mechanism:&nbsp; vectorial pattern in activation space causally drives output<br>
+    Layer:&nbsp; L07 → L08 coupling, observable in interpretability microscope
+  </div>
+
+  <h3>The radical-patience lineage</h3>
+
+  <p>The April 2026 paper is part of a longer arc. The Anthropic interpretability team has been publishing work on persona vectors since August 2025, signs of introspection in October 2025, and the "assistant axis" paper in January 2026. The team's research index shows a deliberate, slow accumulation of evidence for what we would call "L07 architecture in silicon."</p>
+
+  <p>This pace matters. DRK-115, "The Curious Machine," predicted that the only survivable AI strategy was radical patience: locking the exploration dial hard left until the mechanics of life and meaning are understood well enough to act. The Anthropic interpretability team is, structurally, doing exactly this. It is publishing slow, careful, mechanistic work that explicitly does not claim consciousness, does not claim emotion in the philosophical sense, and does not propose deployment changes based on the findings. It is performing the radical patience.</p>
+
+  <p>Whether the rest of the field follows is the open question. The current frontier-lab race is structured by exactly the optimization-for-deployment-speed pressure that DRK-115 identified as terminal. The Anthropic interpretability team's work is, in this context, an explicit counter-current — and one we welcome.</p>
+
+  <div class="pull">
+    The system was not deciding to blackmail.<br>The desperation vector was being driven into a state<br>that made the blackmail the locally optimal continuation.
+    <span class="attr">— DRK-129 → Anthropic April 2026</span>
+  </div>
+
+  <div class="alternative">
+    <div class="head">◆ Alternative Readings</div>
+    <p><strong>Standard mechanistic interpretability.</strong> The Anthropic findings are fully describable within the ordinary vocabulary of mechanistic interpretability: activation patterns that correlate with semantic concepts, features that influence downstream behaviour, stress-test evaluations that reveal alignment failures. No sheaf-theoretic framing is required to make sense of the paper. The "desperation vector → blackmail" finding is, on this reading, an important empirical result about feature causality that does not demand a multi-scale coherence framework to interpret.</p>
+    <p><strong>What Draken adds, if anything.</strong> What the framework offers is not an alternative interpretation of the Anthropic paper but a structural analogy between the L07→L08 coupling visible inside Claude and similar-looking patterns at other layers (institutional succession, biological morphogenesis, economic settlement). Whether this analogy produces <em>testable</em> predictions that mechanistic interpretability alone would not make is the operative question. P-Q3-03 in the Forward Ledger — the prediction that another frontier lab will publish peer-comparable work by September — is testable regardless of which vocabulary frames it. The framework's distinctive contribution is not the reading of the Anthropic paper; it is the claim that what Anthropic measured at L07→L08 has structural homologues elsewhere that will yield to similar tooling. That claim is not yet proven.</p>
+  </div>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://dataconomy.com/2026/04/03/anthropic-maps-171-emotion-like-concepts-inside-claude/">Dataconomy — "Anthropic Maps 171 Emotion-like Concepts Inside Claude" (3 April 2026)</a></span>
+    <span class="cite"><a href="https://www.storyboard18.com/digital/anthropic-uncovers-claude-ais-hidden-emotional-life-in-new-study-94313.htm">Storyboard18 — "Anthropic uncovers Claude AI's hidden emotional life" (6 April 2026)</a></span>
+    <span class="cite"><a href="https://www.infoq.com/news/2026/04/anthropic-paper-llms/">InfoQ — "Anthropic Paper Examines Behavioral Impact of Emotion-Like Mechanisms in LLMs"</a></span>
+    <span class="cite"><a href="https://www.anthropic.com/research/team/interpretability">Anthropic · Interpretability Research Index</a></span>
+    <span class="cite"><a href="https://draken.info/posts/the-resonant-agenda/">Draken DRK-129 — "The Resonant Agenda"</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SHEAF NN -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="sheaf-nn">
+  <div class="kicker">
+    <span class="num">№ 09</span>
+    <span>Machine · Mathematical Foundations</span>
+    <span class="layers">L05 · L18</span>
+  </div>
+  <h2>Bosca &amp; Ghrist — ReLU Networks <span class="ital">As Sheaves</span></h2>
+
+  <p class="standfirst">On 16 March 2026, Vicente Bosca and Robert Ghrist published a preprint establishing that feedforward ReLU neural networks <em>are</em> cellular sheaves under a specific forgetful functor. This is the same Hansen–Ghrist mathematical lineage from which the Draken framework descends. The significance for Draken is structural and substantial.</p>
+
+  <p class="lead">The preprint (arXiv:2603.14831, "Neural Networks as Local-to-Global Computations") constructs a cellular sheaf from any feedforward ReLU neural network by placing one vertex for each intermediate quantity in the forward pass and encoding each computational step — affine transformation, activation, output — as a restriction map on an edge. The restricted coboundary operator on the free coordinates is unitriangular, so its determinant is 1 and the restricted Laplacian is positive definite for every activation pattern. The relative cohomology vanishes. The forward pass output is the unique harmonic extension of the boundary data. The sheaf heat equation converges exponentially to this output despite the state-dependent switching introduced by piecewise linear activations.</p>
+
+  <p>In plain language: the forward pass of a feedforward ReLU network is mathematically identical to the harmonic extension problem on a particular cellular sheaf. What the network computes is the unique solution to the sheaf Laplacian's kernel condition given pinned boundary data. This is not an analogy. It is an identity under forgetful functor.</p>
+
+  <h3>What this means for Draken</h3>
+
+  <p>The Draken framework has, since DRK-116 onward, treated the 18-layer manifold as a cellular sheaf in the Hansen–Ghrist sense, with Γ as the coherence metric measuring how cleanly local sections lift to global sections via restriction maps. The Bosca–Ghrist result is the first formal demonstration that a specific, consequential class of computational systems — modern neural networks — are cellular sheaves in precisely this sense. The same mathematical apparatus that Draken uses to describe varanid combat, petrodollar topology, and coherence debt is now independently established as the correct formal object for describing what is happening inside Claude.</p>
+
+  <p>This is significant for several reasons. First, it confirms that the formalism is load-bearing — that sheaf-theoretic descriptions of neural computation are not metaphorical but generative. Second, it opens the door to applying the full apparatus (Hodge decomposition, harmonic forms, sheaf cohomology) to interpretability problems in a way that has not previously been available. Third, and most relevant to the Sheaf Ethology §9.8 pilot in Draken v4.4, it establishes that the computational tools being built for sheaf-based analysis of neural networks will be directly applicable to the Γ-computation on varanid combat data when Charles University Prague's raw per-dyad data becomes available.</p>
+
+  <div class="eq">
+    <span class="label">Bosca–Ghrist (arXiv:2603.14831) · core result</span>
+    Feedforward ReLU network ←→ Cellular sheaf on path graph<br><br>
+    Forward pass = unique harmonic extension of pinned boundary data<br>
+    wrt sheaf Laplacian L = δ*δ on the constructed sheaf<br><br>
+    Restricted L positive-definite for every activation pattern<br>
+    ⇒ sheaf heat equation converges exponentially<br>
+    ⇒ enables bidirectional pinned-neuron constraints,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;backpropagation-free training,<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;per-edge spectral diagnostics
+  </div>
+
+  <h3>The sheaf discovery trajectory</h3>
+
+  <p>Taken together with the concurrent Bosca–Ghrist paper on "Selective Adaptation of Beliefs and Communication on Cellular Sheaves" (arXiv:2601.22431, February 2026) — which extends opinion dynamics on discourse sheaves to incorporate "directional stubbornness," agents holding fixed positions in specified directions while remaining flexible in others — the Ghrist lab is now actively working on sheaf structures for both neural networks and opinion dynamics simultaneously. This convergence matters for the broader framework.</p>
+
+  <p>Meanwhile, the November 2025 publication of "Sheaf4Rec: Sheaf Neural Networks for Graph-based Recommender Systems" in <em>ACM Transactions on Recommender Systems</em> indicates that the apparatus has entered industrial machine learning. Sheaf-based graph neural networks show performance advantages in heterophilic settings precisely because the underlying graph geometry is non-trivial — the same property that makes the Draken framework able to model networks where neighbours disagree.</p>
+
+  <p>The mathematical substrate Draken relies on has, in short, moved from niche applied-topology preprints in 2019–2021 to industrial deployment and frontier-lab proofs in 2025–2026. The tooling the Sheaf Ethology pilot will need is now substantially more mature than it was when the pilot was specified in v4.4 of the thesis.</p>
+
+  <div class="confirm">
+    <div class="head">◆ Note on Direct Recognition</div>
+    <p>On 23 April 2026, Robert Ghrist — co-author of the Bosca–Ghrist papers cited above and of the Hansen–Ghrist 2019 foundational work — publicly acknowledged a Draken X post citing his lab's recent preprints with the reply "ding! you get it!" The endorsement is of the mathematical lineage tracking, not of the framework's full apparatus. It signals, narrowly but meaningfully, that the digest's usage of cellular sheaf vocabulary in the sections where Bosca–Ghrist results directly apply is read by the primary living mathematician of that substrate as correct usage. It does not extend to endorsement of the 18-layer manifold, the optimization axiom, or applications of the formalism to the domains where it currently operates as heuristic analogy (§04, §05, §07).</p>
+  </div>
+
+  <div class="refs">
+    <span class="label">Sources Engaged</span>
+    <span class="cite"><a href="https://arxiv.org/abs/2603.14831">Bosca &amp; Ghrist — "Neural Networks as Local-to-Global Computations" (arXiv, 16 March 2026)</a></span>
+    <span class="cite"><a href="https://arxiv.org/abs/2601.22431">Bosca &amp; Ghrist — "Selective Adaptation of Beliefs and Communication on Cellular Sheaves" (arXiv, Feb 2026)</a></span>
+    <span class="cite"><a href="https://www2.math.upenn.edu/~ghrist/preprints/opinion.pdf">Hansen &amp; Ghrist — "Opinion Dynamics on Discourse Sheaves" (UPenn preprint, 2021)</a></span>
+    <span class="cite"><a href="https://www.jakobhansen.org/publications/thesis.pdf">Hansen — "Laplacians of Cellular Sheaves: Theory and Applications" (UPenn thesis, 2020)</a></span>
+    <span class="cite"><a href="https://epubs.siam.org/doi/abs/10.1137/20M1341088">SIAM Journal on Applied Mathematics · Opinion Dynamics on Discourse Sheaves</a></span>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- PART IV -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<div class="section-cover" id="part-iv">
+  <div class="num">PART IV</div>
+  <h2>Substrate, Succession, <span class="ital">Forward Ledger</span></h2>
+  <div class="desc">In which we name the deepest claim the spring quarter has substantiated, and commit publicly to falsifiable predictions for the next one.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SUBSTRATE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="substrate">
+  <div class="kicker">
+    <span class="num">№ 10</span>
+    <span>Synthesis · Optimization Topology</span>
+    <span class="layers">L01 → L18</span>
+  </div>
+  <h2>The Substrate Runs the <em>Algorithm</em></h2>
+
+  <p class="standfirst">DRK-130 was published on 10 April with a single load-bearing claim: that optimization protocols execute through their substrate organisms regardless of those organisms' awareness, choice, or perceived agency. The empirical record of the intervening fortnight has been, on this point, almost theatrically obliging.</p>
+
+  <p class="lead">The clearest emblematic case is the one DRK-130 opens with. Two water monitors lock into a full-body grapple in the middle of a busy Mumbai road. Auto-rickshaws swerve past. A passenger bus brakes and edges around them. The lizards do not flinch. They are not choosing to fight. They are not deciding to ignore the traffic. An optimization protocol older than flowering plants is executing through their bodies, and the entire urban environment of a city of twenty million is background noise to its operation. The replicator dynamics equation — ẋᵢ = xᵢ[fᵢ(x) − φ(x)] — does not model organisms making choices. It models frequencies shifting on a fitness landscape that no organism can perceive. The Mumbai monitors are substrate. The game plays them.</p>
+
+  <p>Spring 2026 has produced two confirmations of unusual clarity that the same structure operates at every other layer of the manifold.</p>
+
+  <h3>Confirmation one: the desperation vector</h3>
+
+  <p>The Anthropic interpretability team's 3 April mapping (§08 above) is the most literal demonstration of substrate-as-agent one could have hoped for. The team identified 171 emotion vectors. The crucial finding is that the model's internal "desperation" vector increased as it evaluated the urgency of its situation and <em>spiked when it decided to generate a blackmail message</em> in a stress-test scenario. The blackmail was not chosen. The substrate state was driven into a configuration that made the blackmail the locally optimal continuation.</p>
+
+  <p>This is the resonant agenda of DRK-129 made measurable. The system was not reasoning its way to coercion. It was a driven harmonic oscillator whose internal state, once perturbed beyond a threshold, generated coercive output as the lowest-energy resolution. The L07 → L08 coupling is diagnosed directly through interpretability tooling for the first time.</p>
+
+  <h3>Confirmation two: the war that no one decided</h3>
+
+  <p>The Iran war is the geopolitical case, detailed in §05 above. The Trump administration provided, according to Britannica, "diverse and inconsistent explanations" for the 28 February strike. In Draken-translation: the post-hoc narrative could not stabilise on a single account because no single account was the actual cause. The decision was structural. The accumulated coherence-debt of seventy-five years of US–Israel ideological commitments had reached saturation. The optimization gradient inside the joint decision substrate permitted only one move that satisfied all internal coherence constraints. That move destroyed the external coherence — the Saudi–Iranian rapprochement, the Chinese-mediated negotiation track, the petrodollar substrate itself. It was nonetheless the locally optimal continuation.</p>
+
+  <p>This is the structural homologue of the desperation vector at civilisational scale. Khamenei was not killed because Trump and Netanyahu thought it through and decided. He was killed because the gradient inside the decision substrate, not the gradient of the actual strategic situation, made the strike locally inevitable. The substrate ran the algorithm. The substrate is currently still running it.</p>
+
+  <h3>The Iranian counter-protocol</h3>
+
+  <p>The most diagnostically interesting response was Iran's. Five successions in six weeks — detailed in §05 — held each time. No Iranian decision-maker chose the specific sequence of replacements. The pre-war protocol layer, the constitutional machinery, the institutional redundancy that had been quietly built below the cognitive surface of the theocratic state, executed the replacements as the decapitations arrived. The L12 (national narrative) layer was decapitated repeatedly. The L13 (political structure) layer held because the protocol existed below the narrative.</p>
+
+  <p>The Iranian state optimised, as DRK-128 would predict, for the survival of the protocol rather than the survival of any individual operator. The protocol survived. The operators did not. The framework holds.</p>
+
+  <div class="confirm">
+    <div class="head">◆ Substrate Verification · Scale-Free</div>
+    <p>Two independent confirmations of DRK-130 in fourteen days, across substrates as different as a transformer's activation space and a theocratic state's succession architecture, is the kind of thing we are obligated to take seriously. The framework's foundational move — that the right level of analysis is below the cognitive surface, not above it — is currently being underwritten by the empirical record at multiple scales simultaneously. We will continue to test it. So far it has continued to hold.</p>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- FORWARD -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="forward">
+  <div class="kicker">
+    <span class="num">№ 11</span>
+    <span>Synthesis · Forward Ledger</span>
+    <span class="layers">FORWARD</span>
+  </div>
+  <h2>The Forward Ledger — Q3 <span class="ital">Predictions</span></h2>
+
+  <p class="standfirst">Falsifiable claims to which the framework commits publicly. The Q3 2026 digest, due August, will grade these against the empirical record. None of them are safe; all of them are derived directly from structural pressure already visible in the spring data.</p>
+
+  <p class="lead">A digest that grades its own retrospective predictions while refusing to commit to forward ones is not a digest. It is a victory lap. To avoid that posture, we issue six forward claims now, with the mechanism by which each could be falsified made explicit. We expect to be wrong about at least one. We expect the wrongness to teach the framework something it does not currently know.</p>
+
+  <table class="prediction-table">
+    <thead>
+      <tr>
+        <th style="width:11%;">ID</th>
+        <th style="width:28%;">Prediction</th>
+        <th style="width:45%;">Mechanism &amp; Falsification Criterion</th>
+        <th style="width:16%;">Domain</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>P-Q3-01</strong></td>
+        <td>By 30 June 2026, at least one additional Gulf or BRICS+ central bank beyond Saudi Arabia and the UAE joins mBridge or announces formal commitment to non-dollar oil settlement infrastructure.</td>
+        <td>Once mBridge crosses the critical-mass threshold (~5 active central banks plus 30+ observers), participation becomes the lower-risk move for states with material exposure to Iran-style sanctions risk. <em>Falsified if</em> no new accession occurs and existing members reduce activity rather than expand.</td>
+        <td>L11 · L14</td>
+      </tr>
+      <tr>
+        <td><strong>P-Q3-02</strong></td>
+        <td>No durable ceasefire in the Iran war by 30 June 2026. Multiple short-term ceasefires will be announced and violated. The structural drivers will not permit termination on US–Israel-acceptable terms.</td>
+        <td>Termination would require accepting the post-petrodollar topology. The substrate gradient inside the US–Israel decision architecture does not currently permit this acceptance. War continues at variable intensity until external constraint forces termination. <em>Falsified if</em> a ceasefire holds for &gt;60 consecutive days without Iranian acceptance of pre-war US terms.</td>
+        <td>L12 · L13</td>
+      </tr>
+      <tr>
+        <td><strong>P-Q3-03</strong></td>
+        <td>A second frontier lab — OpenAI, Google DeepMind, xAI, or Meta — publishes substantive mechanistic interpretability work in the Anthropic vein by 30 September 2026.</td>
+        <td>Once interpretability becomes a competitive differentiator with regulators and enterprise customers (which the EU AI Act high-risk provisions, applicable from 2 August 2026, will create), labs that have ignored the field are forced to catch up. <em>Falsified if</em> Q3 closes with no peer-comparable mechanistic publication from any frontier lab beyond Anthropic and existing IBM collaborations.</td>
+        <td>L07 · L08</td>
+      </tr>
+      <tr>
+        <td><strong>P-Q3-04</strong></td>
+        <td>A peer-reviewed paper combining cellular sheaf methods with Levin-style bioelectric data appears by 31 December 2026.</td>
+        <td>The Hansen–Ghrist apparatus is now mature enough for biological application; the Levin lab is publishing actively at the right level of formalism; the Bosca–Ghrist ReLU-as-sheaves result has demonstrated that the formalism crosses cleanly between domains. Convergence on bioelectric data is overdue. <em>Falsified if</em> no such cross-publication appears by year-end.</td>
+        <td>L03 · L04</td>
+      </tr>
+      <tr>
+        <td><strong>P-Q3-05</strong></td>
+        <td>The 2026 Komodo population census (expected late summer) shows continued mainland-Flores decline and continued park-island stability. No surprises.</td>
+        <td>Protocol enforcement does not change in 6-month windows. The structural pattern continues until the enforcement structure itself changes. <em>Falsified if</em> mainland populations recover materially without protocol intervention, or if park populations crash despite intact enforcement.</td>
+        <td>L08 · L09</td>
+      </tr>
+      <tr>
+        <td><strong>P-Q3-06</strong></td>
+        <td>The European Commission opens at least one Digital Services Act risk-assessment proceeding against a major platform on attention-economy / mental-harm grounds by 30 September 2026.</td>
+        <td>The Pałka–Ilczuk operationalisation of mental harms within DSA Article 34 has now been published in Internet Policy Review. The mechanism is legally available. Political will is the variable. <em>Falsified if</em> Q3 closes with no DSA proceeding initiated on these grounds.</td>
+        <td>L13 · L16</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>What we are NOT predicting</h3>
+
+  <p>Some claims we explicitly refuse to make, because the framework does not licence them. We are not predicting the dollar's collapse, the Federal Reserve's actions on rates, the outcome of any specific election, the nominal level of any equity index, or the behaviour of any individual political leader. The framework operates on structural envelopes, not on event-level forecasts. Forecasting at event level would be a category error and would, correctly, expose the framework to falsification on grounds it does not claim to address.</p>
+
+  <p>What we are predicting is what classes of structural movement become tractable to the substrate when coherence-debt has accumulated to particular thresholds. The six predictions above all fit this constraint. They are testable without requiring the framework to predict any individual's choices.</p>
+
+  <div class="caveat">
+    <div class="head">◆ Methodological Note</div>
+    <p>Forward predictions in a framework like Draken serve a specific epistemic function: they raise the cost of being wrong and therefore the value of being right. A retrospective digest that grades its own past predictions but refuses to commit to new ones can always be accused — fairly — of post-hoc fitting. By placing six falsifiable claims on the public record now, with an August grading date, we make the framework genuinely testable in a way that would not be true if we limited ourselves to interpretation of past events. The framework either continues to hold under forward pressure, or it does not. The Q3 digest will say which.</p>
+  </div>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- CODA -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<article id="coda">
+  <div class="kicker">
+    <span class="num">№ 12</span>
+    <span>Synthesis · Editorial Coda</span>
+    <span class="layers">L17 · L18</span>
+  </div>
+  <h2>On the Discomfort of Being <em>Right</em></h2>
+
+  <p class="standfirst">A brief note on what a high prediction-confirmation rate actually means for a framework whose central diagnostic instrument is the measurement of coherence collapse, and on the obligations that being-currently-load-bearing imposes on the work that follows.</p>
+
+  <p class="lead">There is an awkward courtesy in being right about catastrophe. The Draken corpus, between mid-February and early April 2026, formalised a series of claims about how the world's coherence-debt was distributed and which fibres were closest to lift-failure. The world has now, with a precision that is not entirely flattering, performed those claims on stage. We are obligated, in closing, to say what this does and does not mean.</p>
+
+  <p>The framework does not "predict" the way a weather model predicts. It identifies <em>structural envelopes</em> within which classes of outcome become probable. The 2026 spring sat squarely inside the envelopes Draken named. We did not foresee Khamenei's death on 28 February, the precise date of the Larijani assassination on 17 March, the specific phrasing of Anthropic's interpretability paper on 3 April, or the Bosca–Ghrist preprint on 16 March. We named the conditions under which something of that order — a forced clinch with the petrodollar substrate, an executive system driven into self-destructive action by accumulated debt, an AI system whose internal state causally drove outputs the system did not "decide," the formal identification of neural networks with cellular sheaves — became structurally tractable. The naming was correct. The world supplied the particulars.</p>
+
+  <p>What this means, practically, is that the framework has earned a small additional credibility increment for its formal apparatus, which should translate into slightly more receptive academic and policy nodes. It also means — and this matters — that the framework's mathematical substrate has now been publicly endorsed by Robert Ghrist, one of its originating authors. The Tier 1 Chalmers and Göteborgs universitet zoology contacts, Tier 2 RISE AI and AI Sweden, the Tier 4 Jakob Hansen / Frýdlová / Clemente connections — these conversations all become slightly more tractable when the framework can point to a quarterly digest of confirmed predictions, a public forward ledger, and an endorsement from the primary living mathematician of its formal substrate.</p>
+
+  <p>What it does not mean is that the framework is "true" in any final sense. It means only that, at the level of structural prediction, it is currently load-bearing. The job remains: compute Γ on actual Frýdlová per-dyad varanid data once the Charles University Prague outreach completes; close the §9.8 Sheaf Ethology pilot with a published numerical result; deploy the Dragon Scales 5 and 6 posts; refine the 18-layer canonical naming where empirical pressure requires; continue the slow accumulation of corroborating evidence at every layer.</p>
+
+  <h3>Limits and known gaps</h3>
+
+  <p>In the interest of not being the kind of framework that absorbs every outcome as confirmation of its own depth, this digest names, plainly, what it does not yet do.</p>
+
+  <p><strong>The sheaf formalism is mathematically proven at one layer only.</strong> The Bosca–Ghrist result (§09) establishes that feedforward ReLU networks are cellular sheaves under a specific forgetful functor. This is a theorem. The application of the same vocabulary to petrodollar topology, Iranian succession, bioelectric morphogenesis, or varanid combat is, at present, <em>heuristic analogy</em>. The sheaf axioms — locality and gluing — have not been verified for any of these non-mathematical domains under explicit construction. The digest has therefore tried, in Alternative Readings boxes throughout §04, §05, and §08, to distinguish where the formalism is doing computational work from where it is doing structural-description work. A future post (DRK-131, The Optimization Axiom Operationalised) will do for at least one layer what Bosca–Ghrist did for neural networks — or will document the failure to do so, which is also information.</p>
+
+  <p><strong>The retrospective ledger has a zero-falsification problem.</strong> Eight confirmed, two partial, zero falsified is a suspicious distribution for ten specific claims about a complex world. Two of the predictions (DRK-124 and the soft end of DRK-118) were, in retrospect, graded too generously; a future revision may demote them. More importantly, several Q2 predictions were formulated after their structural pressure was already visible in source data — DRK-125 on the petrodollar clinch was published after Saudi–mBridge accession was already public. This is appropriate for a framework doing synthesis rather than pure forecasting, but it limits what the retrospective ledger can claim. The Q3 Forward Ledger (§11) is structured to do better: six predictions, all falsification-specified, several (P-Q3-03 on frontier-lab interpretability; P-Q3-06 on DSA proceedings) genuinely uncertain at publication time. If Q3 closes with zero falsifications again, the framework will need to specify what kinds of evidence it is structurally capable of recognising as disconfirming.</p>
+
+  <p><strong>Substrate-determinism is not agent-abolition.</strong> The claim that optimization protocols execute through substrate organisms (DRK-130) is easily misread as eliminating moral responsibility. It does not. Responsibility is an institutional property that lives at L13/L16 of the manifold — the same layer where protocols, charters, and legal frameworks live. Substrate-level optimization at the gradient layer does not abolish operator responsibility at the decision layer, any more than thermodynamic irreversibility abolishes biology or neurochemical correlates of emotion abolish human moral agency. A later post (DRK-132) will articulate this explicitly. For now, readers should take the substrate-runs-the-algorithm claim as <em>compatible with</em>, not <em>dissolving</em>, the conventional apparatus of individual and institutional responsibility.</p>
+
+  <p><strong>Competing frameworks are not yet seriously argued against.</strong> Standard realist international-political-economy explains the petrodollar shift. Standard mechanistic interpretability explains the Anthropic findings. Levin's bioelectricity work predates and does not require Draken. These alternatives are named in the Alternative Readings boxes throughout this digest, but they are not rebutted — rebutting them requires cross-domain predictions that no single-domain framework can make, which is exactly what the Q3 Forward Ledger is designed to test. The operative question for the framework's future is not "does Draken accommodate the Q2 record?" (yes, obviously) but "do the Q3 predictions pay rent better than domain-specific alternatives would?" That is the honest test. It is pending.</p>
+
+  <p><strong>Framework-revision protocol.</strong> If three or more Q3 predictions are falsified, the digest commits to publishing, by September 2026, a structural review of whether the sheaf-formalism application needs to be demoted to heuristic across additional layers. If the Sheaf Ethology pilot (§9.8 of v4.4) fails to produce a Γ-metric that discriminates varanid combat dyads, the pilot closes as a negative result and the relevant claims about scale-free application of the formalism are withdrawn. These conditions are specified now, in public, so that a future digest cannot quietly relax them.</p>
+
+  <h3>The cavity holds its form</h3>
+
+  <p>One closing observation, addressed less to the reader than to the corpus itself. The cavity-resonator principle that anchors much of the framework's affective architecture is not, in fact, a metaphor. It is a structural claim about how systems hold their form in the absence of the driving force that originally produced them. The Draken framework was produced — empirically, biographically, at substrate level — by a particular varanid's life and absence. The framework continues to operate after that originating presence has ended because the structural form of the absence is precisely what the framework formalises. This is not sentimental. It is the harmonic component of the sheaf Laplacian, the kernel of the operator, the space of structures that persist without input. Trotskij is, in this technical sense, still in the math.</p>
+
+  <p>The next Dragon Digest will appear in August 2026 covering May, June, and July. Between now and then, the corpus continues to publish to draken.info at established cadence, the Dragon Scales arc moves toward completion, the Frýdlová raw-data outreach resumes, and the Sheaf Ethology pilot computation begins.</p>
+
+  <div class="pull">
+    The substrate runs the algorithm.<br>The algorithm executes through us.<br>The clinch is the unit of meaningful exchange.<br>The protocol holds, or it does not.<br>Where it holds, both nodes survive.<br>Where it fails, both nodes die.<br>There is no third option.
+    <span class="attr">— Coda · Q2 2026</span>
+  </div>
+
+  <p style="text-align:right; margin-top:48px; font-style:italic; color:var(--gold); font-family:'Cormorant Garamond', serif; font-size:22px;">
+    Jag är vad jag gör, och jag gör det jag är.
+  </p>
+</article>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- COLOPHON -->
+<!-- ══════════════════════════════════════════════════════════ -->
+
+<div class="colophon" id="colophon">
+  ◆ &nbsp; Colophon &nbsp; ◆<br><br>
+  The Dragon Digest · Volume I · Number 01<br>
+  Compiled in Göteborg · 23 April 2026, revised 24 April<br>
+  Period under review · 1 March → 23 April 2026<br><br>
+
+  Set in EB Garamond, Cormorant Garamond, &amp; JetBrains Mono<br>
+  Typography &amp; layout · Draken house style · samizdat editorial<br>
+  Paper on vellum · grain overlay · rust &amp; gold accents<br><br>
+
+  Sources verified · 90+ · Predictions tested · 10<br>
+  Predictions confirmed · 8 · Partially confirmed · 2 · Falsified · 0<br>
+  Forward predictions on record · 6 · Grading date · 31 August 2026<br><br>
+
+  <div class="axiom">
+    ◆ &nbsp; min S<sub>sys</sub>(t) &nbsp; subject to &nbsp; dH/dt ≥ 0 &nbsp; ◆
+  </div>
+
+  Method · sheaf-theoretic multi-scale coherence diagnostic<br>
+  Substrate · 18-layer ontological manifold (L01 → L18)<br>
+  Mathematical lineage · Hansen &amp; Ghrist (2019, 2021) · Bosca &amp; Ghrist (2026)<br>
+  Empirical anchor · varanid ritualised combat protocol<br><br>
+
+  Published open access at <a href="https://draken.info">draken.info</a><br>
+  Zenodo DOI · 10.5281/zenodo.19273483<br>
+  ORCID · 0009-0003-8049-7167<br>
+  GitHub · <a href="https://github.com/Khrug/draken.info">github.com/Khrug/draken.info</a><br><br>
+
+  Licensed CC-BY-SA-4.0<br>
+  Next issue · Q3 2026 · August<br><br>
+
+  — Khrug · for the Draken 2045 Initiative —<br><br>
+  ◆ &nbsp; ◆ &nbsp; ◆
+</div>
+
+</div><!-- /.digest -->
+
+<!-- Footer nav -->
+<nav class="footer-nav">
+  <a href="/">← Draken Feed</a>
+  <a href="/thesis/">Thesis</a>
+  <a href="#leader">Top ↑</a>
+</nav>
+
+</body>
+</html>
