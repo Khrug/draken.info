@@ -123,7 +123,14 @@
           <button class="sa-btn ghost" id="sa-fetch">↓ Fetch URL</button>
           <button class="sa-btn ghost" id="sa-sample">⌁ Load sample</button>
           <button class="sa-btn ghost" id="sa-clear">✕ Clear</button>
-          <button class="sa-btn ghost" id="sa-export" style="margin-left:auto">⇩ Export JSON</button>
+          <div style="margin-left:auto;position:relative" id="sa-export-wrap">
+            <button class="sa-btn ghost" id="sa-export-toggle">⇩ Export ▾</button>
+            <div id="sa-export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#0b120b;border:1px solid #1a6b38;border-radius:6px;padding:4px;min-width:260px;z-index:50;box-shadow:0 6px 24px rgba(0,0,0,0.45)">
+              <button class="sa-btn ghost sa-export-opt" data-fmt="deep" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">📄 JSON (deep) — for Claude/Draken synthesis</button>
+              <button class="sa-btn ghost sa-export-opt" data-fmt="md" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">📝 Markdown report — paste into Claude.ai</button>
+              <button class="sa-btn ghost sa-export-opt" data-fmt="min" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">⌬ JSON (minimal) — compact, machine-read</button>
+            </div>
+          </div>
         </div>
         <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
       </div>
@@ -1718,6 +1725,228 @@ SA.loadSample = function(which){
   return samples[which] || samples.draken;
 };
 
+// ─ Export builders: minimal JSON, deep JSON, and Markdown report. ─
+
+SA._conceptSamples = function(analysis, C, maxSamples){
+  var out = [];
+  var idx = C.sentences.slice(0, maxSamples || 2);
+  idx.forEach(function(si){
+    var s = analysis.sentences[si];
+    if (s && s.text) out.push(s.text.length > 260 ? s.text.slice(0, 260) + '…' : s.text);
+  });
+  return out;
+};
+
+SA._conceptNeighbors = function(analysis, C, maxN){
+  var result = [];
+  var word = C.word;
+  analysis.edges.forEach(function(e){
+    var s = (e.source && e.source.id) || e.source;
+    var t = (e.target && e.target.id) || e.target;
+    if (s === word) result.push({ other: t, rho: e.rho, weight: e.weight, severed: !!e.severed });
+    else if (t === word) result.push({ other: s, rho: e.rho, weight: e.weight, severed: !!e.severed });
+  });
+  result.sort(function(a, b){ return b.weight - a.weight; });
+  return result.slice(0, maxN || 5).map(function(r){
+    return { other: r.other, rho: +r.rho.toFixed(3), weight: +r.weight.toFixed(3), severed: r.severed };
+  });
+};
+
+// Deep JSON: everything a downstream Claude/Draken session needs, nothing more.
+// Excludes raw text (too big); includes sample sentences per concept so synthesis has context.
+SA.exportDeep = function(analysis){
+  if (!analysis) return null;
+  var ranked = analysis.nodes.slice().sort(function(a, b){ return (b.salience||0) - (a.salience||0); });
+  var topConcepts = ranked.slice(0, 50).map(function(C){
+    return {
+      word: C.word,
+      display: C.displayWord || C.word,
+      dominantLayer: C.dominantLayer || null,
+      layerDistribution: C.layerDist || {},
+      salience: +((C.salience || 0).toFixed(4)),
+      frequency: C.freq,
+      sentenceCount: C.sentences.length,
+      valence: +((C.valence || 0).toFixed(3)),
+      selfReferenceHits: C.selfRef || 0,
+      sourcePosts: C.sources || [],
+      isProperNoun: !!SA._isProperNoun(C),
+      sampleSentences: SA._conceptSamples(analysis, C, 2),
+      topNeighbors: SA._conceptNeighbors(analysis, C, 5)
+    };
+  });
+  var severedEdges = analysis.edges
+    .filter(function(e){ return e.severed; })
+    .sort(function(a, b){ return b.weight - a.weight; })
+    .slice(0, 30)
+    .map(function(e){
+      return {
+        source: (e.source && e.source.id) || e.source,
+        target: (e.target && e.target.id) || e.target,
+        rho: +e.rho.toFixed(3),
+        weight: +e.weight.toFixed(3)
+      };
+    });
+  var coverage = analysis.metrics.coverage || {};
+  var coverageList = Object.keys(coverage).sort().map(function(lid){
+    var L = SA.LAYER_INDEX[lid] || {};
+    return { id: lid, name: L.name || lid, conceptFrequency: coverage[lid] };
+  });
+  return {
+    schema: 'draken-sheaf-analysis/v1',
+    generated: new Date().toISOString(),
+    source: {
+      mode: analysis.sources ? 'corpus' : 'single',
+      corpus: analysis.sources || null,
+      sentenceCount: analysis.sentences.length,
+      paragraphCount: Math.max.apply(null, analysis.sentences.map(function(s){ return s.para; })) + 1,
+      totalConcepts: analysis.nodes.length,
+      totalEdges: analysis.edges.length
+    },
+    metrics: {
+      gamma:   +analysis.metrics.gamma.toFixed(4),
+      psi:     +analysis.metrics.psi.toFixed(3),
+      kt:      +analysis.metrics.kt.toFixed(3),
+      alpha:   +analysis.metrics.alpha.toFixed(3),
+      severed:  analysis.metrics.severed,
+      voidCount: (analysis.metrics.voids || []).length
+    },
+    verdict: SA.verdict(analysis.metrics),
+    layerCoverage: coverageList,
+    narrative: (analysis.structure && analysis.structure.narrative) || null,
+    valenceTrajectory: (analysis.structure && analysis.structure.valenceTrajectory) || [],
+    severedClusters: (analysis.structure && analysis.structure.severedClusters) || [],
+    severedEdgesTop: severedEdges,
+    voids: (analysis.metrics.voids || []).map(function(v){
+      return { word: v.word, centrality: +v.centrality.toFixed(2), frequency: v.freq };
+    }),
+    layerSummaries: (analysis.structure && analysis.structure.layerSummaries) || {},
+    topConcepts: topConcepts,
+    _notes: {
+      aboutSchema: 'This is a structured summary of a cellular-sheaf topological text analysis. Metrics: Γ (sheaf convergence, higher = better gluing), Ψ (narrative self-reference / psychosis index, lower = healthier), K(t) (coherence debt), α (abstraction depth), severed (count of ρ maps with fidelity < 0.35).',
+      layers: 'The Draken 18-layer hierarchy ranges from L01 (quantum field) through L07 (narrative self) and L12 (national narrative) to L18 (planetary cognition). Each concept is tagged by its dominant layer.',
+      downstreamUse: 'Feed this document to a Claude/Draken session. Useful operations: (a) sentiment-layering — use layerSummaries + valenceTrajectory to identify which scales carry the emotional charge; (b) narrative synthesis — use the opening/middle/closing dominant concepts to reconstruct the argumentative arc; (c) cavity diagnosis — examine voids and severedClusters to identify where restriction maps have failed and what structural absences are shaping the text; (d) comparative analysis — run two exports and compare metric deltas; (e) generative extension — identify under-represented layers and propose concepts or arguments that would complete the sheaf.'
+    }
+  };
+};
+
+// Markdown report: human-readable version of the same deep structure, with a prompt preamble
+// suitable for pasting into a Claude session for synthesis.
+SA.exportMarkdown = function(analysis){
+  if (!analysis) return '';
+  var d = SA.exportDeep(analysis);
+  var md = [];
+  md.push('# Draken Sheaf Analysis — Topological Narrative Diagnostic');
+  md.push('');
+  md.push('_Generated: ' + d.generated + ' · draken.info/sheaf-analyzer_');
+  md.push('');
+  md.push('---');
+  md.push('');
+  md.push('## Prompt for downstream synthesis (edit as needed)');
+  md.push('');
+  md.push('> You are receiving a Draken sheaf analysis. Γ = sheaf convergence (1 = perfect gluing across scales), Ψ = narrative self-reference (healthy < 1.5, elevated 1.5–3.5, psychotic > 3.5), K(t) = coherence debt, α = abstraction depth. The 18 layers run from quantum field (L01) through narrative self (L07) to planetary cognition (L18). Your tasks:');
+  md.push('> 1. **Sentiment layering** — examine `layerSummaries` and `valenceTrajectory`. Where is the emotional charge concentrated? Is it on the scales the text claims to operate at, or displaced?');
+  md.push('> 2. **Narrative arc** — using `narrative.opening`, `narrative.middle`, `narrative.closing`, reconstruct the argumentative movement. Is there a thesis → development → return, or does the frame drift?');
+  md.push('> 3. **Cavity diagnosis** — inspect `voids` and `severedClusters`. What is being spoken AROUND but not into? Which scales fail to glue together, and does the failure look structural or deliberate (DRK-110 pattern)?');
+  md.push('> 4. **Synthesis** — propose 2–3 knowledge objects that would *extend* the text, fill its voids, or repair its severed restriction maps. Use Draken conventions: declare which layer each object targets and what Γ improvement you expect.');
+  md.push('');
+  md.push('---');
+  md.push('');
+  md.push('## Top-line metrics');
+  md.push('');
+  md.push('| Metric | Value | Reading |');
+  md.push('|---|---|---|');
+  md.push('| Γ (gluing) | ' + d.metrics.gamma + ' | ' + (d.metrics.gamma >= 0.75 ? 'locally coherent' : d.metrics.gamma >= 0.55 ? 'degraded' : 'incoherent') + ' |');
+  md.push('| Ψ (self-reference) | ' + d.metrics.psi + ' | ' + (d.metrics.psi < 1.5 ? 'healthy' : d.metrics.psi < 3.5 ? 'elevated' : 'psychotic') + ' |');
+  md.push('| K(t) (debt) | ' + d.metrics.kt + ' | ' + (d.metrics.kt < 3 ? 'low' : d.metrics.kt < 6 ? 'moderate' : 'high') + ' |');
+  md.push('| α (abstraction) | ' + d.metrics.alpha + ' | ' + (d.metrics.alpha < 0.4 ? 'grounded' : d.metrics.alpha < 0.7 ? 'mixed' : 'abstract') + ' |');
+  md.push('| Severed ρ | ' + d.metrics.severed + ' of ' + d.source.totalEdges + ' |  |');
+  md.push('| Voids | ' + d.metrics.voidCount + ' |  |');
+  md.push('');
+  md.push('**Verdict:** ' + d.verdict);
+  md.push('');
+  md.push('**Source:** ' + d.source.mode + (d.source.corpus ? ' — posts: ' + d.source.corpus.join(', ') : '') + ' · ' + d.source.sentenceCount + ' sentences · ' + d.source.totalConcepts + ' concepts · ' + d.source.totalEdges + ' edges');
+  md.push('');
+  md.push('## Layer coverage');
+  md.push('');
+  d.layerCoverage.forEach(function(L){
+    if (L.conceptFrequency > 0) md.push('- **' + L.id + ' ' + L.name + '** · frequency ' + L.conceptFrequency);
+  });
+  md.push('');
+  md.push('## Layer summaries');
+  md.push('');
+  Object.keys(d.layerSummaries || {}).forEach(function(lid){
+    var L = d.layerSummaries[lid];
+    md.push('### ' + lid + ' — ' + L.name);
+    md.push('');
+    md.push('- **Concepts:** ' + L.conceptCount + ' · **total frequency:** ' + L.totalFrequency + ' · **aggregate valence:** ' + L.aggregateValence);
+    md.push('- **Top concepts:** ' + L.topConcepts.map(function(c){ return '`' + c.word + '`(' + (c.salience*100).toFixed(0) + ')'; }).join(', '));
+    if (L.sampleSentence) md.push('- **Sample:** _"' + L.sampleSentence.replace(/\n/g,' ') + '"_');
+    md.push('');
+  });
+  md.push('## Narrative structure');
+  md.push('');
+  ['opening','middle','closing'].forEach(function(part){
+    var s = (d.narrative || {})[part];
+    if (!s) return;
+    md.push('### ' + part.charAt(0).toUpperCase() + part.slice(1) + ' (sentences ' + s.sentenceRange[0] + '–' + s.sentenceRange[1] + ')');
+    md.push('');
+    md.push('Dominant concepts: ' + s.dominantConcepts.map(function(c){ return '`' + c.word + '`(' + c.freq + (c.layer ? ', ' + c.layer : '') + ')'; }).join(', '));
+    md.push('');
+  });
+  if (d.severedClusters && d.severedClusters.length){
+    md.push('## Severed clusters (failed gluing groups)');
+    md.push('');
+    d.severedClusters.forEach(function(c, i){
+      md.push('**Cluster ' + (i+1) + '** (' + c.size + ' concepts): ' + c.members.map(function(m){ return '`' + m.word + '`' + (m.layer ? '(' + m.layer + ')' : ''); }).join(', '));
+    });
+    md.push('');
+  }
+  if (d.voids && d.voids.length){
+    md.push('## Voids (high centrality, low content)');
+    md.push('');
+    d.voids.forEach(function(v){
+      md.push('- `' + v.word + '` · centrality ' + v.centrality + ' · freq ' + v.frequency);
+    });
+    md.push('');
+  }
+  if (d.valenceTrajectory && d.valenceTrajectory.length){
+    md.push('## Valence trajectory (rolling window)');
+    md.push('');
+    md.push('| Sentence range | Valence |');
+    md.push('|---|---|');
+    d.valenceTrajectory.forEach(function(p){
+      md.push('| ' + p.sentenceStart + '–' + p.sentenceEnd + ' | ' + (p.valence >= 0 ? '+' : '') + p.valence.toFixed(2) + ' |');
+    });
+    md.push('');
+  }
+  md.push('## Top 50 load-bearing concepts');
+  md.push('');
+  md.push('_Ordered by salience (degree + log-frequency + source-coverage)._');
+  md.push('');
+  d.topConcepts.forEach(function(c, i){
+    md.push('### ' + (i+1) + '. `' + c.word + '` — ' + (c.dominantLayer || 'unlayered') + ' · salience ' + (c.salience*100).toFixed(1) + '%');
+    md.push('');
+    md.push('- freq ' + c.frequency + ' · sentences ' + c.sentenceCount + ' · valence ' + (c.valence >= 0 ? '+' : '') + c.valence.toFixed(2) + (c.sourcePosts.length ? ' · posts ' + c.sourcePosts.join(',') : ''));
+    if (c.topNeighbors.length){
+      md.push('- **Restriction maps:** ' + c.topNeighbors.map(function(n){ return n.other + ' (ρ=' + n.rho + (n.severed ? ', SEVERED' : '') + ')'; }).join(' · '));
+    }
+    c.sampleSentences.forEach(function(s){ md.push('  > ' + s.replace(/\n/g,' ')); });
+    md.push('');
+  });
+  md.push('---');
+  md.push('');
+  md.push('_Schema: ' + d.schema + ' · draken.info/sheaf-analyzer_');
+  return md.join('\n');
+};
+
+SA.downloadFile = function(filename, content, mime){
+  var blob = new Blob([content], { type: mime || 'application/octet-stream' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a); a.click(); setTimeout(function(){ document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 100);
+};
+
 // ─ Main run ─
 SA.run = async function(){
   var text = document.getElementById('sa-text').value.trim();
@@ -1804,22 +2033,42 @@ document.addEventListener('DOMContentLoaded', function(){
       SA.run();
     } catch (e){ alert(e.message); SA.setProgress(0); }
   });
-  document.getElementById('sa-export').addEventListener('click', function(){
-    if (!SA.lastAnalysis){ alert('Run analysis first.'); return; }
-    var A = SA.lastAnalysis;
-    var payload = {
-      metrics: A.metrics,
-      concepts: Array.from(A.concepts.values()).map(function(c){ return { word:c.word, displayWord:c.displayWord, freq:c.freq, dominantLayer:c.dominantLayer, layerDist:c.layerDist, valence:c.valence, selfRef:c.selfRef }; }),
-      edges: A.edges.map(function(e){ return { source:(e.source.id||e.source), target:(e.target.id||e.target), rho:e.rho, weight:e.weight, severed:e.severed }; }),
-      verdict: SA.verdict(A.metrics),
-      generated: new Date().toISOString()
-    };
-    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-    var a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'sheaf-analysis-' + Date.now() + '.json';
-    a.click();
-  });
+  // Export menu: toggle + per-format handlers
+  (function(){
+    var toggle = document.getElementById('sa-export-toggle');
+    var menu = document.getElementById('sa-export-menu');
+    toggle.addEventListener('click', function(ev){
+      ev.stopPropagation();
+      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    });
+    document.addEventListener('click', function(){ menu.style.display = 'none'; });
+    menu.querySelectorAll('.sa-export-opt').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        if (!SA.lastAnalysis){ alert('Run analysis first.'); return; }
+        var A = SA.lastAnalysis;
+        var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+        var fmt = btn.dataset.fmt;
+        if (fmt === 'deep'){
+          var payload = SA.exportDeep(A);
+          SA.downloadFile('sheaf-analysis-deep-' + ts + '.json', JSON.stringify(payload, null, 2), 'application/json');
+        } else if (fmt === 'md'){
+          var md = SA.exportMarkdown(A);
+          SA.downloadFile('sheaf-analysis-' + ts + '.md', md, 'text/markdown');
+        } else {
+          var minimal = {
+            schema: 'draken-sheaf-analysis-minimal/v1',
+            metrics: A.metrics,
+            verdict: SA.verdict(A.metrics),
+            concepts: Array.from(A.concepts.values()).map(function(c){ return { word:c.word, displayWord:c.displayWord, freq:c.freq, dominantLayer:c.dominantLayer, layerDist:c.layerDist, valence:c.valence, selfRef:c.selfRef, salience:c.salience, sources:c.sources }; }),
+            edges: A.edges.map(function(e){ return { source:(e.source.id||e.source), target:(e.target.id||e.target), rho:e.rho, weight:e.weight, severed:e.severed }; }),
+            generated: new Date().toISOString()
+          };
+          SA.downloadFile('sheaf-analysis-minimal-' + ts + '.json', JSON.stringify(minimal, null, 2), 'application/json');
+        }
+        menu.style.display = 'none';
+      });
+    });
+  })();
   // Quick-pick sample row
   var pick = document.getElementById('sa-src-pick');
   var samples = [
