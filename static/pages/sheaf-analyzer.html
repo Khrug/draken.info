@@ -741,11 +741,12 @@ SA.analyze = function(text){
   var coverage = {};
   SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
   ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
-  return {
+  var out = {
     sentences: sentences, concepts: ex.concepts, sentTokens: ex.sentTokens,
     nodes: sheaf.nodes, edges: sheaf.edges,
     metrics: { gamma: gamma, psi: psi, kt: kt, alpha: alpha, severed: severed, voids: voids, coverage: coverage }
   };
+  return SA.enrichAnalysis(out);
 };
 
 // ─ Corpus analyzer: accepts [{text, tag}], returns standard analysis + per-source metadata ─
@@ -765,12 +766,13 @@ SA.analyzeCorpus = function(sources){
   var coverage = {};
   SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
   ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
-  return {
+  var out = {
     sentences: sentences, concepts: ex.concepts, sentTokens: ex.sentTokens,
     nodes: sheaf.nodes, edges: sheaf.edges,
     metrics: { gamma: gamma, psi: psi, kt: kt, alpha: alpha, severed: severed, voids: voids, coverage: coverage },
     sources: sources.map(function(s){ return s.tag; })
   };
+  return SA.enrichAnalysis(out);
 };
 
 // ─ Pair analyzer: two texts side-by-side, returns {a, b, delta, shared, onlyA, onlyB} ─
@@ -791,6 +793,138 @@ SA.analyzePair = function(textA, textB){
     voids: (B.metrics.voids.length) - (A.metrics.voids.length)
   };
   return { a: A, b: B, shared: shared, onlyA: onlyA, onlyB: onlyB, delta: delta };
+};
+
+// ─ Deep enrichment: structural features beyond the top-line metrics. ─
+// Adds narrative structure, valence trajectory, severed clusters, per-layer summaries
+// to an analysis object so downstream consumers (JSON/MD export) have rich data.
+SA.enrichAnalysis = function(analysis){
+  if (!analysis || !analysis.sentences) return analysis;
+  analysis.structure = {
+    narrative: SA._narrativeStructure(analysis),
+    valenceTrajectory: SA._valenceTrajectory(analysis),
+    severedClusters: SA._severedClusters(analysis),
+    layerSummaries: SA._layerSummaries(analysis)
+  };
+  return analysis;
+};
+
+// Split sentences into thirds; find the dominant concepts per third by TF-adjusted freq.
+SA._narrativeStructure = function(analysis){
+  var sents = analysis.sentences;
+  if (!sents.length) return {};
+  var n = sents.length;
+  var bounds = [[0, Math.floor(n/3)], [Math.floor(n/3), Math.floor(2*n/3)], [Math.floor(2*n/3), n]];
+  var labels = ['opening', 'middle', 'closing'];
+  var out = {};
+  bounds.forEach(function(b, i){
+    var freqs = {};
+    for (var si = b[0]; si < b[1]; si++){
+      var text = sents[si].text.toLowerCase();
+      analysis.concepts.forEach(function(C){
+        if (C.sentences.indexOf(si) !== -1){
+          freqs[C.word] = (freqs[C.word] || 0) + 1;
+        }
+      });
+    }
+    var ranked = Object.entries(freqs).sort(function(a,b){ return b[1]-a[1]; }).slice(0, 10);
+    out[labels[i]] = {
+      sentenceRange: [b[0], b[1]],
+      sentenceCount: b[1] - b[0],
+      dominantConcepts: ranked.map(function(p){
+        var C = analysis.concepts.get(p[0]);
+        return { word: p[0], freq: p[1], layer: C ? C.dominantLayer : null };
+      })
+    };
+  });
+  return out;
+};
+
+// Rolling valence: window of ~15 sentences, report average.
+SA._valenceTrajectory = function(analysis){
+  var sents = analysis.sentences;
+  if (sents.length < 10) return [];
+  var win = Math.max(10, Math.min(25, Math.floor(sents.length / 20)));
+  var step = Math.max(1, Math.floor(win / 2));
+  var points = [];
+  for (var i = 0; i + win <= sents.length; i += step){
+    var pos = 0, neg = 0;
+    for (var j = i; j < i + win; j++){
+      var t = sents[j].text.toLowerCase();
+      SA.POS.forEach(function(p){ if (t.indexOf(p) !== -1) pos++; });
+      SA.NEG.forEach(function(nw){ if (t.indexOf(nw) !== -1) neg++; });
+    }
+    var v = (pos + neg) > 0 ? (pos - neg) / (pos + neg) : 0;
+    points.push({ sentenceStart: i, sentenceEnd: i + win, valence: +v.toFixed(3) });
+  }
+  return points;
+};
+
+// Severed-edge connected components: groups of concepts whose gluing failed together.
+// Reveals coherent "sub-sheaves" where the restriction map collapsed jointly.
+SA._severedClusters = function(analysis){
+  var severedEdges = analysis.edges.filter(function(e){ return e.severed; });
+  if (!severedEdges.length) return [];
+  var adj = {};
+  severedEdges.forEach(function(e){
+    var s = (e.source && e.source.id) || e.source;
+    var t = (e.target && e.target.id) || e.target;
+    (adj[s] = adj[s] || []).push(t);
+    (adj[t] = adj[t] || []).push(s);
+  });
+  var visited = new Set(), clusters = [];
+  Object.keys(adj).forEach(function(start){
+    if (visited.has(start)) return;
+    var stack = [start], comp = [];
+    while (stack.length){
+      var n = stack.pop();
+      if (visited.has(n)) continue;
+      visited.add(n); comp.push(n);
+      (adj[n] || []).forEach(function(x){ if (!visited.has(x)) stack.push(x); });
+    }
+    if (comp.length >= 2) clusters.push(comp);
+  });
+  return clusters
+    .sort(function(a, b){ return b.length - a.length; })
+    .slice(0, 10)
+    .map(function(comp){
+      var members = comp.map(function(w){
+        var C = analysis.concepts.get(w);
+        return { word: w, layer: C ? C.dominantLayer : null, salience: C ? +((C.salience || 0).toFixed(3)) : 0 };
+      }).sort(function(a, b){ return b.salience - a.salience; });
+      return { size: comp.length, members: members };
+    });
+};
+
+// Per-layer summary: top concepts, one sample sentence, aggregate valence.
+SA._layerSummaries = function(analysis){
+  var byLayer = {};
+  analysis.concepts.forEach(function(C){
+    if (!C.dominantLayer) return;
+    (byLayer[C.dominantLayer] = byLayer[C.dominantLayer] || []).push(C);
+  });
+  var out = {};
+  Object.keys(byLayer).sort().forEach(function(lid){
+    var concepts = byLayer[lid].sort(function(a, b){ return (b.salience||0) - (a.salience||0); });
+    var top = concepts.slice(0, 6);
+    var aggValence = concepts.reduce(function(s, C){ return s + (C.valence || 0) * C.freq; }, 0) /
+                     Math.max(1, concepts.reduce(function(s, C){ return s + C.freq; }, 0));
+    // Pick one representative sentence: from the top-salience concept.
+    var sample = '';
+    if (top.length && top[0].sentences.length){
+      var si = top[0].sentences[0];
+      sample = analysis.sentences[si] ? analysis.sentences[si].text : '';
+    }
+    out[lid] = {
+      name: (SA.LAYER_INDEX[lid] || {}).name || lid,
+      conceptCount: concepts.length,
+      totalFrequency: concepts.reduce(function(s, C){ return s + C.freq; }, 0),
+      aggregateValence: +aggValence.toFixed(3),
+      topConcepts: top.map(function(C){ return { word: C.word, salience: +((C.salience||0).toFixed(3)), freq: C.freq, valence: +((C.valence||0).toFixed(3)) }; }),
+      sampleSentence: sample.slice(0, 280) + (sample.length > 280 ? '…' : '')
+    };
+  });
+  return out;
 };
 
 // ─ Verdict generator — human-readable summary ─
