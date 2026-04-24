@@ -123,14 +123,6 @@
           <button class="sa-btn ghost" id="sa-fetch">↓ Fetch URL</button>
           <button class="sa-btn ghost" id="sa-sample">⌁ Load sample</button>
           <button class="sa-btn ghost" id="sa-clear">✕ Clear</button>
-          <div style="margin-left:auto;position:relative" id="sa-export-wrap">
-            <button class="sa-btn ghost" id="sa-export-toggle">⇩ Export ▾</button>
-            <div id="sa-export-menu" style="display:none;position:absolute;right:0;top:calc(100% + 4px);background:#0b120b;border:1px solid #1a6b38;border-radius:6px;padding:4px;min-width:260px;z-index:50;box-shadow:0 6px 24px rgba(0,0,0,0.45)">
-              <button class="sa-btn ghost sa-export-opt" data-fmt="deep" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">📄 JSON (deep) — for Claude/Draken synthesis</button>
-              <button class="sa-btn ghost sa-export-opt" data-fmt="md" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">📝 Markdown report — paste into Claude.ai</button>
-              <button class="sa-btn ghost sa-export-opt" data-fmt="min" style="width:100%;text-align:left;border:none;background:transparent;padding:8px 12px;display:block">⌬ JSON (minimal) — compact, machine-read</button>
-            </div>
-          </div>
         </div>
         <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
       </div>
@@ -186,6 +178,13 @@
           <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-void">—</div><div class="sa-metric-lbl">Voids</div></div>
         </div>
         <div style="margin-top:10px;font-size:11px;color:#6b8a6b" id="sa-verdict">◆ Awaiting text — paste or fetch to run diagnostic.</div>
+        <div class="sa-lbl" style="margin-top:14px">◉ Export analysis</div>
+        <div class="sa-btns" style="margin-top:4px" id="sa-export-row">
+          <button class="sa-btn sa-export-opt" data-fmt="deep" title="Structured JSON with narrative, valence trajectory, severed clusters, per-layer summaries, top 50 concepts. Ready to feed a Claude/Draken session." disabled>📄 JSON (deep)</button>
+          <button class="sa-btn sa-export-opt" data-fmt="md"   title="Human-readable Markdown report with a Claude-ready prompt preamble. Paste into claude.ai." disabled>📝 Markdown</button>
+          <button class="sa-btn ghost sa-export-opt" data-fmt="min" title="Flat JSON with all concepts + edges. For scripting / spreadsheets." disabled>⌬ JSON (flat)</button>
+        </div>
+        <div style="font-size:10px;color:#6b8a6b;margin-top:6px;font-family:'JetBrains Mono',monospace" id="sa-export-hint">Enabled after first analysis. Files save to your browser's Downloads folder.</div>
       </div>
       <div class="sa-card">
         <div class="sa-lbl">◉ Layer coverage — 18 Draken layers</div>
@@ -1365,6 +1364,7 @@ SA.runCompare = async function(){
     var pair = SA.analyzePair(tA, tB);
     SA.setProgress(60);
     SA.lastAnalysis = pair.b;                 // default inspector scope to B
+    SA.lastAnalysis._isCompare = true;
     SA._comparePair = pair;
     // Metrics: show A+delta (stacked)
     SA.setMetrics(pair.b.metrics);
@@ -1573,6 +1573,10 @@ SA.setMetrics = function(m){
   el('m-void').textContent = (m.voids || []).length;
   el('m-void').style.color = (m.voids || []).length <= 2 ? '#4ade80' : (m.voids || []).length <= 5 ? '#c9a84c' : '#ef4444';
   el('sa-verdict').textContent = '◆ ' + SA.verdict(m);
+  // Enable export buttons now that an analysis is loaded.
+  document.querySelectorAll('.sa-export-opt').forEach(function(b){ b.disabled = false; });
+  var hint = document.getElementById('sa-export-hint');
+  if (hint) hint.textContent = 'Ready. Files save to your browser Downloads folder.';
   // Layer coverage grid
   var layEl = el('sa-layers'); layEl.innerHTML = '';
   SA.LAYERS.forEach(function(L){
@@ -2033,42 +2037,41 @@ document.addEventListener('DOMContentLoaded', function(){
       SA.run();
     } catch (e){ alert(e.message); SA.setProgress(0); }
   });
-  // Export menu: toggle + per-format handlers
-  (function(){
-    var toggle = document.getElementById('sa-export-toggle');
-    var menu = document.getElementById('sa-export-menu');
-    toggle.addEventListener('click', function(ev){
-      ev.stopPropagation();
-      menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
-    });
-    document.addEventListener('click', function(){ menu.style.display = 'none'; });
-    menu.querySelectorAll('.sa-export-opt').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        if (!SA.lastAnalysis){ alert('Run analysis first.'); return; }
-        var A = SA.lastAnalysis;
-        var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
-        var fmt = btn.dataset.fmt;
+  // Always-visible export row; buttons enabled once analysis is loaded.
+  document.querySelectorAll('.sa-export-opt').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if (!SA.lastAnalysis){ alert('Run an analysis first.'); return; }
+      var A = SA.lastAnalysis;
+      var ts = new Date().toISOString().replace(/[:.]/g,'-').slice(0,19);
+      var fmt = btn.dataset.fmt;
+      var mode = A.sources ? 'corpus' : (A._isCompare ? 'compare' : 'single');
+      var prefix = 'sheaf-' + mode;
+      try {
         if (fmt === 'deep'){
           var payload = SA.exportDeep(A);
-          SA.downloadFile('sheaf-analysis-deep-' + ts + '.json', JSON.stringify(payload, null, 2), 'application/json');
+          SA.downloadFile(prefix + '-deep-' + ts + '.json', JSON.stringify(payload, null, 2), 'application/json');
         } else if (fmt === 'md'){
           var md = SA.exportMarkdown(A);
-          SA.downloadFile('sheaf-analysis-' + ts + '.md', md, 'text/markdown');
+          SA.downloadFile(prefix + '-report-' + ts + '.md', md, 'text/markdown');
         } else {
           var minimal = {
             schema: 'draken-sheaf-analysis-minimal/v1',
+            mode: mode,
             metrics: A.metrics,
             verdict: SA.verdict(A.metrics),
             concepts: Array.from(A.concepts.values()).map(function(c){ return { word:c.word, displayWord:c.displayWord, freq:c.freq, dominantLayer:c.dominantLayer, layerDist:c.layerDist, valence:c.valence, selfRef:c.selfRef, salience:c.salience, sources:c.sources }; }),
-            edges: A.edges.map(function(e){ return { source:(e.source.id||e.source), target:(e.target.id||e.target), rho:e.rho, weight:e.weight, severed:e.severed }; }),
+            edges: A.edges.map(function(e){ return { source:(e.source&&e.source.id)||e.source, target:(e.target&&e.target.id)||e.target, rho:e.rho, weight:e.weight, severed:e.severed }; }),
             generated: new Date().toISOString()
           };
-          SA.downloadFile('sheaf-analysis-minimal-' + ts + '.json', JSON.stringify(minimal, null, 2), 'application/json');
+          SA.downloadFile(prefix + '-flat-' + ts + '.json', JSON.stringify(minimal, null, 2), 'application/json');
         }
-        menu.style.display = 'none';
-      });
+        var hint = document.getElementById('sa-export-hint');
+        if (hint) hint.textContent = '✓ Exported. Check your browser Downloads folder.';
+      } catch(e){
+        alert('Export failed: ' + e.message);
+      }
     });
-  })();
+  });
   // Quick-pick sample row
   var pick = document.getElementById('sa-src-pick');
   var samples = [
