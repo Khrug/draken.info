@@ -226,9 +226,33 @@
 <!-- Three.js + 3d-force-graph loaded at runtime -->
 <script>
 window.SA = window.SA || {};
-SA.deps = { three: 'https://unpkg.com/three@0.161.0/build/three.min.js', forcegraph: 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js' };
+// Multi-origin dependency loader: same-origin /vendor/ first, then public CDN fallbacks.
+SA.deps = {
+  three: [
+    '/vendor/three.min.js',
+    'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js',
+    'https://unpkg.com/three@0.149.0/build/three.min.js'
+  ],
+  forcegraph: [
+    '/vendor/3d-force-graph.min.js',
+    'https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.3/dist/3d-force-graph.min.js',
+    'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js'
+  ]
+};
 SA.loadScript = function(src){ return new Promise(function(res, rej){ var s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=function(){rej(new Error('Failed to load '+src))}; document.head.appendChild(s); }); };
-SA.loadDeps = async function(){ if(window.ForceGraph3D) return; await SA.loadScript(SA.deps.three); await SA.loadScript(SA.deps.forcegraph); };
+SA.loadWithFallback = async function(urls){
+  var lastErr = null;
+  for (var i=0; i<urls.length; i++){
+    try { await SA.loadScript(urls[i]); return urls[i]; }
+    catch (e){ lastErr = e; }
+  }
+  throw lastErr || new Error('All sources failed');
+};
+SA.loadDeps = async function(){
+  if (window.ForceGraph3D) return;
+  if (!window.THREE) await SA.loadWithFallback(SA.deps.three);
+  if (!window.ForceGraph3D) await SA.loadWithFallback(SA.deps.forcegraph);
+};
 </script>
 
 <!-- SECTION_MARKER: LEXICON -->
@@ -750,8 +774,16 @@ SA.sizeFor = function(node){
 };
 
 SA.renderGraph = async function(analysis){
-  await SA.loadDeps();
   var el = document.getElementById('sa-graph');
+  try { await SA.loadDeps(); }
+  catch (e){
+    var emptyEl = document.getElementById('sa-graph-empty');
+    if (emptyEl){
+      emptyEl.style.display = 'block';
+      emptyEl.innerHTML = '<div style="color:#ef4444;font-family:JetBrains Mono,monospace;font-size:12px;max-width:520px;margin:0 auto;line-height:1.6">✗ 3D graph libraries failed to load from /vendor/ and public CDNs.<br><br>The text-based metrics above still work. To restore the graph, run <code style="background:#1a0c0c;padding:2px 6px;border-radius:3px">npm install && node build.js</code> and redeploy, or unblock jsdelivr/unpkg on your network.</div>';
+    }
+    throw e;
+  }
   var emptyEl = document.getElementById('sa-graph-empty');
   if (emptyEl) emptyEl.style.display = 'none';
 
