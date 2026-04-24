@@ -142,7 +142,7 @@ function buildActivityFeed() {
   if (!items.length) items = [
     { detail: 'draken.info v2 deployed', time: new Date().toISOString(), status: 'green' },
     { detail: 'Thesis page published', time: new Date().toISOString(), status: 'green' },
-    { detail: 'Sheaf Game launched', time: new Date().toISOString(), status: 'green' },
+    { detail: 'Sheaf Analyzer launched', time: new Date().toISOString(), status: 'green' },
     { detail: '247 KOs embedded in Pinecone', time: new Date().toISOString(), status: 'green' },
     { detail: 'Multi-model peer review complete', time: new Date().toISOString(), status: 'gold' },
   ];
@@ -169,7 +169,7 @@ function buildThesisPage(baseTpl) {
 <div class="form-row"><textarea name="message" placeholder="Your feedback..." required class="form-input" rows="5"></textarea></div>
 <button type="submit" class="form-submit">Submit Review â†’</button></form></div>
 <div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-<a href="/" class="back-link">â† Feed</a><a href="/sheaf-game/" class="back-link" style="color:var(--accent)">ðŸŽ® Sheaf Game â†’</a></div></div>`;
+<a href="/" class="back-link">â† Feed</a><a href="/sheaf-analyzer/" class="back-link" style="color:var(--accent)">â—† Sheaf Analyzer â†’</a></div></div>`;
 
   const html = render(baseTpl, {
     title: 'The Draken 2045 Framework â€” Research Monograph',
@@ -217,24 +217,6 @@ function buildCorpusJson(posts) {
   fs.mkdirSync(dataDir, { recursive: true });
   fs.writeFileSync(path.join(dataDir, 'corpus.json'), JSON.stringify(out));
   console.log(`  ✓ data/corpus.json (${items.length} posts, ${(JSON.stringify(out).length/1024).toFixed(1)}kb)`);
-}
-
-// â”€â”€ SHEAF GAME PAGE â”€â”€
-function buildSheafGamePage(baseTpl) {
-  const gp = path.join(STATIC_DIR, 'pages', 'sheaf-game.html');
-  let body = '<div class="article-wrap"><h1>Sheaf Game â€” Coming Soon</h1></div>';
-  if (fs.existsSync(gp)) body = fs.readFileSync(gp, 'utf-8');
-
-  const html = render(baseTpl, {
-    title: 'The Sheaf Game â€” Interactive Draken Pedagogy',
-    description: 'Interactive sheaf theory visualization with 8 failure mode scenarios.',
-    content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-game/',
-    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
-  });
-  const dir = path.join(DIST_DIR, 'sheaf-game');
-  fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'index.html'), html);
-  console.log('  âœ“ sheaf-game/');
 }
 
 // ── SHEAF ANALYZER PAGE (topological narrative diagnostic) ──
@@ -540,7 +522,6 @@ function genSitemap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
-    `<url><loc>${b}/sheaf-game/</loc><priority>0.7</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
@@ -621,9 +602,8 @@ function build() {
     console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // â”€â”€ Thesis + Sheaf Game + Sheaf Analyzer + Slask â”€â”€
+  // â”€â”€ Thesis + Sheaf Analyzer + Slask â”€â”€
   buildThesisPage(baseTpl);
-  buildSheafGamePage(baseTpl);
   buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
   buildDigestPages();
