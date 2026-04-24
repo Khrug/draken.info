@@ -894,6 +894,7 @@ SA.currentMode = 'single';
 
 // ─ Mode switcher ─
 SA.setMode = function(mode){
+  if (SA.currentMode === mode) return;
   SA.currentMode = mode;
   ['single','corpus','compare'].forEach(function(m){
     var btn = document.getElementById('sa-mode-' + m);
@@ -902,6 +903,19 @@ SA.setMode = function(mode){
       el.style.display = m === mode ? '' : 'none';
     });
   });
+  // Destroy existing graph so each mode starts clean
+  if (SA.graph){
+    try { SA.graph._destructor && SA.graph._destructor(); } catch(e){}
+    var gEl = document.getElementById('sa-graph');
+    while (gEl.firstChild && !gEl.firstChild.classList) gEl.removeChild(gEl.firstChild);
+    // keep overlays
+    SA.graph = null;
+  }
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'block';
+  // Reset inspector + metrics
+  document.getElementById('sa-inspector').innerHTML = '<h3>◉ Inspector</h3><div class="sa-panel-empty">Run analysis to populate.</div>';
+  document.getElementById('sa-text-view').innerHTML = '<div class="sa-panel-empty">No text analyzed yet.</div>';
   if (mode === 'corpus' && !SA.corpus) SA.loadCorpus();
 };
 
@@ -995,6 +1009,137 @@ SA.runCorpus = async function(){
   } finally {
     btn.disabled = false; btn.textContent = '▸ Analyze selected';
   }
+};
+
+// ─ Compare mode: dual-text analysis + delta display + combined graph ─
+SA.runCompare = async function(){
+  var tA = document.getElementById('sa-cmp-a').value.trim();
+  var tB = document.getElementById('sa-cmp-b').value.trim();
+  if (!tA || !tB){ alert('Paste text into both A and B.'); return; }
+  var btn = document.getElementById('sa-cmp-run');
+  btn.disabled = true; btn.textContent = '⟳ Comparing…';
+  SA.setProgress(10);
+  try {
+    await new Promise(function(r){ setTimeout(r, 30); });
+    var pair = SA.analyzePair(tA, tB);
+    SA.setProgress(60);
+    SA.lastAnalysis = pair.b;                 // default inspector scope to B
+    SA._comparePair = pair;
+    // Metrics: show A+delta (stacked)
+    SA.setMetrics(pair.b.metrics);
+    SA.renderCompareVerdict(pair);
+    SA.renderCompareGraph(pair);
+    SA.renderCompareTextView(pair);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Comparison failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '⇌ Compare';
+  }
+};
+
+// Compare verdict: show metric deltas A→B + concept overlap stats
+SA.renderCompareVerdict = function(pair){
+  var vEl = document.getElementById('sa-verdict');
+  var d = pair.delta, a = pair.a.metrics, b = pair.b.metrics;
+  var fmt = function(x, good){
+    var sign = x > 0 ? '+' : '';
+    var positive = good === 'up' ? x > 0 : x < 0;
+    var color = Math.abs(x) < 0.01 ? '#6b8a6b' : positive ? '#4ade80' : '#ef4444';
+    return '<span style="color:' + color + '">' + sign + x.toFixed(2) + '</span>';
+  };
+  vEl.innerHTML =
+    '<div style="font-size:11px;line-height:1.7;font-family:JetBrains Mono,monospace">' +
+      '<b style="color:#4ade80">A:</b> Γ ' + a.gamma.toFixed(2) + ' · Ψ ' + a.psi.toFixed(2) + ' · K ' + a.kt.toFixed(2) + '  →  <b style="color:#c9a84c">B:</b> Γ ' + b.gamma.toFixed(2) + ' · Ψ ' + b.psi.toFixed(2) + ' · K ' + b.kt.toFixed(2) + '<br>' +
+      'Δ Γ ' + fmt(d.gamma, 'up') + ' · Δ Ψ ' + fmt(d.psi, 'down') + ' · Δ K ' + fmt(d.kt, 'down') + ' · Δ severed ' + fmt(d.severed, 'down') + '<br>' +
+      '<b>Shared concepts:</b> ' + pair.shared.length + ' · A-only: ' + pair.onlyA.length + ' · B-only: ' + pair.onlyB.length +
+    '</div>';
+};
+
+// Combined graph: union of both concept sets, edge colors show origin (A/B/both)
+SA.renderCompareGraph = async function(pair){
+  await SA.loadDeps();
+  var aSet = new Set(Array.from(pair.a.concepts.keys()));
+  var bSet = new Set(Array.from(pair.b.concepts.keys()));
+  var all = new Set([].concat(Array.from(aSet), Array.from(bSet)));
+  var nodes = Array.from(all).map(function(k){
+    var C = pair.b.concepts.get(k) || pair.a.concepts.get(k);
+    var origin = aSet.has(k) && bSet.has(k) ? 'both' : aSet.has(k) ? 'a' : 'b';
+    var color = origin === 'both' ? '#4ade80' : origin === 'a' ? '#6ea8fe' : '#c9a84c';
+    return { id: k, label: C.displayWord || C.word, val: C.freq, color: color, _concept: C, _origin: origin };
+  });
+  // Edges: take from whichever analysis has them; prefer B
+  var edgeKey = function(s, t){ return s < t ? s + '||' + t : t + '||' + s; };
+  var edgeMap = new Map();
+  pair.a.edges.forEach(function(e){ edgeMap.set(edgeKey(e.source, e.target), { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'a' }); });
+  pair.b.edges.forEach(function(e){
+    var k = edgeKey(e.source, e.target);
+    if (edgeMap.has(k)) edgeMap.get(k).origin = 'both';
+    else edgeMap.set(k, { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'b' });
+  });
+  var links = Array.from(edgeMap.values()).map(function(e){
+    var col = e.origin === 'both' ? 'rgba(74,222,128,' + (0.2 + 0.5 * e.rho) + ')' : e.origin === 'a' ? 'rgba(110,168,254,0.45)' : 'rgba(201,168,76,0.45)';
+    if (e.severed) col = 'rgba(239,68,68,0.55)';
+    return Object.assign({}, e, { color: col });
+  });
+  var data = { nodes: nodes, links: links };
+  var el = document.getElementById('sa-graph');
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (SA.graph){ SA.graph.graphData(data); SA.graph.d3ReheatSimulation(); return; }
+  SA.graph = ForceGraph3D()(el)
+    .width(el.clientWidth).height(el.clientHeight).backgroundColor('#050805')
+    .graphData(data)
+    .nodeLabel(function(n){ return n.label + ' · ' + (n._origin === 'both' ? 'shared' : n._origin === 'a' ? 'A-only' : 'B-only'); })
+    .nodeColor('color').nodeVal(function(n){ return SA.sizeFor(n._concept); }).nodeOpacity(0.92)
+    .linkColor('color').linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); }).linkOpacity(0.6)
+    .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); });
+  setTimeout(function(){ if (SA.graph) SA.graph.zoomToFit(600, 40); }, 900);
+};
+
+// Side-by-side text view
+SA.renderCompareTextView = function(pair){
+  var el = document.getElementById('sa-text-view');
+  var shared = new Set(pair.shared), aOnly = new Set(pair.onlyA), bOnly = new Set(pair.onlyB);
+  var highlight = function(text, conceptsMap){
+    var tokens = text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+    return tokens.map(function(t){
+      var low = t.toLowerCase();
+      var stem = SA.stem(low.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+      var C = conceptsMap.get(stem);
+      if (!C) return t.replace(/</g,'&lt;');
+      var cls = shared.has(stem) ? 'sa-w' : aOnly.has(stem) ? 'sa-w' : 'sa-w';
+      var col = shared.has(stem) ? '#4ade80' : aOnly.has(stem) ? '#6ea8fe' : '#c9a84c';
+      return '<span class="sa-w" data-stem="' + stem + '" data-tier="2" style="color:' + col + '">' + t.replace(/</g,'&lt;') + '</span>';
+    }).join('');
+  };
+  var preA = pair.a.sentences.slice(0, 12).map(function(s){ return s.text; }).join(' ');
+  var preB = pair.b.sentences.slice(0, 12).map(function(s){ return s.text; }).join(' ');
+  el.innerHTML =
+    '<div style="display:flex;gap:14px;flex-wrap:wrap">' +
+      '<div style="flex:1 1 300px;min-width:280px">' +
+        '<div style="font-size:11px;color:#6ea8fe;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ TEXT A — blue = A-only · green = shared</div>' +
+        '<div style="font-size:12px;line-height:1.65">' + highlight(preA, pair.a.concepts) + (pair.a.sentences.length > 12 ? '<span style="color:#6b8a6b"> … (+' + (pair.a.sentences.length - 12) + ' sentences)</span>' : '') + '</div>' +
+      '</div>' +
+      '<div style="flex:1 1 300px;min-width:280px">' +
+        '<div style="font-size:11px;color:#c9a84c;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ TEXT B — gold = B-only · green = shared</div>' +
+        '<div style="font-size:12px;line-height:1.65">' + highlight(preB, pair.b.concepts) + (pair.b.sentences.length > 12 ? '<span style="color:#6b8a6b"> … (+' + (pair.b.sentences.length - 12) + ' sentences)</span>' : '') + '</div>' +
+      '</div>' +
+    '</div>';
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var stem = target.dataset.stem;
+    var C = pair.b.concepts.get(stem) || pair.a.concepts.get(stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="'+stem+'"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
 };
 
 // Custom text view for corpus mode: show per-post sections with DRK headers
@@ -1263,6 +1408,17 @@ document.addEventListener('DOMContentLoaded', function(){
   });
   document.getElementById('sa-corpus-analysis').addEventListener('click', function(){
     SA.corpusFilter(function(p){ return (p.tags || []).indexOf('analysis') !== -1; });
+  });
+  // Compare controls
+  document.getElementById('sa-cmp-run').addEventListener('click', SA.runCompare);
+  document.getElementById('sa-cmp-swap').addEventListener('click', function(){
+    var a = document.getElementById('sa-cmp-a'), b = document.getElementById('sa-cmp-b');
+    var tmp = a.value; a.value = b.value; b.value = tmp;
+  });
+  document.getElementById('sa-cmp-sample').addEventListener('click', function(){
+    document.getElementById('sa-cmp-a').value = SA.loadSample('boeing');
+    document.getElementById('sa-cmp-b').value = SA.loadSample('propaganda');
+    SA.runCompare();
   });
   document.getElementById('sa-run').addEventListener('click', SA.run);
   document.getElementById('sa-clear').addEventListener('click', function(){
