@@ -287,3 +287,52 @@ The visualization is a reasonable teaching aid for the framework itself. Load a 
 
 The minimal JSON export is designed to pipe into standard data tooling. Running the Analyzer over a large external corpus (say, every UN General Assembly speech from 2000 onward, one session per file) would produce a time series of Γ, Ψ, K, α and layer coverage per speech, which is a dataset that could itself be analysed for patterns. The tool does not ingest files in bulk, but the machinery is already in place; a Node wrapper that drives the analyzer's JS on a directory of texts is a short script.
 
+## 10. Honest limitations
+
+This is load-bearing. The tool is useful to the degree that its limitations are named.
+
+**It is a heuristic, not cohomology.** The thesis describes Γ, Ψ, K(t) as computable quantities via the sheaf Laplacian over a real sheaf on a real topological space. The Analyzer computes *estimators* for those quantities from a co-occurrence graph. The estimators correlate with the theoretical quantities; they do not compute them. An actual sheaf-Laplacian pipeline would require sentence-embedding vectors (from a transformer) as the stalks, cosine-similarity-derived restriction maps, and spectral decomposition of the resulting matrix. That is a v2 project; it requires either a backend or a Wasm-based in-browser embedding model, both of which are substantially heavier than 70 KB of JavaScript.
+
+**The layer lexicon is hand-curated and English-centric.** Each of the 18 layers has ~15 keywords. A concept is tagged by keyword match. This works well for texts in the vocabulary the lexicon was calibrated on (English academic / journalistic / political writing with some scientific terminology) and less well for texts in other languages, other registers, or other disciplines. The Swedish-language Draken posts (DRK-117 Ordlista, parts of the Totalitarian Sheaf) get partial layer tagging because of loanword overlap — *system*, *institution*, *narrativ*, *politisk* are shared — but a proper Swedish lexicon would improve coverage. The same is true for any non-English corpus. Extending `SA.LAYERS` in the source is straightforward; the entry point is clearly commented.
+
+**The stemmer is conservative on purpose.** It will not conflate *political* and *politics*; it will not strip *-al* (the original version did, and turned *social* into *soci*, which poisoned half the top concepts). A proper lemmatizer — via a small in-browser NLP library — would be stricter and more accurate. The current stemmer errs on the side of keeping distinct tokens distinct, which occasionally fragments clearly-related words into multiple concepts.
+
+**Valence detection is keyword-based.** The positive and negative valence lexicons are short (~25 words each). They catch crude polarity but not sarcasm, irony, reversal-via-context, or domain-specific valence (a word that is positive in one context and negative in another). A contextual valence model would be a clear upgrade.
+
+**Ψ is additive across terms that are individually bounded but jointly can skew.** The formula blends graph-theoretic self-reference, text-level self-reference density, reality-contact, and layer breadth. At corpus scale the terms were calibrated empirically; at tiny-text scale (< 20 sentences) they occasionally produce scores that are technically correct but unintuitively high. Read Ψ alongside Γ, not in isolation.
+
+**Voids are detected by neighbourhood-diversity heuristic.** This finds concepts that appear frequently with few distinct partners — the shape of a cavity. It does not detect a concept that is load-bearing but absent entirely from the text (*the dog that did not bark*). Detecting absent concepts requires a reference corpus or an external ontology; the tool has neither.
+
+**It is a diagnostic, not a verdict.** The metrics point at structural features. The interpretation of those features requires human or Draken/Claude judgement. A text that scores Γ low might be a genuine attempt at pluralism (intentionally holding multiple scales in tension) rather than incoherence. A text with high Ψ might be a personal essay in which first-person density is appropriate. The tool tells you what it sees; it does not tell you what it means.
+
+**URL fetching uses a public proxy.** The r.jina.ai reader is free, rate-limited, and public. It works for demos and casual use. For production use against large corpora, a locally-hosted proxy (Cloudflare Worker, for example) is advisable. The code path is already fallback-aware; adding a proxy is a URL change.
+
+## 11. Roadmap, candidate
+
+In rough priority order, the upgrades that would meaningfully improve the tool:
+
+1. **Semantic embeddings for restriction maps.** Replace keyword-based ρ with cosine similarity of sentence-embedding vectors. Biggest single accuracy improvement.
+2. **Multilingual lexicons.** Swedish first (for the Draken corpus), then German, Spanish, Mandarin. Each is a ~1 KB JSON file.
+3. **Per-concept time-series in Corpus mode.** Plot salience of selected concepts over the post timeline — track "how did *coherence* trend across the six months I have been writing?"
+4. **Severed-cluster drill-down.** Click a severed cluster in the enrichment output, jump to the member sentences in the text view, see the ρ values per edge.
+5. **Corpus cross-upload.** Allow users to drop a custom `corpus.json` (their own archive) without rebuilding the site — client-side ingestion.
+6. **Voids completion proposals.** For each detected void, surface neighbouring concepts and suggest — via a small rule set or a Claude round-trip — candidate definitions the text might be avoiding.
+7. **Zenodo-style export.** A PDF version of the Markdown report with the 3D graph rendered as a static snapshot, suitable for attaching to a paper or a grant application.
+
+None of these are required for the tool as it stands to be useful. They would extend its reach.
+
+## 12. Closing
+
+The Sheaf Analyzer is the smallest tool that can make the Draken framework's core claims concretely verifiable on arbitrary text. It computes the things the thesis says are computable. It does so in a single HTML file with no backend. It labels its outputs as estimators, names its limits, and exports its analysis in forms that a human or a Claude / Draken session can take further.
+
+A diagnostic, not a verdict. A mirror, not a microscope. The point is not that the tool is right about any particular text — the point is that it makes the framework's predictions cheap enough to test, often enough to falsify, and legible enough to argue about. That is the condition for the theory to become something other than a very long paper.
+
+The tool is at [`/sheaf-analyzer/`](https://draken.info/sheaf-analyzer/). The source is in [the draken.info GitHub repository](https://github.com/Khrug/draken.info). Licence: CC BY-SA 4.0. Comments, critique, forks, and pull requests are welcome; see V.1 (non-deceptive intention) and V.2 (precision over comfort).
+
+◆ min S<sub>sys</sub>(t) s.t. dH/dt ≥ 0 ◆
+
+---
+
+*Draken 2045 Initiative — Khrug Engineering — Göteborg*
+*draken.info | #Draken2045*
+*V.1: Non-Deceptive Intention · V.2: Precision over Comfort · V.3: Contextual Scaling · V.7: Inversion Filter*
