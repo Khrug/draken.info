@@ -1236,3 +1236,72 @@ textarea.form-input {
   background: var(--accent, #e94560) !important;
   color: #fff !important;
 }
+
+/* corpus-map-fix */
+.corpus-map {
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 3px !important;
+  padding: 4px 0 0 !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  overflow: visible !important;
+}
+.corpus-bar-wrap {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  height: 100% !important;
+  justify-content: flex-end !important;
+  cursor: pointer !important;
+  min-width: 0 !important;
+}
+.corpus-bar {
+  width: 100% !important;
+  min-height: 4px !important;
+  border-radius: 2px 2px 0 0 !important;
+  transition: filter 0.2s, opacity 0.2s !important;
+  opacity: 0.85 !important;
+}
+.corpus-bar-wrap:hover .corpus-bar { opacity: 1 !important; filter: brightness(1.35) !important; }
+.corpus-bar-label {
+  font-size: 6px !important;
+  color: var(--text-dim) !important;
+  margin-top: 2px !important;
+  font-family: var(--mono) !important;
+  text-align: center !important;
+  overflow: hidden !important;
+  max-width: 100% !important;
+}
+/* Digest feed card */
+.digest-feed-card {
+  border-color: var(--gold-dim) !important;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201,168,76,0.04) 100%) !important;
+}
+.digest-feed-card:hover {
+  border-color: var(--gold) !important;
+  background: linear-gradient(135deg, var(--bg-card-hover) 0%, rgba(201,168,76,0.08) 100%) !important;
+}
+.pub-tag-digest { background: rgba(201,168,76,0.15) !important; color: var(--gold) !important; }
+.pub-drk-digest { color: var(--gold) !important; }
+.pub-title-digest { color: var(--gold) !important; }
+.layer-badge-digest { color: var(--gold) !important; border-color: var(--gold-dim) !important; }
+.digest-read-more { font-family: var(--mono); font-size: 11px; color: var(--gold); }
+/* Digest nav button */
+.nav-digest-btn {
+  color: var(--gold) !important;
+  border: 1px solid var(--gold-dim) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  transition: all 0.2s !important;
+  font-family: var(--mono) !important;
+}
+.nav-digest-btn:hover, .nav-digest-btn.active {
+  background: rgba(201,168,76,0.12) !important;
+  color: var(--gold) !important;
+  border-color: var(--gold) !important;
+}
