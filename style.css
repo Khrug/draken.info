@@ -1305,3 +1305,20 @@ textarea.form-input {
   color: var(--gold) !important;
   border-color: var(--gold) !important;
 }
+/* Analyzer nav button */
+.nav-analyzer-btn {
+  color: var(--accent) !important;
+  border: 1px solid var(--accent-dim) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  transition: all 0.2s !important;
+  font-family: var(--mono) !important;
+}
+.nav-analyzer-btn:hover, .nav-analyzer-btn.active {
+  background: var(--accent-glow) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
+}

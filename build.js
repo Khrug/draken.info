@@ -201,6 +201,24 @@ function buildSheafGamePage(baseTpl) {
   console.log('  âœ“ sheaf-game/');
 }
 
+// ── SHEAF ANALYZER PAGE (topological narrative diagnostic) ──
+function buildSheafAnalyzerPage(baseTpl) {
+  const ap = path.join(STATIC_DIR, 'pages', 'sheaf-analyzer.html');
+  let body = '<div class="article-wrap"><h1>Sheaf Analyzer — Coming Soon</h1></div>';
+  if (fs.existsSync(ap)) body = fs.readFileSync(ap, 'utf-8');
+
+  const html = render(baseTpl, {
+    title: 'Sheaf Analyzer — Draken Topological Narrative Diagnostic',
+    description: 'Paste text or fetch a URL; extract sheaf metrics (Γ, Ψ, K(t), α), detect manufactured voids, and render a rotatable 3D concept graph across the 18 Draken layers.',
+    content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-analyzer/',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  });
+  const dir = path.join(DIST_DIR, 'sheaf-analyzer');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+  console.log('  ✓ sheaf-analyzer/');
+}
+
 // â”€â”€ SLASK PAGE (dynamic GitHub-powered file dump) â”€â”€
 function buildSlaskPage(baseTpl) {
   // Also copy any existing static slask files
@@ -487,6 +505,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-game/</loc><priority>0.7</priority></url>\n` +
+    `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -566,9 +585,10 @@ function build() {
     console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // â”€â”€ Thesis + Sheaf Game + Slask â”€â”€
+  // â”€â”€ Thesis + Sheaf Game + Sheaf Analyzer + Slask â”€â”€
   buildThesisPage(baseTpl);
   buildSheafGamePage(baseTpl);
+  buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
   buildDigestPages();
 

@@ -210,7 +210,11 @@ SA.LAYER_INDEX = {}; SA.LAYERS.forEach(function(L,i){ SA.LAYER_INDEX[L.id] = Obj
 SA.STOP = new Set(('a an the and or but if then else of in on at to from by for with without into onto about over under above below across after before during through out up down off near beside between among since until while as when where why how whom whose which what who that this those these it its it\'s they them their theirs we us our ours you your yours i me my mine he him his she her hers them they be is are was were been being have has had do does did done can could may might must shall should will would ought not no yes so than very just also only also both each any some all many more most few less much other another such same own said says say saying thing things really actually basically literally simply clearly obviously indeed however therefore thus hence moreover furthermore whereas otherwise').split(/\s+/));
 
 // ─ Self-reference markers (approximate Ψ component) ─
-SA.SELF_REF = ['i ','me ','my ','mine ','myself ','as i said','as mentioned','my framework','my theory','my view','in my opinion','as noted above','we have shown','it is clear that','obviously','of course','as everyone knows'];
+// Includes plural in-group markers — propaganda and echo chambers use "we/us/our" heavily.
+SA.SELF_REF_SING = ['i ',' me ','my ',' mine ','myself','as i said','as mentioned','my framework','my theory','my view','in my opinion','as noted above'];
+SA.SELF_REF_PLUR = ['we ',' us ','our ','ours ','ourselves','we have shown','our community','our people','our founder','our tradition','our movement','our nation'];
+SA.SELF_REF_CLOSURE = ['obviously','of course','as everyone knows','anyone who','those who cannot','simply see','clearly','undeniably','it is clear that','there is no argument','no reasonable person'];
+SA.SELF_REF = [].concat(SA.SELF_REF_SING, SA.SELF_REF_PLUR, SA.SELF_REF_CLOSURE);
 
 // ─ Abstract-noun suffixes (for α estimator) ─
 SA.ABSTRACT_SUFFIX = ['tion','sion','ment','ness','ity','ism','ance','ence','ship','hood','cy','ology','ocracy'];
@@ -272,20 +276,34 @@ SA.stem = function(w){
 };
 
 // ─ Layer tagging: exact phrase match > single-word keyword. Each concept carries a layer distribution. ─
+// Strict keyword match: exact or shared-stem. No substring contamination
+// ("ion" must not match "institutional", "action", "tradition").
+SA._kwMatch = function(word, kw){
+  if (word === kw) return 2;
+  var ws = SA.stem(word), ks = SA.stem(kw);
+  if (ws === ks && ws.length >= 4) return 1.5;
+  // Allow substring only for long, compound-friendly keywords (≥ 6 chars) and only when
+  // the short side is at least 5 chars (prevents "ion" / "dna" leaking).
+  if (kw.length >= 6 && word.length >= 5){
+    if (word.indexOf(kw) !== -1 || kw.indexOf(word) !== -1) return 1;
+  }
+  return 0;
+};
+
 SA.tagLayers = function(conceptWord, conceptContexts){
   var dist = {};
   SA.LAYERS.forEach(function(L){
     var score = 0;
     L.kw.forEach(function(k){
-      if (conceptWord === k || conceptWord.includes(k) || k.includes(conceptWord)) score += 2;
-      // Scan a sampling of contexts for phrase hits
+      score += SA._kwMatch(conceptWord, k);
+      // Context-level phrase match: require whole-word boundary
+      var re = new RegExp('(^|\\W)' + k.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&') + '($|\\W)');
       conceptContexts.slice(0, 6).forEach(function(ctx){
-        if (ctx.indexOf(k) !== -1) score += 0.5;
+        if (re.test(ctx)) score += 0.4;
       });
     });
     if (score > 0) dist[L.id] = score;
   });
-  // Normalize
   var total = 0; for (var k in dist) total += dist[k];
   if (total > 0){ for (var k in dist) dist[k] /= total; }
   return dist;
@@ -455,20 +473,47 @@ SA.computeGamma = function(edges){
   return den > 0 ? num / den : 0;
 };
 
+// External-reference density: proper nouns (non-sentence-initial caps),
+// years (18xx-20xx), numbers, quoted sources. Approximates reality-contact denominator.
+SA.externalRefs = function(sentences){
+  var hits = 0;
+  sentences.forEach(function(s){
+    var raw = s.text;
+    // Trim the sentence-initial word; it's always capitalized.
+    var tail = raw.replace(/^[^A-ZÅÄÖ]*[A-ZÅÄÖ][^\s]*\s*/, '');
+    var caps = tail.match(/\b[A-ZÅÄÖ][a-zåäö]{2,}\b/g) || [];
+    hits += caps.length;
+    hits += (raw.match(/\b(18|19|20)\d{2}\b/g) || []).length * 2;
+    hits += (raw.match(/\b\d+(\.\d+)?%?\b/g) || []).length * 0.5;
+    hits += (raw.match(/"[^"]{5,}"/g) || []).length;
+  });
+  return hits;
+};
+
 SA.computePsi = function(gamma, sentences, concepts){
+  var totalSents = sentences.length || 1;
   // Graph-theoretic component
   var psiG = (1 - gamma) / Math.max(gamma, 0.01);
-  // Text-level component: first-person density + self-citation markers
-  var srHits = 0, totalSents = sentences.length || 1;
+  // Self-reference density
+  var srHits = 0;
   sentences.forEach(function(s){
     var t = ' ' + s.text.toLowerCase() + ' ';
-    SA.SELF_REF.forEach(function(m){ if (t.indexOf(' '+m) !== -1 || t.indexOf(m) !== -1) srHits++; });
+    SA.SELF_REF.forEach(function(m){ if (t.indexOf(m) !== -1) srHits++; });
   });
   var psiT = srHits / totalSents;
-  // Repetition component: how often dominant concepts recur with self-ref context
+  // Reality contact: ratio of external references per sentence; low → narrative floats free
+  var ext = SA.externalRefs(sentences);
+  var realityContact = ext / totalSents;
+  var psiR = realityContact < 0.3 ? (0.3 - realityContact) * 2 : 0;
+  // Layer breadth: narrow coverage with high α = cavity risk
+  var layerHits = new Set();
+  concepts.forEach(function(C){ if (C.dominantLayer) layerHits.add(C.dominantLayer); });
+  var breadth = layerHits.size / 18;
+  var psiL = breadth < 0.25 ? (0.25 - breadth) * 4 : 0;
+  // Repetition component
   var repetitionBoost = 0;
-  concepts.forEach(function(C){ if (C.selfRef > 2 && C.freq > 3) repetitionBoost += 0.05; });
-  return Math.min(10, psiG + psiT + repetitionBoost);
+  concepts.forEach(function(C){ if (C.selfRef > 2 && C.freq > 3) repetitionBoost += 0.1; });
+  return Math.min(10, psiG + psiT + psiR + psiL + repetitionBoost);
 };
 
 SA.computeKt = function(edges){
@@ -544,12 +589,15 @@ SA.analyze = function(text){
 // ─ Verdict generator — human-readable summary ─
 SA.verdict = function(m){
   var parts = [];
-  if (m.gamma >= 0.75) parts.push('✓ Γ coherent');
+  if (m.gamma >= 0.75) parts.push('✓ Γ locally coherent');
   else if (m.gamma >= 0.55) parts.push('⚠ Γ degraded');
   else parts.push('✗ Γ incoherent');
   if (m.psi < 1.0) parts.push('· Ψ healthy');
   else if (m.psi < 3.0) parts.push('· Ψ elevated');
   else parts.push('· Ψ psychotic');
+  // Layer breadth flag — narrow scope with high local coherence is the echo-chamber signature
+  var layerHits = Object.values(m.coverage).filter(function(v){ return v > 0; }).length;
+  if (layerHits <= 4 && m.gamma >= 0.75) parts.push('· narrow layer coverage — locally coherent, globally narrow');
   if (m.voids && m.voids.length >= 4) parts.push('· void-rich (DRK-110 pattern)');
   if (m.severed > 5) parts.push('· multiple severed ρ');
   return parts.join(' ');
