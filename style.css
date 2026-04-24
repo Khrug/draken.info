@@ -927,20 +927,6 @@ footer .footer-links a:hover { color: var(--accent); }
    Append this to the end of style.css
    ═══════════════════════════════════════════ */
 
-/* ── Nav: Game button ── */
-.nav-game-btn {
-  background: var(--accent, #e94560) !important;
-  color: #fff !important;
-  padding: 4px 12px !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  transition: opacity 0.2s;
-}
-.nav-game-btn:hover {
-  opacity: 0.85;
-}
-
 /* ── Contact & Feedback Forms ── */
 .sidebar-desc {
   font-size: 12px;
@@ -1221,22 +1207,6 @@ textarea.form-input {
   margin-bottom: 16px;
   line-height: 1.5;
 }
-/* FIX: Game button - was white on red (unreadable). Now subtle outline style. */
-.nav-game-btn {
-  background: transparent !important;
-  color: var(--accent, #e94560) !important;
-  border: 1px solid var(--accent, #e94560) !important;
-  padding: 4px 12px !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  font-weight: 600 !important;
-  transition: background 0.2s, color 0.2s;
-}
-.nav-game-btn:hover {
-  background: var(--accent, #e94560) !important;
-  color: #fff !important;
-}
-
 /* corpus-map-fix */
 .corpus-map {
   display: flex !important;
@@ -1304,4 +1274,21 @@ textarea.form-input {
   background: rgba(201,168,76,0.12) !important;
   color: var(--gold) !important;
   border-color: var(--gold) !important;
+}
+/* Analyzer nav button */
+.nav-analyzer-btn {
+  color: var(--accent) !important;
+  border: 1px solid var(--accent-dim) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  transition: all 0.2s !important;
+  font-family: var(--mono) !important;
+}
+.nav-analyzer-btn:hover, .nav-analyzer-btn.active {
+  background: var(--accent-glow) !important;
+  color: var(--accent) !important;
+  border-color: var(--accent) !important;
 }

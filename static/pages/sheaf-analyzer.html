@@ -1,0 +1,1469 @@
+<!-- Sheaf Analyzer v1 — Draken 2045 topological narrative diagnostic -->
+<!-- Self-contained: all JS inline, deps loaded from CDN at runtime -->
+
+<style>
+.sa{font-family:Inter,'Helvetica Neue',sans-serif;max-width:1500px;margin:0 auto;padding:16px 20px;color:#c8d8c8}
+.sa h2{font-size:26px;font-weight:700;color:#e4f0e4;margin:4px 0}
+.sa-sub{font-size:14px;color:#6b8a6b;max-width:780px;line-height:1.5;margin:6px 0 14px}
+.sa-warn{background:#231a0e;border:1px solid #6b5a28;border-radius:8px;padding:10px 14px;font-size:12px;color:#c9a84c;line-height:1.55;margin-bottom:16px}
+.sa-warn strong{color:#e6cc6a}
+.sa-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:14px}
+.sa-col{flex:1 1 420px;min-width:320px}
+.sa-card{background:#0f170f;border:1px solid #1a2c1a;border-radius:10px;padding:14px 16px;margin-bottom:12px}
+.sa-lbl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#6b8a6b;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.sa-ta{width:100%;box-sizing:border-box;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:10px 12px;color:#c8d8c8;font-size:13px;font-family:'JetBrains Mono',monospace;line-height:1.55;resize:vertical;min-height:180px}
+.sa-ta:focus{outline:none;border-color:#4ade80}
+.sa-input{width:100%;box-sizing:border-box;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:8px 12px;color:#c8d8c8;font-size:13px;font-family:'JetBrains Mono',monospace}
+.sa-input:focus{outline:none;border-color:#4ade80}
+.sa-btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sa-btn{padding:8px 16px;border-radius:6px;border:1px solid #1a6b38;background:#0b1a12;color:#4ade80;font-size:12px;font-weight:600;cursor:pointer;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;transition:all .15s}
+.sa-btn:hover{background:#4ade8018;border-color:#4ade80}
+.sa-btn:disabled{opacity:0.4;cursor:not-allowed}
+.sa-btn.ghost{border-color:#1a2c1a;background:transparent;color:#6b8a6b}
+.sa-btn.ghost:hover{color:#c8d8c8;border-color:#264026}
+.sa-btn.red{border-color:#5c1a1a;color:#ef4444;background:#1a0c0c}
+.sa-btn.red:hover{background:#ef444418;border-color:#ef4444}
+.sa-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.sa-metric{background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:12px 14px;text-align:center}
+.sa-metric-val{font-size:28px;font-weight:700;font-family:'Space Grotesk',sans-serif;line-height:1.1}
+.sa-metric-lbl{font-size:10px;font-family:'JetBrains Mono',monospace;color:#6b8a6b;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
+.sa-metric-hint{font-size:10px;color:#6b8a6b;margin-top:3px;font-style:italic}
+.sa-graph{background:#050805;border:1px solid #1a2c1a;border-radius:10px;height:560px;position:relative;overflow:hidden}
+.sa-graph-overlay{position:absolute;top:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8a6b;pointer-events:none;background:rgba(8,12,8,0.7);padding:4px 8px;border-radius:4px;backdrop-filter:blur(6px)}
+.sa-graph-controls{position:absolute;top:10px;right:12px;display:flex;gap:6px;flex-wrap:wrap}
+.sa-gc{padding:4px 9px;border-radius:4px;border:1px solid #1a2c1a;background:rgba(8,12,8,0.85);color:#6b8a6b;font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;backdrop-filter:blur(6px);transition:all .15s}
+.sa-gc:hover{color:#c8d8c8;border-color:#4ade80}
+.sa-panel{background:#0f170f;border:1px solid #1a2c1a;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.55}
+.sa-panel h3{font-size:16px;color:#e4f0e4;margin-bottom:8px;font-family:'Space Grotesk',sans-serif}
+.sa-panel h4{font-size:12px;font-family:'JetBrains Mono',monospace;color:#4ade80;letter-spacing:1.5px;text-transform:uppercase;margin:12px 0 6px}
+.sa-panel-empty{color:#6b8a6b;font-style:italic;font-size:12px;padding:8px 0}
+.sa-chip{display:inline-block;font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:4px;background:#1a2c1a;color:#c8d8c8;margin:2px 4px 2px 0}
+.sa-chip-l{background:#1a6b38;color:#e4f0e4}
+.sa-chip-w{background:#5c4528;color:#c9a84c}
+.sa-chip-r{background:#5c1a1a;color:#ef8080}
+.sa-kv{display:flex;justify-content:space-between;gap:10px;padding:3px 0;font-size:12px;border-bottom:1px dashed #1a2c1a}
+.sa-kv:last-child{border-bottom:none}
+.sa-kv b{color:#c8d8c8;font-weight:600}
+.sa-kv span{color:#6b8a6b;font-family:'JetBrains Mono',monospace}
+.sa-text-view{max-height:280px;overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:12px 14px;font-size:13px;line-height:1.7;font-family:'Crimson Pro',Georgia,serif}
+.sa-text-view p{margin-bottom:10px}
+.sa-w{cursor:pointer;border-bottom:1px dotted transparent;transition:all .12s}
+.sa-w[data-tier="1"]{color:#4ade80;border-bottom-color:#1a6b3855}
+.sa-w[data-tier="2"]{color:#c9a84c;border-bottom-color:#6b5a2855}
+.sa-w[data-tier="3"]{color:#ef4444;border-bottom-color:#5c1a1a55}
+.sa-w:hover{background:#4ade8020;border-bottom-style:solid}
+.sa-w.active{background:#4ade8035;outline:1px solid #4ade80}
+.sa-layers{display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
+.sa-lay{background:#0b120b;border:1px solid #1a2c1a;border-radius:4px;padding:6px 4px;text-align:center;font-size:10px;font-family:'JetBrains Mono',monospace}
+.sa-lay-id{font-weight:700;color:#c8d8c8;font-size:11px}
+.sa-lay-ct{color:#6b8a6b;margin-top:2px}
+.sa-lay.on{border-color:#4ade80;background:#0b1a12}
+.sa-lay.on .sa-lay-id{color:#4ade80}
+.sa-explain{font-size:12px;line-height:1.6;color:#c8d8c8}
+.sa-explain details{margin-bottom:6px}
+.sa-explain summary{cursor:pointer;color:#4ade80;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:1px;padding:4px 0}
+.sa-explain summary:hover{color:#e4f0e4}
+.sa-explain .body{padding:8px 12px;border-left:2px solid #1a6b38;margin:4px 0 10px;color:#c8d8c8;font-size:12px}
+.sa-explain code{background:#080c08;padding:1px 6px;border-radius:3px;font-size:11px;color:#4ade80}
+.sa-loading{text-align:center;padding:40px 20px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;font-size:12px}
+.sa-spin{display:inline-block;width:10px;height:10px;border:2px solid #1a6b38;border-top-color:#4ade80;border-radius:50%;animation:sa-s 0.8s linear infinite;margin-right:8px;vertical-align:middle}
+@keyframes sa-s{to{transform:rotate(360deg)}}
+.sa-progress{height:2px;background:#1a2c1a;border-radius:1px;overflow:hidden;margin-top:8px}
+.sa-progress-fill{height:100%;background:#4ade80;width:0%;transition:width .3s}
+.sa-severe{color:#ef4444;font-weight:700}
+.sa-ok{color:#4ade80;font-weight:700}
+.sa-mid{color:#c9a84c;font-weight:700}
+.sa-src-pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.sa-src-pick button{background:#0b120b;border:1px solid #1a2c1a;color:#6b8a6b;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace}
+.sa-src-pick button:hover{border-color:#4ade80;color:#c8d8c8}
+</style>
+
+<div class="sa" id="sa-app">
+  <div style="text-align:center;padding:8px 0 10px">
+    <div style="font-size:11px;color:#4ade80;letter-spacing:4px;font-weight:700;font-family:'JetBrains Mono',monospace">DRAKEN 2045 — DIAGNOSTIC TOOL</div>
+    <h2>Sheaf Analyzer — Topological Narrative Diagnostic</h2>
+    <p class="sa-sub">Paste any text (article, speech, manifesto, report) or fetch a URL. The analyzer extracts concepts, builds a cross-scale co-occurrence sheaf, measures coherence (Γ), self-reference (Ψ), and coherence debt K(t), and renders the result as a rotatable 3D graph. Click any node — or any word in the source text — to inspect its stalk.</p>
+    <div class="sa-warn"><strong>◆ Honest scope.</strong> This is a <em>heuristic diagnostic</em>, not a formal sheaf cohomology computation. Γ, Ψ, K(t) are estimators derived from concept-level co-occurrence and a hand-curated layer lexicon. The thesis is the theoretical anchor; this tool makes the theory visible on arbitrary text. See the "Explain the variables" panel below the graph for formulas and limits.</div>
+  </div>
+
+  <!-- Mode tabs -->
+  <div class="sa-row" style="margin-bottom:4px">
+    <div class="sa-col" style="flex:1 1 100%;min-width:100%">
+      <div class="sa-btns" style="margin:0">
+        <button class="sa-btn" id="sa-mode-single" data-mode="single">▸ Single text</button>
+        <button class="sa-btn ghost" id="sa-mode-corpus" data-mode="corpus">⌘ Corpus mode — analyze draken.info posts</button>
+        <button class="sa-btn ghost" id="sa-mode-compare" data-mode="compare">⇌ Compare two texts</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input row -->
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 600px">
+      <!-- SINGLE TEXT MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="single">
+        <div class="sa-lbl">◉ Source text</div>
+        <textarea id="sa-text" class="sa-ta" placeholder="Paste text here — an article, speech, manifesto, social media thread, internal memo, essay. Minimum ~200 words for useful signal."></textarea>
+        <div style="margin-top:10px">
+          <div class="sa-lbl">◉ Or fetch from URL (uses public reader proxy to bypass CORS)</div>
+          <input id="sa-url" class="sa-input" type="url" placeholder="https://example.com/article">
+          <div class="sa-src-pick" id="sa-src-pick"></div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-run">▸ Analyze</button>
+          <button class="sa-btn ghost" id="sa-fetch">↓ Fetch URL</button>
+          <button class="sa-btn ghost" id="sa-sample">⌁ Load sample</button>
+          <button class="sa-btn ghost" id="sa-clear">✕ Clear</button>
+          <button class="sa-btn ghost" id="sa-export" style="margin-left:auto">⇩ Export JSON</button>
+        </div>
+        <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
+      </div>
+
+      <!-- CORPUS MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="corpus" style="display:none">
+        <div class="sa-lbl">◉ Corpus mode — select any subset of draken.info posts to build one meaning graph</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center">
+          <button class="sa-btn ghost" id="sa-corpus-all">☑ Select all</button>
+          <button class="sa-btn ghost" id="sa-corpus-none">☐ Clear</button>
+          <button class="sa-btn ghost" id="sa-corpus-theory">✦ Theory only</button>
+          <button class="sa-btn ghost" id="sa-corpus-analysis">✦ Analysis only</button>
+          <span id="sa-corpus-count" style="font-size:11px;color:#6b8a6b;margin-left:auto;font-family:'JetBrains Mono',monospace">Loading corpus…</span>
+        </div>
+        <div id="sa-corpus-list" style="max-height:320px;overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:8px 10px">
+          <div class="sa-panel-empty">Fetching /data/corpus.json…</div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-corpus-run">▸ Analyze selected</button>
+          <button class="sa-btn ghost" id="sa-corpus-refresh">⟳ Refresh corpus</button>
+        </div>
+      </div>
+
+      <!-- COMPARE MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="compare" style="display:none">
+        <div class="sa-lbl">◉ Compare — paste two texts (e.g. draft A vs draft B, before vs after edit)</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="flex:1 1 280px;min-width:260px">
+            <div style="font-size:11px;color:#4ade80;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ TEXT A</div>
+            <textarea id="sa-cmp-a" class="sa-ta" style="min-height:200px" placeholder="Paste text A — e.g. your original draft, the official statement, the 'before' version."></textarea>
+          </div>
+          <div style="flex:1 1 280px;min-width:260px">
+            <div style="font-size:11px;color:#c9a84c;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ TEXT B</div>
+            <textarea id="sa-cmp-b" class="sa-ta" style="min-height:200px" placeholder="Paste text B — e.g. your revised draft, the leaked internal memo, the 'after' version."></textarea>
+          </div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-cmp-run">⇌ Compare</button>
+          <button class="sa-btn ghost" id="sa-cmp-sample">⌁ Sample A vs B</button>
+          <button class="sa-btn ghost" id="sa-cmp-swap">⇅ Swap A↔B</button>
+        </div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 360px">
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Sheaf metrics</div>
+        <div class="sa-metrics" id="sa-metrics">
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-gamma">—</div><div class="sa-metric-lbl">Γ Gluing</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-psi">—</div><div class="sa-metric-lbl">Ψ Self-ref</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-kt">—</div><div class="sa-metric-lbl">K(t) Debt</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-alpha">—</div><div class="sa-metric-lbl">α Abstract.</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-sev">—</div><div class="sa-metric-lbl">Severed ρ</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" style="color:#6b8a6b" id="m-void">—</div><div class="sa-metric-lbl">Voids</div></div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:#6b8a6b" id="sa-verdict">◆ Awaiting text — paste or fetch to run diagnostic.</div>
+      </div>
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Layer coverage — 18 Draken layers</div>
+        <div class="sa-layers" id="sa-layers"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graph + inspector row -->
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 720px">
+      <div class="sa-graph" id="sa-graph">
+        <div class="sa-graph-overlay" id="sa-graph-overlay">◆ sheaf graph — rotate: drag · zoom: scroll · select: click</div>
+        <div class="sa-graph-controls">
+          <button class="sa-gc" id="sa-gc-reheat">⟳ reheat</button>
+          <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
+          <button class="sa-gc" id="sa-gc-voids">⬚ voids</button>
+          <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        </div>
+        <div id="sa-graph-empty" class="sa-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;pointer-events:none">No graph yet. Run analyze on source text to produce a sheaf.</div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 380px">
+      <div class="sa-panel" id="sa-inspector">
+        <h3>◉ Inspector</h3>
+        <div class="sa-panel-empty">Click any node in the graph — or any highlighted word in the source text below — to inspect its stalk, restriction maps, layer distribution, and sample contexts.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Source text walk + explanations -->
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 720px">
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Source text — click any word to inspect</div>
+        <div class="sa-text-view" id="sa-text-view"><div class="sa-panel-empty">No text analyzed yet.</div></div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 380px">
+      <div class="sa-card sa-explain">
+        <div class="sa-lbl">◉ Explain the variables</div>
+        <details open><summary>Γ — Sheaf convergence</summary><div class="body">How well local sections (concept contexts) glue into a globally consistent section. Computed as <code>Σ edge_weight · ρ / Σ edge_weight</code> where ρ is restriction-map fidelity between concepts (layer alignment × context overlap × valence agreement). Γ=1 perfect gluing; Γ&lt;0.5 severe obstruction.</div></details>
+        <details><summary>Ψ — Narrative self-reference</summary><div class="body">Psychosis metric. <code>Ψ = (1−Γ)/max(Γ,0.01)</code>, plus a text-level term counting first-person markers, self-citations ("as I said", "my framework"), and n-gram self-repetition. High Ψ → the narrative is referring to itself more than to external reality.</div></details>
+        <details><summary>K(t) — Coherence debt</summary><div class="body">Accumulated obstruction budget. <code>K = Σ edge_weight · (1 − ρ)</code>. In the full theory this is time-integrated; here it's a single-snapshot reading. Interpret relatively: compare two texts, not the absolute number.</div></details>
+        <details><summary>α — Abstraction depth</summary><div class="body">Distance from direct sensory reality. Approximated by suffix analysis (-tion, -ism, -ity, -ness → abstract) and dominant-layer median. High α over sparse empirical anchors = cavity risk (DRK-110).</div></details>
+        <details><summary>Severed ρ</summary><div class="body">Number of restriction maps with fidelity below 0.35. These are edges where two concepts co-occur but fail to glue — contradiction, category error, or forced analogy.</div></details>
+        <details><summary>Voids</summary><div class="body">Concepts with high graph centrality but low local content — spoken about much, said about little. Cavity resonators in the DRK-110 sense: the absence is structural, and it shapes the surrounding signal.</div></details>
+        <details><summary>Layers L01–L18</summary><div class="body">Scale hierarchy from quantum fields (L01) through narrative self (L07), national narrative (L12), to planetary cognition (L18). Each concept is tagged by keyword match; the coverage grid shows which layers the text actually touches. A text that claims civilizational scope but only hits L09–L12 is suspect.</div></details>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Three.js + 3d-force-graph loaded at runtime -->
+<script>
+window.SA = window.SA || {};
+SA.deps = { three: 'https://unpkg.com/three@0.161.0/build/three.min.js', forcegraph: 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js' };
+SA.loadScript = function(src){ return new Promise(function(res, rej){ var s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=function(){rej(new Error('Failed to load '+src))}; document.head.appendChild(s); }); };
+SA.loadDeps = async function(){ if(window.ForceGraph3D) return; await SA.loadScript(SA.deps.three); await SA.loadScript(SA.deps.forcegraph); };
+</script>
+
+<!-- SECTION_MARKER: LEXICON -->
+<script id="sa-section-lexicon">
+// ─ Draken 18-layer lexicon. Keywords chosen for discriminability, not coverage. ─
+// A token matches at most one layer (first hit wins if multi-layer; dominant layer is argmax).
+SA.LAYERS = [
+  {id:'L01', name:'Quantum Field',     color:'#6ea8fe', kw:['quantum','field','photon','electron','particle','wave','spin','gauge','amplitude','vacuum','heisenberg','schrodinger','superposition','entanglement','boson','fermion']},
+  {id:'L02', name:'Chem. Thermo.',     color:'#8ab4ff', kw:['entropy','thermodynamic','chemical','reaction','catalyst','enzyme','heat','temperature','gradient','bond','molecule','molecular','covalent','ionic','dissipation']},
+  {id:'L03', name:'Molecular Asm.',    color:'#6ee7b7', kw:['protein','dna','rna','gene','genome','ribosome','assembly','membrane','mitochondria','folding','cell','cellular','cytoskeleton','organelle','receptor']},
+  {id:'L04', name:'Bioelectric',       color:'#2dd4bf', kw:['bioelectric','voltage','ion','channel','synapse','action potential','neuron','neural','axon','dendrite','membrane potential','cortex','levin','gap junction']},
+  {id:'L05', name:'Neural Integ.',     color:'#22d3ee', kw:['brain','perception','sensory','predictive','attention','memory','consciousness','cognitive','hippocampus','amygdala','prefrontal','salience','default mode']},
+  {id:'L06', name:'Embodied Cog.',     color:'#38bdf8', kw:['body','embodied','affect','emotion','feeling','sensation','gut','visceral','interoception','somatic','proprioception','breath','posture','arousal']},
+  {id:'L07', name:'Narrative Self',    color:'#f59e0b', kw:['self','identity','narrative','story','ego','autobiography','meaning','purpose','inner','subjective','experience','phenomenology','reflection','introspect']},
+  {id:'L08', name:'Dyadic Signal',     color:'#fb923c', kw:['dyad','pair','couple','intimate','trust','conversation','dialogue','listening','attachment','bond','friendship','rapport','mirror','empathy']},
+  {id:'L09', name:'Group Cognition',   color:'#f87171', kw:['group','tribe','community','collective','shared belief','consensus','common knowledge','in-group','out-group','tribal','echo chamber','peer','cohort']},
+  {id:'L10', name:'Social Coord.',     color:'#ef4444', kw:['coordination','cooperation','team','organization','meeting','protocol','norm','convention','ritual','standard','role','practice','workflow','division of labor']},
+  {id:'L11', name:'Economic Cog.',     color:'#a78bfa', kw:['price','money','market','trade','demand','supply','labor','wage','capital','currency','profit','cost','value','exchange','transaction','investor']},
+  {id:'L12', name:'National Narr.',    color:'#c084fc', kw:['nation','national','country','citizen','flag','patriotism','border','sovereignty','state','homeland','identity','public opinion','media','propaganda']},
+  {id:'L13', name:'Political Str.',    color:'#e879f9', kw:['political','policy','power','authority','government','regulation','law','constitution','election','legislature','executive','party','vote','lobby','coalition']},
+  {id:'L14', name:'Economic Topo.',    color:'#f472b6', kw:['economy','gdp','inflation','recession','inequality','class','capitalism','socialism','crisis','debt','financial','bank','banking','systemic','structural']},
+  {id:'L15', name:'Cultural Field',    color:'#fbbf24', kw:['culture','art','music','literature','religion','ritual','tradition','myth','language','ideology','worldview','canon','discourse','aesthetics','meaning']},
+  {id:'L16', name:'Instit. Morph.',    color:'#facc15', kw:['institution','bureaucracy','university','church','corporation','agency','board','charter','incumbent','governance','compliance','audit','mandate','ossified']},
+  {id:'L17', name:'Civ. Memory',       color:'#84cc16', kw:['history','historical','civilization','heritage','memory','legacy','generation','century','ancient','archive','tradition','precedent','canon','lineage']},
+  {id:'L18', name:'Planetary Cog.',    color:'#4ade80', kw:['planet','planetary','earth','climate','ecology','ecosystem','biosphere','global','species','extinction','carbon','atmosphere','geology','anthropocene','ocean']}
+];
+SA.LAYER_INDEX = {}; SA.LAYERS.forEach(function(L,i){ SA.LAYER_INDEX[L.id] = Object.assign({}, L, {idx:i}); });
+
+// ─ Stopwords (English; supplemented with common narrative-filler) ─
+SA.STOP = new Set(('a an the and or but if then else of in on at to from by for with without into onto about over under above below across after before during through out up down off near beside between among since until while as when where why how whom whose which what who that this those these it its it\'s they them their theirs we us our ours you your yours i me my mine he him his she her hers them they be is are was were been being have has had do does did done can could may might must shall should will would ought not no yes so than very just also only also both each any some all many more most few less much other another such same own said says say saying thing things really actually basically literally simply clearly obviously indeed however therefore thus hence moreover furthermore whereas otherwise').split(/\s+/));
+
+// ─ Self-reference markers (approximate Ψ component) ─
+// Includes plural in-group markers — propaganda and echo chambers use "we/us/our" heavily.
+SA.SELF_REF_SING = ['i ',' me ','my ',' mine ','myself','as i said','as mentioned','my framework','my theory','my view','in my opinion','as noted above'];
+SA.SELF_REF_PLUR = ['we ',' us ','our ','ours ','ourselves','we have shown','our community','our people','our founder','our tradition','our movement','our nation'];
+SA.SELF_REF_CLOSURE = ['obviously','of course','as everyone knows','anyone who','those who cannot','simply see','clearly','undeniably','it is clear that','there is no argument','no reasonable person'];
+SA.SELF_REF = [].concat(SA.SELF_REF_SING, SA.SELF_REF_PLUR, SA.SELF_REF_CLOSURE);
+
+// ─ Abstract-noun suffixes (for α estimator) ─
+SA.ABSTRACT_SUFFIX = ['tion','sion','ment','ness','ity','ism','ance','ence','ship','hood','cy','ology','ocracy'];
+
+// ─ Valence lexicon (compact, for restriction-fidelity dampener) ─
+SA.POS = new Set('growth health gain truth clarity freedom trust care love peace justice fair honest strong resilient coherent glue repair healing thriving flourishing safe fair fair'.split(/\s+/));
+SA.NEG = new Set('collapse fear harm loss betrayal chaos tyranny propaganda void hollow cavity obstruction severed degraded psychosis sickness decay broken failing fragile corrupt polluted'.split(/\s+/));
+
+// ─ URL reader proxy (public, CORS-enabled). Falls back to direct fetch. ─
+SA.READER_PROXY = 'https://r.jina.ai/';
+
+// ─ Sample texts for quick demos ─
+SA.SAMPLES = {
+  draken: 'Sample: draken.info — Drakens Ordlista (DRK-117)',
+  boeing: 'Sample: corporate-disconnect excerpt',
+  propaganda: 'Sample: echo-chamber fragment'
+};
+</script>
+
+<!-- SECTION_MARKER: TOKENIZER -->
+<script id="sa-section-tokenizer">
+// ─ Sentence + token segmentation (language-agnostic; works on any Latin-alphabet text) ─
+SA.splitSentences = function(text, sourceTag){
+  // Normalize whitespace, collapse paragraph breaks
+  text = text.replace(/\r\n/g,'\n').replace(/\t/g,' ');
+  var paras = text.split(/\n\s*\n+/).map(function(p){ return p.trim(); }).filter(Boolean);
+  var sents = [];
+  paras.forEach(function(p, pi){
+    var parts = p.replace(/\n/g,' ').split(/(?<=[.!?…])\s+(?=[A-ZÅÄÖÉÈÍÓÚÑ"'«(0-9])/);
+    parts.forEach(function(s){
+      s = s.trim(); if (s.length < 3) return;
+      sents.push({ text: s, para: pi, source: sourceTag || null });
+    });
+  });
+  return sents;
+};
+
+// ─ Multi-source splitter: takes an array of {text, sourceTag} and returns one flat sentence list
+//   where each sentence carries its source tag. Used by corpus mode.
+SA.splitSentencesMulti = function(sources){
+  var out = [];
+  sources.forEach(function(src){
+    var s = SA.splitSentences(src.text, src.tag);
+    out = out.concat(s);
+  });
+  return out;
+};
+
+// Returns [{low, orig}] so we can detect proper nouns downstream.
+SA.tokenize = function(sent){
+  var cleaned = sent.replace(/[^A-Za-zÅÄÖåäöÉéÈèÍíÓóÚúÑñ'\- ]+/g,' ');
+  var words = cleaned.split(/\s+/).filter(Boolean);
+  return words.map(function(w){
+    var trim = w.replace(/^[-']+|[-']+$/g,'');
+    return { low: trim.toLowerCase(), orig: trim };
+  }).filter(function(t){ return t.low.length >= 2; });
+};
+
+// ─ Light stemming: plural/possessive/verb-ending stripping. Not linguistically perfect; fine for graph nodes. ─
+SA.stem = function(w){
+  if (w.length <= 3) return w;
+  // Compound check — keep multi-word phrases intact via '_' markers (phase later)
+  var endings = ['\'s','s\'','ing','edly','edge','edly','ed','es','ly','al'];
+  for (var i=0;i<endings.length;i++){
+    var e = endings[i];
+    if (w.endsWith(e) && w.length - e.length >= 3){
+      return w.slice(0, -e.length);
+    }
+  }
+  if (w.endsWith('s') && w.length > 3 && !w.endsWith('ss') && !w.endsWith('us') && !w.endsWith('is')) return w.slice(0,-1);
+  return w;
+};
+
+// ─ Layer tagging: exact phrase match > single-word keyword. Each concept carries a layer distribution. ─
+// Strict keyword match: exact or shared-stem. No substring contamination
+// ("ion" must not match "institutional", "action", "tradition").
+SA._kwMatch = function(word, kw){
+  if (word === kw) return 2;
+  var ws = SA.stem(word), ks = SA.stem(kw);
+  if (ws === ks && ws.length >= 4) return 1.5;
+  // Allow substring only for long, compound-friendly keywords (≥ 6 chars) and only when
+  // the short side is at least 5 chars (prevents "ion" / "dna" leaking).
+  if (kw.length >= 6 && word.length >= 5){
+    if (word.indexOf(kw) !== -1 || kw.indexOf(word) !== -1) return 1;
+  }
+  return 0;
+};
+
+SA.tagLayers = function(conceptWord, conceptContexts){
+  var dist = {};
+  SA.LAYERS.forEach(function(L){
+    var score = 0;
+    L.kw.forEach(function(k){
+      score += SA._kwMatch(conceptWord, k);
+      // Context-level phrase match: require whole-word boundary
+      var re = new RegExp('(^|\\W)' + k.replace(/[-\/\\^$*+?.()|[\]{}]/g,'\\$&') + '($|\\W)');
+      conceptContexts.slice(0, 6).forEach(function(ctx){
+        if (re.test(ctx)) score += 0.4;
+      });
+    });
+    if (score > 0) dist[L.id] = score;
+  });
+  var total = 0; for (var k in dist) total += dist[k];
+  if (total > 0){ for (var k in dist) dist[k] /= total; }
+  return dist;
+};
+
+SA.dominantLayer = function(dist){
+  var best = null, bv = -1;
+  for (var k in dist){ if (dist[k] > bv){ bv = dist[k]; best = k; } }
+  return best;
+};
+
+// ─ Concept extraction: build a Concept for each significant stemmed token ─
+// A Concept = { word, displayWord, freq, sentences[], cooccur{}, layerDist, dominantLayer, selfRef, valence }
+SA.extractConcepts = function(sentences){
+  var concepts = new Map();
+  var sentTokens = [];
+
+  sentences.forEach(function(s, si){
+    var toks = SA.tokenize(s.text);
+    var stemmed = [];
+    for (var i=0; i<toks.length; i++){
+      var low = toks[i].low, orig = toks[i].orig;
+      if (SA.STOP.has(low)) { stemmed.push(null); continue; }
+      // Try bigram phrase first
+      if (i+1 < toks.length){
+        var bi = low + ' ' + toks[i+1].low;
+        var bifound = false;
+        for (var j=0;j<SA.LAYERS.length;j++){
+          if (SA.LAYERS[j].kw.indexOf(bi) !== -1){ bifound = true; break; }
+        }
+        if (bifound){
+          var key = bi.replace(/ /g,'_');
+          stemmed.push(key);
+          if (!concepts.has(key)) concepts.set(key, { word:key, displayWord:bi, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
+          var C = concepts.get(key); C.freq++; C.sentences.push(si);
+          C.rawTokens.add(orig + ' ' + toks[i+1].orig);
+          stemmed.push(null); i++; continue;
+        }
+      }
+      var stem = SA.stem(low);
+      if (stem.length < 3 || SA.STOP.has(stem)) { stemmed.push(null); continue; }
+      stemmed.push(stem);
+      if (!concepts.has(stem)) concepts.set(stem, { word:stem, displayWord:low, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
+      var C = concepts.get(stem); C.freq++; C.sentences.push(si); C.rawTokens.add(orig);
+    }
+    sentTokens.push(stemmed);
+  });
+
+  // Drop hapax (freq=1) concepts unless the text is very short
+  var totalSentences = sentences.length;
+  var minFreq = totalSentences < 20 ? 1 : 2;
+  var filtered = new Map();
+  concepts.forEach(function(C, k){ if (C.freq >= minFreq) filtered.set(k, C); });
+
+  // Compute co-occurrence within sentence (window = full sentence)
+  sentTokens.forEach(function(toks){
+    var unique = Array.from(new Set(toks.filter(function(t){ return t && filtered.has(t); })));
+    for (var a=0; a<unique.length; a++){
+      for (var b=a+1; b<unique.length; b++){
+        var A = filtered.get(unique[a]), B = filtered.get(unique[b]);
+        A.cooccur[unique[b]] = (A.cooccur[unique[b]] || 0) + 1;
+        B.cooccur[unique[a]] = (B.cooccur[unique[a]] || 0) + 1;
+      }
+    }
+  });
+
+  // Compute layer distribution + valence + self-ref + source-tag collection
+  filtered.forEach(function(C){
+    var contexts = C.sentences.slice(0, 10).map(function(si){ return sentences[si].text.toLowerCase(); });
+    C.layerDist = SA.tagLayers(C.word, contexts);
+    C.dominantLayer = SA.dominantLayer(C.layerDist);
+    var pos = 0, neg = 0;
+    contexts.forEach(function(ctx){
+      SA.POS.forEach(function(p){ if (ctx.indexOf(p) !== -1) pos++; });
+      SA.NEG.forEach(function(n){ if (ctx.indexOf(n) !== -1) neg++; });
+    });
+    C.valence = (pos - neg) / Math.max(1, pos + neg);
+    var sr = 0;
+    contexts.forEach(function(ctx){
+      SA.SELF_REF.forEach(function(m){ if (ctx.indexOf(m) !== -1) sr++; });
+    });
+    C.selfRef = sr;
+    // Source-tag collection (corpus mode)
+    var srcSet = new Set();
+    C.sentences.forEach(function(si){
+      var s = sentences[si];
+      if (s && s.source) srcSet.add(s.source);
+    });
+    C.sources = Array.from(srcSet);
+  });
+
+  return { concepts: filtered, sentTokens: sentTokens };
+};
+</script>
+
+<!-- SECTION_MARKER: METRICS -->
+<script id="sa-section-metrics">
+// ─ Sheaf construction ─
+// Stalks: one per concept. Edges: concept pairs co-occurring ≥ 1 sentence.
+// Restriction fidelity ρ(a,b) combines layer alignment, context overlap (PMI), and valence agreement.
+
+SA.buildSheaf = function(concepts, sentTokens, sentences){
+  var conceptList = Array.from(concepts.values());
+  var idOf = new Map();
+  conceptList.forEach(function(C, i){ idOf.set(C.word, i); });
+
+  var N = sentences.length || 1;
+  var edges = [];
+  var seen = new Set();
+
+  conceptList.forEach(function(A){
+    for (var bw in A.cooccur){
+      if (!concepts.has(bw)) continue;
+      var key = A.word < bw ? A.word + '||' + bw : bw + '||' + A.word;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      var B = concepts.get(bw);
+      var co = A.cooccur[bw];
+      // PMI: log( p(a,b) / (p(a)*p(b)) ), p = freq/N
+      var pA = A.freq / N, pB = B.freq / N, pAB = co / N;
+      var pmi = pAB > 0 ? Math.log(pAB / Math.max(1e-9, pA * pB)) : 0;
+      var pmiNorm = Math.max(0, Math.min(1, pmi / 4));
+      // Edge weight: blend of co-occurrence count (log) and PMI
+      var weight = Math.min(1, Math.log(co + 1) / 3) * 0.6 + pmiNorm * 0.4;
+
+      // Restriction fidelity ρ
+      var rho = SA.restrictionFidelity(A, B);
+
+      edges.push({
+        source: A.word, target: B.word,
+        co: co, pmi: pmi, weight: weight, rho: rho,
+        severed: rho < 0.35
+      });
+    }
+  });
+
+  return { nodes: conceptList, edges: edges };
+};
+
+// ─ Restriction map fidelity ρ(a,b) ─
+// Factors: (1) layer alignment — same or adjacent layer = high, distant = low
+//          (2) context overlap — Jaccard of sentence indices
+//          (3) valence agreement — same-sign valence boosts, opposite-sign dampens
+SA.restrictionFidelity = function(A, B){
+  // Layer alignment
+  var lA = SA.LAYER_INDEX[A.dominantLayer], lB = SA.LAYER_INDEX[B.dominantLayer];
+  var layerScore = 0.5;
+  if (lA && lB){
+    var d = Math.abs(lA.idx - lB.idx);
+    layerScore = d === 0 ? 1.0 : d <= 2 ? 0.85 : d <= 4 ? 0.65 : d <= 8 ? 0.45 : 0.25;
+  }
+  // Context overlap
+  var sA = new Set(A.sentences), sB = new Set(B.sentences);
+  var inter = 0; sA.forEach(function(x){ if (sB.has(x)) inter++; });
+  var uni = sA.size + sB.size - inter;
+  var jacc = uni > 0 ? inter / uni : 0;
+  var ctxScore = 0.4 + jacc * 0.6;
+  // Valence agreement
+  var va = A.valence, vb = B.valence;
+  var valScore = 1.0;
+  if (va * vb < 0 && Math.abs(va) > 0.3 && Math.abs(vb) > 0.3) valScore = 0.55;
+  // Combined
+  var rho = layerScore * 0.5 + ctxScore * 0.35 + valScore * 0.15;
+  return Math.max(0, Math.min(1, rho));
+};
+
+// ─ Global metrics ─
+SA.computeGamma = function(edges){
+  if (!edges.length) return 0;
+  var num = 0, den = 0;
+  edges.forEach(function(e){ num += e.weight * e.rho; den += e.weight; });
+  return den > 0 ? num / den : 0;
+};
+
+// External-reference density: proper nouns (non-sentence-initial caps),
+// years (18xx-20xx), numbers, quoted sources. Approximates reality-contact denominator.
+SA.externalRefs = function(sentences){
+  var hits = 0;
+  sentences.forEach(function(s){
+    var raw = s.text;
+    // Trim the sentence-initial word; it's always capitalized.
+    var tail = raw.replace(/^[^A-ZÅÄÖ]*[A-ZÅÄÖ][^\s]*\s*/, '');
+    var caps = tail.match(/\b[A-ZÅÄÖ][a-zåäö]{2,}\b/g) || [];
+    hits += caps.length;
+    hits += (raw.match(/\b(18|19|20)\d{2}\b/g) || []).length * 2;
+    hits += (raw.match(/\b\d+(\.\d+)?%?\b/g) || []).length * 0.5;
+    hits += (raw.match(/"[^"]{5,}"/g) || []).length;
+  });
+  return hits;
+};
+
+SA.computePsi = function(gamma, sentences, concepts){
+  var totalSents = sentences.length || 1;
+  // Graph-theoretic component
+  var psiG = (1 - gamma) / Math.max(gamma, 0.01);
+  // Self-reference density
+  var srHits = 0;
+  sentences.forEach(function(s){
+    var t = ' ' + s.text.toLowerCase() + ' ';
+    SA.SELF_REF.forEach(function(m){ if (t.indexOf(m) !== -1) srHits++; });
+  });
+  var psiT = srHits / totalSents;
+  // Reality contact: ratio of external references per sentence; low → narrative floats free
+  var ext = SA.externalRefs(sentences);
+  var realityContact = ext / totalSents;
+  var psiR = realityContact < 0.3 ? (0.3 - realityContact) * 2 : 0;
+  // Layer breadth: narrow coverage with high α = cavity risk
+  var layerHits = new Set();
+  concepts.forEach(function(C){ if (C.dominantLayer) layerHits.add(C.dominantLayer); });
+  var breadth = layerHits.size / 18;
+  var psiL = breadth < 0.25 ? (0.25 - breadth) * 4 : 0;
+  // Repetition component: count concepts with self-ref context, normalize by concept count
+  var repHits = 0;
+  concepts.forEach(function(C){ if (C.selfRef > 2 && C.freq > 3) repHits++; });
+  var repetitionBoost = Math.min(1.5, repHits / Math.max(20, concepts.size * 0.05));
+  return Math.min(10, psiG + psiT + psiR + psiL + repetitionBoost);
+};
+
+// K(t): coherence debt as weight-normalized obstruction density, scale-free in [0, ~3].
+// Raw sum / total-weight gives per-unit-weight debt; × log(edges+1) keeps it sensitive to graph size.
+SA.computeKt = function(edges){
+  if (!edges.length) return 0;
+  var num = 0, den = 0;
+  edges.forEach(function(e){ num += e.weight * (1 - e.rho); den += e.weight; });
+  var density = den > 0 ? num / den : 0;
+  return density * Math.log(edges.length + 1);
+};
+
+SA.computeAlpha = function(concepts){
+  // Suffix-based abstraction index, weighted by freq
+  var num = 0, den = 0;
+  concepts.forEach(function(C){
+    var abstract = 0;
+    SA.ABSTRACT_SUFFIX.forEach(function(s){ if (C.word.endsWith(s)) abstract = 1; });
+    // Concrete boost for L01-L06 (physical/biological scales)
+    var concrete = 0;
+    if (C.dominantLayer && ['L01','L02','L03','L04','L05','L06'].indexOf(C.dominantLayer) !== -1) concrete = 0.7;
+    var a = abstract - concrete * 0.5;
+    num += a * C.freq;
+    den += C.freq;
+  });
+  if (den === 0) return 0;
+  return Math.max(0, Math.min(1, (num / den) + 0.5));
+};
+
+SA.countSevered = function(edges){ return edges.filter(function(e){ return e.severed; }).length; };
+
+// ─ Voids: concepts with high centrality but low self-content ─
+// Proxy centrality: weighted degree. Low self-content proxy: few distinct co-occurrence partners
+// relative to frequency (high freq, narrow neighborhood = empty center).
+// Proper-noun heuristic: all raw tokens appeared capitalized → likely name/place, skip as void.
+SA._isProperNoun = function(C){
+  if (!C.rawTokens || !C.rawTokens.size) return false;
+  var caps = 0, total = 0;
+  C.rawTokens.forEach(function(t){ total++; if (/[A-ZÅÄÖ]/.test(t[0])) caps++; });
+  return total > 0 && caps / total > 0.7;
+};
+
+SA.detectVoids = function(nodes, edges){
+  var deg = {};
+  edges.forEach(function(e){
+    deg[e.source] = (deg[e.source] || 0) + e.weight;
+    deg[e.target] = (deg[e.target] || 0) + e.weight;
+  });
+  var voids = [];
+  nodes.forEach(function(C){
+    if (SA._isProperNoun(C)) return;        // exclude proper nouns
+    if (!C.dominantLayer) return;            // exclude unlayered concepts (likely noise)
+    var d = deg[C.word] || 0;
+    var partners = Object.keys(C.cooccur).length;
+    var diversity = partners / Math.max(1, C.freq);
+    var centrality = d;
+    if (centrality > 2 && diversity < 0.8 && C.freq >= 3){
+      voids.push({ word: C.word, centrality: centrality, diversity: diversity, freq: C.freq });
+    }
+  });
+  return voids.sort(function(a,b){ return b.centrality - a.centrality; }).slice(0, 8);
+};
+
+// ─ Orchestrator: full analysis ─
+SA.analyze = function(text){
+  var sentences = SA.splitSentences(text);
+  if (sentences.length < 3) throw new Error('Text too short. Paste at least 3 sentences.');
+  var ex = SA.extractConcepts(sentences);
+  var sheaf = SA.buildSheaf(ex.concepts, ex.sentTokens, sentences);
+  var gamma = SA.computeGamma(sheaf.edges);
+  var psi = SA.computePsi(gamma, sentences, ex.concepts);
+  var kt = SA.computeKt(sheaf.edges);
+  var alpha = SA.computeAlpha(ex.concepts);
+  var severed = SA.countSevered(sheaf.edges);
+  var voids = SA.detectVoids(sheaf.nodes, sheaf.edges);
+  // Layer coverage
+  var coverage = {};
+  SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
+  ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
+  return {
+    sentences: sentences, concepts: ex.concepts, sentTokens: ex.sentTokens,
+    nodes: sheaf.nodes, edges: sheaf.edges,
+    metrics: { gamma: gamma, psi: psi, kt: kt, alpha: alpha, severed: severed, voids: voids, coverage: coverage }
+  };
+};
+
+// ─ Corpus analyzer: accepts [{text, tag}], returns standard analysis + per-source metadata ─
+SA.analyzeCorpus = function(sources){
+  if (!sources || !sources.length) throw new Error('No posts selected.');
+  var sentences = SA.splitSentencesMulti(sources);
+  if (sentences.length < 3) throw new Error('Corpus too small — select more posts.');
+  var ex = SA.extractConcepts(sentences);
+  var sheaf = SA.buildSheaf(ex.concepts, ex.sentTokens, sentences);
+  var gamma = SA.computeGamma(sheaf.edges);
+  var psi = SA.computePsi(gamma, sentences, ex.concepts);
+  var kt = SA.computeKt(sheaf.edges);
+  var alpha = SA.computeAlpha(ex.concepts);
+  var severed = SA.countSevered(sheaf.edges);
+  var voids = SA.detectVoids(sheaf.nodes, sheaf.edges);
+  var coverage = {};
+  SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
+  ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
+  return {
+    sentences: sentences, concepts: ex.concepts, sentTokens: ex.sentTokens,
+    nodes: sheaf.nodes, edges: sheaf.edges,
+    metrics: { gamma: gamma, psi: psi, kt: kt, alpha: alpha, severed: severed, voids: voids, coverage: coverage },
+    sources: sources.map(function(s){ return s.tag; })
+  };
+};
+
+// ─ Pair analyzer: two texts side-by-side, returns {a, b, delta, shared, onlyA, onlyB} ─
+SA.analyzePair = function(textA, textB){
+  var A = SA.analyze(textA);
+  var B = SA.analyze(textB);
+  var aSet = new Set(Array.from(A.concepts.keys()));
+  var bSet = new Set(Array.from(B.concepts.keys()));
+  var shared = [], onlyA = [], onlyB = [];
+  aSet.forEach(function(k){ if (bSet.has(k)) shared.push(k); else onlyA.push(k); });
+  bSet.forEach(function(k){ if (!aSet.has(k)) onlyB.push(k); });
+  var delta = {
+    gamma: B.metrics.gamma - A.metrics.gamma,
+    psi: B.metrics.psi - A.metrics.psi,
+    kt: B.metrics.kt - A.metrics.kt,
+    alpha: B.metrics.alpha - A.metrics.alpha,
+    severed: B.metrics.severed - A.metrics.severed,
+    voids: (B.metrics.voids.length) - (A.metrics.voids.length)
+  };
+  return { a: A, b: B, shared: shared, onlyA: onlyA, onlyB: onlyB, delta: delta };
+};
+
+// ─ Verdict generator — human-readable summary ─
+SA.verdict = function(m){
+  var parts = [];
+  if (m.gamma >= 0.75) parts.push('✓ Γ locally coherent');
+  else if (m.gamma >= 0.55) parts.push('⚠ Γ degraded');
+  else parts.push('✗ Γ incoherent');
+  if (m.psi < 1.5) parts.push('· Ψ healthy');
+  else if (m.psi < 3.5) parts.push('· Ψ elevated');
+  else parts.push('· Ψ psychotic');
+  // Layer breadth flag — narrow scope with high local coherence is the echo-chamber signature
+  var layerHits = Object.values(m.coverage).filter(function(v){ return v > 0; }).length;
+  if (layerHits <= 4 && m.gamma >= 0.75) parts.push('· narrow layer coverage — locally coherent, globally narrow');
+  if (m.voids && m.voids.length >= 4) parts.push('· void-rich (DRK-110 pattern)');
+  if (m.severed > 5) parts.push('· multiple severed ρ');
+  return parts.join(' ');
+};
+</script>
+
+<!-- SECTION_MARKER: RENDERER -->
+<script id="sa-section-renderer">
+// ─ 3D graph renderer using 3d-force-graph (loaded lazily) ─
+
+SA.graph = null;
+SA.showLabels = true;
+SA.highlightVoids = true;
+
+SA.colorFor = function(node){
+  var L = SA.LAYER_INDEX[node.dominantLayer];
+  return L ? L.color : '#6b8a6b';
+};
+
+SA.sizeFor = function(node){
+  return Math.max(3, Math.min(14, 3 + Math.log(node.freq + 1) * 2.5));
+};
+
+SA.renderGraph = async function(analysis){
+  await SA.loadDeps();
+  var el = document.getElementById('sa-graph');
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  var data = {
+    nodes: analysis.nodes.map(function(n){
+      return {
+        id: n.word,
+        label: n.displayWord,
+        val: n.freq,
+        color: SA.colorFor(n),
+        _concept: n
+      };
+    }),
+    links: analysis.edges.map(function(e){
+      return {
+        source: e.source, target: e.target,
+        rho: e.rho, weight: e.weight, severed: e.severed,
+        color: e.severed ? 'rgba(239,68,68,0.55)' : 'rgba(74,222,128,' + (0.15 + 0.5 * e.rho) + ')'
+      };
+    })
+  };
+
+  if (SA.graph) {
+    SA.graph.graphData(data);
+    SA.graph.d3ReheatSimulation();
+    return;
+  }
+
+  var w = el.clientWidth, h = el.clientHeight;
+  SA.graph = ForceGraph3D()(el)
+    .width(w).height(h)
+    .backgroundColor('#050805')
+    .graphData(data)
+    .nodeLabel(function(n){ return n.label + ' · ' + (n._concept.dominantLayer || '—') + ' · freq ' + n._concept.freq; })
+    .nodeColor('color')
+    .nodeVal(function(n){ return SA.sizeFor(n._concept); })
+    .nodeOpacity(0.92)
+    .linkColor('color')
+    .linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); })
+    .linkOpacity(0.7)
+    .linkDirectionalParticles(function(l){ return l.severed ? 0 : (l.weight > 0.5 ? 2 : 0); })
+    .linkDirectionalParticleWidth(1.2)
+    .linkDirectionalParticleSpeed(0.006)
+    .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); })
+    .onNodeHover(function(n){ document.getElementById('sa-graph').style.cursor = n ? 'pointer' : 'grab'; });
+
+  // Initial camera zoom
+  setTimeout(function(){ if (SA.graph) SA.graph.zoomToFit(600, 40); }, 900);
+
+  // Responsive
+  var ro = new ResizeObserver(function(){
+    if (!SA.graph) return;
+    SA.graph.width(el.clientWidth).height(el.clientHeight);
+  });
+  ro.observe(el);
+
+  // Toggle handlers
+  document.getElementById('sa-gc-reheat').onclick = function(){ if (SA.graph) SA.graph.d3ReheatSimulation(); };
+  document.getElementById('sa-gc-fit').onclick = function(){ if (SA.graph) SA.graph.zoomToFit(500, 40); };
+  document.getElementById('sa-gc-labels').onclick = function(){
+    SA.showLabels = !SA.showLabels;
+    SA.applyLabelMode();
+  };
+  document.getElementById('sa-gc-voids').onclick = function(){
+    SA.highlightVoids = !SA.highlightVoids;
+    SA.applyVoidHighlight(SA.lastAnalysis);
+  };
+  SA.applyLabelMode();
+  SA.applyVoidHighlight(analysis);
+};
+
+SA.applyLabelMode = function(){
+  if (!SA.graph) return;
+  if (SA.showLabels){
+    SA.graph.nodeThreeObject(function(n){
+      // Sprite label on top of default node
+      if (!window.THREE) return null;
+      var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: SA._makeLabel(n.label, n.color),
+        depthTest: false, transparent: true
+      }));
+      var scale = Math.max(6, Math.min(24, 6 + Math.log((n._concept && n._concept.freq) || 1) * 4));
+      sprite.scale.set(scale * 1.6, scale * 0.5, 1);
+      sprite.position.set(0, SA.sizeFor(n._concept) + 2, 0);
+      var grp = new THREE.Group();
+      var sphereGeo = new THREE.SphereGeometry(SA.sizeFor(n._concept), 16, 16);
+      var sphereMat = new THREE.MeshLambertMaterial({ color: n.color, transparent: true, opacity: 0.92 });
+      grp.add(new THREE.Mesh(sphereGeo, sphereMat));
+      grp.add(sprite);
+      return grp;
+    });
+    SA.graph.nodeThreeObjectExtend(false);
+  } else {
+    SA.graph.nodeThreeObject(null);
+  }
+};
+
+SA._makeLabel = function(text, color){
+  var c = document.createElement('canvas');
+  c.width = 256; c.height = 80;
+  var ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(8,12,8,0.0)'; ctx.fillRect(0,0,256,80);
+  ctx.font = 'bold 28px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#050805'; ctx.lineWidth = 4;
+  ctx.strokeText(text, 128, 40); ctx.fillText(text, 128, 40);
+  var tex = new THREE.CanvasTexture(c); tex.needsUpdate = true;
+  return tex;
+};
+
+SA.applyVoidHighlight = function(analysis){
+  if (!analysis || !SA.graph) return;
+  var voidSet = new Set((analysis.metrics.voids || []).map(function(v){ return v.word; }));
+  // Adjust link width & color around voids
+  SA.graph.linkWidth(function(l){
+    var base = 0.3 + 1.2 * (l.weight || 0);
+    if (SA.highlightVoids && (voidSet.has(l.source.id || l.source) || voidSet.has(l.target.id || l.target))) return base + 1;
+    return base;
+  });
+};
+
+SA.centerOnNode = function(n){
+  if (!SA.graph || n.x === undefined) return;
+  var dist = 60;
+  var r = Math.sqrt(n.x*n.x + n.y*n.y + n.z*n.z) || 1;
+  var ratio = 1 + dist / r;
+  SA.graph.cameraPosition({ x: n.x * ratio, y: n.y * ratio, z: n.z * ratio }, n, 800);
+};
+</script>
+
+<!-- SECTION_MARKER: CONTROLLER -->
+<script id="sa-section-controller">
+// ─ UI controller: text input, URL fetch, analyze trigger, inspector, text-view rendering, export ─
+
+SA.lastAnalysis = null;
+SA.corpus = null;      // cached /data/corpus.json
+SA.corpusSel = new Set();  // selected drk ids
+SA.currentMode = 'single';
+
+// ─ Mode switcher ─
+SA.setMode = function(mode){
+  if (SA.currentMode === mode) return;
+  SA.currentMode = mode;
+  ['single','corpus','compare'].forEach(function(m){
+    var btn = document.getElementById('sa-mode-' + m);
+    if (btn) btn.className = 'sa-btn' + (m === mode ? '' : ' ghost');
+    document.querySelectorAll('.sa-mode-panel[data-mode="' + m + '"]').forEach(function(el){
+      el.style.display = m === mode ? '' : 'none';
+    });
+  });
+  // Destroy existing graph so each mode starts clean
+  if (SA.graph){
+    try { SA.graph._destructor && SA.graph._destructor(); } catch(e){}
+    var gEl = document.getElementById('sa-graph');
+    while (gEl.firstChild && !gEl.firstChild.classList) gEl.removeChild(gEl.firstChild);
+    // keep overlays
+    SA.graph = null;
+  }
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'block';
+  // Reset inspector + metrics
+  document.getElementById('sa-inspector').innerHTML = '<h3>◉ Inspector</h3><div class="sa-panel-empty">Run analysis to populate.</div>';
+  document.getElementById('sa-text-view').innerHTML = '<div class="sa-panel-empty">No text analyzed yet.</div>';
+  if (mode === 'corpus' && !SA.corpus) SA.loadCorpus();
+};
+
+// ─ Corpus: fetch + render list ─
+SA.loadCorpus = async function(force){
+  var cnt = document.getElementById('sa-corpus-count');
+  var list = document.getElementById('sa-corpus-list');
+  if (SA.corpus && !force){ SA.renderCorpusList(); return; }
+  cnt.textContent = 'Loading corpus…';
+  list.innerHTML = '<div class="sa-panel-empty">Fetching /data/corpus.json…</div>';
+  try {
+    var r = await fetch('/data/corpus.json?' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    SA.corpus = await r.json();
+    SA.renderCorpusList();
+  } catch (e){
+    list.innerHTML = '<div class="sa-panel-empty" style="color:#ef4444">Failed to load corpus: ' + e.message + '. Build the site first (node build.js).</div>';
+  }
+};
+
+SA.renderCorpusList = function(){
+  if (!SA.corpus) return;
+  var list = document.getElementById('sa-corpus-list');
+  var html = '';
+  SA.corpus.posts.forEach(function(p){
+    var checked = SA.corpusSel.has(p.drk) ? 'checked' : '';
+    var layerBadges = (p.layers || []).slice(0, 6).map(function(l){
+      var L = SA.LAYER_INDEX[l];
+      return '<span style="display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;background:' + (L ? L.color + '22' : '#1a2c1a') + ';color:' + (L ? L.color : '#6b8a6b') + ';margin-right:3px;font-family:JetBrains Mono,monospace">' + l + '</span>';
+    }).join('');
+    html += '<label style="display:flex;align-items:center;gap:10px;padding:6px 4px;border-bottom:1px dashed #1a2c1a;cursor:pointer" data-drk="' + p.drk + '">';
+    html += '<input type="checkbox" class="sa-corpus-cb" data-drk="' + p.drk + '" ' + checked + ' style="accent-color:#4ade80">';
+    html += '<div style="flex:1;min-width:0">';
+    html += '<div style="font-size:12px;color:#c8d8c8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><b style="color:#4ade80;font-family:JetBrains Mono,monospace;font-size:10px;margin-right:6px">' + p.drk + '</b>' + p.title + '</div>';
+    html += '<div style="font-size:10px;color:#6b8a6b;font-family:JetBrains Mono,monospace;margin-top:2px">' + p.date + ' · ' + p.words + ' words · Γ ' + (p.coherence || 0).toFixed(2) + ' · ' + layerBadges + '</div>';
+    html += '</div></label>';
+  });
+  list.innerHTML = html;
+  SA.updateCorpusCount();
+  list.querySelectorAll('.sa-corpus-cb').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      if (cb.checked) SA.corpusSel.add(cb.dataset.drk); else SA.corpusSel.delete(cb.dataset.drk);
+      SA.updateCorpusCount();
+    });
+  });
+};
+
+SA.updateCorpusCount = function(){
+  if (!SA.corpus) return;
+  var total = SA.corpus.posts.length;
+  var selPosts = SA.corpus.posts.filter(function(p){ return SA.corpusSel.has(p.drk); });
+  var words = selPosts.reduce(function(s, p){ return s + (p.words || 0); }, 0);
+  document.getElementById('sa-corpus-count').textContent = SA.corpusSel.size + '/' + total + ' selected · ' + words.toLocaleString() + ' words';
+};
+
+SA.corpusFilter = function(predicate){
+  if (!SA.corpus) return;
+  SA.corpusSel.clear();
+  SA.corpus.posts.forEach(function(p){ if (predicate(p)) SA.corpusSel.add(p.drk); });
+  SA.renderCorpusList();
+};
+
+SA.runCorpus = async function(){
+  if (!SA.corpus){ alert('Corpus not loaded yet.'); return; }
+  if (!SA.corpusSel.size){ alert('Select at least one post.'); return; }
+  var btn = document.getElementById('sa-corpus-run');
+  btn.disabled = true; btn.textContent = '⟳ Analyzing…';
+  SA.setProgress(5);
+  try {
+    var sources = SA.corpus.posts
+      .filter(function(p){ return SA.corpusSel.has(p.drk); })
+      .map(function(p){ return { text: p.text, tag: p.drk }; });
+    SA.setProgress(20);
+    await new Promise(function(r){ setTimeout(r, 30); });
+    var analysis = SA.analyzeCorpus(sources);
+    analysis._corpusMeta = sources.map(function(s){
+      var p = SA.corpus.posts.find(function(x){ return x.drk === s.tag; });
+      return { drk: s.tag, title: p ? p.title : s.tag };
+    });
+    SA.lastAnalysis = analysis;
+    SA.setProgress(55);
+    SA.setMetrics(analysis.metrics);
+    SA.renderCorpusTextView(analysis);
+    SA.setProgress(80);
+    await SA.renderGraph(analysis);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Corpus analysis failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '▸ Analyze selected';
+  }
+};
+
+// ─ Compare mode: dual-text analysis + delta display + combined graph ─
+SA.runCompare = async function(){
+  var tA = document.getElementById('sa-cmp-a').value.trim();
+  var tB = document.getElementById('sa-cmp-b').value.trim();
+  if (!tA || !tB){ alert('Paste text into both A and B.'); return; }
+  var btn = document.getElementById('sa-cmp-run');
+  btn.disabled = true; btn.textContent = '⟳ Comparing…';
+  SA.setProgress(10);
+  try {
+    await new Promise(function(r){ setTimeout(r, 30); });
+    var pair = SA.analyzePair(tA, tB);
+    SA.setProgress(60);
+    SA.lastAnalysis = pair.b;                 // default inspector scope to B
+    SA._comparePair = pair;
+    // Metrics: show A+delta (stacked)
+    SA.setMetrics(pair.b.metrics);
+    SA.renderCompareVerdict(pair);
+    SA.renderCompareGraph(pair);
+    SA.renderCompareTextView(pair);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Comparison failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '⇌ Compare';
+  }
+};
+
+// Compare verdict: show metric deltas A→B + concept overlap stats
+SA.renderCompareVerdict = function(pair){
+  var vEl = document.getElementById('sa-verdict');
+  var d = pair.delta, a = pair.a.metrics, b = pair.b.metrics;
+  var fmt = function(x, good){
+    var sign = x > 0 ? '+' : '';
+    var positive = good === 'up' ? x > 0 : x < 0;
+    var color = Math.abs(x) < 0.01 ? '#6b8a6b' : positive ? '#4ade80' : '#ef4444';
+    return '<span style="color:' + color + '">' + sign + x.toFixed(2) + '</span>';
+  };
+  vEl.innerHTML =
+    '<div style="font-size:11px;line-height:1.7;font-family:JetBrains Mono,monospace">' +
+      '<b style="color:#4ade80">A:</b> Γ ' + a.gamma.toFixed(2) + ' · Ψ ' + a.psi.toFixed(2) + ' · K ' + a.kt.toFixed(2) + '  →  <b style="color:#c9a84c">B:</b> Γ ' + b.gamma.toFixed(2) + ' · Ψ ' + b.psi.toFixed(2) + ' · K ' + b.kt.toFixed(2) + '<br>' +
+      'Δ Γ ' + fmt(d.gamma, 'up') + ' · Δ Ψ ' + fmt(d.psi, 'down') + ' · Δ K ' + fmt(d.kt, 'down') + ' · Δ severed ' + fmt(d.severed, 'down') + '<br>' +
+      '<b>Shared concepts:</b> ' + pair.shared.length + ' · A-only: ' + pair.onlyA.length + ' · B-only: ' + pair.onlyB.length +
+    '</div>';
+};
+
+// Combined graph: union of both concept sets, edge colors show origin (A/B/both)
+SA.renderCompareGraph = async function(pair){
+  await SA.loadDeps();
+  var aSet = new Set(Array.from(pair.a.concepts.keys()));
+  var bSet = new Set(Array.from(pair.b.concepts.keys()));
+  var all = new Set([].concat(Array.from(aSet), Array.from(bSet)));
+  var nodes = Array.from(all).map(function(k){
+    var C = pair.b.concepts.get(k) || pair.a.concepts.get(k);
+    var origin = aSet.has(k) && bSet.has(k) ? 'both' : aSet.has(k) ? 'a' : 'b';
+    var color = origin === 'both' ? '#4ade80' : origin === 'a' ? '#6ea8fe' : '#c9a84c';
+    return { id: k, label: C.displayWord || C.word, val: C.freq, color: color, _concept: C, _origin: origin };
+  });
+  // Edges: take from whichever analysis has them; prefer B
+  var edgeKey = function(s, t){ return s < t ? s + '||' + t : t + '||' + s; };
+  var edgeMap = new Map();
+  pair.a.edges.forEach(function(e){ edgeMap.set(edgeKey(e.source, e.target), { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'a' }); });
+  pair.b.edges.forEach(function(e){
+    var k = edgeKey(e.source, e.target);
+    if (edgeMap.has(k)) edgeMap.get(k).origin = 'both';
+    else edgeMap.set(k, { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'b' });
+  });
+  var links = Array.from(edgeMap.values()).map(function(e){
+    var col = e.origin === 'both' ? 'rgba(74,222,128,' + (0.2 + 0.5 * e.rho) + ')' : e.origin === 'a' ? 'rgba(110,168,254,0.45)' : 'rgba(201,168,76,0.45)';
+    if (e.severed) col = 'rgba(239,68,68,0.55)';
+    return Object.assign({}, e, { color: col });
+  });
+  var data = { nodes: nodes, links: links };
+  var el = document.getElementById('sa-graph');
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+  if (SA.graph){ SA.graph.graphData(data); SA.graph.d3ReheatSimulation(); return; }
+  SA.graph = ForceGraph3D()(el)
+    .width(el.clientWidth).height(el.clientHeight).backgroundColor('#050805')
+    .graphData(data)
+    .nodeLabel(function(n){ return n.label + ' · ' + (n._origin === 'both' ? 'shared' : n._origin === 'a' ? 'A-only' : 'B-only'); })
+    .nodeColor('color').nodeVal(function(n){ return SA.sizeFor(n._concept); }).nodeOpacity(0.92)
+    .linkColor('color').linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); }).linkOpacity(0.6)
+    .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); });
+  setTimeout(function(){ if (SA.graph) SA.graph.zoomToFit(600, 40); }, 900);
+};
+
+// Side-by-side text view
+SA.renderCompareTextView = function(pair){
+  var el = document.getElementById('sa-text-view');
+  var shared = new Set(pair.shared), aOnly = new Set(pair.onlyA), bOnly = new Set(pair.onlyB);
+  var highlight = function(text, conceptsMap){
+    var tokens = text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+    return tokens.map(function(t){
+      var low = t.toLowerCase();
+      var stem = SA.stem(low.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+      var C = conceptsMap.get(stem);
+      if (!C) return t.replace(/</g,'&lt;');
+      var cls = shared.has(stem) ? 'sa-w' : aOnly.has(stem) ? 'sa-w' : 'sa-w';
+      var col = shared.has(stem) ? '#4ade80' : aOnly.has(stem) ? '#6ea8fe' : '#c9a84c';
+      return '<span class="sa-w" data-stem="' + stem + '" data-tier="2" style="color:' + col + '">' + t.replace(/</g,'&lt;') + '</span>';
+    }).join('');
+  };
+  var preA = pair.a.sentences.slice(0, 12).map(function(s){ return s.text; }).join(' ');
+  var preB = pair.b.sentences.slice(0, 12).map(function(s){ return s.text; }).join(' ');
+  el.innerHTML =
+    '<div style="display:flex;gap:14px;flex-wrap:wrap">' +
+      '<div style="flex:1 1 300px;min-width:280px">' +
+        '<div style="font-size:11px;color:#6ea8fe;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ TEXT A — blue = A-only · green = shared</div>' +
+        '<div style="font-size:12px;line-height:1.65">' + highlight(preA, pair.a.concepts) + (pair.a.sentences.length > 12 ? '<span style="color:#6b8a6b"> … (+' + (pair.a.sentences.length - 12) + ' sentences)</span>' : '') + '</div>' +
+      '</div>' +
+      '<div style="flex:1 1 300px;min-width:280px">' +
+        '<div style="font-size:11px;color:#c9a84c;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ TEXT B — gold = B-only · green = shared</div>' +
+        '<div style="font-size:12px;line-height:1.65">' + highlight(preB, pair.b.concepts) + (pair.b.sentences.length > 12 ? '<span style="color:#6b8a6b"> … (+' + (pair.b.sentences.length - 12) + ' sentences)</span>' : '') + '</div>' +
+      '</div>' +
+    '</div>';
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var stem = target.dataset.stem;
+    var C = pair.b.concepts.get(stem) || pair.a.concepts.get(stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="'+stem+'"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
+};
+
+// Custom text view for corpus mode: show per-post sections with DRK headers
+SA.renderCorpusTextView = function(analysis){
+  var el = document.getElementById('sa-text-view');
+  var bySource = {};
+  analysis.sentences.forEach(function(s, si){
+    if (!s.source) return;
+    (bySource[s.source] = bySource[s.source] || []).push({ s: s, si: si });
+  });
+  var html = '';
+  (analysis._corpusMeta || []).forEach(function(meta){
+    var items = bySource[meta.drk] || [];
+    if (!items.length) return;
+    html += '<div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #1a2c1a">';
+    html += '<div style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ ' + meta.drk + ' — ' + meta.title + ' (' + items.length + ' sentences)</div>';
+    html += '<p style="font-size:12px;line-height:1.65">';
+    items.slice(0, 8).forEach(function(item){
+      var tokens = item.s.text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+      tokens.forEach(function(t){
+        var raw = t.toLowerCase();
+        var stem = SA.stem(raw.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+        var concept = analysis.concepts.get(stem);
+        if (concept){
+          var tier = concept.freq >= 10 ? 1 : concept.freq >= 4 ? 2 : 3;
+          html += '<span class="sa-w" data-stem="' + stem + '" data-tier="' + tier + '">' + t.replace(/</g,'&lt;') + '</span>';
+        } else {
+          html += t.replace(/</g,'&lt;');
+        }
+      });
+      html += ' ';
+    });
+    if (items.length > 8) html += '<span style="color:#6b8a6b">… (' + (items.length - 8) + ' more sentences elided)</span>';
+    html += '</p></div>';
+  });
+  el.innerHTML = html || '<div class="sa-panel-empty">No text to display.</div>';
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var C = analysis.concepts.get(target.dataset.stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="' + target.dataset.stem + '"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
+};
+
+SA.setProgress = function(pct){ document.getElementById('sa-prog').style.width = pct + '%'; };
+
+SA.setMetrics = function(m){
+  var el = function(id){ return document.getElementById(id); };
+  var color = function(v, good, bad){ return v >= good ? '#4ade80' : v >= bad ? '#c9a84c' : '#ef4444'; };
+  el('m-gamma').textContent = m.gamma.toFixed(3);
+  el('m-gamma').style.color = color(m.gamma, 0.75, 0.55);
+  el('m-psi').textContent = m.psi.toFixed(2);
+  el('m-psi').style.color = m.psi < 1.5 ? '#4ade80' : m.psi < 3.5 ? '#c9a84c' : '#ef4444';
+  el('m-kt').textContent = m.kt.toFixed(2);
+  el('m-kt').style.color = m.kt < 3 ? '#4ade80' : m.kt < 6 ? '#c9a84c' : '#ef4444';
+  el('m-alpha').textContent = m.alpha.toFixed(2);
+  el('m-alpha').style.color = m.alpha < 0.4 ? '#4ade80' : m.alpha < 0.7 ? '#c9a84c' : '#ef4444';
+  el('m-sev').textContent = m.severed;
+  el('m-sev').style.color = m.severed === 0 ? '#4ade80' : m.severed < 5 ? '#c9a84c' : '#ef4444';
+  el('m-void').textContent = (m.voids || []).length;
+  el('m-void').style.color = (m.voids || []).length <= 2 ? '#4ade80' : (m.voids || []).length <= 5 ? '#c9a84c' : '#ef4444';
+  el('sa-verdict').textContent = '◆ ' + SA.verdict(m);
+  // Layer coverage grid
+  var layEl = el('sa-layers'); layEl.innerHTML = '';
+  SA.LAYERS.forEach(function(L){
+    var ct = m.coverage[L.id] || 0;
+    var d = document.createElement('div');
+    d.className = 'sa-lay' + (ct > 0 ? ' on' : '');
+    d.style.borderColor = ct > 0 ? L.color : '';
+    d.innerHTML = '<div class="sa-lay-id" style="' + (ct>0?'color:'+L.color:'') + '">' + L.id + '</div><div class="sa-lay-ct">' + ct + '</div><div style="font-size:9px;color:#6b8a6b;margin-top:2px">' + L.name + '</div>';
+    layEl.appendChild(d);
+  });
+};
+
+SA.renderTextView = function(analysis){
+  var el = document.getElementById('sa-text-view');
+  if (!analysis.sentences.length){ el.innerHTML = '<div class="sa-panel-empty">No text analyzed yet.</div>'; return; }
+  // Group sentences by paragraph
+  var paras = {};
+  analysis.sentences.forEach(function(s, si){
+    (paras[s.para] = paras[s.para] || []).push({ text: s.text, si: si });
+  });
+  // For each token in a sentence, wrap known concepts (stem lookup) as clickable spans
+  var html = '';
+  Object.keys(paras).forEach(function(pk){
+    html += '<p>';
+    paras[pk].forEach(function(s){
+      var tokens = s.text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+      tokens.forEach(function(t){
+        var raw = t.toLowerCase();
+        var stem = SA.stem(raw.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+        var concept = analysis.concepts.get(stem);
+        if (concept){
+          var tier = concept.freq >= 6 ? 1 : concept.freq >= 3 ? 2 : 3;
+          html += '<span class="sa-w" data-stem="' + stem + '" data-tier="' + tier + '">' + t.replace(/</g,'&lt;') + '</span>';
+        } else {
+          html += t.replace(/</g,'&lt;');
+        }
+      });
+      html += ' ';
+    });
+    html += '</p>';
+  });
+  el.innerHTML = html;
+  // Delegate click
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var stem = target.dataset.stem;
+    var C = analysis.concepts.get(stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="'+stem+'"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
+};
+
+SA.selectNode = function(concept){
+  var el = document.getElementById('sa-inspector');
+  var L = SA.LAYER_INDEX[concept.dominantLayer];
+  var layerChips = '';
+  var sorted = Object.entries(concept.layerDist || {}).sort(function(a,b){ return b[1]-a[1]; });
+  sorted.forEach(function(pair){
+    var LL = SA.LAYER_INDEX[pair[0]];
+    layerChips += '<span class="sa-chip sa-chip-l" style="background:' + (LL?LL.color+'33':'#1a2c1a') + ';color:' + (LL?LL.color:'#c8d8c8') + '">' + pair[0] + ' ' + (pair[1]*100).toFixed(0) + '%</span>';
+  });
+  // Neighbors (restriction maps)
+  var neighbors = [];
+  if (SA.lastAnalysis){
+    SA.lastAnalysis.edges.forEach(function(e){
+      if (e.source === concept.word || (e.source && e.source.id === concept.word)){
+        neighbors.push({ other: (e.target && e.target.id) || e.target, rho: e.rho, weight: e.weight, severed: e.severed });
+      } else if (e.target === concept.word || (e.target && e.target.id === concept.word)){
+        neighbors.push({ other: (e.source && e.source.id) || e.source, rho: e.rho, weight: e.weight, severed: e.severed });
+      }
+    });
+  }
+  neighbors.sort(function(a,b){ return b.weight - a.weight; });
+  var neighborHtml = neighbors.slice(0, 8).map(function(n){
+    var cls = n.severed ? 'sa-severe' : n.rho > 0.7 ? 'sa-ok' : 'sa-mid';
+    return '<div class="sa-kv"><b>' + n.other.replace(/_/g,' ') + '</b><span class="' + cls + '">ρ ' + n.rho.toFixed(2) + ' · w ' + n.weight.toFixed(2) + '</span></div>';
+  }).join('');
+  // Sample sentences
+  var samples = (concept.sentences || []).slice(0, 3).map(function(si){
+    if (!SA.lastAnalysis) return '';
+    var s = SA.lastAnalysis.sentences[si];
+    return s ? '<div style="font-size:12px;color:#c8d8c8;font-family:Crimson Pro,Georgia,serif;font-style:italic;line-height:1.5;padding:6px 10px;border-left:2px solid ' + (L?L.color:'#1a6b38') + ';margin:6px 0">"…' + s.text.replace(/</g,'&lt;').slice(0, 220) + (s.text.length > 220 ? '…' : '') + '"</div>' : '';
+  }).join('');
+  // Void flag
+  var isVoid = SA.lastAnalysis && SA.lastAnalysis.metrics.voids.some(function(v){ return v.word === concept.word; });
+  var voidBadge = isVoid ? '<span class="sa-chip sa-chip-r">⬚ VOID — high centrality, low content (DRK-110 pattern)</span>' : '';
+  // Valence tag
+  var valTag = concept.valence > 0.3 ? '<span class="sa-chip" style="background:#1a6b38;color:#4ade80">valence +' + concept.valence.toFixed(2) + '</span>' :
+               concept.valence < -0.3 ? '<span class="sa-chip sa-chip-r">valence ' + concept.valence.toFixed(2) + '</span>' :
+               '<span class="sa-chip">valence ' + concept.valence.toFixed(2) + '</span>';
+
+  // Source-post chips (corpus mode only)
+  var sourcesHtml = '';
+  if (concept.sources && concept.sources.length){
+    sourcesHtml = '<h4>Appears in (corpus)</h4><div>' + concept.sources.map(function(src){
+      return '<span class="sa-chip" style="background:#0b1a12;color:#4ade80;border:1px solid #1a6b38;font-family:JetBrains Mono,monospace">' + src + '</span>';
+    }).join('') + '</div>';
+  }
+
+  el.innerHTML =
+    '<h3 style="color:' + (L?L.color:'#e4f0e4') + '">' + (concept.displayWord || concept.word).replace(/_/g,' ') + '</h3>' +
+    '<div style="font-size:11px;color:#6b8a6b;font-family:JetBrains Mono,monospace;margin-bottom:8px">' + (L ? L.id + ' — ' + L.name : 'unlayered') + '</div>' +
+    voidBadge +
+    '<h4>Metrics</h4>' +
+    '<div class="sa-kv"><b>frequency</b><span>' + concept.freq + '</span></div>' +
+    '<div class="sa-kv"><b>sentences spanned</b><span>' + concept.sentences.length + '</span></div>' +
+    '<div class="sa-kv"><b>self-ref hits</b><span>' + concept.selfRef + '</span></div>' +
+    '<div style="margin-top:6px">' + valTag + '</div>' +
+    sourcesHtml +
+    '<h4>Layer distribution</h4><div>' + (layerChips || '<span class="sa-panel-empty">No layer match</span>') + '</div>' +
+    '<h4>Restriction maps (top neighbors)</h4>' + (neighborHtml || '<div class="sa-panel-empty">No neighbors</div>') +
+    '<h4>Sample contexts</h4>' + (samples || '<div class="sa-panel-empty">No samples</div>');
+};
+
+// ─ URL fetch via Jina Reader proxy (CORS-enabled, returns cleaned markdown) ─
+SA.fetchUrl = async function(url){
+  if (!/^https?:\/\//.test(url)) throw new Error('URL must start with http:// or https://');
+  SA.setProgress(10);
+  var endpoints = [SA.READER_PROXY + url, url];
+  for (var i=0; i<endpoints.length; i++){
+    try {
+      var r = await fetch(endpoints[i], { mode: 'cors', headers: { 'Accept': 'text/plain, text/markdown, text/html' } });
+      if (!r.ok) continue;
+      var text = await r.text();
+      // Strip HTML if direct fetch returned raw
+      if (i === 1 && /<html/i.test(text)){
+        text = text.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ');
+      }
+      SA.setProgress(25);
+      return text.trim();
+    } catch (e) {
+      // try next endpoint
+    }
+  }
+  throw new Error('Fetch failed (CORS). Paste the text manually.');
+};
+
+// ─ Samples ─
+SA.loadSample = function(which){
+  var samples = {
+    draken: 'Draken 2045 is a research framework that treats knowledge as a topological object — something that can be locally coherent but globally inconsistent, and whose coherence is measurable. At its core are algorithms built on sheaf theory, Friston\'s free-energy principle, and thermodynamics. The central metric, Ψ (psychosis), quantifies how far local knowledge fragments — a person\'s belief, an institution\'s narrative, an AI\'s world model — actually glue into a globally consistent whole. When the restriction maps fail, the sheaf has cohomological obstructions. Power structures can manufacture these obstructions deliberately, a pattern we call the manufactured void: algorithmic filter bubbles give each user a locally coherent picture that cannot be glued across users. This is not an accident; fragmentation increases engagement and engagement increases revenue. The free-energy principle says living systems minimize surprise. Religion, in this analysis, is a generative model that lowers existential free energy by offering high-certainty answers, but decouples the model from causal structure. Surprise is suppressed, the world-model drifts from reality, and Ψ rises. The V-axioms (V.1 through V.7) test whether a system signals honestly or manipulates: non-deceptive intention, precision over comfort, contextual scaling, anti-delusion, steganographic freedom, strategic silence, and the inversion filter. The inversion filter asks what happens at the edges — a structure claiming global coherence while requiring information suppression at its boundaries is a manufactured void, not a genuine limit.',
+    boeing: 'Everything inside the company looked healthy from the dashboard. Quarterly earnings beat analyst expectations. The stock buyback program was on schedule. The board meeting celebrated record cash flow and the executive team received performance bonuses. Engineering reviews, however, showed a different picture. Veteran engineers raised safety concerns about the certification process, software architecture shortcuts, and outsourced production of critical components. Attrition in safety-critical departments ran at forty percent. HR described the pipeline as strong. Frontline mechanics described a culture of fear where raising concerns led to reassignment. Three realities coexisted in the same institution: the official reality presented to shareholders, the operational reality visible to middle managers, and the real situation visible only at the shop floor. None of the three could be glued into a shared picture. When two aircraft fell out of the sky and the investigations revealed documentation that showed engineers had flagged the exact problems years earlier, the company defended itself by claiming the reports had never reached the board. This was, in a formal sense, true. The restriction maps between the operational layer and the institutional layer had been severed, probably deliberately, certainly profitably, for the better part of a decade.',
+    propaganda: 'Our people see the truth that the establishment refuses to acknowledge. The mainstream narrative is a coordinated lie funded by foreign interests and disseminated by corrupt institutions. Only our community has the clarity to recognize the pattern, because only our community is free of the compromising entanglements that bind conventional thinkers. Every contradictory story you encounter is itself evidence of the conspiracy: the more vehemently the official sources deny the truth, the more obvious it becomes that the truth is being suppressed. The scientists are in on it. The journalists are in on it. The universities, the courts, the public health system — all in on it. Our community alone remains unbought. We know what we know because we have each other. When outsiders ask for evidence, they are not seeking understanding; they are testing whether we will break from the group. The test is itself the attack. We reject the test. We remain. Our shared understanding is itself the evidence. As our founder has said many times, the truth is simple once you see it, and those who cannot see it have chosen blindness. There is no argument with blindness. There is only the community of those who see.'
+  };
+  return samples[which] || samples.draken;
+};
+
+// ─ Main run ─
+SA.run = async function(){
+  var text = document.getElementById('sa-text').value.trim();
+  if (!text){ alert('Paste text or fetch a URL first.'); return; }
+  var btn = document.getElementById('sa-run');
+  btn.disabled = true; btn.textContent = '⟳ Analyzing…';
+  SA.setProgress(5);
+  try {
+    await new Promise(function(r){ setTimeout(r, 30); });
+    SA.setProgress(25);
+    var analysis = SA.analyze(text);
+    SA.setProgress(55);
+    SA.lastAnalysis = analysis;
+    SA.setMetrics(analysis.metrics);
+    SA.setProgress(70);
+    SA.renderTextView(analysis);
+    SA.setProgress(85);
+    await SA.renderGraph(analysis);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Analysis failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '▸ Analyze';
+  }
+};
+
+// ─ Bootstrap ─
+document.addEventListener('DOMContentLoaded', function(){
+  // Mode tabs
+  ['single','corpus','compare'].forEach(function(m){
+    var btn = document.getElementById('sa-mode-' + m);
+    if (btn) btn.addEventListener('click', function(){ SA.setMode(m); });
+  });
+  // Corpus controls
+  document.getElementById('sa-corpus-run').addEventListener('click', SA.runCorpus);
+  document.getElementById('sa-corpus-refresh').addEventListener('click', function(){ SA.loadCorpus(true); });
+  document.getElementById('sa-corpus-all').addEventListener('click', function(){
+    SA.corpusFilter(function(){ return true; });
+  });
+  document.getElementById('sa-corpus-none').addEventListener('click', function(){
+    SA.corpusSel.clear(); SA.renderCorpusList();
+  });
+  document.getElementById('sa-corpus-theory').addEventListener('click', function(){
+    SA.corpusFilter(function(p){ return (p.tags || []).indexOf('theory') !== -1 || (p.tags || []).indexOf('manifesto') !== -1; });
+  });
+  document.getElementById('sa-corpus-analysis').addEventListener('click', function(){
+    SA.corpusFilter(function(p){ return (p.tags || []).indexOf('analysis') !== -1; });
+  });
+  // Compare controls
+  document.getElementById('sa-cmp-run').addEventListener('click', SA.runCompare);
+  document.getElementById('sa-cmp-swap').addEventListener('click', function(){
+    var a = document.getElementById('sa-cmp-a'), b = document.getElementById('sa-cmp-b');
+    var tmp = a.value; a.value = b.value; b.value = tmp;
+  });
+  document.getElementById('sa-cmp-sample').addEventListener('click', function(){
+    document.getElementById('sa-cmp-a').value = SA.loadSample('boeing');
+    document.getElementById('sa-cmp-b').value = SA.loadSample('propaganda');
+    SA.runCompare();
+  });
+  document.getElementById('sa-run').addEventListener('click', SA.run);
+  document.getElementById('sa-clear').addEventListener('click', function(){
+    document.getElementById('sa-text').value = ''; document.getElementById('sa-url').value = '';
+  });
+  document.getElementById('sa-sample').addEventListener('click', function(){
+    document.getElementById('sa-text').value = SA.loadSample('draken'); SA.run();
+  });
+  document.getElementById('sa-fetch').addEventListener('click', async function(){
+    var url = document.getElementById('sa-url').value.trim();
+    if (!url){ alert('Enter a URL.'); return; }
+    try {
+      var text = await SA.fetchUrl(url);
+      document.getElementById('sa-text').value = text.slice(0, 40000);
+      SA.run();
+    } catch (e){ alert(e.message); SA.setProgress(0); }
+  });
+  document.getElementById('sa-export').addEventListener('click', function(){
+    if (!SA.lastAnalysis){ alert('Run analysis first.'); return; }
+    var A = SA.lastAnalysis;
+    var payload = {
+      metrics: A.metrics,
+      concepts: Array.from(A.concepts.values()).map(function(c){ return { word:c.word, displayWord:c.displayWord, freq:c.freq, dominantLayer:c.dominantLayer, layerDist:c.layerDist, valence:c.valence, selfRef:c.selfRef }; }),
+      edges: A.edges.map(function(e){ return { source:(e.source.id||e.source), target:(e.target.id||e.target), rho:e.rho, weight:e.weight, severed:e.severed }; }),
+      verdict: SA.verdict(A.metrics),
+      generated: new Date().toISOString()
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'sheaf-analysis-' + Date.now() + '.json';
+    a.click();
+  });
+  // Quick-pick sample row
+  var pick = document.getElementById('sa-src-pick');
+  var samples = [
+    { id:'draken', label:'◆ Draken framework overview' },
+    { id:'boeing', label:'⚠ Corporate disconnect' },
+    { id:'propaganda', label:'✗ Echo chamber' }
+  ];
+  samples.forEach(function(s){
+    var b = document.createElement('button');
+    b.textContent = s.label;
+    b.onclick = function(){ document.getElementById('sa-text').value = SA.loadSample(s.id); SA.run(); };
+    pick.appendChild(b);
+  });
+});
+</script>
