@@ -6,7 +6,7 @@
   "pub_count": 22,
   "active_layers": "18/18",
   "phase": "ALPHA",
-  "last_updated": "2026-04-24T12:00:00Z",
+  "last_updated": "2026-04-24T14:00:00Z",
   "layer_status": {
     "L01": "active",
     "L02": "active",
@@ -419,13 +419,14 @@
         "L17",
         "L18"
       ],
-      "coherence": 0.9,
-      "date": "2026-04-24"
+      "coherence": 0.92,
+      "date": "2026-04-24",
+      "version": "v2"
     }
   ],
   "corpus_stats": {
-    "total_words": 119500,
-    "total_sources_cited": 128,
+    "total_words": 120200,
+    "total_sources_cited": 137,
     "cross_layer_links": 74
   }
 }
