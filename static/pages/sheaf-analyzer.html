@@ -181,7 +181,54 @@ SA.loadDeps = async function(){ if(window.ForceGraph3D) return; await SA.loadScr
 </script>
 
 <!-- SECTION_MARKER: LEXICON -->
-<script id="sa-section-lexicon">/* populated in Edit pass 1 */</script>
+<script id="sa-section-lexicon">
+// ─ Draken 18-layer lexicon. Keywords chosen for discriminability, not coverage. ─
+// A token matches at most one layer (first hit wins if multi-layer; dominant layer is argmax).
+SA.LAYERS = [
+  {id:'L01', name:'Quantum Field',     color:'#6ea8fe', kw:['quantum','field','photon','electron','particle','wave','spin','gauge','amplitude','vacuum','heisenberg','schrodinger','superposition','entanglement','boson','fermion']},
+  {id:'L02', name:'Chem. Thermo.',     color:'#8ab4ff', kw:['entropy','thermodynamic','chemical','reaction','catalyst','enzyme','heat','temperature','gradient','bond','molecule','molecular','covalent','ionic','dissipation']},
+  {id:'L03', name:'Molecular Asm.',    color:'#6ee7b7', kw:['protein','dna','rna','gene','genome','ribosome','assembly','membrane','mitochondria','folding','cell','cellular','cytoskeleton','organelle','receptor']},
+  {id:'L04', name:'Bioelectric',       color:'#2dd4bf', kw:['bioelectric','voltage','ion','channel','synapse','action potential','neuron','neural','axon','dendrite','membrane potential','cortex','levin','gap junction']},
+  {id:'L05', name:'Neural Integ.',     color:'#22d3ee', kw:['brain','perception','sensory','predictive','attention','memory','consciousness','cognitive','hippocampus','amygdala','prefrontal','salience','default mode']},
+  {id:'L06', name:'Embodied Cog.',     color:'#38bdf8', kw:['body','embodied','affect','emotion','feeling','sensation','gut','visceral','interoception','somatic','proprioception','breath','posture','arousal']},
+  {id:'L07', name:'Narrative Self',    color:'#f59e0b', kw:['self','identity','narrative','story','ego','autobiography','meaning','purpose','inner','subjective','experience','phenomenology','reflection','introspect']},
+  {id:'L08', name:'Dyadic Signal',     color:'#fb923c', kw:['dyad','pair','couple','intimate','trust','conversation','dialogue','listening','attachment','bond','friendship','rapport','mirror','empathy']},
+  {id:'L09', name:'Group Cognition',   color:'#f87171', kw:['group','tribe','community','collective','shared belief','consensus','common knowledge','in-group','out-group','tribal','echo chamber','peer','cohort']},
+  {id:'L10', name:'Social Coord.',     color:'#ef4444', kw:['coordination','cooperation','team','organization','meeting','protocol','norm','convention','ritual','standard','role','practice','workflow','division of labor']},
+  {id:'L11', name:'Economic Cog.',     color:'#a78bfa', kw:['price','money','market','trade','demand','supply','labor','wage','capital','currency','profit','cost','value','exchange','transaction','investor']},
+  {id:'L12', name:'National Narr.',    color:'#c084fc', kw:['nation','national','country','citizen','flag','patriotism','border','sovereignty','state','homeland','identity','public opinion','media','propaganda']},
+  {id:'L13', name:'Political Str.',    color:'#e879f9', kw:['political','policy','power','authority','government','regulation','law','constitution','election','legislature','executive','party','vote','lobby','coalition']},
+  {id:'L14', name:'Economic Topo.',    color:'#f472b6', kw:['economy','gdp','inflation','recession','inequality','class','capitalism','socialism','crisis','debt','financial','bank','banking','systemic','structural']},
+  {id:'L15', name:'Cultural Field',    color:'#fbbf24', kw:['culture','art','music','literature','religion','ritual','tradition','myth','language','ideology','worldview','canon','discourse','aesthetics','meaning']},
+  {id:'L16', name:'Instit. Morph.',    color:'#facc15', kw:['institution','bureaucracy','university','church','corporation','agency','board','charter','incumbent','governance','compliance','audit','mandate','ossified']},
+  {id:'L17', name:'Civ. Memory',       color:'#84cc16', kw:['history','historical','civilization','heritage','memory','legacy','generation','century','ancient','archive','tradition','precedent','canon','lineage']},
+  {id:'L18', name:'Planetary Cog.',    color:'#4ade80', kw:['planet','planetary','earth','climate','ecology','ecosystem','biosphere','global','species','extinction','carbon','atmosphere','geology','anthropocene','ocean']}
+];
+SA.LAYER_INDEX = {}; SA.LAYERS.forEach(function(L,i){ SA.LAYER_INDEX[L.id] = Object.assign({}, L, {idx:i}); });
+
+// ─ Stopwords (English; supplemented with common narrative-filler) ─
+SA.STOP = new Set(('a an the and or but if then else of in on at to from by for with without into onto about over under above below across after before during through out up down off near beside between among since until while as when where why how whom whose which what who that this those these it its it\'s they them their theirs we us our ours you your yours i me my mine he him his she her hers them they be is are was were been being have has had do does did done can could may might must shall should will would ought not no yes so than very just also only also both each any some all many more most few less much other another such same own said says say saying thing things really actually basically literally simply clearly obviously indeed however therefore thus hence moreover furthermore whereas otherwise').split(/\s+/));
+
+// ─ Self-reference markers (approximate Ψ component) ─
+SA.SELF_REF = ['i ','me ','my ','mine ','myself ','as i said','as mentioned','my framework','my theory','my view','in my opinion','as noted above','we have shown','it is clear that','obviously','of course','as everyone knows'];
+
+// ─ Abstract-noun suffixes (for α estimator) ─
+SA.ABSTRACT_SUFFIX = ['tion','sion','ment','ness','ity','ism','ance','ence','ship','hood','cy','ology','ocracy'];
+
+// ─ Valence lexicon (compact, for restriction-fidelity dampener) ─
+SA.POS = new Set('growth health gain truth clarity freedom trust care love peace justice fair honest strong resilient coherent glue repair healing thriving flourishing safe fair fair'.split(/\s+/));
+SA.NEG = new Set('collapse fear harm loss betrayal chaos tyranny propaganda void hollow cavity obstruction severed degraded psychosis sickness decay broken failing fragile corrupt polluted'.split(/\s+/));
+
+// ─ URL reader proxy (public, CORS-enabled). Falls back to direct fetch. ─
+SA.READER_PROXY = 'https://r.jina.ai/';
+
+// ─ Sample texts for quick demos ─
+SA.SAMPLES = {
+  draken: 'Sample: draken.info — Drakens Ordlista (DRK-117)',
+  boeing: 'Sample: corporate-disconnect excerpt',
+  propaganda: 'Sample: echo-chamber fragment'
+};
+</script>
 
 <!-- SECTION_MARKER: TOKENIZER -->
 <script id="sa-section-tokenizer">/* populated in Edit pass 2 */</script>
