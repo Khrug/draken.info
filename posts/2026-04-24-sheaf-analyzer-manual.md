@@ -238,3 +238,52 @@ After exporting a deep JSON or Markdown report from, say, a corporate press rele
 
 These are Draken-native operations the tool cannot do itself but which the export makes mechanical for a downstream model.
 
+## 9. Use cases
+
+### 9.1 Editing in progress
+
+Load a draft into Single mode. Press Analyze. Read the metric strip first — Γ, Ψ, K, α. Then look at the voids list and the severed edges count. Ask the following, in order:
+
+1. Which scales am I claiming to operate on? Check the layer coverage grid.
+2. Which scales am I *actually* operating on? The top-salience concepts and their dominant layers.
+3. Do the two agree?
+4. Which concepts are voids? Am I speaking around something I should name?
+5. Are there severed edges whose endpoints I did not realize were in tension?
+
+Revise. Run Analyze again. If the numbers move in the right direction (Γ up, Ψ down, severed closed, voids resolved) and the topology has actually changed (new edges, new layer coverage, not just new prose around the same skeleton), the revision is structural. If the numbers do not move, the revision is cosmetic. This feedback loop is perhaps the most valuable use of the tool for writers.
+
+### 9.2 Diagnosing external texts
+
+A political speech, a Fed minutes release, a ministry press statement, a corporate earnings call transcript, an academic abstract you are suspicious of. Paste or URL-fetch. Read the verdict line. Inspect the voids. Look at layer coverage: a text that claims to speak about the national economy but only touches L10 and L13 — never L14 or L18 — has told you, structurally, what it is not willing to discuss.
+
+The Analyzer is particularly good at surfacing two patterns:
+
+- **Echo chamber.** High Γ, high Ψ, narrow layer coverage, high self-reference density. Locally coherent, globally narrow, self-sealing.
+- **Manufactured void (DRK-110).** Several high-salience voids clustered on layers the text refuses to name. The text is load-bearing on a structural absence.
+
+Neither of these diagnoses is a verdict. They are hypotheses the topology is suggesting. Verify with domain knowledge.
+
+### 9.3 Comparative analysis
+
+Two versions of the same speech, delivered a year apart. Two drafts of the same policy paper. The official statement and a leaked internal memo on the same event. Two ideologically opposed publications covering the same incident. Run Compare. The concept-overlap and metric-delta readouts show precisely what is the same, what is different, and whether the difference is structural (new concepts, new edges, new layer coverage) or cosmetic (same skeleton, different words).
+
+### 9.4 Self-audit of a corpus
+
+This is the use case the tool is most uniquely suited to. Load your own corpus in Corpus mode. Select all. Run Analyze. Ask:
+
+- Which concepts carry my argument across the most posts? (High source-coverage = load-bearing across the body of work.)
+- Which posts are disconnected islands? (Low shared-concept overlap with the main sheaf.)
+- Is my theory a single coherent framework or three half-glued ones? (Severed clusters tell you where the joints are weak.)
+- Which layers am I neglecting? (Low coverage is a to-do list.)
+- Which voids recur across the whole corpus? (These are the terms you should define in a glossary or formalize into knowledge objects.)
+
+Running this on the draken.info corpus has, at minimum, identified its top-salience concepts with the answer I would have written by hand if asked — which is circumstantial evidence the salience metric is not inventing structure.
+
+### 9.5 Pedagogy
+
+The visualization is a reasonable teaching aid for the framework itself. Load a sample text, step a student through the inspector, show them what a severed edge looks like, which layer cluster is doing what. The tool is a pedagogical surface for the thesis in exactly the sense that the (now-retired) sheaf game was supposed to be but less static — the concepts are real, the graph updates on paste.
+
+### 9.6 Research tooling
+
+The minimal JSON export is designed to pipe into standard data tooling. Running the Analyzer over a large external corpus (say, every UN General Assembly speech from 2000 onward, one session per file) would produce a time series of Γ, Ψ, K, α and layer coverage per speech, which is a dataset that could itself be analysed for patterns. The tool does not ingest files in bulk, but the machinery is already in place; a Node wrapper that drives the analyzer's JS on a directory of texts is a short script.
+
