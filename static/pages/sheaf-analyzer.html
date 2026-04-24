@@ -86,10 +86,22 @@
     <div class="sa-warn"><strong>◆ Honest scope.</strong> This is a <em>heuristic diagnostic</em>, not a formal sheaf cohomology computation. Γ, Ψ, K(t) are estimators derived from concept-level co-occurrence and a hand-curated layer lexicon. The thesis is the theoretical anchor; this tool makes the theory visible on arbitrary text. See the "Explain the variables" panel below the graph for formulas and limits.</div>
   </div>
 
+  <!-- Mode tabs -->
+  <div class="sa-row" style="margin-bottom:4px">
+    <div class="sa-col" style="flex:1 1 100%;min-width:100%">
+      <div class="sa-btns" style="margin:0">
+        <button class="sa-btn" id="sa-mode-single" data-mode="single">▸ Single text</button>
+        <button class="sa-btn ghost" id="sa-mode-corpus" data-mode="corpus">⌘ Corpus mode — analyze draken.info posts</button>
+        <button class="sa-btn ghost" id="sa-mode-compare" data-mode="compare">⇌ Compare two texts</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Input row -->
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 600px">
-      <div class="sa-card">
+      <!-- SINGLE TEXT MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="single">
         <div class="sa-lbl">◉ Source text</div>
         <textarea id="sa-text" class="sa-ta" placeholder="Paste text here — an article, speech, manifesto, social media thread, internal memo, essay. Minimum ~200 words for useful signal."></textarea>
         <div style="margin-top:10px">
@@ -105,6 +117,45 @@
           <button class="sa-btn ghost" id="sa-export" style="margin-left:auto">⇩ Export JSON</button>
         </div>
         <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
+      </div>
+
+      <!-- CORPUS MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="corpus" style="display:none">
+        <div class="sa-lbl">◉ Corpus mode — select any subset of draken.info posts to build one meaning graph</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center">
+          <button class="sa-btn ghost" id="sa-corpus-all">☑ Select all</button>
+          <button class="sa-btn ghost" id="sa-corpus-none">☐ Clear</button>
+          <button class="sa-btn ghost" id="sa-corpus-theory">✦ Theory only</button>
+          <button class="sa-btn ghost" id="sa-corpus-analysis">✦ Analysis only</button>
+          <span id="sa-corpus-count" style="font-size:11px;color:#6b8a6b;margin-left:auto;font-family:'JetBrains Mono',monospace">Loading corpus…</span>
+        </div>
+        <div id="sa-corpus-list" style="max-height:320px;overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:8px 10px">
+          <div class="sa-panel-empty">Fetching /data/corpus.json…</div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-corpus-run">▸ Analyze selected</button>
+          <button class="sa-btn ghost" id="sa-corpus-refresh">⟳ Refresh corpus</button>
+        </div>
+      </div>
+
+      <!-- COMPARE MODE -->
+      <div class="sa-card sa-mode-panel" data-mode="compare" style="display:none">
+        <div class="sa-lbl">◉ Compare — paste two texts (e.g. draft A vs draft B, before vs after edit)</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="flex:1 1 280px;min-width:260px">
+            <div style="font-size:11px;color:#4ade80;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ TEXT A</div>
+            <textarea id="sa-cmp-a" class="sa-ta" style="min-height:200px" placeholder="Paste text A — e.g. your original draft, the official statement, the 'before' version."></textarea>
+          </div>
+          <div style="flex:1 1 280px;min-width:260px">
+            <div style="font-size:11px;color:#c9a84c;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ TEXT B</div>
+            <textarea id="sa-cmp-b" class="sa-ta" style="min-height:200px" placeholder="Paste text B — e.g. your revised draft, the leaked internal memo, the 'after' version."></textarea>
+          </div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-cmp-run">⇌ Compare</button>
+          <button class="sa-btn ghost" id="sa-cmp-sample">⌁ Sample A vs B</button>
+          <button class="sa-btn ghost" id="sa-cmp-swap">⇅ Swap A↔B</button>
+        </div>
       </div>
     </div>
     <div class="sa-col" style="flex:1 1 360px">
