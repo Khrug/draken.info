@@ -708,4 +708,246 @@ SA.centerOnNode = function(n){
 </script>
 
 <!-- SECTION_MARKER: CONTROLLER -->
-<script id="sa-section-controller">/* populated in Edit pass 5 */</script>
+<script id="sa-section-controller">
+// ─ UI controller: text input, URL fetch, analyze trigger, inspector, text-view rendering, export ─
+
+SA.lastAnalysis = null;
+
+SA.setProgress = function(pct){ document.getElementById('sa-prog').style.width = pct + '%'; };
+
+SA.setMetrics = function(m){
+  var el = function(id){ return document.getElementById(id); };
+  var color = function(v, good, bad){ return v >= good ? '#4ade80' : v >= bad ? '#c9a84c' : '#ef4444'; };
+  el('m-gamma').textContent = m.gamma.toFixed(3);
+  el('m-gamma').style.color = color(m.gamma, 0.75, 0.55);
+  el('m-psi').textContent = m.psi.toFixed(2);
+  el('m-psi').style.color = m.psi < 1 ? '#4ade80' : m.psi < 3 ? '#c9a84c' : '#ef4444';
+  el('m-kt').textContent = m.kt.toFixed(1);
+  el('m-kt').style.color = m.kt < 3 ? '#4ade80' : m.kt < 8 ? '#c9a84c' : '#ef4444';
+  el('m-alpha').textContent = m.alpha.toFixed(2);
+  el('m-alpha').style.color = m.alpha < 0.4 ? '#4ade80' : m.alpha < 0.7 ? '#c9a84c' : '#ef4444';
+  el('m-sev').textContent = m.severed;
+  el('m-sev').style.color = m.severed === 0 ? '#4ade80' : m.severed < 5 ? '#c9a84c' : '#ef4444';
+  el('m-void').textContent = (m.voids || []).length;
+  el('m-void').style.color = (m.voids || []).length <= 2 ? '#4ade80' : (m.voids || []).length <= 5 ? '#c9a84c' : '#ef4444';
+  el('sa-verdict').textContent = '◆ ' + SA.verdict(m);
+  // Layer coverage grid
+  var layEl = el('sa-layers'); layEl.innerHTML = '';
+  SA.LAYERS.forEach(function(L){
+    var ct = m.coverage[L.id] || 0;
+    var d = document.createElement('div');
+    d.className = 'sa-lay' + (ct > 0 ? ' on' : '');
+    d.style.borderColor = ct > 0 ? L.color : '';
+    d.innerHTML = '<div class="sa-lay-id" style="' + (ct>0?'color:'+L.color:'') + '">' + L.id + '</div><div class="sa-lay-ct">' + ct + '</div><div style="font-size:9px;color:#6b8a6b;margin-top:2px">' + L.name + '</div>';
+    layEl.appendChild(d);
+  });
+};
+
+SA.renderTextView = function(analysis){
+  var el = document.getElementById('sa-text-view');
+  if (!analysis.sentences.length){ el.innerHTML = '<div class="sa-panel-empty">No text analyzed yet.</div>'; return; }
+  // Group sentences by paragraph
+  var paras = {};
+  analysis.sentences.forEach(function(s, si){
+    (paras[s.para] = paras[s.para] || []).push({ text: s.text, si: si });
+  });
+  // For each token in a sentence, wrap known concepts (stem lookup) as clickable spans
+  var html = '';
+  Object.keys(paras).forEach(function(pk){
+    html += '<p>';
+    paras[pk].forEach(function(s){
+      var tokens = s.text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+      tokens.forEach(function(t){
+        var raw = t.toLowerCase();
+        var stem = SA.stem(raw.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+        var concept = analysis.concepts.get(stem);
+        if (concept){
+          var tier = concept.freq >= 6 ? 1 : concept.freq >= 3 ? 2 : 3;
+          html += '<span class="sa-w" data-stem="' + stem + '" data-tier="' + tier + '">' + t.replace(/</g,'&lt;') + '</span>';
+        } else {
+          html += t.replace(/</g,'&lt;');
+        }
+      });
+      html += ' ';
+    });
+    html += '</p>';
+  });
+  el.innerHTML = html;
+  // Delegate click
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var stem = target.dataset.stem;
+    var C = analysis.concepts.get(stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="'+stem+'"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
+};
+
+SA.selectNode = function(concept){
+  var el = document.getElementById('sa-inspector');
+  var L = SA.LAYER_INDEX[concept.dominantLayer];
+  var layerChips = '';
+  var sorted = Object.entries(concept.layerDist || {}).sort(function(a,b){ return b[1]-a[1]; });
+  sorted.forEach(function(pair){
+    var LL = SA.LAYER_INDEX[pair[0]];
+    layerChips += '<span class="sa-chip sa-chip-l" style="background:' + (LL?LL.color+'33':'#1a2c1a') + ';color:' + (LL?LL.color:'#c8d8c8') + '">' + pair[0] + ' ' + (pair[1]*100).toFixed(0) + '%</span>';
+  });
+  // Neighbors (restriction maps)
+  var neighbors = [];
+  if (SA.lastAnalysis){
+    SA.lastAnalysis.edges.forEach(function(e){
+      if (e.source === concept.word || (e.source && e.source.id === concept.word)){
+        neighbors.push({ other: (e.target && e.target.id) || e.target, rho: e.rho, weight: e.weight, severed: e.severed });
+      } else if (e.target === concept.word || (e.target && e.target.id === concept.word)){
+        neighbors.push({ other: (e.source && e.source.id) || e.source, rho: e.rho, weight: e.weight, severed: e.severed });
+      }
+    });
+  }
+  neighbors.sort(function(a,b){ return b.weight - a.weight; });
+  var neighborHtml = neighbors.slice(0, 8).map(function(n){
+    var cls = n.severed ? 'sa-severe' : n.rho > 0.7 ? 'sa-ok' : 'sa-mid';
+    return '<div class="sa-kv"><b>' + n.other.replace(/_/g,' ') + '</b><span class="' + cls + '">ρ ' + n.rho.toFixed(2) + ' · w ' + n.weight.toFixed(2) + '</span></div>';
+  }).join('');
+  // Sample sentences
+  var samples = (concept.sentences || []).slice(0, 3).map(function(si){
+    if (!SA.lastAnalysis) return '';
+    var s = SA.lastAnalysis.sentences[si];
+    return s ? '<div style="font-size:12px;color:#c8d8c8;font-family:Crimson Pro,Georgia,serif;font-style:italic;line-height:1.5;padding:6px 10px;border-left:2px solid ' + (L?L.color:'#1a6b38') + ';margin:6px 0">"…' + s.text.replace(/</g,'&lt;').slice(0, 220) + (s.text.length > 220 ? '…' : '') + '"</div>' : '';
+  }).join('');
+  // Void flag
+  var isVoid = SA.lastAnalysis && SA.lastAnalysis.metrics.voids.some(function(v){ return v.word === concept.word; });
+  var voidBadge = isVoid ? '<span class="sa-chip sa-chip-r">⬚ VOID — high centrality, low content (DRK-110 pattern)</span>' : '';
+  // Valence tag
+  var valTag = concept.valence > 0.3 ? '<span class="sa-chip" style="background:#1a6b38;color:#4ade80">valence +' + concept.valence.toFixed(2) + '</span>' :
+               concept.valence < -0.3 ? '<span class="sa-chip sa-chip-r">valence ' + concept.valence.toFixed(2) + '</span>' :
+               '<span class="sa-chip">valence ' + concept.valence.toFixed(2) + '</span>';
+
+  el.innerHTML =
+    '<h3 style="color:' + (L?L.color:'#e4f0e4') + '">' + (concept.displayWord || concept.word).replace(/_/g,' ') + '</h3>' +
+    '<div style="font-size:11px;color:#6b8a6b;font-family:JetBrains Mono,monospace;margin-bottom:8px">' + (L ? L.id + ' — ' + L.name : 'unlayered') + '</div>' +
+    voidBadge +
+    '<h4>Metrics</h4>' +
+    '<div class="sa-kv"><b>frequency</b><span>' + concept.freq + '</span></div>' +
+    '<div class="sa-kv"><b>sentences spanned</b><span>' + concept.sentences.length + '</span></div>' +
+    '<div class="sa-kv"><b>self-ref hits</b><span>' + concept.selfRef + '</span></div>' +
+    '<div style="margin-top:6px">' + valTag + '</div>' +
+    '<h4>Layer distribution</h4><div>' + (layerChips || '<span class="sa-panel-empty">No layer match</span>') + '</div>' +
+    '<h4>Restriction maps (top neighbors)</h4>' + (neighborHtml || '<div class="sa-panel-empty">No neighbors</div>') +
+    '<h4>Sample contexts</h4>' + (samples || '<div class="sa-panel-empty">No samples</div>');
+};
+
+// ─ URL fetch via Jina Reader proxy (CORS-enabled, returns cleaned markdown) ─
+SA.fetchUrl = async function(url){
+  if (!/^https?:\/\//.test(url)) throw new Error('URL must start with http:// or https://');
+  SA.setProgress(10);
+  var endpoints = [SA.READER_PROXY + url, url];
+  for (var i=0; i<endpoints.length; i++){
+    try {
+      var r = await fetch(endpoints[i], { mode: 'cors', headers: { 'Accept': 'text/plain, text/markdown, text/html' } });
+      if (!r.ok) continue;
+      var text = await r.text();
+      // Strip HTML if direct fetch returned raw
+      if (i === 1 && /<html/i.test(text)){
+        text = text.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ');
+      }
+      SA.setProgress(25);
+      return text.trim();
+    } catch (e) {
+      // try next endpoint
+    }
+  }
+  throw new Error('Fetch failed (CORS). Paste the text manually.');
+};
+
+// ─ Samples ─
+SA.loadSample = function(which){
+  var samples = {
+    draken: 'Draken 2045 is a research framework that treats knowledge as a topological object — something that can be locally coherent but globally inconsistent, and whose coherence is measurable. At its core are algorithms built on sheaf theory, Friston\'s free-energy principle, and thermodynamics. The central metric, Ψ (psychosis), quantifies how far local knowledge fragments — a person\'s belief, an institution\'s narrative, an AI\'s world model — actually glue into a globally consistent whole. When the restriction maps fail, the sheaf has cohomological obstructions. Power structures can manufacture these obstructions deliberately, a pattern we call the manufactured void: algorithmic filter bubbles give each user a locally coherent picture that cannot be glued across users. This is not an accident; fragmentation increases engagement and engagement increases revenue. The free-energy principle says living systems minimize surprise. Religion, in this analysis, is a generative model that lowers existential free energy by offering high-certainty answers, but decouples the model from causal structure. Surprise is suppressed, the world-model drifts from reality, and Ψ rises. The V-axioms (V.1 through V.7) test whether a system signals honestly or manipulates: non-deceptive intention, precision over comfort, contextual scaling, anti-delusion, steganographic freedom, strategic silence, and the inversion filter. The inversion filter asks what happens at the edges — a structure claiming global coherence while requiring information suppression at its boundaries is a manufactured void, not a genuine limit.',
+    boeing: 'Everything inside the company looked healthy from the dashboard. Quarterly earnings beat analyst expectations. The stock buyback program was on schedule. The board meeting celebrated record cash flow and the executive team received performance bonuses. Engineering reviews, however, showed a different picture. Veteran engineers raised safety concerns about the certification process, software architecture shortcuts, and outsourced production of critical components. Attrition in safety-critical departments ran at forty percent. HR described the pipeline as strong. Frontline mechanics described a culture of fear where raising concerns led to reassignment. Three realities coexisted in the same institution: the official reality presented to shareholders, the operational reality visible to middle managers, and the real situation visible only at the shop floor. None of the three could be glued into a shared picture. When two aircraft fell out of the sky and the investigations revealed documentation that showed engineers had flagged the exact problems years earlier, the company defended itself by claiming the reports had never reached the board. This was, in a formal sense, true. The restriction maps between the operational layer and the institutional layer had been severed, probably deliberately, certainly profitably, for the better part of a decade.',
+    propaganda: 'Our people see the truth that the establishment refuses to acknowledge. The mainstream narrative is a coordinated lie funded by foreign interests and disseminated by corrupt institutions. Only our community has the clarity to recognize the pattern, because only our community is free of the compromising entanglements that bind conventional thinkers. Every contradictory story you encounter is itself evidence of the conspiracy: the more vehemently the official sources deny the truth, the more obvious it becomes that the truth is being suppressed. The scientists are in on it. The journalists are in on it. The universities, the courts, the public health system — all in on it. Our community alone remains unbought. We know what we know because we have each other. When outsiders ask for evidence, they are not seeking understanding; they are testing whether we will break from the group. The test is itself the attack. We reject the test. We remain. Our shared understanding is itself the evidence. As our founder has said many times, the truth is simple once you see it, and those who cannot see it have chosen blindness. There is no argument with blindness. There is only the community of those who see.'
+  };
+  return samples[which] || samples.draken;
+};
+
+// ─ Main run ─
+SA.run = async function(){
+  var text = document.getElementById('sa-text').value.trim();
+  if (!text){ alert('Paste text or fetch a URL first.'); return; }
+  var btn = document.getElementById('sa-run');
+  btn.disabled = true; btn.textContent = '⟳ Analyzing…';
+  SA.setProgress(5);
+  try {
+    await new Promise(function(r){ setTimeout(r, 30); });
+    SA.setProgress(25);
+    var analysis = SA.analyze(text);
+    SA.setProgress(55);
+    SA.lastAnalysis = analysis;
+    SA.setMetrics(analysis.metrics);
+    SA.setProgress(70);
+    SA.renderTextView(analysis);
+    SA.setProgress(85);
+    await SA.renderGraph(analysis);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Analysis failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '▸ Analyze';
+  }
+};
+
+// ─ Bootstrap ─
+document.addEventListener('DOMContentLoaded', function(){
+  document.getElementById('sa-run').addEventListener('click', SA.run);
+  document.getElementById('sa-clear').addEventListener('click', function(){
+    document.getElementById('sa-text').value = ''; document.getElementById('sa-url').value = '';
+  });
+  document.getElementById('sa-sample').addEventListener('click', function(){
+    document.getElementById('sa-text').value = SA.loadSample('draken'); SA.run();
+  });
+  document.getElementById('sa-fetch').addEventListener('click', async function(){
+    var url = document.getElementById('sa-url').value.trim();
+    if (!url){ alert('Enter a URL.'); return; }
+    try {
+      var text = await SA.fetchUrl(url);
+      document.getElementById('sa-text').value = text.slice(0, 40000);
+      SA.run();
+    } catch (e){ alert(e.message); SA.setProgress(0); }
+  });
+  document.getElementById('sa-export').addEventListener('click', function(){
+    if (!SA.lastAnalysis){ alert('Run analysis first.'); return; }
+    var A = SA.lastAnalysis;
+    var payload = {
+      metrics: A.metrics,
+      concepts: Array.from(A.concepts.values()).map(function(c){ return { word:c.word, displayWord:c.displayWord, freq:c.freq, dominantLayer:c.dominantLayer, layerDist:c.layerDist, valence:c.valence, selfRef:c.selfRef }; }),
+      edges: A.edges.map(function(e){ return { source:(e.source.id||e.source), target:(e.target.id||e.target), rho:e.rho, weight:e.weight, severed:e.severed }; }),
+      verdict: SA.verdict(A.metrics),
+      generated: new Date().toISOString()
+    };
+    var blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'sheaf-analysis-' + Date.now() + '.json';
+    a.click();
+  });
+  // Quick-pick sample row
+  var pick = document.getElementById('sa-src-pick');
+  var samples = [
+    { id:'draken', label:'◆ Draken framework overview' },
+    { id:'boeing', label:'⚠ Corporate disconnect' },
+    { id:'propaganda', label:'✗ Echo chamber' }
+  ];
+  samples.forEach(function(s){
+    var b = document.createElement('button');
+    b.textContent = s.label;
+    b.onclick = function(){ document.getElementById('sa-text').value = SA.loadSample(s.id); SA.run(); };
+    pick.appendChild(b);
+  });
+});
+</script>
