@@ -28,14 +28,18 @@
 .sa-metric-val{font-size:28px;font-weight:700;font-family:'Space Grotesk',sans-serif;line-height:1.1}
 .sa-metric-lbl{font-size:10px;font-family:'JetBrains Mono',monospace;color:#6b8a6b;letter-spacing:1.5px;text-transform:uppercase;margin-top:4px}
 .sa-metric-hint{font-size:10px;color:#6b8a6b;margin-top:3px;font-style:italic}
-.sa-graph{background:#050805;border:1px solid #1a2c1a;border-radius:10px;height:560px;position:relative;overflow:hidden}
+.sa-graph{background:#050805;border:1px solid #1a2c1a;border-radius:10px;height:560px;position:relative;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+.sa-graph canvas{touch-action:none}
 .sa-graph-overlay{position:absolute;top:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8a6b;pointer-events:none;background:rgba(8,12,8,0.7);padding:4px 8px;border-radius:4px;backdrop-filter:blur(6px)}
 .sa-graph-controls{position:absolute;top:10px;right:12px;display:flex;gap:6px;flex-wrap:wrap}
 .sa-gc{padding:4px 9px;border-radius:4px;border:1px solid #1a2c1a;background:rgba(8,12,8,0.85);color:#6b8a6b;font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;backdrop-filter:blur(6px);transition:all .15s}
 .sa-gc:hover{color:#c8d8c8;border-color:#4ade80}
 .sa-gc-dens{border:none;background:transparent;padding:4px 10px;font-weight:500;letter-spacing:0.3px}
 .sa-gc-dens.sa-gc-on{background:#4ade8018;color:#4ade80;border-radius:3px;font-weight:700}
-.sa-graph-legend{position:absolute;bottom:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8a6b;background:rgba(8,12,8,0.7);padding:6px 10px;border-radius:4px;backdrop-filter:blur(6px);line-height:1.6;pointer-events:none}
+.sa-graph-legend{position:absolute;bottom:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8a6b;background:rgba(8,12,8,0.7);padding:6px 10px;border-radius:4px;backdrop-filter:blur(6px);line-height:1.6;pointer-events:none;max-width:60%}
+.sa-zoom-pad{position:absolute;bottom:10px;right:12px;display:flex;flex-direction:column;gap:4px;align-items:flex-end}
+.sa-zoom-pad button{width:40px;height:40px;border-radius:6px;border:1px solid #1a2c1a;background:rgba(8,12,8,0.9);color:#4ade80;font-size:18px;font-weight:700;cursor:pointer;font-family:'JetBrains Mono',monospace;backdrop-filter:blur(6px);transition:all .15s;touch-action:manipulation;-webkit-tap-highlight-color:transparent;display:flex;align-items:center;justify-content:center}
+.sa-zoom-pad button:hover,.sa-zoom-pad button:active{border-color:#4ade80;background:#4ade8018;color:#e4f0e4}
 .sa-graph-legend b{color:#e4f0e4;font-weight:800}
 .sa-graph-legend i{color:#8faf8f;font-style:italic}
 .sa-panel{background:#0f170f;border:1px solid #1a2c1a;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.55}
@@ -198,6 +202,11 @@
           <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
           <button class="sa-gc" id="sa-gc-voids">⬚ voids</button>
           <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        </div>
+        <div class="sa-zoom-pad" id="sa-zoom-pad">
+          <button id="sa-zoom-in"  title="zoom in"  aria-label="zoom in">+</button>
+          <button id="sa-zoom-out" title="zoom out" aria-label="zoom out">−</button>
+          <button id="sa-zoom-reset" title="reset camera" aria-label="reset">↺</button>
         </div>
         <div class="sa-graph-legend">
           <b>BOLD</b> load-bearing · normal middle · <i>italic</i> tangential<br>
@@ -1057,6 +1066,21 @@ SA.centerOnNode = function(n){
   var ratio = 1 + dist / r;
   SA.graph.cameraPosition({ x: n.x * ratio, y: n.y * ratio, z: n.z * ratio }, n, 800);
 };
+
+// Camera zoom helpers — drive the orbit camera along its current look vector.
+// Works on touch where wheel events don't fire.
+SA.zoomCamera = function(factor){
+  if (!SA.graph) return;
+  var pos = SA.graph.cameraPosition();
+  var r = Math.sqrt(pos.x*pos.x + pos.y*pos.y + pos.z*pos.z) || 1;
+  var nr = Math.max(30, Math.min(4000, r * factor));
+  var k = nr / r;
+  SA.graph.cameraPosition({ x: pos.x * k, y: pos.y * k, z: pos.z * k }, null, 250);
+};
+SA.resetCamera = function(){
+  if (!SA.graph) return;
+  SA.graph.zoomToFit(600, 60);
+};
 </script>
 
 <!-- SECTION_MARKER: CONTROLLER -->
@@ -1626,6 +1650,10 @@ document.addEventListener('DOMContentLoaded', function(){
     var b = document.getElementById('sa-gc-dens-' + d);
     if (b) b.addEventListener('click', function(){ SA.setDensity(d); });
   });
+  // Zoom pad (mobile-friendly)
+  document.getElementById('sa-zoom-in').addEventListener('click', function(){ SA.zoomCamera(0.75); });
+  document.getElementById('sa-zoom-out').addEventListener('click', function(){ SA.zoomCamera(1.33); });
+  document.getElementById('sa-zoom-reset').addEventListener('click', SA.resetCamera);
   document.getElementById('sa-run').addEventListener('click', SA.run);
   document.getElementById('sa-clear').addEventListener('click', function(){
     document.getElementById('sa-text').value = ''; document.getElementById('sa-url').value = '';
