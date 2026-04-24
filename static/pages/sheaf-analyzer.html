@@ -33,6 +33,11 @@
 .sa-graph-controls{position:absolute;top:10px;right:12px;display:flex;gap:6px;flex-wrap:wrap}
 .sa-gc{padding:4px 9px;border-radius:4px;border:1px solid #1a2c1a;background:rgba(8,12,8,0.85);color:#6b8a6b;font-size:10px;font-family:'JetBrains Mono',monospace;cursor:pointer;backdrop-filter:blur(6px);transition:all .15s}
 .sa-gc:hover{color:#c8d8c8;border-color:#4ade80}
+.sa-gc-dens{border:none;background:transparent;padding:4px 10px;font-weight:500;letter-spacing:0.3px}
+.sa-gc-dens.sa-gc-on{background:#4ade8018;color:#4ade80;border-radius:3px;font-weight:700}
+.sa-graph-legend{position:absolute;bottom:10px;left:12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:#6b8a6b;background:rgba(8,12,8,0.7);padding:6px 10px;border-radius:4px;backdrop-filter:blur(6px);line-height:1.6;pointer-events:none}
+.sa-graph-legend b{color:#e4f0e4;font-weight:800}
+.sa-graph-legend i{color:#8faf8f;font-style:italic}
 .sa-panel{background:#0f170f;border:1px solid #1a2c1a;border-radius:10px;padding:14px 16px;font-size:13px;line-height:1.55}
 .sa-panel h3{font-size:16px;color:#e4f0e4;margin-bottom:8px;font-family:'Space Grotesk',sans-serif}
 .sa-panel h4{font-size:12px;font-family:'JetBrains Mono',monospace;color:#4ade80;letter-spacing:1.5px;text-transform:uppercase;margin:12px 0 6px}
@@ -184,10 +189,19 @@
       <div class="sa-graph" id="sa-graph">
         <div class="sa-graph-overlay" id="sa-graph-overlay">◆ sheaf graph — rotate: drag · zoom: scroll · select: click</div>
         <div class="sa-graph-controls">
+          <div style="display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:rgba(8,12,8,0.85);backdrop-filter:blur(6px);margin-right:4px">
+            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus"    title="focus · show top load-bearing concepts only">focus</button>
+            <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="balanced · default">balanced</button>
+            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full"     title="full · show all concepts (may be dense)">full</button>
+          </div>
           <button class="sa-gc" id="sa-gc-reheat">⟳ reheat</button>
           <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
           <button class="sa-gc" id="sa-gc-voids">⬚ voids</button>
           <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        </div>
+        <div class="sa-graph-legend">
+          <b>BOLD</b> load-bearing · normal middle · <i>italic</i> tangential<br>
+          ρ-severed edges in red · node size ∝ salience
         </div>
         <div id="sa-graph-empty" class="sa-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;pointer-events:none">No graph yet. Run analyze on source text to produce a sheaf.</div>
       </div>
@@ -795,13 +809,94 @@ SA.graph = null;
 SA.showLabels = true;
 SA.highlightVoids = true;
 
+SA.density = 'balanced';   // 'focus' | 'balanced' | 'full'
+
+// Cap rules derived from analysis size + density knob.
+SA.densityCaps = function(totalNodes){
+  var base = SA.density === 'focus' ? 60 : SA.density === 'full' ? Math.min(totalNodes, 400) : 120;
+  if (totalNodes < 80) base = totalNodes;
+  var maxE = Math.max(200, base * 4);
+  return { maxNodes: base, maxEdges: maxE };
+};
+
+// Filter an analysis down to display-ready nodes + edges, with tiers assigned.
+// Returns { nodes, links } ready for 3d-force-graph.
+SA.prepareGraphData = function(analysis, styleFn){
+  var caps = SA.densityCaps(analysis.nodes.length);
+  var ranked = analysis.nodes.slice().sort(function(a, b){
+    return (b.salience || 0) - (a.salience || 0);
+  });
+  var visible = ranked.slice(0, caps.maxNodes);
+  var visibleSet = new Set(visible.map(function(n){ return n.word; }));
+  // Tier thresholds — fraction of visible set
+  var topN = Math.max(6, Math.ceil(visible.length * 0.15));
+  var midN = Math.max(topN, Math.ceil(visible.length * 0.55));
+  visible.forEach(function(n, i){ n._tier = i < topN ? 'top' : i < midN ? 'mid' : 'low'; });
+  // Filter + prune edges
+  var candidate = analysis.edges.filter(function(e){
+    var s = (e.source && e.source.id) || e.source;
+    var t = (e.target && e.target.id) || e.target;
+    return visibleSet.has(s) && visibleSet.has(t);
+  });
+  candidate.sort(function(a, b){ return b.weight - a.weight; });
+  var edges = candidate.slice(0, caps.maxEdges);
+  var nodes = visible.map(function(n){
+    return {
+      id: n.word,
+      label: n.displayWord || n.word,
+      val: n.freq,
+      color: styleFn ? styleFn(n) : SA.colorFor(n),
+      tier: n._tier,
+      salience: n.salience || 0,
+      _concept: n
+    };
+  });
+  var links = edges.map(function(e){
+    var src = (e.source && e.source.id) || e.source;
+    var tgt = (e.target && e.target.id) || e.target;
+    var baseOpacity = e.severed ? 0.55 : (0.05 + 0.35 * (e.rho || 0));
+    return {
+      source: src, target: tgt,
+      rho: e.rho, weight: e.weight, severed: e.severed,
+      color: e.severed ? 'rgba(239,68,68,' + baseOpacity + ')' : 'rgba(74,222,128,' + baseOpacity + ')'
+    };
+  });
+  return { nodes: nodes, links: links, totalVisible: visible.length, totalConcepts: analysis.nodes.length };
+};
+
 SA.colorFor = function(node){
   var L = SA.LAYER_INDEX[node.dominantLayer];
   return L ? L.color : '#6b8a6b';
 };
 
 SA.sizeFor = function(node){
+  // Salience-driven when available; falls back to log-frequency.
+  if (typeof node.salience === 'number'){
+    return 3 + 10 * Math.pow(node.salience, 0.85);
+  }
   return Math.max(3, Math.min(14, 3 + Math.log(node.freq + 1) * 2.5));
+};
+
+SA._updateGraphOverlay = function(data){
+  var ov = document.getElementById('sa-graph-overlay');
+  if (!ov) return;
+  ov.textContent = '◆ ' + data.totalVisible + '/' + data.totalConcepts + ' concepts shown · ' + data.links.length + ' edges · density: ' + SA.density;
+};
+
+SA.setDensity = function(d){
+  if (SA.density === d) return;
+  SA.density = d;
+  ['focus','balanced','full'].forEach(function(x){
+    var b = document.getElementById('sa-gc-dens-' + x);
+    if (b) b.className = 'sa-gc' + (x === d ? ' sa-gc-on' : '');
+  });
+  if (SA.lastAnalysis && SA.graph){
+    var data = SA.prepareGraphData(SA.lastAnalysis);
+    SA._updateGraphOverlay(data);
+    SA.graph.graphData({ nodes: data.nodes, links: data.links });
+    SA.applyLabelMode();
+    SA.graph.d3ReheatSimulation();
+  }
 };
 
 SA.renderGraph = async function(analysis){
@@ -818,28 +913,13 @@ SA.renderGraph = async function(analysis){
   var emptyEl = document.getElementById('sa-graph-empty');
   if (emptyEl) emptyEl.style.display = 'none';
 
-  var data = {
-    nodes: analysis.nodes.map(function(n){
-      return {
-        id: n.word,
-        label: n.displayWord,
-        val: n.freq,
-        color: SA.colorFor(n),
-        _concept: n
-      };
-    }),
-    links: analysis.edges.map(function(e){
-      return {
-        source: e.source, target: e.target,
-        rho: e.rho, weight: e.weight, severed: e.severed,
-        color: e.severed ? 'rgba(239,68,68,0.55)' : 'rgba(74,222,128,' + (0.15 + 0.5 * e.rho) + ')'
-      };
-    })
-  };
+  var data = SA.prepareGraphData(analysis);
+  SA._updateGraphOverlay(data);
 
   if (SA.graph) {
-    SA.graph.graphData(data);
+    SA.graph.graphData({ nodes: data.nodes, links: data.links });
     SA.graph.d3ReheatSimulation();
+    SA.applyLabelMode();
     return;
   }
 
@@ -847,17 +927,19 @@ SA.renderGraph = async function(analysis){
   SA.graph = ForceGraph3D()(el)
     .width(w).height(h)
     .backgroundColor('#050805')
-    .graphData(data)
-    .nodeLabel(function(n){ return n.label + ' · ' + (n._concept.dominantLayer || '—') + ' · freq ' + n._concept.freq; })
+    .graphData({ nodes: data.nodes, links: data.links })
+    .nodeLabel(function(n){
+      return n.label + ' · ' + (n._concept.dominantLayer || '—') + ' · freq ' + n._concept.freq + ' · sal ' + ((n.salience||0)*100).toFixed(0);
+    })
     .nodeColor('color')
     .nodeVal(function(n){ return SA.sizeFor(n._concept); })
     .nodeOpacity(0.92)
     .linkColor('color')
-    .linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); })
-    .linkOpacity(0.7)
-    .linkDirectionalParticles(function(l){ return l.severed ? 0 : (l.weight > 0.5 ? 2 : 0); })
-    .linkDirectionalParticleWidth(1.2)
-    .linkDirectionalParticleSpeed(0.006)
+    .linkWidth(function(l){ return 0.2 + 0.8 * (l.weight || 0); })
+    .linkOpacity(0.55)
+    .linkDirectionalParticles(function(l){ return l.severed ? 0 : (l.weight > 0.6 ? 1 : 0); })
+    .linkDirectionalParticleWidth(1.0)
+    .linkDirectionalParticleSpeed(0.005)
     .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); })
     .onNodeHover(function(n){ document.getElementById('sa-graph').style.cursor = n ? 'pointer' : 'grab'; });
 
@@ -886,24 +968,38 @@ SA.renderGraph = async function(analysis){
   SA.applyVoidHighlight(analysis);
 };
 
+// Per-tier style — drives canvas font, color tinting, and whether label is drawn.
+SA._tierStyle = function(tier){
+  if (tier === 'top') return { fontSize: 36, weight: '800', style: 'normal', alpha: 1.0,  show: true };
+  if (tier === 'mid') return { fontSize: 24, weight: '500', style: 'normal', alpha: 0.85, show: true };
+  return                     { fontSize: 18, weight: '400', style: 'italic', alpha: 0.65, show: true };
+};
+
 SA.applyLabelMode = function(){
   if (!SA.graph) return;
   if (SA.showLabels){
     SA.graph.nodeThreeObject(function(n){
-      // Sprite label on top of default node
       if (!window.THREE) return null;
-      var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
-        map: SA._makeLabel(n.label, n.color),
-        depthTest: false, transparent: true
-      }));
-      var scale = Math.max(6, Math.min(24, 6 + Math.log((n._concept && n._concept.freq) || 1) * 4));
-      sprite.scale.set(scale * 1.6, scale * 0.5, 1);
-      sprite.position.set(0, SA.sizeFor(n._concept) + 2, 0);
+      var tier = n.tier || 'mid';
+      var style = SA._tierStyle(tier);
       var grp = new THREE.Group();
-      var sphereGeo = new THREE.SphereGeometry(SA.sizeFor(n._concept), 16, 16);
+      // Sphere (node body)
+      var size = SA.sizeFor(n._concept);
+      var sphereGeo = new THREE.SphereGeometry(size, 16, 16);
       var sphereMat = new THREE.MeshLambertMaterial({ color: n.color, transparent: true, opacity: 0.92 });
       grp.add(new THREE.Mesh(sphereGeo, sphereMat));
-      grp.add(sprite);
+      // Label sprite
+      if (style.show){
+        var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: SA._makeLabel(n.label, n.color, tier),
+          depthTest: false, transparent: true, opacity: style.alpha
+        }));
+        // Scale ∝ tier (bigger for top-tier so readable at pulled-back zoom)
+        var spriteScale = tier === 'top' ? 30 : tier === 'mid' ? 20 : 14;
+        sprite.scale.set(spriteScale * 1.8, spriteScale * 0.55, 1);
+        sprite.position.set(0, size + (tier === 'top' ? 5 : 3), 0);
+        grp.add(sprite);
+      }
       return grp;
     });
     SA.graph.nodeThreeObjectExtend(false);
@@ -912,27 +1008,43 @@ SA.applyLabelMode = function(){
   }
 };
 
-SA._makeLabel = function(text, color){
+// Canvas label — scales font, weight, style by tier; keeps dark outline for contrast.
+SA._makeLabel = function(text, color, tier){
+  var style = SA._tierStyle(tier || 'mid');
+  var W = 384, H = 96;
   var c = document.createElement('canvas');
-  c.width = 256; c.height = 80;
+  c.width = W; c.height = H;
   var ctx = c.getContext('2d');
-  ctx.fillStyle = 'rgba(8,12,8,0.0)'; ctx.fillRect(0,0,256,80);
-  ctx.font = 'bold 28px "JetBrains Mono", monospace';
+  ctx.clearRect(0, 0, W, H);
+  ctx.font = style.style + ' ' + style.weight + ' ' + style.fontSize + 'px "JetBrains Mono", "Space Grotesk", monospace';
   ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  // Dark backplate for legibility against bright nodes
+  ctx.fillStyle = 'rgba(5,8,5,0.55)';
+  var padX = 14, padY = 8;
+  var metrics = ctx.measureText(text);
+  var tw = Math.min(W - padX*2, metrics.width + padX*2);
+  var th = style.fontSize + padY*2;
+  var x0 = (W - tw) / 2, y0 = (H - th) / 2;
+  ctx.beginPath();
+  if (ctx.roundRect) ctx.roundRect(x0, y0, tw, th, 6); else ctx.rect(x0, y0, tw, th);
+  ctx.fill();
+  // Outline + fill
+  ctx.strokeStyle = 'rgba(5,8,5,0.95)'; ctx.lineWidth = 5;
+  ctx.strokeText(text, W/2, H/2);
   ctx.fillStyle = color;
-  ctx.strokeStyle = '#050805'; ctx.lineWidth = 4;
-  ctx.strokeText(text, 128, 40); ctx.fillText(text, 128, 40);
-  var tex = new THREE.CanvasTexture(c); tex.needsUpdate = true;
+  ctx.fillText(text, W/2, H/2);
+  var tex = new THREE.CanvasTexture(c);
+  tex.needsUpdate = true;
+  tex.anisotropy = 4;
   return tex;
 };
 
 SA.applyVoidHighlight = function(analysis){
   if (!analysis || !SA.graph) return;
   var voidSet = new Set((analysis.metrics.voids || []).map(function(v){ return v.word; }));
-  // Adjust link width & color around voids
   SA.graph.linkWidth(function(l){
-    var base = 0.3 + 1.2 * (l.weight || 0);
-    if (SA.highlightVoids && (voidSet.has(l.source.id || l.source) || voidSet.has(l.target.id || l.target))) return base + 1;
+    var base = 0.2 + 0.8 * (l.weight || 0);
+    if (SA.highlightVoids && (voidSet.has(l.source.id || l.source) || voidSet.has(l.target.id || l.target))) return base + 0.7;
     return base;
   });
 };
@@ -1121,45 +1233,70 @@ SA.renderCompareVerdict = function(pair){
     '</div>';
 };
 
-// Combined graph: union of both concept sets, edge colors show origin (A/B/both)
+// Combined graph: union of both concept sets, edge + node colors show origin (A/B/both).
+// Uses SA.prepareGraphData for tiering + filtering, with A/B/shared colors overriding layer color.
 SA.renderCompareGraph = async function(pair){
   await SA.loadDeps();
   var aSet = new Set(Array.from(pair.a.concepts.keys()));
   var bSet = new Set(Array.from(pair.b.concepts.keys()));
-  var all = new Set([].concat(Array.from(aSet), Array.from(bSet)));
-  var nodes = Array.from(all).map(function(k){
-    var C = pair.b.concepts.get(k) || pair.a.concepts.get(k);
-    var origin = aSet.has(k) && bSet.has(k) ? 'both' : aSet.has(k) ? 'a' : 'b';
-    var color = origin === 'both' ? '#4ade80' : origin === 'a' ? '#6ea8fe' : '#c9a84c';
-    return { id: k, label: C.displayWord || C.word, val: C.freq, color: color, _concept: C, _origin: origin };
-  });
-  // Edges: take from whichever analysis has them; prefer B
-  var edgeKey = function(s, t){ return s < t ? s + '||' + t : t + '||' + s; };
+  // Merge concepts: prefer B's, add A-only.
+  var merged = new Map();
+  pair.b.concepts.forEach(function(C, k){ merged.set(k, C); });
+  pair.a.concepts.forEach(function(C, k){ if (!merged.has(k)) merged.set(k, C); });
+  // Merge edges: prefer B's, add A-only; tag origin.
+  var edgeKey = function(s, t){ s = (s && s.id) || s; t = (t && t.id) || t; return s < t ? s + '||' + t : t + '||' + s; };
   var edgeMap = new Map();
-  pair.a.edges.forEach(function(e){ edgeMap.set(edgeKey(e.source, e.target), { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'a' }); });
+  pair.a.edges.forEach(function(e){ edgeMap.set(edgeKey(e.source, e.target), Object.assign({}, e, { origin: 'a' })); });
   pair.b.edges.forEach(function(e){
     var k = edgeKey(e.source, e.target);
     if (edgeMap.has(k)) edgeMap.get(k).origin = 'both';
-    else edgeMap.set(k, { source: e.source, target: e.target, rho: e.rho, weight: e.weight, severed: e.severed, origin: 'b' });
+    else edgeMap.set(k, Object.assign({}, e, { origin: 'b' }));
   });
-  var links = Array.from(edgeMap.values()).map(function(e){
-    var col = e.origin === 'both' ? 'rgba(74,222,128,' + (0.2 + 0.5 * e.rho) + ')' : e.origin === 'a' ? 'rgba(110,168,254,0.45)' : 'rgba(201,168,76,0.45)';
-    if (e.severed) col = 'rgba(239,68,68,0.55)';
-    return Object.assign({}, e, { color: col });
+  var mergedEdges = Array.from(edgeMap.values());
+  // Recompute salience across the union so tiers reflect comparison relevance.
+  var nodes = Array.from(merged.values());
+  SA.computeSalience(nodes, mergedEdges);
+  var unionAnalysis = { nodes: nodes, edges: mergedEdges };
+
+  var originColor = function(word){
+    var inA = aSet.has(word), inB = bSet.has(word);
+    if (inA && inB) return '#4ade80';
+    if (inA) return '#6ea8fe';
+    return '#c9a84c';
+  };
+  var data = SA.prepareGraphData(unionAnalysis, function(n){ return originColor(n.word); });
+  // Override edge colors with origin-aware palette.
+  data.links.forEach(function(l){
+    var orig = edgeMap.get((l.source < l.target ? l.source + '||' + l.target : l.target + '||' + l.source));
+    var o = orig ? orig.origin : 'both';
+    if (l.severed){ return; }
+    var alpha = 0.15 + 0.45 * (l.rho || 0);
+    if (o === 'both') l.color = 'rgba(74,222,128,' + alpha + ')';
+    else if (o === 'a') l.color = 'rgba(110,168,254,' + alpha + ')';
+    else l.color = 'rgba(201,168,76,' + alpha + ')';
   });
-  var data = { nodes: nodes, links: links };
+  SA._updateGraphOverlay(data);
+
   var el = document.getElementById('sa-graph');
   var emptyEl = document.getElementById('sa-graph-empty');
   if (emptyEl) emptyEl.style.display = 'none';
-  if (SA.graph){ SA.graph.graphData(data); SA.graph.d3ReheatSimulation(); return; }
+  if (SA.graph){
+    SA.graph.graphData({ nodes: data.nodes, links: data.links });
+    SA.graph.d3ReheatSimulation();
+    SA.applyLabelMode();
+    return;
+  }
   SA.graph = ForceGraph3D()(el)
     .width(el.clientWidth).height(el.clientHeight).backgroundColor('#050805')
-    .graphData(data)
-    .nodeLabel(function(n){ return n.label + ' · ' + (n._origin === 'both' ? 'shared' : n._origin === 'a' ? 'A-only' : 'B-only'); })
+    .graphData({ nodes: data.nodes, links: data.links })
+    .nodeLabel(function(n){
+      var o = aSet.has(n.id) && bSet.has(n.id) ? 'shared' : aSet.has(n.id) ? 'A-only' : 'B-only';
+      return n.label + ' · ' + o + ' · sal ' + ((n.salience||0)*100).toFixed(0);
+    })
     .nodeColor('color').nodeVal(function(n){ return SA.sizeFor(n._concept); }).nodeOpacity(0.92)
-    .linkColor('color').linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); }).linkOpacity(0.6)
+    .linkColor('color').linkWidth(function(l){ return 0.2 + 0.8 * (l.weight || 0); }).linkOpacity(0.5)
     .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); });
-  setTimeout(function(){ if (SA.graph) SA.graph.zoomToFit(600, 40); }, 900);
+  setTimeout(function(){ if (SA.graph){ SA.applyLabelMode(); SA.graph.zoomToFit(600, 40); } }, 900);
 };
 
 // Side-by-side text view
@@ -1482,6 +1619,11 @@ document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('sa-cmp-a').value = SA.loadSample('boeing');
     document.getElementById('sa-cmp-b').value = SA.loadSample('propaganda');
     SA.runCompare();
+  });
+  // Density controls
+  ['focus','balanced','full'].forEach(function(d){
+    var b = document.getElementById('sa-gc-dens-' + d);
+    if (b) b.addEventListener('click', function(){ SA.setDensity(d); });
   });
   document.getElementById('sa-run').addEventListener('click', SA.run);
   document.getElementById('sa-clear').addEventListener('click', function(){
