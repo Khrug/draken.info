@@ -296,7 +296,7 @@ SA.LAYERS = [
 SA.LAYER_INDEX = {}; SA.LAYERS.forEach(function(L,i){ SA.LAYER_INDEX[L.id] = Object.assign({}, L, {idx:i}); });
 
 // ─ Stopwords (English; supplemented with common narrative-filler) ─
-SA.STOP = new Set(('a an the and or but if then else of in on at to from by for with without into onto about over under above below across after before during through out up down off near beside between among since until while as when where why how whom whose which what who that this those these it its it\'s they them their theirs we us our ours you your yours i me my mine he him his she her hers them they be is are was were been being have has had do does did done can could may might must shall should will would ought not no yes so than very just also only also both each any some all many more most few less much other another such same own said says say saying thing things really actually basically literally simply clearly obviously indeed however therefore thus hence moreover furthermore whereas otherwise').split(/\s+/));
+SA.STOP = new Set(('a an the and or but if then else of in on at to from by for with without into onto about over under above below across after before during through out up down off near beside between among since until while as when where why how whom whose which what who that this those these it its it\'s they them their theirs we us our ours you your yours i me my mine he him his she her hers them they be is are was were been being have has had do does did done can could may might must shall should will would ought not no yes so than very just also only also both each any some all many more most few less much other another such same own said says say saying thing things really actually basically literally simply clearly obviously indeed however therefore thus hence moreover furthermore whereas otherwise because every one two three first second third fourth last next whether made make makes making take takes took taken taking come comes coming got getting given give gives going went like even still yet already once twice rather quite almost nearly perhaps maybe certainly surely possibly probably here there everywhere somewhere nowhere anywhere something nothing anything everything someone anyone everyone noone nobody thus therefore across seems seem seemed appears appeared look looks looked goes gone kind sort lot lots far wide often sometimes usually always never due upon along around without within beyond despite although though unless until yet versus via per').split(/\s+/));
 
 // ─ Self-reference markers (approximate Ψ component) ─
 // Includes plural in-group markers — propaganda and echo chambers use "we/us/our" heavily.
@@ -365,15 +365,16 @@ SA.tokenize = function(sent){
 // ─ Light stemming: plural/possessive/verb-ending stripping. Not linguistically perfect; fine for graph nodes. ─
 SA.stem = function(w){
   if (w.length <= 3) return w;
-  // Compound check — keep multi-word phrases intact via '_' markers (phase later)
-  var endings = ['\'s','s\'','ing','edly','edge','edly','ed','es','ly','al'];
+  // Keep "al" as a suffix pattern OUT — turns "social" → "soci", "cultural" → "cultur", too aggressive.
+  // Keep "ed"/"ing"/"ly" only when stem is ≥ 4 chars after strip.
+  var endings = ['\'s','s\'','ing','edly','edge','ed','es','ly'];
   for (var i=0;i<endings.length;i++){
     var e = endings[i];
-    if (w.endsWith(e) && w.length - e.length >= 3){
+    if (w.endsWith(e) && w.length - e.length >= 4){
       return w.slice(0, -e.length);
     }
   }
-  if (w.endsWith('s') && w.length > 3 && !w.endsWith('ss') && !w.endsWith('us') && !w.endsWith('is')) return w.slice(0,-1);
+  if (w.endsWith('s') && w.length > 4 && !w.endsWith('ss') && !w.endsWith('us') && !w.endsWith('is') && !w.endsWith('ous')) return w.slice(0,-1);
   return w;
 };
 
