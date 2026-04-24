@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * build.js — draken.info static site generator (v2.1 — with thesis + sheaf game + slask)
+ * build.js â€” draken.info static site generator (v2.1 â€” with thesis + sheaf game + slask)
  */
 
 const fs = require('fs');
@@ -30,7 +30,7 @@ function cleanDist() {
   fs.mkdirSync(DIST_DIR, { recursive: true });
 }
 
-// ── Math protection: hide $$...$$ and $...$ from marked, restore after ──
+// â”€â”€ Math protection: hide $$...$$ and $...$ from marked, restore after â”€â”€
 function protectMath(text) {
   const store = [];
   // Protect display math $$...$$ first (greedy across newlines)
@@ -146,33 +146,33 @@ function buildActivityFeed() {
     { detail: '247 KOs embedded in Pinecone', time: new Date().toISOString(), status: 'green' },
     { detail: 'Multi-model peer review complete', time: new Date().toISOString(), status: 'gold' },
   ];
-  return items.slice(0, 8).map(i => `<div class="activity-item"><span class="dot dot-${i.status||'gray'}"></span>${i.detail}<span class="activity-time">— ${timeAgo(i.time)}</span></div>`).join('\n');
+  return items.slice(0, 8).map(i => `<div class="activity-item"><span class="dot dot-${i.status||'gray'}"></span>${i.detail}<span class="activity-time">â€” ${timeAgo(i.time)}</span></div>`).join('\n');
 }
 
-// ── THESIS PAGE ──
+// â”€â”€ THESIS PAGE â”€â”€
 function buildThesisPage(baseTpl) {
   const tp = path.join(STATIC_DIR, 'pages', 'thesis.html');
-  let body = '<div class="article-wrap"><h1>Thesis — Loading...</h1><p>The monograph file (thesis.html) was not found in static/pages/.</p><a href="/" class="back-link">← Back</a></div>';
+  let body = '<div class="article-wrap"><h1>Thesis â€” Loading...</h1><p>The monograph file (thesis.html) was not found in static/pages/.</p><a href="/" class="back-link">â† Back</a></div>';
   if (fs.existsSync(tp)) body = fs.readFileSync(tp, 'utf-8');
 
-  const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
+  const content = `<div class="article-wrap"><a href="/" class="back-link">â† Back to Feed</a>
 <article><header class="article-header"><span class="pub-tag tag-theory">monograph</span>
-<h1>The Draken 2045 Framework — Research Monograph v4.4</h1>
-<div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, Göteborg</span><span>All 18 Layers</span></div></header>
+<h1>The Draken 2045 Framework â€” Research Monograph v4.4</h1>
+<div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, GÃ¶teborg</span><span>All 18 Layers</span></div></header>
 <div class="article-body thesis-body">${body}</div></article>
-<div class="reader-feedback"><h3 class="feedback-title">◉ Peer Review Feedback</h3>
+<div class="reader-feedback"><h3 class="feedback-title">â—‰ Peer Review Feedback</h3>
 <p class="feedback-desc">Reviewed by Claude, ChatGPT, Kimi, Grok, DeepSeek, and Gemini. See monograph for details.</p>
 <form class="feedback-form" action="https://formsubmit.co/khrrug@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="[THESIS] Peer Review"><input type="hidden" name="_captcha" value="true"><input type="hidden" name="_next" value="https://draken.info/thesis/?feedback=sent"><input type="text" name="_honey" style="display:none">
 <div class="form-row form-row-half"><input type="text" name="name" placeholder="Name" class="form-input"><input type="email" name="email" placeholder="Email" class="form-input"></div>
-<div class="form-row"><select name="type" class="form-input"><option value="math">🔢 Mathematical</option><option value="empirical">🔬 Empirical</option><option value="method">📐 Methodological</option><option value="citation">📚 Citation</option><option value="general">💬 General</option></select></div>
+<div class="form-row"><select name="type" class="form-input"><option value="math">ðŸ”¢ Mathematical</option><option value="empirical">ðŸ”¬ Empirical</option><option value="method">ðŸ“ Methodological</option><option value="citation">ðŸ“š Citation</option><option value="general">ðŸ’¬ General</option></select></div>
 <div class="form-row"><textarea name="message" placeholder="Your feedback..." required class="form-input" rows="5"></textarea></div>
-<button type="submit" class="form-submit">Submit Review →</button></form></div>
+<button type="submit" class="form-submit">Submit Review â†’</button></form></div>
 <div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-<a href="/" class="back-link">← Feed</a><a href="/sheaf-game/" class="back-link" style="color:var(--accent)">🎮 Sheaf Game →</a></div></div>`;
+<a href="/" class="back-link">â† Feed</a><a href="/sheaf-game/" class="back-link" style="color:var(--accent)">ðŸŽ® Sheaf Game â†’</a></div></div>`;
 
   const html = render(baseTpl, {
-    title: 'The Draken 2045 Framework — Research Monograph',
+    title: 'The Draken 2045 Framework â€” Research Monograph',
     description: 'Topological Coherence Theory for Multi-Scale Systems Analysis.',
     content, og_type: 'article', og_url: 'https://draken.info/thesis/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
@@ -180,17 +180,17 @@ function buildThesisPage(baseTpl) {
   const dir = path.join(DIST_DIR, 'thesis');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
-  console.log('  ✓ thesis/');
+  console.log('  âœ“ thesis/');
 }
 
-// ── SHEAF GAME PAGE ──
+// â”€â”€ SHEAF GAME PAGE â”€â”€
 function buildSheafGamePage(baseTpl) {
   const gp = path.join(STATIC_DIR, 'pages', 'sheaf-game.html');
-  let body = '<div class="article-wrap"><h1>Sheaf Game — Coming Soon</h1></div>';
+  let body = '<div class="article-wrap"><h1>Sheaf Game â€” Coming Soon</h1></div>';
   if (fs.existsSync(gp)) body = fs.readFileSync(gp, 'utf-8');
 
   const html = render(baseTpl, {
-    title: 'The Sheaf Game — Interactive Draken Pedagogy',
+    title: 'The Sheaf Game â€” Interactive Draken Pedagogy',
     description: 'Interactive sheaf theory visualization with 8 failure mode scenarios.',
     content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-game/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
@@ -198,10 +198,10 @@ function buildSheafGamePage(baseTpl) {
   const dir = path.join(DIST_DIR, 'sheaf-game');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
-  console.log('  ✓ sheaf-game/');
+  console.log('  âœ“ sheaf-game/');
 }
 
-// ── SLASK PAGE (dynamic GitHub-powered file dump) ──
+// â”€â”€ SLASK PAGE (dynamic GitHub-powered file dump) â”€â”€
 function buildSlaskPage(baseTpl) {
   // Also copy any existing static slask files
   const slaskSrc = path.join(STATIC_DIR, 'slask');
@@ -209,7 +209,7 @@ function buildSlaskPage(baseTpl) {
   if (fs.existsSync(slaskSrc)) copyDirSync(slaskSrc, slaskDist);
   else fs.mkdirSync(slaskDist, { recursive: true });
 
-  // The page is fully dynamic — lists files from GitHub API, uploads via GitHub API
+  // The page is fully dynamic â€” lists files from GitHub API, uploads via GitHub API
   const content = `
 <style>
 .sk{max-width:1200px;margin:0 auto;padding:20px 24px;font-family:Inter,'Helvetica Neue',sans-serif;color:#e6edf3}
@@ -258,8 +258,8 @@ function buildSlaskPage(baseTpl) {
 </style>
 
 <div class="sk">
-  <h2>📁 Slask</h2>
-  <p class="sk-sub">Drag files here or click upload — they commit to GitHub and deploy automatically via Cloudflare Pages (~60s). Click 🔗 to copy the share link.</p>
+  <h2>ðŸ“ Slask</h2>
+  <p class="sk-sub">Drag files here or click upload â€” they commit to GitHub and deploy automatically via Cloudflare Pages (~60s). Click ðŸ”— to copy the share link.</p>
 
   <!-- Auth (shown only if no token) -->
   <div class="sk-auth" id="sk-auth" style="display:none">
@@ -280,9 +280,9 @@ function buildSlaskPage(baseTpl) {
   <!-- Toolbar -->
   <div class="sk-toolbar">
     <span class="sk-count" id="sk-count">Loading...</span>
-    <button class="sk-btn on" id="sk-list-btn" onclick="skView('list')">📋 List</button>
-    <button class="sk-btn" id="sk-gal-btn" onclick="skView('gallery')">🖼️ Gallery</button>
-    <button class="sk-btn" onclick="skRefresh()">🔄 Refresh</button>
+    <button class="sk-btn on" id="sk-list-btn" onclick="skView('list')">ðŸ“‹ List</button>
+    <button class="sk-btn" id="sk-gal-btn" onclick="skView('gallery')">ðŸ–¼ï¸ Gallery</button>
+    <button class="sk-btn" onclick="skRefresh()">ðŸ”„ Refresh</button>
   </div>
 
   <!-- File list -->
@@ -309,7 +309,7 @@ function buildSlaskPage(baseTpl) {
   function setToken(t) { localStorage.setItem('sk_token', t.trim()); }
 
   function ext(name) { var i=name.lastIndexOf('.'); return i>0?name.slice(i).toLowerCase():''; }
-  function icon(e) { return IMG[e]?'🖼️':VID[e]?'🎬':{'.pdf':1,'.doc':1,'.docx':1,'.pptx':1,'.xlsx':1}[e]?'📄':{'.html':1,'.htm':1,'.css':1,'.js':1,'.json':1,'.md':1,'.txt':1,'.yml':1}[e]?'📝':'📎'; }
+  function icon(e) { return IMG[e]?'ðŸ–¼ï¸':VID[e]?'ðŸŽ¬':{'.pdf':1,'.doc':1,'.docx':1,'.pptx':1,'.xlsx':1}[e]?'ðŸ“„':{'.html':1,'.htm':1,'.css':1,'.js':1,'.json':1,'.md':1,'.txt':1,'.yml':1}[e]?'ðŸ“':'ðŸ“Ž'; }
   function fmtSize(b) { return b<1024?b+' B':b<1048576?(b/1024).toFixed(1)+' KB':(b/1048576).toFixed(1)+' MB'; }
 
   function toast(msg, err) {
@@ -364,7 +364,7 @@ function buildSlaskPage(baseTpl) {
       listHtml += '<span class="sk-icon">' + icon(e) + '</span>';
       listHtml += '<a href="' + rawUrl + '" target="_blank" class="sk-name" title="' + f.name + '">' + f.name + '</a>';
       listHtml += '<span class="sk-size">' + fmtSize(f.size) + '</span>';
-      listHtml += '<button class="sk-copy" data-url="' + liveUrl + '" title="Copy draken.info link">🔗</button>';
+      listHtml += '<button class="sk-copy" data-url="' + liveUrl + '" title="Copy draken.info link">ðŸ”—</button>';
       listHtml += '</div>';
     }
     listHtml += '</div>';
@@ -468,7 +468,7 @@ function buildSlaskPage(baseTpl) {
 </script>`;
 
   const html = render(baseTpl, {
-    title: 'Slask — Draken File Dump',
+    title: 'Slask â€” Draken File Dump',
     description: 'Quick-share file repository for the Draken 2045 Initiative.',
     content, og_type: 'website', og_url: 'https://draken.info/slask/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
@@ -477,10 +477,10 @@ function buildSlaskPage(baseTpl) {
   fs.writeFileSync(path.join(slaskDist, 'index.html'), html);
   var fileCount = 0;
   try { fileCount = fs.readdirSync(slaskSrc).filter(f => !f.startsWith('.') && f !== 'README.txt').length; } catch(e) {}
-  console.log('  ✓ slask/ (dynamic, ' + fileCount + ' static files)');
+  console.log('  âœ“ slask/ (dynamic, ' + fileCount + ' static files)');
 }
 
-// ── Sitemap ──
+// â”€â”€ Sitemap â”€â”€
 function genSitemap(posts) {
   const b = 'https://draken.info';
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
@@ -504,11 +504,11 @@ function copyDirSync(src, dest) {
   }
 }
 
-// ═══ MAIN BUILD ═══
+// â•â•â• MAIN BUILD â•â•â•
 function build() {
-  console.log('╔══════════════════════════════════════╗');
-  console.log('║  draken.info v2.1 — building...      ║');
-  console.log('╚══════════════════════════════════════╝');
+  console.log('â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—');
+  console.log('â•‘  draken.info v2.1 â€” building...      â•‘');
+  console.log('â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•');
 
   cleanDist();
 
@@ -516,13 +516,13 @@ function build() {
   const sys = readSystemData();
   sys.pub_count = posts.length;
 
-  console.log(`  Posts: ${posts.length} | Phase: ${sys.phase} | Γ: ${sys.global_coherence}`);
+  console.log(`  Posts: ${posts.length} | Phase: ${sys.phase} | Î“: ${sys.global_coherence}`);
 
   const baseTpl = loadTemplate('base.html');
   const indexTpl = loadTemplate('index.html');
   const postTpl = loadTemplate('post.html');
 
-  // ── Index page ──
+  // â”€â”€ Index page â”€â”€
   const indexContent = render(indexTpl, {
     cards: buildCards(posts),
     ko_count: sys.ko_count,
@@ -536,14 +536,14 @@ function build() {
   });
 
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), render(baseTpl, {
-    title: 'Draken 2045 — Topological Knowledge Architecture',
+    title: 'Draken 2045 â€” Topological Knowledge Architecture',
     description: 'Research framework for structured knowledge assembly grounded in sheaf-theoretic topology.',
     content: indexContent, og_type: 'website', og_url: 'https://draken.info/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   }));
-  console.log('  ✓ index.html');
+  console.log('  âœ“ index.html');
 
-  // ── Post pages ──
+  // â”€â”€ Post pages â”€â”€
   const postsDir = path.join(DIST_DIR, 'posts');
   fs.mkdirSync(postsDir, { recursive: true });
   for (const p of posts) {
@@ -553,33 +553,47 @@ function build() {
       title: p.title, tag: (p.tags&&p.tags[0])||'technical',
       tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
       drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
-      layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
-      body: p.content, layer_count: (p.layers||[]).length, ko_count: '—',
+      layers: (p.layers||[]).join(' Â· '), coherence: (p.coherence||0).toFixed(2),
+      body: p.content, layer_count: (p.layers||[]).length, ko_count: 'â€”',
       post_url: `https://draken.info/posts/${p.slug}/`,
     });
     fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
-      title: `${p.title} — Draken 2045`, description: p.excerpt||'',
+      title: `${p.title} â€” Draken 2045`, description: p.excerpt||'',
       content: pc, og_type: 'article', og_url: `https://draken.info/posts/${p.slug}/`,
       og_image: 'https://draken.info/images/og-v2.png',
       jsonld: `<script type="application/ld+json">${postJsonLd(p)}</script>`,
     }));
-    console.log(`  ✓ posts/${p.slug}/`);
+    console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // ── Thesis + Sheaf Game + Slask ──
+  // â”€â”€ Thesis + Sheaf Game + Slask â”€â”€
   buildThesisPage(baseTpl);
   buildSheafGamePage(baseTpl);
   buildSlaskPage(baseTpl);
+  buildDigestPages();
 
-  // ── Static assets ──
+  // â”€â”€ Static assets â”€â”€
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
-  console.log('  ✓ static assets');
+  console.log('  âœ“ static assets');
 
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
   fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://draken.info/sitemap.xml\n');
-  console.log('  ✓ sitemap + robots\n  Build complete → dist/');
+  console.log('  âœ“ sitemap + robots\n  Build complete â†’ dist/');
 }
 
 build();
+
+// ── DIGEST pages (self-contained standalone HTML, one dir per issue) ──
+function buildDigestPages() {
+  const src = path.join(__dirname, 'digest');
+  const dst = path.join(DIST_DIR, 'digest');
+  if (!fs.existsSync(src)) { console.log('  · digest/ source not present, skipping'); return; }
+  copyDirSync(src, dst);
+  let count = 0;
+  for (const e of fs.readdirSync(src, { withFileTypes: true })) {
+    if (e.isDirectory() && fs.existsSync(path.join(src, e.name, 'index.html'))) count++;
+  }
+  console.log(`  ✓ digest/ (${count} issue${count !== 1 ? 's' : ''})`);
+}
