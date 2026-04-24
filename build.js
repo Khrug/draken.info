@@ -613,7 +613,21 @@ function build() {
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
-  console.log('  âœ“ static assets');
+  // Vendor JS (three + 3d-force-graph) for same-origin loading by analyzer.
+  // Sourced from node_modules (installed via npm); not committed to repo.
+  const vendorDir = path.join(DIST_DIR, 'vendor');
+  fs.mkdirSync(vendorDir, { recursive: true });
+  const vendorFiles = [
+    ['node_modules/three/build/three.min.js', 'three.min.js'],
+    ['node_modules/3d-force-graph/dist/3d-force-graph.min.js', '3d-force-graph.min.js']
+  ];
+  let vendorOk = 0;
+  for (const [src, dst] of vendorFiles) {
+    const sp = path.join(__dirname, src);
+    if (fs.existsSync(sp)) { fs.copyFileSync(sp, path.join(vendorDir, dst)); vendorOk++; }
+    else console.warn('  ! vendor missing: ' + src + ' (run npm install)');
+  }
+  console.log('  ✓ static assets + vendor (' + vendorOk + '/2 libs)');
 
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
   fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://draken.info/sitemap.xml\n');
