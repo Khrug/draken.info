@@ -39,6 +39,8 @@ The Draken 2045 thesis (see `/thesis/`) treats knowledge — and by extension, w
 - **Voids.** High-centrality, low-content nodes. Words that everything circles around but nothing actually says anything *about*. In the Draken vocabulary these are **cavity resonators** (DRK-110): structural absences that shape the surrounding signal.
 - **Severed ρ.** Specific restriction maps whose fidelity falls below 0.35. These are the cut edges of the sheaf — places where two concepts co-occur in the text but fail to glue.
 
+![The 18-layer Draken hierarchy, visualized as a stack of nested rings — physical foundations at the base (L01–L04), biological and neural scales in the green band (L05–L06), narrative and social layers in amber (L07–L10), institutional and economic in the violet band (L11–L16), and planetary cognition at the apex (L17–L18). Every concept extracted by the Analyzer is placed somewhere in this stack; restriction maps ρ run between neighbouring rings.](/images/draken-18-layers.png)
+
 The Analyzer computes an **estimator** for each of these quantities from a co-occurrence graph over stemmed concept tokens, using a curated 18-layer keyword lexicon to place each concept on a scale. It is a *heuristic diagnostic*, not a formal sheaf-Laplacian computation over a real embedding space. The thesis itself labels Γ, Ψ, K as estimators. The tool makes those estimators visible on arbitrary text so that the theory has an empirical surface instead of just a paper surface.
 
 ## 3. Why bother
@@ -190,4 +192,49 @@ At corpus scale (4 302 concepts, 191 279 edges) the unfiltered graph would rende
 - **reheat** — kick the force simulation if it has settled into an uninformative layout.
 
 **Legend** in the bottom-left spells out the bold / regular / italic hierarchy and the severed-edge colour, so the encoding is self-explanatory to a first-time reader.
+
+## 8. Exports for downstream Draken / Claude synthesis
+
+The 3D graph is pedagogy. The heavy lifting — sentiment layering, narrative synthesis, generative extension, cross-layer gap analysis — is best done by handing a structured analysis document to a Claude / Draken session and asking it to think. The **Export ▾** menu produces three formats for this purpose.
+
+### 8.1 JSON (deep)
+
+A structured document, typically 40–80 KB for a single text or 60–120 KB for a corpus subset. Schema `draken-sheaf-analysis/v1`. Contains:
+
+- `source` — mode (single / corpus), list of post IDs if corpus, sentence and concept counts.
+- `metrics` — Γ, Ψ, K, α, severed count, void count, numerically precise.
+- `verdict` — the human-readable summary string.
+- `layerCoverage` — per-layer concept frequency, all 18 layers.
+- `layerSummaries` — for each layer: top concepts, aggregate valence, one representative sample sentence.
+- `narrative` — opening / middle / closing sections with dominant concepts per third.
+- `valenceTrajectory` — rolling valence window points across the text.
+- `severedClusters` — connected components of the severed-edge graph; reveals coherent sub-regions where gluing jointly failed.
+- `severedEdgesTop` — top 30 severed edges by weight, for direct inspection.
+- `voids` — cavity resonators with centrality and frequency.
+- `topConcepts` — top 50 by salience, each with layer distribution, valence, source posts, up to 2 sample sentences, and top 5 restriction-map neighbours with ρ values.
+- `_notes` — a block of natural-language explanation describing the schema and recommending downstream operations.
+
+The raw text is **not** included. If you need the text in the downstream analysis you can either paste it alongside or reference the source URL / DRK-IDs. Keeping the export text-free keeps the file small enough to fit comfortably into a Claude context window together with a synthesis prompt.
+
+### 8.2 Markdown report
+
+A human-readable rendering of the same content, plus a `## Prompt for downstream synthesis` block at the top. That block names the Draken metrics, defines the thresholds, and suggests four concrete operations — sentiment layering, narrative arc reconstruction, cavity diagnosis, and generative synthesis — phrased so that a Claude session can take them as instructions without further framing. Paste the `.md` file into `claude.ai` and ask. The file is typically 30–50 KB, well within context limits, and the prompt is editable if you want to aim the synthesis at something specific.
+
+### 8.3 JSON (minimal)
+
+The compact flat structure — metrics, verdict, all concepts (not just top 50), all edges. Suitable when you want to feed the graph into downstream tooling (a spreadsheet, a Pandas dataframe, a custom visualization) rather than a conversation.
+
+### 8.4 Example prompts for downstream use
+
+After exporting a deep JSON or Markdown report from, say, a corporate press release, useful prompts include:
+
+> "Given this Draken sheaf analysis, identify the *manufactured voids* (per DRK-110): which concepts are load-bearing (top salience) but have narrow co-occurrence neighbourhoods? For each, propose what structural absence is being circled, and what the filling narrative appears to be."
+
+> "Given this analysis, the text scores Γ 0.88 and Ψ 2.3 with layer coverage concentrated on L09 and L13. Is this the echo-chamber signature (locally coherent, globally narrow, self-referential)? Draw on DRK-117 and DRK-119 to support your reading. Cite specific concepts and edges."
+
+> "Compare-mode deep JSON of draft A vs draft B. ΔΓ = +0.08, ΔΨ = −0.4, 12 severed edges closed, 4 new voids introduced. Was this a structural revision or a cosmetic one? Identify which closed-severance edges carry the most weight and which new voids are most concerning."
+
+> "Full-corpus deep JSON. Of the top-50 load-bearing concepts, which ones span ≥ 18 of 21 source posts? Propose an ontological extraction: these are the candidate primary terms for a Draken glossary v2. For each, draft a one-sentence definition consistent with the sample sentences and the framework."
+
+These are Draken-native operations the tool cannot do itself but which the export makes mechanical for a downstream model.
 
