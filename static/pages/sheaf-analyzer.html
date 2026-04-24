@@ -288,27 +288,40 @@ SA.SAMPLES = {
 <!-- SECTION_MARKER: TOKENIZER -->
 <script id="sa-section-tokenizer">
 // ─ Sentence + token segmentation (language-agnostic; works on any Latin-alphabet text) ─
-SA.splitSentences = function(text){
+SA.splitSentences = function(text, sourceTag){
   // Normalize whitespace, collapse paragraph breaks
   text = text.replace(/\r\n/g,'\n').replace(/\t/g,' ');
-  // Preserve paragraphs (double newline)
   var paras = text.split(/\n\s*\n+/).map(function(p){ return p.trim(); }).filter(Boolean);
   var sents = [];
   paras.forEach(function(p, pi){
-    // Sentence split on . ! ? followed by space+capital, plus hard newlines
     var parts = p.replace(/\n/g,' ').split(/(?<=[.!?…])\s+(?=[A-ZÅÄÖÉÈÍÓÚÑ"'«(0-9])/);
     parts.forEach(function(s){
       s = s.trim(); if (s.length < 3) return;
-      sents.push({ text: s, para: pi });
+      sents.push({ text: s, para: pi, source: sourceTag || null });
     });
   });
   return sents;
 };
 
+// ─ Multi-source splitter: takes an array of {text, sourceTag} and returns one flat sentence list
+//   where each sentence carries its source tag. Used by corpus mode.
+SA.splitSentencesMulti = function(sources){
+  var out = [];
+  sources.forEach(function(src){
+    var s = SA.splitSentences(src.text, src.tag);
+    out = out.concat(s);
+  });
+  return out;
+};
+
+// Returns [{low, orig}] so we can detect proper nouns downstream.
 SA.tokenize = function(sent){
-  // Strip punctuation, keep intra-word hyphens and apostrophes
-  var raw = sent.toLowerCase().replace(/[^a-zåäöéèíóúñ'\- ]+/g,' ').split(/\s+/).filter(Boolean);
-  return raw.map(function(w){ return w.replace(/^[-']+|[-']+$/g,''); }).filter(function(w){ return w.length >= 2; });
+  var cleaned = sent.replace(/[^A-Za-zÅÄÖåäöÉéÈèÍíÓóÚúÑñ'\- ]+/g,' ');
+  var words = cleaned.split(/\s+/).filter(Boolean);
+  return words.map(function(w){
+    var trim = w.replace(/^[-']+|[-']+$/g,'');
+    return { low: trim.toLowerCase(), orig: trim };
+  }).filter(function(t){ return t.low.length >= 2; });
 };
 
 // ─ Light stemming: plural/possessive/verb-ending stripping. Not linguistically perfect; fine for graph nodes. ─
@@ -376,11 +389,11 @@ SA.extractConcepts = function(sentences){
     var toks = SA.tokenize(s.text);
     var stemmed = [];
     for (var i=0; i<toks.length; i++){
-      var raw = toks[i];
-      if (SA.STOP.has(raw)) { stemmed.push(null); continue; }
-      // Try bigram phrase first (e.g. "action potential", "echo chamber")
+      var low = toks[i].low, orig = toks[i].orig;
+      if (SA.STOP.has(low)) { stemmed.push(null); continue; }
+      // Try bigram phrase first
       if (i+1 < toks.length){
-        var bi = raw + ' ' + toks[i+1];
+        var bi = low + ' ' + toks[i+1].low;
         var bifound = false;
         for (var j=0;j<SA.LAYERS.length;j++){
           if (SA.LAYERS[j].kw.indexOf(bi) !== -1){ bifound = true; break; }
@@ -389,16 +402,16 @@ SA.extractConcepts = function(sentences){
           var key = bi.replace(/ /g,'_');
           stemmed.push(key);
           if (!concepts.has(key)) concepts.set(key, { word:key, displayWord:bi, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
-          var C = concepts.get(key); C.freq++; C.sentences.push(si); C.rawTokens.add(bi);
-          stemmed.push(null); // consume next token
-          i++; continue;
+          var C = concepts.get(key); C.freq++; C.sentences.push(si);
+          C.rawTokens.add(orig + ' ' + toks[i+1].orig);
+          stemmed.push(null); i++; continue;
         }
       }
-      var stem = SA.stem(raw);
+      var stem = SA.stem(low);
       if (stem.length < 3 || SA.STOP.has(stem)) { stemmed.push(null); continue; }
       stemmed.push(stem);
-      if (!concepts.has(stem)) concepts.set(stem, { word:stem, displayWord:raw, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
-      var C = concepts.get(stem); C.freq++; C.sentences.push(si); C.rawTokens.add(raw);
+      if (!concepts.has(stem)) concepts.set(stem, { word:stem, displayWord:low, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
+      var C = concepts.get(stem); C.freq++; C.sentences.push(si); C.rawTokens.add(orig);
     }
     sentTokens.push(stemmed);
   });
@@ -421,24 +434,29 @@ SA.extractConcepts = function(sentences){
     }
   });
 
-  // Compute layer distribution + valence + self-ref
+  // Compute layer distribution + valence + self-ref + source-tag collection
   filtered.forEach(function(C){
     var contexts = C.sentences.slice(0, 10).map(function(si){ return sentences[si].text.toLowerCase(); });
     C.layerDist = SA.tagLayers(C.word, contexts);
     C.dominantLayer = SA.dominantLayer(C.layerDist);
-    // Valence: count pos/neg adjacencies in contexts
     var pos = 0, neg = 0;
     contexts.forEach(function(ctx){
       SA.POS.forEach(function(p){ if (ctx.indexOf(p) !== -1) pos++; });
       SA.NEG.forEach(function(n){ if (ctx.indexOf(n) !== -1) neg++; });
     });
     C.valence = (pos - neg) / Math.max(1, pos + neg);
-    // Self-ref flag
     var sr = 0;
     contexts.forEach(function(ctx){
       SA.SELF_REF.forEach(function(m){ if (ctx.indexOf(m) !== -1) sr++; });
     });
     C.selfRef = sr;
+    // Source-tag collection (corpus mode)
+    var srcSet = new Set();
+    C.sentences.forEach(function(si){
+      var s = sentences[si];
+      if (s && s.source) srcSet.add(s.source);
+    });
+    C.sources = Array.from(srcSet);
   });
 
   return { concepts: filtered, sentTokens: sentTokens };
@@ -561,16 +579,21 @@ SA.computePsi = function(gamma, sentences, concepts){
   concepts.forEach(function(C){ if (C.dominantLayer) layerHits.add(C.dominantLayer); });
   var breadth = layerHits.size / 18;
   var psiL = breadth < 0.25 ? (0.25 - breadth) * 4 : 0;
-  // Repetition component
-  var repetitionBoost = 0;
-  concepts.forEach(function(C){ if (C.selfRef > 2 && C.freq > 3) repetitionBoost += 0.1; });
+  // Repetition component: count concepts with self-ref context, normalize by concept count
+  var repHits = 0;
+  concepts.forEach(function(C){ if (C.selfRef > 2 && C.freq > 3) repHits++; });
+  var repetitionBoost = Math.min(1.5, repHits / Math.max(20, concepts.size * 0.05));
   return Math.min(10, psiG + psiT + psiR + psiL + repetitionBoost);
 };
 
+// K(t): coherence debt as weight-normalized obstruction density, scale-free in [0, ~3].
+// Raw sum / total-weight gives per-unit-weight debt; × log(edges+1) keeps it sensitive to graph size.
 SA.computeKt = function(edges){
-  var sum = 0;
-  edges.forEach(function(e){ sum += e.weight * (1 - e.rho); });
-  return sum;
+  if (!edges.length) return 0;
+  var num = 0, den = 0;
+  edges.forEach(function(e){ num += e.weight * (1 - e.rho); den += e.weight; });
+  var density = den > 0 ? num / den : 0;
+  return density * Math.log(edges.length + 1);
 };
 
 SA.computeAlpha = function(concepts){
@@ -595,6 +618,14 @@ SA.countSevered = function(edges){ return edges.filter(function(e){ return e.sev
 // ─ Voids: concepts with high centrality but low self-content ─
 // Proxy centrality: weighted degree. Low self-content proxy: few distinct co-occurrence partners
 // relative to frequency (high freq, narrow neighborhood = empty center).
+// Proper-noun heuristic: all raw tokens appeared capitalized → likely name/place, skip as void.
+SA._isProperNoun = function(C){
+  if (!C.rawTokens || !C.rawTokens.size) return false;
+  var caps = 0, total = 0;
+  C.rawTokens.forEach(function(t){ total++; if (/[A-ZÅÄÖ]/.test(t[0])) caps++; });
+  return total > 0 && caps / total > 0.7;
+};
+
 SA.detectVoids = function(nodes, edges){
   var deg = {};
   edges.forEach(function(e){
@@ -603,9 +634,11 @@ SA.detectVoids = function(nodes, edges){
   });
   var voids = [];
   nodes.forEach(function(C){
+    if (SA._isProperNoun(C)) return;        // exclude proper nouns
+    if (!C.dominantLayer) return;            // exclude unlayered concepts (likely noise)
     var d = deg[C.word] || 0;
     var partners = Object.keys(C.cooccur).length;
-    var diversity = partners / Math.max(1, C.freq);  // narrow neighborhood → low diversity
+    var diversity = partners / Math.max(1, C.freq);
     var centrality = d;
     if (centrality > 2 && diversity < 0.8 && C.freq >= 3){
       voids.push({ word: C.word, centrality: centrality, diversity: diversity, freq: C.freq });
@@ -637,14 +670,58 @@ SA.analyze = function(text){
   };
 };
 
+// ─ Corpus analyzer: accepts [{text, tag}], returns standard analysis + per-source metadata ─
+SA.analyzeCorpus = function(sources){
+  if (!sources || !sources.length) throw new Error('No posts selected.');
+  var sentences = SA.splitSentencesMulti(sources);
+  if (sentences.length < 3) throw new Error('Corpus too small — select more posts.');
+  var ex = SA.extractConcepts(sentences);
+  var sheaf = SA.buildSheaf(ex.concepts, ex.sentTokens, sentences);
+  var gamma = SA.computeGamma(sheaf.edges);
+  var psi = SA.computePsi(gamma, sentences, ex.concepts);
+  var kt = SA.computeKt(sheaf.edges);
+  var alpha = SA.computeAlpha(ex.concepts);
+  var severed = SA.countSevered(sheaf.edges);
+  var voids = SA.detectVoids(sheaf.nodes, sheaf.edges);
+  var coverage = {};
+  SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
+  ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
+  return {
+    sentences: sentences, concepts: ex.concepts, sentTokens: ex.sentTokens,
+    nodes: sheaf.nodes, edges: sheaf.edges,
+    metrics: { gamma: gamma, psi: psi, kt: kt, alpha: alpha, severed: severed, voids: voids, coverage: coverage },
+    sources: sources.map(function(s){ return s.tag; })
+  };
+};
+
+// ─ Pair analyzer: two texts side-by-side, returns {a, b, delta, shared, onlyA, onlyB} ─
+SA.analyzePair = function(textA, textB){
+  var A = SA.analyze(textA);
+  var B = SA.analyze(textB);
+  var aSet = new Set(Array.from(A.concepts.keys()));
+  var bSet = new Set(Array.from(B.concepts.keys()));
+  var shared = [], onlyA = [], onlyB = [];
+  aSet.forEach(function(k){ if (bSet.has(k)) shared.push(k); else onlyA.push(k); });
+  bSet.forEach(function(k){ if (!aSet.has(k)) onlyB.push(k); });
+  var delta = {
+    gamma: B.metrics.gamma - A.metrics.gamma,
+    psi: B.metrics.psi - A.metrics.psi,
+    kt: B.metrics.kt - A.metrics.kt,
+    alpha: B.metrics.alpha - A.metrics.alpha,
+    severed: B.metrics.severed - A.metrics.severed,
+    voids: (B.metrics.voids.length) - (A.metrics.voids.length)
+  };
+  return { a: A, b: B, shared: shared, onlyA: onlyA, onlyB: onlyB, delta: delta };
+};
+
 // ─ Verdict generator — human-readable summary ─
 SA.verdict = function(m){
   var parts = [];
   if (m.gamma >= 0.75) parts.push('✓ Γ locally coherent');
   else if (m.gamma >= 0.55) parts.push('⚠ Γ degraded');
   else parts.push('✗ Γ incoherent');
-  if (m.psi < 1.0) parts.push('· Ψ healthy');
-  else if (m.psi < 3.0) parts.push('· Ψ elevated');
+  if (m.psi < 1.5) parts.push('· Ψ healthy');
+  else if (m.psi < 3.5) parts.push('· Ψ elevated');
   else parts.push('· Ψ psychotic');
   // Layer breadth flag — narrow scope with high local coherence is the echo-chamber signature
   var layerHits = Object.values(m.coverage).filter(function(v){ return v > 0; }).length;
@@ -811,6 +888,161 @@ SA.centerOnNode = function(n){
 // ─ UI controller: text input, URL fetch, analyze trigger, inspector, text-view rendering, export ─
 
 SA.lastAnalysis = null;
+SA.corpus = null;      // cached /data/corpus.json
+SA.corpusSel = new Set();  // selected drk ids
+SA.currentMode = 'single';
+
+// ─ Mode switcher ─
+SA.setMode = function(mode){
+  SA.currentMode = mode;
+  ['single','corpus','compare'].forEach(function(m){
+    var btn = document.getElementById('sa-mode-' + m);
+    if (btn) btn.className = 'sa-btn' + (m === mode ? '' : ' ghost');
+    document.querySelectorAll('.sa-mode-panel[data-mode="' + m + '"]').forEach(function(el){
+      el.style.display = m === mode ? '' : 'none';
+    });
+  });
+  if (mode === 'corpus' && !SA.corpus) SA.loadCorpus();
+};
+
+// ─ Corpus: fetch + render list ─
+SA.loadCorpus = async function(force){
+  var cnt = document.getElementById('sa-corpus-count');
+  var list = document.getElementById('sa-corpus-list');
+  if (SA.corpus && !force){ SA.renderCorpusList(); return; }
+  cnt.textContent = 'Loading corpus…';
+  list.innerHTML = '<div class="sa-panel-empty">Fetching /data/corpus.json…</div>';
+  try {
+    var r = await fetch('/data/corpus.json?' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    SA.corpus = await r.json();
+    SA.renderCorpusList();
+  } catch (e){
+    list.innerHTML = '<div class="sa-panel-empty" style="color:#ef4444">Failed to load corpus: ' + e.message + '. Build the site first (node build.js).</div>';
+  }
+};
+
+SA.renderCorpusList = function(){
+  if (!SA.corpus) return;
+  var list = document.getElementById('sa-corpus-list');
+  var html = '';
+  SA.corpus.posts.forEach(function(p){
+    var checked = SA.corpusSel.has(p.drk) ? 'checked' : '';
+    var layerBadges = (p.layers || []).slice(0, 6).map(function(l){
+      var L = SA.LAYER_INDEX[l];
+      return '<span style="display:inline-block;font-size:9px;padding:1px 5px;border-radius:3px;background:' + (L ? L.color + '22' : '#1a2c1a') + ';color:' + (L ? L.color : '#6b8a6b') + ';margin-right:3px;font-family:JetBrains Mono,monospace">' + l + '</span>';
+    }).join('');
+    html += '<label style="display:flex;align-items:center;gap:10px;padding:6px 4px;border-bottom:1px dashed #1a2c1a;cursor:pointer" data-drk="' + p.drk + '">';
+    html += '<input type="checkbox" class="sa-corpus-cb" data-drk="' + p.drk + '" ' + checked + ' style="accent-color:#4ade80">';
+    html += '<div style="flex:1;min-width:0">';
+    html += '<div style="font-size:12px;color:#c8d8c8;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><b style="color:#4ade80;font-family:JetBrains Mono,monospace;font-size:10px;margin-right:6px">' + p.drk + '</b>' + p.title + '</div>';
+    html += '<div style="font-size:10px;color:#6b8a6b;font-family:JetBrains Mono,monospace;margin-top:2px">' + p.date + ' · ' + p.words + ' words · Γ ' + (p.coherence || 0).toFixed(2) + ' · ' + layerBadges + '</div>';
+    html += '</div></label>';
+  });
+  list.innerHTML = html;
+  SA.updateCorpusCount();
+  list.querySelectorAll('.sa-corpus-cb').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      if (cb.checked) SA.corpusSel.add(cb.dataset.drk); else SA.corpusSel.delete(cb.dataset.drk);
+      SA.updateCorpusCount();
+    });
+  });
+};
+
+SA.updateCorpusCount = function(){
+  if (!SA.corpus) return;
+  var total = SA.corpus.posts.length;
+  var selPosts = SA.corpus.posts.filter(function(p){ return SA.corpusSel.has(p.drk); });
+  var words = selPosts.reduce(function(s, p){ return s + (p.words || 0); }, 0);
+  document.getElementById('sa-corpus-count').textContent = SA.corpusSel.size + '/' + total + ' selected · ' + words.toLocaleString() + ' words';
+};
+
+SA.corpusFilter = function(predicate){
+  if (!SA.corpus) return;
+  SA.corpusSel.clear();
+  SA.corpus.posts.forEach(function(p){ if (predicate(p)) SA.corpusSel.add(p.drk); });
+  SA.renderCorpusList();
+};
+
+SA.runCorpus = async function(){
+  if (!SA.corpus){ alert('Corpus not loaded yet.'); return; }
+  if (!SA.corpusSel.size){ alert('Select at least one post.'); return; }
+  var btn = document.getElementById('sa-corpus-run');
+  btn.disabled = true; btn.textContent = '⟳ Analyzing…';
+  SA.setProgress(5);
+  try {
+    var sources = SA.corpus.posts
+      .filter(function(p){ return SA.corpusSel.has(p.drk); })
+      .map(function(p){ return { text: p.text, tag: p.drk }; });
+    SA.setProgress(20);
+    await new Promise(function(r){ setTimeout(r, 30); });
+    var analysis = SA.analyzeCorpus(sources);
+    analysis._corpusMeta = sources.map(function(s){
+      var p = SA.corpus.posts.find(function(x){ return x.drk === s.tag; });
+      return { drk: s.tag, title: p ? p.title : s.tag };
+    });
+    SA.lastAnalysis = analysis;
+    SA.setProgress(55);
+    SA.setMetrics(analysis.metrics);
+    SA.renderCorpusTextView(analysis);
+    SA.setProgress(80);
+    await SA.renderGraph(analysis);
+    SA.setProgress(100);
+    setTimeout(function(){ SA.setProgress(0); }, 600);
+  } catch (e){
+    alert('Corpus analysis failed: ' + e.message);
+    SA.setProgress(0);
+  } finally {
+    btn.disabled = false; btn.textContent = '▸ Analyze selected';
+  }
+};
+
+// Custom text view for corpus mode: show per-post sections with DRK headers
+SA.renderCorpusTextView = function(analysis){
+  var el = document.getElementById('sa-text-view');
+  var bySource = {};
+  analysis.sentences.forEach(function(s, si){
+    if (!s.source) return;
+    (bySource[s.source] = bySource[s.source] || []).push({ s: s, si: si });
+  });
+  var html = '';
+  (analysis._corpusMeta || []).forEach(function(meta){
+    var items = bySource[meta.drk] || [];
+    if (!items.length) return;
+    html += '<div style="margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid #1a2c1a">';
+    html += '<div style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin-bottom:6px">◆ ' + meta.drk + ' — ' + meta.title + ' (' + items.length + ' sentences)</div>';
+    html += '<p style="font-size:12px;line-height:1.65">';
+    items.slice(0, 8).forEach(function(item){
+      var tokens = item.s.text.split(/(\s+|[.,;:!?—"'()\[\]…])/);
+      tokens.forEach(function(t){
+        var raw = t.toLowerCase();
+        var stem = SA.stem(raw.replace(/[^a-zåäöéèíóúñ'\-]/g, ''));
+        var concept = analysis.concepts.get(stem);
+        if (concept){
+          var tier = concept.freq >= 10 ? 1 : concept.freq >= 4 ? 2 : 3;
+          html += '<span class="sa-w" data-stem="' + stem + '" data-tier="' + tier + '">' + t.replace(/</g,'&lt;') + '</span>';
+        } else {
+          html += t.replace(/</g,'&lt;');
+        }
+      });
+      html += ' ';
+    });
+    if (items.length > 8) html += '<span style="color:#6b8a6b">… (' + (items.length - 8) + ' more sentences elided)</span>';
+    html += '</p></div>';
+  });
+  el.innerHTML = html || '<div class="sa-panel-empty">No text to display.</div>';
+  el.onclick = function(ev){
+    var target = ev.target;
+    while (target && !target.dataset.stem) target = target.parentElement;
+    if (!target) return;
+    var C = analysis.concepts.get(target.dataset.stem);
+    if (C){
+      document.querySelectorAll('.sa-w.active').forEach(function(e){ e.classList.remove('active'); });
+      document.querySelectorAll('.sa-w[data-stem="' + target.dataset.stem + '"]').forEach(function(e){ e.classList.add('active'); });
+      SA.selectNode(C);
+    }
+  };
+};
 
 SA.setProgress = function(pct){ document.getElementById('sa-prog').style.width = pct + '%'; };
 
@@ -820,9 +1052,9 @@ SA.setMetrics = function(m){
   el('m-gamma').textContent = m.gamma.toFixed(3);
   el('m-gamma').style.color = color(m.gamma, 0.75, 0.55);
   el('m-psi').textContent = m.psi.toFixed(2);
-  el('m-psi').style.color = m.psi < 1 ? '#4ade80' : m.psi < 3 ? '#c9a84c' : '#ef4444';
-  el('m-kt').textContent = m.kt.toFixed(1);
-  el('m-kt').style.color = m.kt < 3 ? '#4ade80' : m.kt < 8 ? '#c9a84c' : '#ef4444';
+  el('m-psi').style.color = m.psi < 1.5 ? '#4ade80' : m.psi < 3.5 ? '#c9a84c' : '#ef4444';
+  el('m-kt').textContent = m.kt.toFixed(2);
+  el('m-kt').style.color = m.kt < 3 ? '#4ade80' : m.kt < 6 ? '#c9a84c' : '#ef4444';
   el('m-alpha').textContent = m.alpha.toFixed(2);
   el('m-alpha').style.color = m.alpha < 0.4 ? '#4ade80' : m.alpha < 0.7 ? '#c9a84c' : '#ef4444';
   el('m-sev').textContent = m.severed;
@@ -926,6 +1158,14 @@ SA.selectNode = function(concept){
                concept.valence < -0.3 ? '<span class="sa-chip sa-chip-r">valence ' + concept.valence.toFixed(2) + '</span>' :
                '<span class="sa-chip">valence ' + concept.valence.toFixed(2) + '</span>';
 
+  // Source-post chips (corpus mode only)
+  var sourcesHtml = '';
+  if (concept.sources && concept.sources.length){
+    sourcesHtml = '<h4>Appears in (corpus)</h4><div>' + concept.sources.map(function(src){
+      return '<span class="sa-chip" style="background:#0b1a12;color:#4ade80;border:1px solid #1a6b38;font-family:JetBrains Mono,monospace">' + src + '</span>';
+    }).join('') + '</div>';
+  }
+
   el.innerHTML =
     '<h3 style="color:' + (L?L.color:'#e4f0e4') + '">' + (concept.displayWord || concept.word).replace(/_/g,' ') + '</h3>' +
     '<div style="font-size:11px;color:#6b8a6b;font-family:JetBrains Mono,monospace;margin-bottom:8px">' + (L ? L.id + ' — ' + L.name : 'unlayered') + '</div>' +
@@ -935,6 +1175,7 @@ SA.selectNode = function(concept){
     '<div class="sa-kv"><b>sentences spanned</b><span>' + concept.sentences.length + '</span></div>' +
     '<div class="sa-kv"><b>self-ref hits</b><span>' + concept.selfRef + '</span></div>' +
     '<div style="margin-top:6px">' + valTag + '</div>' +
+    sourcesHtml +
     '<h4>Layer distribution</h4><div>' + (layerChips || '<span class="sa-panel-empty">No layer match</span>') + '</div>' +
     '<h4>Restriction maps (top neighbors)</h4>' + (neighborHtml || '<div class="sa-panel-empty">No neighbors</div>') +
     '<h4>Sample contexts</h4>' + (samples || '<div class="sa-panel-empty">No samples</div>');
@@ -1003,6 +1244,26 @@ SA.run = async function(){
 
 // ─ Bootstrap ─
 document.addEventListener('DOMContentLoaded', function(){
+  // Mode tabs
+  ['single','corpus','compare'].forEach(function(m){
+    var btn = document.getElementById('sa-mode-' + m);
+    if (btn) btn.addEventListener('click', function(){ SA.setMode(m); });
+  });
+  // Corpus controls
+  document.getElementById('sa-corpus-run').addEventListener('click', SA.runCorpus);
+  document.getElementById('sa-corpus-refresh').addEventListener('click', function(){ SA.loadCorpus(true); });
+  document.getElementById('sa-corpus-all').addEventListener('click', function(){
+    SA.corpusFilter(function(){ return true; });
+  });
+  document.getElementById('sa-corpus-none').addEventListener('click', function(){
+    SA.corpusSel.clear(); SA.renderCorpusList();
+  });
+  document.getElementById('sa-corpus-theory').addEventListener('click', function(){
+    SA.corpusFilter(function(p){ return (p.tags || []).indexOf('theory') !== -1 || (p.tags || []).indexOf('manifesto') !== -1; });
+  });
+  document.getElementById('sa-corpus-analysis').addEventListener('click', function(){
+    SA.corpusFilter(function(p){ return (p.tags || []).indexOf('analysis') !== -1; });
+  });
   document.getElementById('sa-run').addEventListener('click', SA.run);
   document.getElementById('sa-clear').addEventListener('click', function(){
     document.getElementById('sa-text').value = ''; document.getElementById('sa-url').value = '';
