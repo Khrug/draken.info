@@ -557,7 +557,155 @@ SA.verdict = function(m){
 </script>
 
 <!-- SECTION_MARKER: RENDERER -->
-<script id="sa-section-renderer">/* populated in Edit pass 4 */</script>
+<script id="sa-section-renderer">
+// ─ 3D graph renderer using 3d-force-graph (loaded lazily) ─
+
+SA.graph = null;
+SA.showLabels = true;
+SA.highlightVoids = true;
+
+SA.colorFor = function(node){
+  var L = SA.LAYER_INDEX[node.dominantLayer];
+  return L ? L.color : '#6b8a6b';
+};
+
+SA.sizeFor = function(node){
+  return Math.max(3, Math.min(14, 3 + Math.log(node.freq + 1) * 2.5));
+};
+
+SA.renderGraph = async function(analysis){
+  await SA.loadDeps();
+  var el = document.getElementById('sa-graph');
+  var emptyEl = document.getElementById('sa-graph-empty');
+  if (emptyEl) emptyEl.style.display = 'none';
+
+  var data = {
+    nodes: analysis.nodes.map(function(n){
+      return {
+        id: n.word,
+        label: n.displayWord,
+        val: n.freq,
+        color: SA.colorFor(n),
+        _concept: n
+      };
+    }),
+    links: analysis.edges.map(function(e){
+      return {
+        source: e.source, target: e.target,
+        rho: e.rho, weight: e.weight, severed: e.severed,
+        color: e.severed ? 'rgba(239,68,68,0.55)' : 'rgba(74,222,128,' + (0.15 + 0.5 * e.rho) + ')'
+      };
+    })
+  };
+
+  if (SA.graph) {
+    SA.graph.graphData(data);
+    SA.graph.d3ReheatSimulation();
+    return;
+  }
+
+  var w = el.clientWidth, h = el.clientHeight;
+  SA.graph = ForceGraph3D()(el)
+    .width(w).height(h)
+    .backgroundColor('#050805')
+    .graphData(data)
+    .nodeLabel(function(n){ return n.label + ' · ' + (n._concept.dominantLayer || '—') + ' · freq ' + n._concept.freq; })
+    .nodeColor('color')
+    .nodeVal(function(n){ return SA.sizeFor(n._concept); })
+    .nodeOpacity(0.92)
+    .linkColor('color')
+    .linkWidth(function(l){ return 0.3 + 1.2 * (l.weight || 0); })
+    .linkOpacity(0.7)
+    .linkDirectionalParticles(function(l){ return l.severed ? 0 : (l.weight > 0.5 ? 2 : 0); })
+    .linkDirectionalParticleWidth(1.2)
+    .linkDirectionalParticleSpeed(0.006)
+    .onNodeClick(function(n){ SA.selectNode(n._concept); SA.centerOnNode(n); })
+    .onNodeHover(function(n){ document.getElementById('sa-graph').style.cursor = n ? 'pointer' : 'grab'; });
+
+  // Initial camera zoom
+  setTimeout(function(){ if (SA.graph) SA.graph.zoomToFit(600, 40); }, 900);
+
+  // Responsive
+  var ro = new ResizeObserver(function(){
+    if (!SA.graph) return;
+    SA.graph.width(el.clientWidth).height(el.clientHeight);
+  });
+  ro.observe(el);
+
+  // Toggle handlers
+  document.getElementById('sa-gc-reheat').onclick = function(){ if (SA.graph) SA.graph.d3ReheatSimulation(); };
+  document.getElementById('sa-gc-fit').onclick = function(){ if (SA.graph) SA.graph.zoomToFit(500, 40); };
+  document.getElementById('sa-gc-labels').onclick = function(){
+    SA.showLabels = !SA.showLabels;
+    SA.applyLabelMode();
+  };
+  document.getElementById('sa-gc-voids').onclick = function(){
+    SA.highlightVoids = !SA.highlightVoids;
+    SA.applyVoidHighlight(SA.lastAnalysis);
+  };
+  SA.applyLabelMode();
+  SA.applyVoidHighlight(analysis);
+};
+
+SA.applyLabelMode = function(){
+  if (!SA.graph) return;
+  if (SA.showLabels){
+    SA.graph.nodeThreeObject(function(n){
+      // Sprite label on top of default node
+      if (!window.THREE) return null;
+      var sprite = new THREE.Sprite(new THREE.SpriteMaterial({
+        map: SA._makeLabel(n.label, n.color),
+        depthTest: false, transparent: true
+      }));
+      var scale = Math.max(6, Math.min(24, 6 + Math.log((n._concept && n._concept.freq) || 1) * 4));
+      sprite.scale.set(scale * 1.6, scale * 0.5, 1);
+      sprite.position.set(0, SA.sizeFor(n._concept) + 2, 0);
+      var grp = new THREE.Group();
+      var sphereGeo = new THREE.SphereGeometry(SA.sizeFor(n._concept), 16, 16);
+      var sphereMat = new THREE.MeshLambertMaterial({ color: n.color, transparent: true, opacity: 0.92 });
+      grp.add(new THREE.Mesh(sphereGeo, sphereMat));
+      grp.add(sprite);
+      return grp;
+    });
+    SA.graph.nodeThreeObjectExtend(false);
+  } else {
+    SA.graph.nodeThreeObject(null);
+  }
+};
+
+SA._makeLabel = function(text, color){
+  var c = document.createElement('canvas');
+  c.width = 256; c.height = 80;
+  var ctx = c.getContext('2d');
+  ctx.fillStyle = 'rgba(8,12,8,0.0)'; ctx.fillRect(0,0,256,80);
+  ctx.font = 'bold 28px "JetBrains Mono", monospace';
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = color;
+  ctx.strokeStyle = '#050805'; ctx.lineWidth = 4;
+  ctx.strokeText(text, 128, 40); ctx.fillText(text, 128, 40);
+  var tex = new THREE.CanvasTexture(c); tex.needsUpdate = true;
+  return tex;
+};
+
+SA.applyVoidHighlight = function(analysis){
+  if (!analysis || !SA.graph) return;
+  var voidSet = new Set((analysis.metrics.voids || []).map(function(v){ return v.word; }));
+  // Adjust link width & color around voids
+  SA.graph.linkWidth(function(l){
+    var base = 0.3 + 1.2 * (l.weight || 0);
+    if (SA.highlightVoids && (voidSet.has(l.source.id || l.source) || voidSet.has(l.target.id || l.target))) return base + 1;
+    return base;
+  });
+};
+
+SA.centerOnNode = function(n){
+  if (!SA.graph || n.x === undefined) return;
+  var dist = 60;
+  var r = Math.sqrt(n.x*n.x + n.y*n.y + n.z*n.z) || 1;
+  var ratio = 1 + dist / r;
+  SA.graph.cameraPosition({ x: n.x * ratio, y: n.y * ratio, z: n.z * ratio }, n, 800);
+};
+</script>
 
 <!-- SECTION_MARKER: CONTROLLER -->
 <script id="sa-section-controller">/* populated in Edit pass 5 */</script>
