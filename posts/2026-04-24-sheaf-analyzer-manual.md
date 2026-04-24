@@ -68,3 +68,126 @@ When you press **Analyze**, the following happens — all in your browser, typic
 
 None of this requires a GPU, a backend, or a network connection once the page has loaded. It is all in a single HTML file, roughly 70 KB of JavaScript.
 
+## 5. The metrics, in operational terms
+
+### Γ — sheaf convergence
+
+**Range:** [0, 1]. **Read:** ≥ 0.75 locally coherent · 0.55–0.75 degraded · < 0.55 incoherent.
+
+**What it means.** Γ is the weighted mean of the restriction-map fidelities across all edges of the concept graph. It asks: when two concepts in this text co-occur, do they plausibly belong to the same neighbourhood of meaning (same or adjacent scale, overlapping contexts, compatible valence), or do they merely happen to share sentences?
+
+**What moves it.** Drafts that stitch together vocabulary from several scales without building the bridge concepts that would glue the scales score low. Drafts whose concepts cluster tightly in two or three adjacent layers and reinforce each other score high. Importantly, a very narrow corpus can score Γ high — local coherence without global scope — which is exactly why Ψ and layer coverage must be read alongside it.
+
+### Ψ — narrative self-reference
+
+**Range:** [0, 10], capped. **Read:** < 1.5 healthy · 1.5–3.5 elevated · > 3.5 psychotic.
+
+**What it means.** Ψ is the Draken framework's operational definition of "the narrative has lost contact with the world and is doing its work by referring to itself." It is not a mental-health concept; it is a topological one. At high Ψ, restriction maps between the text's narrative layer (L07) and its empirical or institutional layers (L10, L13, L14) are functionally severed, and the text is plugging the gap with self-citation.
+
+**What moves it.** Every *we*, *our*, *our community*, *our founder*, *as I said*, *obviously*, *of course*, *no reasonable person* contributes to the numerator. Every proper noun, year, number, quoted source, and named external entity contributes to the denominator. A narrow layer coverage (< 25 % of the 18 layers touched) adds a penalty because narrow-scope-with-high-local-Γ is the mathematical signature of an echo chamber. A single academic paper with a healthy citation density and broad coverage will score Ψ in the 0.3–1.0 range; a polemical column will score 1.5–3.5; a conspiratorial tract, > 3.5.
+
+### K(t) — coherence debt
+
+**Range:** [0, ~6], scale-free. **Read:** < 3 low · 3–6 moderate · > 6 high.
+
+**What it means.** K is the accumulated-obstruction budget: Σ edge_weight · (1 − ρ) normalized by total weight, then multiplied by log(edges + 1) so that growing the graph does not automatically grow the number. In the full Draken theory K(t) is time-integrated — the debt accumulated by a system over time as it keeps asserting across severed maps. Here it is a single-snapshot reading, but it is comparable across analyses, which is what matters for editing.
+
+**What moves it.** Many edges with low ρ. A text can have high Γ on average but a long tail of moderately obstructed restriction maps, and that tail is what K reads.
+
+### α — abstraction depth
+
+**Range:** [0, 1]. **Read:** < 0.4 grounded · 0.4–0.7 mixed · > 0.7 abstract.
+
+**What it means.** How far from sensory reality the concepts in the text are operating. Concepts ending in *-tion*, *-ism*, *-ity*, *-ness*, *-ance*, *-ence*, *-ology* are treated as abstract; concepts dominantly mapped to L01–L06 (the physical-biological scales) are treated as concrete. The frequency-weighted mean is α.
+
+**Why it matters.** High α with low empirical anchoring (few proper nouns, few numbers, few named mechanisms) plus low Γ is the cavity signature from DRK-110: a text suspended high above the ground with nothing to tie it down.
+
+### Severed ρ
+
+A count of edges with ρ < 0.35. Absolute number. A single short essay with zero severed edges is either very tight or very narrow; read it together with Γ and layer coverage to tell which. In corpus mode, severed counts in the low hundreds are normal because the corpus spans many topics.
+
+### Voids
+
+Concepts with high weighted degree and low co-occurrence diversity (the neighbourhood is narrow relative to frequency). These are the words your text speaks *around* without speaking *into*. Four or more voids clustered on layers the text otherwise claims is a DRK-110 marker.
+
+### Salience
+
+Not a diagnostic metric — an importance score used to drive the graph's visual hierarchy. *salience* = 0.45 · centrality + 0.35 · log-frequency + 0.20 · source-coverage. It answers: "of all the concepts this text contains, which ones is it actually resting on?" The top 15 % by salience are rendered bold; the bottom 45 % italic. In the full draken.info corpus (21 posts, 4 302 concepts), the top-salience terms are *system, draken, structural, signal, coherence, framework, model, institutional, information, narrative* — which is a reasonable précis of what the corpus is doing.
+
+## 6. Three modes
+
+### 6.1 Single text
+
+Paste or URL-fetch. Click **Analyze**. The graph renders, the metrics fill, the text view shows your source with every recognized concept underlined and clickable. Click any word — or any node in the 3D graph — and the inspector populates with the concept's dominant layer, layer distribution, top restriction-map neighbours (with their ρ values), sample sentences, valence, self-reference hits, and void flag.
+
+Use this mode for individual pieces of text: an article, a speech, a report, an email you are about to send that you suspect is working too hard.
+
+### 6.2 Corpus
+
+Click the **Corpus mode** tab. The tool fetches `/data/corpus.json` (which `build.js` generates at site-build time from the posts directory — 21 posts, ~566 KB, one fetch). A checkbox list appears with each post's DRK-ID, title, date, word count, per-post Γ, and layer badges.
+
+- **Select all** — analyze the whole draken.info corpus as one sheaf.
+- **Clear** — start over.
+- **Theory only / Analysis only** — pre-built filters on tag.
+- Or click individual checkboxes to build any subset.
+
+Press **Analyze selected**. The tool concatenates the selected posts, runs the full pipeline, and produces one combined meaning graph. In the inspector, every concept now carries a *sources* field listing which DRK-IDs it appeared in. The text view is broken into per-post sections with DRK headers, so you can still see the concept in its original home.
+
+Use cases:
+- Self-audit: which concepts carry my argument across the most posts? Which posts are islands?
+- Subset coherence: does my theory cluster glue better than my analysis cluster? Does a chosen trio of posts cohere?
+- Onboarding: build the "core three" subset for a new reader and see whether those three glue into a competent introduction.
+- Cross-author corpus: if you have 50 statements from an institution, pasted into a custom corpus.json (see the build.js source; it is straightforward to extend), you get the same analysis on external data.
+
+### 6.3 Compare
+
+Click **Compare two texts**. Two textareas appear, labelled A (blue) and B (gold). Paste a draft into each and press **Compare**. The tool runs both analyses independently and then produces:
+
+- A metric delta table: ΔΓ, ΔΨ, ΔK, Δseverance, and concept-overlap counts (shared, A-only, B-only).
+- A combined 3D graph with nodes coloured by origin — blue for A-only, gold for B-only, green for shared — and salience recomputed over the union so the tiers reflect comparative importance.
+- A side-by-side text view with concepts tinted in the same palette, so you can see at a glance which concepts B added and which A had that B dropped.
+- A built-in sample pair (corporate disconnect vs. echo chamber) that demonstrates the pattern.
+
+Use cases:
+- Before / after rewrite: does the revision actually close severed edges, or does it just add length?
+- Official statement vs. internal memo: the same facts framed at different layers.
+- Your draft vs. a Claude rewrite: where did the machine simplify, and did the simplification remove load-bearing concepts?
+- Thesis abstract vs. thesis body: does the abstract honestly summarize, or does it operate at a different layer than the body?
+
+## 7. Reading the 3D graph
+
+The graph uses `three.js` plus `3d-force-graph`, loaded from `draken.info/vendor/` (same-origin, no CDN dependency). A force-directed simulation places concepts in 3D space.
+
+**Colour.** Node colour encodes dominant layer. L01 (quantum field) at the blue end, through L07 (narrative self) in amber, L12 (national narrative) in purple, to L18 (planetary cognition) in green. Unlayered concepts — words that did not match any of the 18-layer lexicon — show in muted grey. Edge colour is green for healthy restriction maps (opacity scaling with ρ) and red for severed.
+
+**Size.** Sphere size ∝ salience^0.85. The load-bearing concepts are visibly larger; the tangential ones are small.
+
+**Labels.** Three tiers, determined by salience rank among visible nodes:
+
+- **Top 15 %** — 800-weight bold, large font, full opacity. These are the concepts your text is resting on.
+- **Middle 40 %** — regular weight, medium font, 85 % opacity. Supporting concepts.
+- **Bottom 45 %** — 400-weight *italic*, small font, 65 % opacity. Tangential mentions that survived filtering but are not doing structural work.
+
+**Density controls** in the top-right of the graph:
+
+- **focus** — top 60 concepts, ~240 edges. Minimum clutter; the argumentative skeleton only.
+- **balanced** (default) — 120 concepts, ~480 edges. The good default for exploration.
+- **full** — 400 concepts, ~1 600 edges. Dense but still capped; use when you want to see the long tail.
+
+At corpus scale (4 302 concepts, 191 279 edges) the unfiltered graph would render as an undifferentiated haze. The density cap is the difference between a legible diagnostic and a screenshot of static.
+
+**Controls.**
+
+- Desktop: left-drag rotates, scroll-wheel zooms, right-drag pans, click a node to inspect.
+- Android / iOS: single-finger drag rotates, pinch zooms, two-finger drag pans. The canvas has `touch-action: none` set so the browser does not steal touch events for page scroll.
+- A **zoom pad** in the bottom-right has explicit `+` / `−` / `↺ reset` buttons, sized for thumbs, because on small screens the pinch gesture on a WebGL canvas is occasionally flaky across browsers. Use the pad if pinch refuses to work.
+
+**Other toggles.**
+
+- **labels** — hide all labels if the spheres alone are enough.
+- **voids** — highlight edges adjacent to cavity concepts with extra width.
+- **fit** — recentre the camera on the whole graph.
+- **reheat** — kick the force simulation if it has settled into an uninformative layout.
+
+**Legend** in the bottom-left spells out the bold / regular / italic hierarchy and the severed-edge colour, so the encoding is self-explanatory to a first-time reader.
+
