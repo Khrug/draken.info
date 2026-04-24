@@ -639,6 +639,35 @@ SA.computeAlpha = function(concepts){
 
 SA.countSevered = function(edges){ return edges.filter(function(e){ return e.severed; }).length; };
 
+// ─ Salience: per-concept importance for corpus sensemaking. ─
+// Blend: weighted graph degree (centrality) · log-frequency · source coverage.
+// Output: each node gets .salience ∈ [0,1] and ._degree (raw weighted degree).
+SA.computeSalience = function(nodes, edges){
+  var degMap = {};
+  edges.forEach(function(e){
+    var s = (e.source && e.source.id) || e.source;
+    var t = (e.target && e.target.id) || e.target;
+    degMap[s] = (degMap[s]||0) + e.weight;
+    degMap[t] = (degMap[t]||0) + e.weight;
+  });
+  var maxFreq = 1, maxDeg = 1, maxSrc = 1;
+  nodes.forEach(function(n){
+    if (n.freq > maxFreq) maxFreq = n.freq;
+    var d = degMap[n.word] || 0;
+    if (d > maxDeg) maxDeg = d;
+    var s = (n.sources||[]).length;
+    if (s > maxSrc) maxSrc = s;
+  });
+  var logMaxFreq = Math.log(maxFreq + 1);
+  nodes.forEach(function(n){
+    var fScore = Math.log(n.freq + 1) / logMaxFreq;
+    var dScore = (degMap[n.word] || 0) / maxDeg;
+    var sScore = maxSrc > 1 ? ((n.sources||[]).length) / maxSrc : 0;
+    n.salience = 0.35 * fScore + 0.45 * dScore + 0.20 * sScore;
+    n._degree = degMap[n.word] || 0;
+  });
+};
+
 // ─ Voids: concepts with high centrality but low self-content ─
 // Proxy centrality: weighted degree. Low self-content proxy: few distinct co-occurrence partners
 // relative to frequency (high freq, narrow neighborhood = empty center).
@@ -683,6 +712,7 @@ SA.analyze = function(text){
   var alpha = SA.computeAlpha(ex.concepts);
   var severed = SA.countSevered(sheaf.edges);
   var voids = SA.detectVoids(sheaf.nodes, sheaf.edges);
+  SA.computeSalience(sheaf.nodes, sheaf.edges);
   // Layer coverage
   var coverage = {};
   SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
@@ -707,6 +737,7 @@ SA.analyzeCorpus = function(sources){
   var alpha = SA.computeAlpha(ex.concepts);
   var severed = SA.countSevered(sheaf.edges);
   var voids = SA.detectVoids(sheaf.nodes, sheaf.edges);
+  SA.computeSalience(sheaf.nodes, sheaf.edges);
   var coverage = {};
   SA.LAYERS.forEach(function(L){ coverage[L.id] = 0; });
   ex.concepts.forEach(function(C){ if (C.dominantLayer) coverage[C.dominantLayer] += C.freq; });
