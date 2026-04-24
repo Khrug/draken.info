@@ -183,6 +183,42 @@ function buildThesisPage(baseTpl) {
   console.log('  âœ“ thesis/');
 }
 
+// ── CORPUS.JSON — strip-to-plain export for client-side analyzer ──
+function buildCorpusJson(posts) {
+  const items = posts.map(p => {
+    // Strip markdown syntax to plain text (analyzer is robust to residual punctuation)
+    let t = p.rawContent || '';
+    t = t.replace(/```[\s\S]*?```/g, ' ');          // fenced code
+    t = t.replace(/`[^`\n]+`/g, ' ');               // inline code
+    t = t.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');    // images
+    t = t.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');  // links → keep text
+    t = t.replace(/^#{1,6}\s+/gm, '');              // headings
+    t = t.replace(/^\s*[-*+]\s+/gm, '');            // list bullets
+    t = t.replace(/^\s*>\s?/gm, '');                // blockquotes
+    t = t.replace(/\*\*([^*]+)\*\*/g, '$1');        // bold
+    t = t.replace(/\*([^*]+)\*/g, '$1');            // italic
+    t = t.replace(/_([^_]+)_/g, '$1');              // underscore emph
+    t = t.replace(/~{2}([^~]+)~{2}/g, '$1');        // strikethrough
+    t = t.replace(/\n{3,}/g, '\n\n').trim();
+    return {
+      drk: p.drk || '',
+      slug: p.slug,
+      title: p.title || p.slug,
+      date: p.date ? new Date(p.date).toISOString().split('T')[0] : '',
+      layers: p.layers || [],
+      coherence: p.coherence || 0,
+      tags: p.tags || [],
+      words: t.split(/\s+/).filter(Boolean).length,
+      text: t
+    };
+  }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const out = { generated: new Date().toISOString(), count: items.length, posts: items };
+  const dataDir = path.join(DIST_DIR, 'data');
+  fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'corpus.json'), JSON.stringify(out));
+  console.log(`  ✓ data/corpus.json (${items.length} posts, ${(JSON.stringify(out).length/1024).toFixed(1)}kb)`);
+}
+
 // â”€â”€ SHEAF GAME PAGE â”€â”€
 function buildSheafGamePage(baseTpl) {
   const gp = path.join(STATIC_DIR, 'pages', 'sheaf-game.html');
@@ -591,6 +627,7 @@ function build() {
   buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
   buildDigestPages();
+  buildCorpusJson(posts);
 
   // â”€â”€ Static assets â”€â”€
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
