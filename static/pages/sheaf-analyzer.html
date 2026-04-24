@@ -231,7 +231,150 @@ SA.SAMPLES = {
 </script>
 
 <!-- SECTION_MARKER: TOKENIZER -->
-<script id="sa-section-tokenizer">/* populated in Edit pass 2 */</script>
+<script id="sa-section-tokenizer">
+// ─ Sentence + token segmentation (language-agnostic; works on any Latin-alphabet text) ─
+SA.splitSentences = function(text){
+  // Normalize whitespace, collapse paragraph breaks
+  text = text.replace(/\r\n/g,'\n').replace(/\t/g,' ');
+  // Preserve paragraphs (double newline)
+  var paras = text.split(/\n\s*\n+/).map(function(p){ return p.trim(); }).filter(Boolean);
+  var sents = [];
+  paras.forEach(function(p, pi){
+    // Sentence split on . ! ? followed by space+capital, plus hard newlines
+    var parts = p.replace(/\n/g,' ').split(/(?<=[.!?…])\s+(?=[A-ZÅÄÖÉÈÍÓÚÑ"'«(0-9])/);
+    parts.forEach(function(s){
+      s = s.trim(); if (s.length < 3) return;
+      sents.push({ text: s, para: pi });
+    });
+  });
+  return sents;
+};
+
+SA.tokenize = function(sent){
+  // Strip punctuation, keep intra-word hyphens and apostrophes
+  var raw = sent.toLowerCase().replace(/[^a-zåäöéèíóúñ'\- ]+/g,' ').split(/\s+/).filter(Boolean);
+  return raw.map(function(w){ return w.replace(/^[-']+|[-']+$/g,''); }).filter(function(w){ return w.length >= 2; });
+};
+
+// ─ Light stemming: plural/possessive/verb-ending stripping. Not linguistically perfect; fine for graph nodes. ─
+SA.stem = function(w){
+  if (w.length <= 3) return w;
+  // Compound check — keep multi-word phrases intact via '_' markers (phase later)
+  var endings = ['\'s','s\'','ing','edly','edge','edly','ed','es','ly','al'];
+  for (var i=0;i<endings.length;i++){
+    var e = endings[i];
+    if (w.endsWith(e) && w.length - e.length >= 3){
+      return w.slice(0, -e.length);
+    }
+  }
+  if (w.endsWith('s') && w.length > 3 && !w.endsWith('ss') && !w.endsWith('us') && !w.endsWith('is')) return w.slice(0,-1);
+  return w;
+};
+
+// ─ Layer tagging: exact phrase match > single-word keyword. Each concept carries a layer distribution. ─
+SA.tagLayers = function(conceptWord, conceptContexts){
+  var dist = {};
+  SA.LAYERS.forEach(function(L){
+    var score = 0;
+    L.kw.forEach(function(k){
+      if (conceptWord === k || conceptWord.includes(k) || k.includes(conceptWord)) score += 2;
+      // Scan a sampling of contexts for phrase hits
+      conceptContexts.slice(0, 6).forEach(function(ctx){
+        if (ctx.indexOf(k) !== -1) score += 0.5;
+      });
+    });
+    if (score > 0) dist[L.id] = score;
+  });
+  // Normalize
+  var total = 0; for (var k in dist) total += dist[k];
+  if (total > 0){ for (var k in dist) dist[k] /= total; }
+  return dist;
+};
+
+SA.dominantLayer = function(dist){
+  var best = null, bv = -1;
+  for (var k in dist){ if (dist[k] > bv){ bv = dist[k]; best = k; } }
+  return best;
+};
+
+// ─ Concept extraction: build a Concept for each significant stemmed token ─
+// A Concept = { word, displayWord, freq, sentences[], cooccur{}, layerDist, dominantLayer, selfRef, valence }
+SA.extractConcepts = function(sentences){
+  var concepts = new Map();
+  var sentTokens = [];
+
+  sentences.forEach(function(s, si){
+    var toks = SA.tokenize(s.text);
+    var stemmed = [];
+    for (var i=0; i<toks.length; i++){
+      var raw = toks[i];
+      if (SA.STOP.has(raw)) { stemmed.push(null); continue; }
+      // Try bigram phrase first (e.g. "action potential", "echo chamber")
+      if (i+1 < toks.length){
+        var bi = raw + ' ' + toks[i+1];
+        var bifound = false;
+        for (var j=0;j<SA.LAYERS.length;j++){
+          if (SA.LAYERS[j].kw.indexOf(bi) !== -1){ bifound = true; break; }
+        }
+        if (bifound){
+          var key = bi.replace(/ /g,'_');
+          stemmed.push(key);
+          if (!concepts.has(key)) concepts.set(key, { word:key, displayWord:bi, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
+          var C = concepts.get(key); C.freq++; C.sentences.push(si); C.rawTokens.add(bi);
+          stemmed.push(null); // consume next token
+          i++; continue;
+        }
+      }
+      var stem = SA.stem(raw);
+      if (stem.length < 3 || SA.STOP.has(stem)) { stemmed.push(null); continue; }
+      stemmed.push(stem);
+      if (!concepts.has(stem)) concepts.set(stem, { word:stem, displayWord:raw, freq:0, sentences:[], cooccur:{}, rawTokens:new Set() });
+      var C = concepts.get(stem); C.freq++; C.sentences.push(si); C.rawTokens.add(raw);
+    }
+    sentTokens.push(stemmed);
+  });
+
+  // Drop hapax (freq=1) concepts unless the text is very short
+  var totalSentences = sentences.length;
+  var minFreq = totalSentences < 20 ? 1 : 2;
+  var filtered = new Map();
+  concepts.forEach(function(C, k){ if (C.freq >= minFreq) filtered.set(k, C); });
+
+  // Compute co-occurrence within sentence (window = full sentence)
+  sentTokens.forEach(function(toks){
+    var unique = Array.from(new Set(toks.filter(function(t){ return t && filtered.has(t); })));
+    for (var a=0; a<unique.length; a++){
+      for (var b=a+1; b<unique.length; b++){
+        var A = filtered.get(unique[a]), B = filtered.get(unique[b]);
+        A.cooccur[unique[b]] = (A.cooccur[unique[b]] || 0) + 1;
+        B.cooccur[unique[a]] = (B.cooccur[unique[a]] || 0) + 1;
+      }
+    }
+  });
+
+  // Compute layer distribution + valence + self-ref
+  filtered.forEach(function(C){
+    var contexts = C.sentences.slice(0, 10).map(function(si){ return sentences[si].text.toLowerCase(); });
+    C.layerDist = SA.tagLayers(C.word, contexts);
+    C.dominantLayer = SA.dominantLayer(C.layerDist);
+    // Valence: count pos/neg adjacencies in contexts
+    var pos = 0, neg = 0;
+    contexts.forEach(function(ctx){
+      SA.POS.forEach(function(p){ if (ctx.indexOf(p) !== -1) pos++; });
+      SA.NEG.forEach(function(n){ if (ctx.indexOf(n) !== -1) neg++; });
+    });
+    C.valence = (pos - neg) / Math.max(1, pos + neg);
+    // Self-ref flag
+    var sr = 0;
+    contexts.forEach(function(ctx){
+      SA.SELF_REF.forEach(function(m){ if (ctx.indexOf(m) !== -1) sr++; });
+    });
+    C.selfRef = sr;
+  });
+
+  return { concepts: filtered, sentTokens: sentTokens };
+};
+</script>
 
 <!-- SECTION_MARKER: METRICS -->
 <script id="sa-section-metrics">/* populated in Edit pass 3 */</script>
