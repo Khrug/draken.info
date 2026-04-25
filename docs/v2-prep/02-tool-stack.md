@@ -218,4 +218,84 @@ Sonnet 4.6 at $3 / $15 per 1M input/output tokens. The spec's per-analysis cost 
 - [claude-cookbooks: prompt_caching example](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb)
 - [Anthropic SDK on npm: @anthropic-ai/sdk](https://www.npmjs.com/package/@anthropic-ai/sdk)
 
+## 5. Modal Python service — when to delegate
+
+The spec scopes Modal as **optional**, used only for graphs > 500 nodes (Tier 3, full-corpus runs). Given the Lanczos-availability finding in §2 above, two refined deployment models:
+
+**Model A (recommended): Lanczos in Worker, Modal for very large graphs.**
+  · In-Worker (TS Lanczos): graphs up to ~500 nodes, embedding dim ≤ 512.
+  · Delegate to Modal: anything larger, plus full-corpus runs.
+
+**Model B: Modal for all sheaf eigensolves.**
+  · Worker handles LLM + embeddings only.
+  · Modal handles every sheaf computation, regardless of size.
+  · Simplifies code path, but adds ~200ms cross-network latency to every analysis. Probably worth A's complexity for the latency win.
+
+### Modal setup
+
+Modal supports Python services with auto-scaling and pay-per-second billing. Approximately:
+  · ~$0.10/hour idle (warm-pool keeping container alive)
+  · ~$0.50-2/hour active (depending on CPU/memory)
+  · Free tier ~$30/month credit
+
+For draken.info corpus-scale workloads (a handful of full re-analyses per month), expected cost is well under $5/month if scoped narrowly.
+
+### Compute service spec (per spec §5.1, `compute/`)
+
+```python
+# compute/sheaf_service.py
+import modal
+from scipy.sparse import csr_matrix
+from scipy.sparse.linalg import eigsh
+import numpy as np
+
+app = modal.App("draken-analyzer-v2-compute")
+
+@app.function(image=modal.Image.debian_slim().pip_install(["scipy", "numpy"]))
+@modal.web_endpoint(method="POST")
+def smallest_eigenpairs(payload: dict):
+    triplets = payload["triplets"]   # [[row, col, val], ...]
+    n        = payload["n"]
+    k        = payload.get("k", 10)
+    rows, cols, vals = zip(*triplets)
+    L = csr_matrix((vals, (rows, cols)), shape=(n, n))
+    eigvals, eigvecs = eigsh(L, k=k+1, which="SM", sigma=0)
+    return {
+        "eigenvalues": eigvals.tolist(),
+        "eigenvectors": eigvecs.T.tolist(),
+    }
+```
+
+### Sources
+
+- [Modal Documentation](https://modal.com/docs)
+- [scipy.sparse.linalg.eigsh](https://docs.scipy.org/doc/scipy/reference/generated/scipy.sparse.linalg.eigsh.html)
+
+## 6. Frontend stack
+
+| Dep | Version target | Purpose |
+|---|---|---|
+| `vite` | 5.x | Build tool, dev server |
+| `three` | 0.149.x (UMD) or latest ESM | 3D concept-cloud (carried forward from v1) |
+| `3d-force-graph` | 1.73.x | Force-directed 3D graph (carried forward from v1) |
+| `d3` | 7.x | 2D argument-graph DAG renderer |
+| `lit-html` | 3.x (optional) | Lightweight templating; or vanilla |
+| `zod` | 3.x | Runtime schema validation, shared with worker |
+
+The v1 vendoring of three.js / 3d-force-graph in `dist/vendor/` is still required and well-justified (see DRK-132 manual; unpkg blocking incident). Reuse the same approach.
+
+D3 is new for v2's argument-graph view. v1 used `3d-force-graph`; for the directed argument DAG, D3 force layout (`d3-force` + `d3-zoom` + custom rendering to canvas/SVG) is the right tool. Don't reuse three.js for the argument graph — it's overkill and the 2D-DAG semantics are clearer in D3.
+
+## 7. Test runner
+
+Spec specifies `vitest` + `playwright`. Both are correct choices.
+
+  · **vitest** for prompt regression (§6.1 of `PROMPT_VERSIONING.md`), sheaf math sanity tests, schema round-trip tests.
+  · **playwright** for end-to-end through the UI (smoke tests of full pipeline in browser).
+
+Add **a third dependency: `@stdlib/stats-ttest`** or similar for tolerance comparison in regression fixtures. The spec's tolerance policy (§6.2) requires numerical comparison with bounded error; stdlib has the right primitives.
+
+### Embedding-similarity tolerance for free-text fields
+
+For free-text golden output comparison (`text`, `reasoning`, `evidence_required` etc.), the spec calls for "semantic similarity ≥ 0.8 via embedding." Implementation: cache fixture-expected embeddings in `fixtures/expected-embeddings/`, compute cosine similarity at test time, fail if < 0.8. The same Voyage embeddings used in production make the test cheap (mostly cache hits) and consistent.
 
