@@ -188,4 +188,61 @@ Eigenvalues of L⁰ are eigenvalues of L_graph, each with multiplicity d. dim H�
 
 **Third sanity check.** If two vertices u, v have identical neighborhoods and identical restriction maps to those neighbours, they should appear in the same component of the Fiedler partition (cannot be cleanly separated by spectral cut). Useful for catching bugs in the coboundary builder.
 
+## 9. Implementation notes
+
+**Sparse representation is mandatory.** A dense L⁰ for 500 nodes × d=1024 stalk dim is (500·1024)² = 2.6 × 10¹¹ floats = ~1 TB. Way over the 128 MB Cloudflare Workers memory limit. The Laplacian must be stored as a sparse matrix in CSR or COO format, and the coboundary builder must construct triplets `(row, col, value)` directly.
+
+**Block sparsity.** L⁰ has a special block structure: if the graph has E edges, L⁰ has at most (V + 2E) non-zero d×d blocks, but each block is dense. For identity restriction maps, the block-diagonal structure of L⁰ = L_graph ⊗ I_d means storage is *only* O((V + 2E) · d) — much less than the naive O((V·d)²) — and matrix-vector products are O((V+E)·d).
+
+**Eigenvalue extraction.** Two regimes:
+
+  · Tier 2 (Cloudflare Worker): graphs ≤ ~200 nodes × d ≤ 256 = 50k DOF. Either implement Lanczos by hand (~150 LoC TS, no dependency works out of the box; see `02-tool-stack.md` §2) or fall back to dense `EigenvalueDecomposition` from `ml-matrix` only on tiny graphs (≤ 50 nodes).
+
+  · Tier 3 (Modal Python): use `scipy.sparse.linalg.eigsh(L_norm, k=10, which='SM', sigma=0)` (shift-invert mode for smallest eigenvalues). Standard.
+
+**The first eigenvalue is always zero (or numerically near-zero) for connected sheaves with non-degenerate restriction maps.** Always skip λ₀ when reporting the spectral gap. The implementer should explicitly handle this:
+
+```typescript
+const allEigs = smallestEigenpairs(L_norm, 11);  // get k+1 to be safe
+const lambda1 = allEigs.eigenvalues.find(λ => λ > 1e-10);
+if (lambda1 === undefined) {
+  // sheaf is empty or extremely degenerate
+}
+```
+
+**Numerical hygiene.** Restriction-map blocks should be assembled with care for sign conventions (head minus tail, not tail minus head). The Dirichlet energy formula gives an exact way to sanity-check this: ⟨s, L⁰s⟩ should always be ≥ 0 for any s, and = 0 iff s is a global section. Add an assertion in tests.
+
+**Edge weights from inference confidence.** Each inference comes with `explicit_strength` and `formal_validity`. A natural edge weight is
+
+  w_e  =  α · explicit_strength_e  +  (1−α) · formal_validity_e
+
+with α ∈ [0.3, 0.5] tuned to balance "what the text claims" against "what the model judges." Apply weight as scaling on the coboundary block: ρ_e ↦ √(w_e) · ρ_e, which equals applying weight w_e on L⁰. Document the choice of α with its calibration date in the registry.
+
+## 10. References
+
+**Primary:**
+
+· Hansen, J., & Ghrist, R. (2019). *Toward a Spectral Theory of Cellular Sheaves*. Journal of Applied and Computational Topology 3(4), 315–358. https://link.springer.com/article/10.1007/s41468-019-00038-7 — the canonical citation for the sheaf Laplacian, spectral theory, and the discrete Hodge decomposition.
+
+· Hansen, J., & Ghrist, R. (2021). *Opinion Dynamics on Discourse Sheaves*. SIAM Journal on Applied Mathematics 81(5), 2033–2060. https://epubs.siam.org/doi/abs/10.1137/20M1341088 — direct conceptual antecedent for v2's design; introduces sheaf-Laplacian-driven dynamics on opinion graphs and the role of the Laplacian in registering "discord."
+
+**Secondary:**
+
+· Curry, J. (2014). *Sheaves, Cosheaves and Applications*. PhD thesis, University of Pennsylvania. The standard textbook treatment of cellular sheaves.
+
+· Robinson, M. (2014). *Topological Signal Processing*. Springer. Engineering-oriented treatment; less abstract than Curry, more applied than Hansen-Ghrist.
+
+**Code resources:**
+
+· `pysheaf` (https://github.com/kb1dds/pysheaf) — Python library for cellular sheaves, sheaf Laplacian, cohomology. Reference implementation; useful for cross-checking v2's outputs even though v2 is not built on it.
+
+· `discourse-sheaves` notebook companion to Hansen-Ghrist 2021. Search Hansen's website for the link.
+
+**Adjacent (Draken-internal):**
+
+· Thesis v4.4, §2 "Mathematical Foundations" and §9 "Sheaf Ethology." See `static/pages/thesis.html` and the printable PDF in `static/slask/`.
+
+· DRK-121 *The Coherence Debt* — defines K(t) and its relationship to the Laplacian's energy budget over time. Directly relevant to v2's `gamma_dirichlet` interpretation.
+
+· DRK-125 *The Totalitarian Sheaf* — the framework's most explicit analysis of what happens topologically when restriction maps are systematically severed. Useful for prompt calibration on the cavity-resonator fixture.
 
