@@ -1,0 +1,46 @@
+{
+  "schema": "draken-fixture-expected/v1",
+  "fixture": "draken-corpus-baseline.json",
+  "fixture_purpose": "Cross-version benchmark — v2 must reproduce v1's reading on the same corpus within ±0.10 of Γ. The two-cluster severed-edge topology must persist.",
+  "fixture_type": "benchmark (not a constructed test text — actual v1 output)",
+  "prompt_versions_locked": {
+    "extract_claims": "v1.2.0",
+    "classify_modality": "v1.0.0",
+    "extract_inferences": "v1.1.0",
+    "detect_enthymeme": "v1.3.0",
+    "extract_citations": "v1.0.0",
+    "classify_citation": "v1.0.0",
+    "note": "These prompts apply if v2 corpus mode is run with Argument Mode at corpus scale (not v2.0 default — Argument Mode is per-document in v2.0 per D-10). For v2.0, this benchmark applies only to Topology Mode at corpus scale, where the comparison is against v1's heuristic Γ → v2's Γ_spec on embedding-based concept graph."
+  },
+  "metric_bands": {
+    "gamma_spec": {
+      "min": 0.45,
+      "max": 0.65,
+      "v1_anchor": 0.6048,
+      "tolerance_note": "v2 spectral Γ should fall within ±0.10 of v1 heuristic Γ (0.605) on the same corpus. If outside this range, the disagreement IS informative — investigate before proceeding."
+    },
+    "psi_or_cavity_score": {
+      "rationale": "v1 Ψ = 2.253 was the heuristic blend. v2 Topology Mode does not directly compute Ψ; it computes Γ_dirichlet. Argument-mode-on-corpus would compute cavity_score, but corpus-Argument-mode is post-MVP per D-10."
+    }
+  },
+  "structural_signature": {
+    "fiedler_partition_min_clusters": 2,
+    "expected_partition_signature": [
+      "large severed cluster centered on: draken, structural, signal, framework, model, social, human, structure",
+      "smaller severed cluster centered on: clinch, restriction, capacity, global, time, maintain, power"
+    ],
+    "calibration_note": "If v2's Fiedler cut produces a cleanly different partition (e.g., single large cluster, or three-cluster structure), the embedding-based concept graph is identifying different latent topology than v1's keyword-co-occurrence graph. This may be an improvement but requires investigation. A different cut is acceptable; cut absence is not."
+  },
+  "layer_coverage_signature": {
+    "must_hit_all_18_layers": true,
+    "expected_dominant_layers_top3": ["L07", "L14", "L05"],
+    "expected_dominant_concepts_top10_overlap_with_v1": 7,
+    "calibration_note": "v1's top-10 salience: system, draken, structural, signal, coherence, framework, model, layer, narrative, institutional. v2 must reproduce ≥ 7 of these 10 (allowing for embedding-based ranking to surface adjacent terms). Drop below 7 = different framework being measured."
+  },
+  "discipline_notes": [
+    "This is the only fixture for which v1 and v2 are expected to substantially agree. Disagreement is not a failure but is a research finding that must be analyzed before continuing.",
+    "If v2 produces Γ_spec ≥ 0.85 (substantially higher than v1), the embedding-based geometry has smoothed over distinctions v1's keyword tagging caught. Investigate whether v1 was over-flagging severance, or v2 is under-flagging.",
+    "If v2 produces Γ_spec ≤ 0.30, v2's spectral computation is treating embedding geometry as severance where v1 found gluing. Likely the restriction-map identity-strategy is too lenient at corpus scale — consider switching to type-conditioned (D-3 strategy 2) earlier than planned.",
+    "Either disagreement justifies a paragraph in the v2 launch post explaining the discrepancy, since the framework's coherence requires the two analyzers' diagnoses to be commensurable."
+  ]
+}
