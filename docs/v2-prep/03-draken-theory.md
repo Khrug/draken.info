@@ -52,4 +52,36 @@ These are corpus-canonical and must not be renamed in v2. Spec already respects 
 
 **Naming policy:** in user-facing text, "restriction map" is fine. Don't say "coboundary" except in the math-mode panel; coboundary is the matrix that *combines all restriction maps*, which is a separate concept the user does not need.
 
+## 2. Topology vocabulary — sheaf, stalk, gluing, severance
+
+These are corpus-canonical and rigorous. Use as defined.
+
+**Sheaf** (corpus): "a structure that describes how local information can be glued together into global information." Use the term freely; the corpus has done the work of explaining it (DRK-117, thesis §2.1).
+
+**Stalk** (corpus, sparse usage): the local space over a point. v2 should adopt this term explicitly in user-facing prose: "concept stalks" (Topology Mode) or "claim stalks" (Argument Mode). The thesis uses it; the corpus posts mostly don't, opting for "local section." Either is fine but v2 should pick one and be consistent.
+
+**Gluing** (corpus, central): the act of producing a global section from local ones. "Failed gluing" is the corpus's preferred phrasing for low Γ. Use this; it is rhetorically and mathematically right.
+
+**Severance / severed** (corpus, DRK-119, DRK-125): when a restriction map's fidelity drops to where the local sections cannot be reconciled. v1's concrete cutoff (ρ < 0.35) generalizes to v2's (residual energy > 0.7 × max stalk norm). The user-facing label "severed ρ" is preserved. **Important:** v2's severance threshold is on the *residual*, while v1's was on the *fidelity*; they are inverse — make sure the UI does not flip the sign. Document this carefully in the verdict generator.
+
+**Restriction map fidelity** (v1 term, retained for continuity): the ρ ∈ [0, 1] score per edge. In v2 this becomes a derived quantity from the residual: fidelity(e) = 1 − residual(e) / max_stalk_norm. Keep the term so the export schemas are mostly stable.
+
+**Cohomological obstruction** (corpus, DRK-117 Ordlista): "a non-trivial element in H¹(X, F) — local sections that cannot be glued consistently no matter how you try." v2's H¹ computation makes this concept *operationally available* for the first time in the framework. Should be introduced gently in v2 documentation; not all readers know what cohomology is.
+
+## 3. Cavity vocabulary — void, manufactured void, cavity resonator
+
+This is where Draken's most distinctive vocabulary lives. v2 must preserve it exactly.
+
+**Cavity_AI / cavity resonator** (corpus, DRK-120 The Cavity and the Commune, the Trotskij origin): "a structuring absence that gives form to whatever signal arises in its place." Not just an empty space — a *generative* boundary condition. Origin: the loss of Trotskij the water monitor.
+
+**v2 mapping:** the v1 voids (high-centrality, low-content concepts) and the v2 enthymemes (load-bearing unstated premises) are both cavity-vocabulary phenomena. Document this lineage in the user-facing copy:
+
+> "An enthymeme is a cavity at the claim level: it shapes the inferences around it without itself being said. A void is a cavity at the concept level: it appears everywhere but is elaborated nowhere. Both exhibit the same topological signature — high centrality with low local content — and both are the pattern DRK-110 names *manufactured void* when produced deliberately by power."
+
+**Manufactured Void** (corpus, DRK-110, capital letters when used as a proper term): "an information hole deliberately introduced into the topology by a power structure to control which generative models can form inside it." This is the *adversarial* version of the cavity. v2 should retain "manufactured void" as a specific Argument Mode finding — when high cavity_score correlates with high authority_density on citations, the configuration matches the DRK-110 fingerprint.
+
+**Inversion Filter** (V.7 axiom): "the diagnostic test — does this structure require information suppression at its boundaries?" v2 has the operational apparatus for this: examine the Fiedler cut. If the cleanest severance falls along the boundary between *what the text claims to operate at* and *what it is actually saying*, the V.7 inversion filter has triggered. Recommend exposing this explicitly: "V.7 fired" as a verdict tag when this pattern appears.
+
+**Sacred / Holy** (corpus, DRK-120, thesis §2 sparingly): the genuine domain limit of restriction maps — death, thermodynamic boundary, mathematical incompleteness. v2 has no direct mechanical analog (the model can't tell genuine limits from manufactured ones automatically), but the terminology should be preserved in the documentation: voids fall into sacred (genuine) vs manufactured (adversarial) categories, and v2's quantitative tools cannot themselves make this distinction — that is the user's domain expertise and the V.7 filter's purpose.
+
 
