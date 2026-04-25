@@ -53,17 +53,24 @@ The current `/sheaf-analyzer/` v1 is live and well-used. Two options:
 - **(a) Keep v1 untouched, add v2 at `/sheaf-analyzer-v2/`**: parallel deployment. Recommended.
 - **(b) Replace v1 with v2 + a "classic mode" toggle**: cleaner URL but risks regressing v1 use cases.
 
-Recommendation: **(a)**. Keep v1 alive. Cross-link from v2 to v1 ("classic v1 mode is at `/sheaf-analyzer/`"). Only retire v1 once v2 has demonstrated parity on the calibration fixtures *plus* run on the corpus *plus* received user vetting.
+**Decision (Khrug, 2026-04-25): (a). Keep v1 alive at `/sheaf-analyzer/`. v2 lives at `/sheaf-analyzer-v2/`.** Cross-link in both directions. v2 is additive; never modifies v1 files.
+
+**CI guardrail:** any commit on `claude/analyzer-v2-implementation` that touches files under `frontend/src/topology-mode/` (the refactored v1) is blocked. Forces clean separation, prevents accidental v1 regressions during v2 development. Implement as a `.github/workflows/v2-isolation.yml` step.
 
 ### D-6. Cost ceiling and rate-limiting
 
 The spec's cost model (§11) implies ~$0.09 per first-run analysis. At a few hundred runs per month this is fine; at thousands it becomes meaningful.
 
-- Should v2 require an API key from the user (BYO Anthropic + Voyage)?
-- Or run on Khrug's API keys with rate-limiting?
-- Or hybrid (free tier with Khrug's keys, paid tier with BYO)?
+**Decision (Khrug, 2026-04-25): hybrid free-tier-with-cap + BYOK overflow.**
 
-Recommendation: **start with BYO** (user pastes their own API keys, stored in browser localStorage like the slask GitHub-token pattern). Avoids billing infrastructure on day 1 and frees the user from Cloudflare cost decisions. Revisit if community demand requires a hosted free tier.
+- A fresh visitor to `/sheaf-analyzer-v2/` defaults to **Tier 1 (offline JS heuristic)** with a one-click upgrade to **Tier 2 (LLM-powered)**. Tier 1 is the public-good path: nothing uploaded, nothing leaves the browser, like v1.
+- Tier 2 is opt-in **per analysis** with a cost preview shown before submission.
+- Anonymous Tier 2 capped at **5 analyses per IP per day** on Khrug's API keys.
+- Beyond the cap: BYOK pattern (Anthropic + Voyage keys stored in browser localStorage, same as the `slask` GitHub-token pattern). Document the keys are stored locally, never sent to Khrug servers.
+
+This makes the tool free to try, free to use lightly, and self-funding for heavy users. Matches the draken.info ethic: framework open, diagnostic public, LLM-powered upgrade is convenience not paywall.
+
+Rate-limit implementation: Cloudflare Workers KV with per-IP daily counter, reset at UTC midnight. ~10 LoC.
 
 ### D-7. Modality classification — secondary modality
 
