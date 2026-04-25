@@ -1,0 +1,15 @@
+Antibiotic resistance evolves predictably under selection pressure. When a
+bacterial population is exposed to a sub-lethal antibiotic concentration,
+individuals carrying resistance mutations survive at higher rates and
+reproduce, increasing the resistant fraction in the next generation. This
+mechanism, established in the foundational work of Luria and Delbrück
+(1943), explains why hospital infections often involve multi-resistant
+strains: the hospital environment maintains continuous selection. If
+antibiotic use ceases, the resistant fraction may decline, but only when
+resistance mutations carry a measurable fitness cost in the absence of the
+drug. Recent work by Andersson and Hughes (2010, Nature Reviews
+Microbiology) shows that compensatory mutations frequently restore fitness
+in resistant strains, which means resistance can persist long after
+selection ends. The clinical implication is that rotating antibiotics is
+not by itself sufficient to reverse resistance once it is established in a
+population.
