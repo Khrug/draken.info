@@ -78,4 +78,57 @@ The dimension dim H⁰ counts the number of independent globally-consistent sect
 
 Non-trivial H¹ means there are **edge-supported discrepancies that cannot be explained as the coboundary of any vertex section** — formal obstructions to gluing that no choice of stalks can fix.
 
+## 5. Spectral coherence Γ_spec
+
+Let L⁰_norm denote the symmetric normalized Laplacian:
+
+  L⁰_norm  =  D^{-1/2} L⁰ D^{-1/2}
+
+where D is the block-diagonal of L⁰. Let
+
+  0 = λ₀ ≤ λ₁ ≤ λ₂ ≤ … ≤ λ_max
+
+be its eigenvalues. The first non-zero eigenvalue λ₁ is the **Fiedler value** or **spectral gap**.
+
+**Important note on direction.** In ordinary spectral graph theory, a *small* λ₁ indicates near-disconnection (a clean cut exists between two communities). For a **sheaf** the same logic applies — but the interpretation flips relative to v1's heuristic Γ:
+
+  · small λ₁  ⇒  near-disconnection in the sheaf  ⇒  gluing failure
+  · large λ₁  ⇒  well-mixed, well-glued sheaf
+
+Therefore the v2 spectral coherence is
+
+  Γ_spec  =  λ₁(L⁰_norm) / λ_max(L⁰_norm)     ∈   [0, 1]
+
+— a normalized spectral gap. **High Γ_spec = strongly glued; low Γ_spec = severable.**
+
+This is the *opposite directional convention* from v1's heuristic Γ (where higher was already better), so the human-facing interpretation is unchanged but the underlying computation now has clean spectral provenance.
+
+**Calibration targets** (per spec §2.3):
+
+| Text type | Expected Γ_spec |
+|---|---|
+| Textbook chapter, single topic | ≥ 0.40 |
+| Mixed academic essay | 0.25 – 0.40 |
+| Cavity-resonator pattern (DRK-110) | ≤ 0.18 |
+
+### Dirichlet coherence — the *state*-sensitive variant
+
+Spectral Γ depends only on the *topology* of the sheaf (the restriction maps and graph). It does not depend on the specific stalk values currently chosen. The **Dirichlet coherence**
+
+  Γ_dirichlet  =  1  −  ⟨s, L⁰ s⟩ / ⟨s, s⟩
+
+is the v1 Γ done properly: 1 minus the normalized Dirichlet energy of the *actual* stalk vectors. It is sensitive to whether the embeddings the LLM gave us actually live in the sheaf's kernel, not just whether the kernel is large.
+
+Both should be reported; they tell different things.
+
+## 6. The Fiedler vector and structural cuts
+
+The eigenvector v₁ associated with λ₁(L⁰_norm) is the **Fiedler vector**. Its sign pattern partitions V into two groups corresponding to the cleanest spectral cut.
+
+For Argument Mode this is directly diagnostic. The Fiedler cut identifies the natural fault-line of the argument graph: the partition of claims that minimizes the gluing-energy across it. If that cut separates *empirical* claims from *theoretical* claims, you have found the cavity-resonator boundary in formal terms — exactly where a critic would attack.
+
+UI surface (per spec §6.2, §2.4): "Cleanest severance in this argument: {top 5 claims on positive side} vs {top 5 claims on negative side}, gap λ₁ = 0.07." Click to highlight in the graph.
+
+**Spectral embedding** (post-MVP). Higher eigenvectors v₂, v₃, … give a low-dimensional embedding of claims into ℝ^k. Useful for visualizing the argument's "shape" beyond the cleanest cut. Standard spectral-embedding workflow.
+
 
