@@ -158,7 +158,9 @@ If a conclusion C is supported by a set of premises {P₁, …, Pₙ} *jointly* 
 
 ### Recommended default
 
-**Use Option A for v2.0 MVP** (matches spec, simplest to implement, sanity-checkable against published Hansen-Ghrist results). **Track Option C as a v2.x feature** because it is the one that is *interpretively native* to the argument-extraction pipeline. Option B is unlikely to add value beyond A in the argument-graph regime.
+**Decision (Khrug, 2026-04-25): Option A — triangle 2-cells — for v2.0 MVP.** Right interpretation ("does long path A→B→C agree with short path A→C"), simplest to implement, sanity-checkable against published Hansen-Ghrist results. Clique-complex over-fills (spurious obstructions from coincidental k-cliques in dense graphs); cycle-space is mathematically elegant but harder to surface in UI.
+
+**v2.x revisit driven by data, not theory.** If triangles produce too few obstructions on real argument graphs (most arguments are tree-shaped, not triangle-rich), or too many false-positives on dense corpus graphs, switch to Option C (premise-set 2-cells). Decision criterion: collect dim H¹ across all five fixture types in v2.0; if the textbook fixture exhibits H¹ > 0 frequently (false positives) or the cavity-resonator fixture exhibits H¹ = 0 consistently (false negatives), revisit.
 
 The implementer should make this choice deliberately, not by accident, and the choice should be recorded in `worker/src/sheaf/h1.ts` with a comment citing this document.
 
