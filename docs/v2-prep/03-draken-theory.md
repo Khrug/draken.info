@@ -133,4 +133,49 @@ These are introduced in v2 and need careful first-use documentation in user-faci
 
 **Hodge cohomology / H⁰ / H¹.** Math-mode terms. Same policy: surface in the math panel, but the corpus's "cohomological obstruction" already does most of the user-facing work, and "non-removable contradiction count" is a fine plain-English render of dim H¹.
 
+## 6. Prompt language register
+
+The six v2 prompts (per `PROMPT_VERSIONING.md`) describe cognitive operations in natural language. Their language register matters: the prompts must not leak Draken-internal jargon into outputs, because the LLM is being asked to do *content-neutral* analysis on arbitrary text.
+
+**Rule:** the system prompts should use neutral analytical-philosophy register (claim, premise, inference, modality, citation), NOT Draken vocabulary (cavity, manufactured void, V.7, sheaf, restriction map). The Draken framing happens in the *output rendering* and *verdict generator* on top of the LLM's neutral output.
+
+**Why:** if the LLM is told "find the manufactured voids," it will hallucinate them in any politically-loaded text. If it is told "find load-bearing unstated premises with high contestability," it will report them on neutral grounds, and the analyzer's UI will *then* label clusters of them as the manufactured-void pattern when the configuration warrants. Separation of detection and labeling is what makes the diagnostic credible.
+
+The current `PROMPT_VERSIONING.md` v2.0.0 prompts respect this rule. Maintain it on revisions.
+
+## 7. Verdict-generator phrases
+
+The v1 verdict line (in `SA.verdict()`) uses short Draken-canon phrases: "Γ locally coherent," "Ψ elevated," "narrow layer coverage — locally coherent, globally narrow," "void-rich (DRK-110 pattern)," "multiple severed ρ."
+
+For v2, expand the verdict generator to include Argument Mode signals while keeping the same compact register. Recommended phrases:
+
+| Trigger condition | Phrase |
+|---|---|
+| Γ_spec ≥ 0.4 | "✓ Γ_spec gluing intact" |
+| 0.18 ≤ Γ_spec < 0.4 | "⚠ Γ_spec degraded" |
+| Γ_spec < 0.18 | "✗ Γ_spec severable" |
+| cavity_score ≥ 2.0 | "· cavity-rich (DRK-110 pattern)" |
+| hidden_prior_density > 0.4 | "· enthymemic load-bearing" |
+| trust-coloring count ≥ 3 | "· trust-coloring detected" |
+| Fiedler cut along modality boundary | "· V.7 inversion fired (cut along is/ought)" |
+| Fiedler cut along empirical/theoretical | "· cleanest severance: empirical/theoretical" |
+| dim H¹ ≥ 1 | "· non-removable contradiction (dim H¹ = N)" |
+| narrow layer coverage (< 4 layers) + Γ_spec ≥ 0.4 | "· locally coherent, globally narrow" |
+
+These should be assembled in the same dot-separated style v1 uses, to keep the verdict line scannable.
+
+The verdict line is also the most visible piece of v2 — it goes in the export Markdown's preamble, the SSE final event, and the HTML page metric strip. Time spent on it is well-spent. Keep it under ~140 chars rendered, so it can fit on one mobile line.
+
+---
+
+*References within draken.info:*
+
+- DRK-117 *Drakens Ordlista* (glossary): https://draken.info/posts/drakens-ordlista/
+- DRK-110 *The Manufactured Void*: https://draken.info/posts/manufactured-void/
+- DRK-120 *The Cavity and the Commune*: https://draken.info/posts/the-cavity-and-the-commune/
+- DRK-121 *The Coherence Debt*: https://draken.info/posts/the-coherence-debt/
+- DRK-119 *The Grammar of Coherence Destruction*: https://draken.info/posts/grammar-of-coherence-destruction/
+- DRK-125 *The Totalitarian Sheaf*: https://draken.info/posts/the-totalitarian-sheaf/
+- DRK-132 *The Sheaf Analyzer Manual*: https://draken.info/posts/sheaf-analyzer-manual/
+- Thesis v4.4: https://draken.info/thesis/
 
