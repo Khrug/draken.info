@@ -168,4 +168,54 @@ bucket_name = "draken-analyzer-cache"
 - [5-minute CPU changelog (Mar 2025)](https://developers.cloudflare.com/changelog/post/2025-03-25-higher-cpu-limits/)
 - [Cloudflare Workers Pricing](https://developers.cloudflare.com/workers/platform/pricing/)
 
+## 4. Anthropic API — prompt caching, model IDs
+
+### Model IDs
+
+The spec uses `claude-sonnet-4-6`. As of April 2026 the most-capable Anthropic models are:
+  · `claude-opus-4-7` — top-tier, recommended for `detect_enthymeme` per the spec note.
+  · `claude-sonnet-4-6` — primary workhorse for the spec's six prompts.
+  · `claude-haiku-4-5-20251001` — faster/cheaper, suitable for citation classification if cost becomes a constraint.
+
+Model IDs change periodically. Pin specific snapshots in code, not in shifting aliases. The cache key includes `model_id`, so swapping models invalidates correctly.
+
+### Prompt caching syntax (verified)
+
+```typescript
+const response = await client.messages.create({
+  model: "claude-sonnet-4-6",
+  max_tokens: 4096,
+  temperature: 0,
+  system: [
+    {
+      type: "text",
+      text: SYSTEM_PROMPT_TEXT,
+      cache_control: { type: "ephemeral" }
+    }
+  ],
+  messages: [{ role: "user", content: userMessage }]
+});
+```
+
+Cache scope (per spec, verified):
+  · System content cached up to and including the block tagged with `cache_control`.
+  · Default cache lifetime: 5 minutes (ephemeral). Extended option: `cache_control: { type: "ephemeral", ttl: "1h" }` — useful if the same system prompt fires across a several-minute analysis with sparse user input.
+  · Cache write costs 1.25× input rate (5-min) or 2× (1-hour). Cache read is 0.1× input rate. Net win once 2-3 calls hit the same cached system prompt.
+
+The spec's claim of "~90% cost reduction on cache hits" is approximately correct: cache reads at 0.1× input pricing means a 90% reduction on the cached portion, though the un-cached user message still pays full freight.
+
+### Cost recheck (per spec §11)
+
+Sonnet 4.6 at $3 / $15 per 1M input/output tokens. The spec's per-analysis cost estimate of ~$0.09 (first run) checks out within ~10%. With prompt caching enabled the *cached run* approaches $0.005-0.010 for the LLM portion; embeddings remain ~$0.0001.
+
+### One-call-per-edge cost concern
+
+`detect_enthymeme` fires once per inference (~15 per typical analysis). Without prompt caching that's $0.030. With caching: ~$0.005. The spec's cost model assumes caching is on — make sure the caching `cache_control` flag is actually present in code; it is easy to forget and the spec's economics break without it.
+
+### Sources
+
+- [Anthropic Prompt Caching Docs](https://platform.claude.com/docs/en/build-with-claude/prompt-caching)
+- [claude-cookbooks: prompt_caching example](https://github.com/anthropics/anthropic-cookbook/blob/main/misc/prompt_caching.ipynb)
+- [Anthropic SDK on npm: @anthropic-ai/sdk](https://www.npmjs.com/package/@anthropic-ai/sdk)
+
 
