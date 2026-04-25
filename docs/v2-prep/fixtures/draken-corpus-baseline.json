@@ -1,0 +1,222 @@
+{
+  "schema": "draken-corpus-baseline/v1",
+  "generated": "2026-04-25T04:56:45.454Z",
+  "source": {
+    "analyzer_version": "v1 (heuristic Γ, keyword layer-tagging)",
+    "corpus_size": 22,
+    "total_words": 89379,
+    "sentence_count": 6602,
+    "concept_count": 4499,
+    "edge_count": 189804,
+    "posts_included": [
+      "DRK-132",
+      "DRK-131",
+      "DRK-130",
+      "DRK-129",
+      "DRK-128",
+      "DRK-127",
+      "DRK-124",
+      "DRK-125",
+      "DRK-121",
+      "DRK-119",
+      "DRK-118",
+      "DRK-117",
+      "DRK-120",
+      "DRK-116",
+      "DRK-115",
+      "DRK-113",
+      "DRK-112",
+      "DRK-110",
+      "DRK-114",
+      "DRK-108",
+      "DRK-105",
+      "DRK-101"
+    ]
+  },
+  "v1_metrics": {
+    "gamma": 0.6048,
+    "psi": 2.253,
+    "kt": 4.804,
+    "alpha": 0.563,
+    "severed_count": 1080,
+    "void_count": 0
+  },
+  "v1_layer_coverage": {
+    "L01": 1395,
+    "L02": 1552,
+    "L03": 918,
+    "L04": 988,
+    "L05": 4320,
+    "L06": 1532,
+    "L07": 7582,
+    "L08": 436,
+    "L09": 1787,
+    "L10": 2857,
+    "L11": 2974,
+    "L12": 2834,
+    "L13": 3129,
+    "L14": 5585,
+    "L15": 1523,
+    "L16": 885,
+    "L17": 883,
+    "L18": 1370
+  },
+  "v1_top_salience": [
+    {
+      "word": "system",
+      "salience": 1,
+      "freq": 455,
+      "dominant_layer": "L14",
+      "source_post_count": 22
+    },
+    {
+      "word": "draken",
+      "salience": 0.881,
+      "freq": 379,
+      "dominant_layer": "L12",
+      "source_post_count": 22
+    },
+    {
+      "word": "structural",
+      "salience": 0.809,
+      "freq": 229,
+      "dominant_layer": "L14",
+      "source_post_count": 19
+    },
+    {
+      "word": "signal",
+      "salience": 0.783,
+      "freq": 225,
+      "dominant_layer": "L14",
+      "source_post_count": 22
+    },
+    {
+      "word": "coherence",
+      "salience": 0.779,
+      "freq": 260,
+      "dominant_layer": "L14",
+      "source_post_count": 19
+    },
+    {
+      "word": "framework",
+      "salience": 0.771,
+      "freq": 240,
+      "dominant_layer": "L07",
+      "source_post_count": 19
+    },
+    {
+      "word": "model",
+      "salience": 0.747,
+      "freq": 196,
+      "dominant_layer": "L05",
+      "source_post_count": 18
+    },
+    {
+      "word": "layer",
+      "salience": 0.742,
+      "freq": 233,
+      "dominant_layer": "L01",
+      "source_post_count": 18
+    },
+    {
+      "word": "narrative",
+      "salience": 0.727,
+      "freq": 178,
+      "dominant_layer": "L07",
+      "source_post_count": 18
+    },
+    {
+      "word": "institutional",
+      "salience": 0.726,
+      "freq": 141,
+      "dominant_layer": "L07",
+      "source_post_count": 19
+    },
+    {
+      "word": "information",
+      "salience": 0.719,
+      "freq": 149,
+      "dominant_layer": "L05",
+      "source_post_count": 19
+    },
+    {
+      "word": "social",
+      "salience": 0.706,
+      "freq": 103,
+      "dominant_layer": "L14",
+      "source_post_count": 20
+    },
+    {
+      "word": "clinch",
+      "salience": 0.704,
+      "freq": 238,
+      "dominant_layer": "L06",
+      "source_post_count": 15
+    },
+    {
+      "word": "claim",
+      "salience": 0.7,
+      "freq": 172,
+      "dominant_layer": "L07",
+      "source_post_count": 19
+    },
+    {
+      "word": "human",
+      "salience": 0.697,
+      "freq": 159,
+      "dominant_layer": "L07",
+      "source_post_count": 17
+    },
+    {
+      "word": "restriction",
+      "salience": 0.681,
+      "freq": 147,
+      "dominant_layer": "L09",
+      "source_post_count": 19
+    },
+    {
+      "word": "structure",
+      "salience": 0.667,
+      "freq": 105,
+      "dominant_layer": "L12",
+      "source_post_count": 20
+    },
+    {
+      "word": "itself",
+      "salience": 0.658,
+      "freq": 102,
+      "dominant_layer": "L07",
+      "source_post_count": 19
+    },
+    {
+      "word": "capacity",
+      "salience": 0.654,
+      "freq": 114,
+      "dominant_layer": "L11",
+      "source_post_count": 18
+    },
+    {
+      "word": "drk",
+      "salience": 0.652,
+      "freq": 224,
+      "dominant_layer": "L14",
+      "source_post_count": 21
+    }
+  ],
+  "v1_severed_clusters_summary": {
+    "count": 2,
+    "top_sizes": [
+      342,
+      257
+    ]
+  },
+  "v2_expected": {
+    "gamma_spec_range": [
+      0.45,
+      0.65
+    ],
+    "rationale": "v2 spectral Γ should fall within ±0.10 of v1 heuristic Γ (0.605) on the same corpus. If outside this range, the disagreement itself is informative — investigate before proceeding. v2 must reproduce the two-cluster Fiedler partition (large severed cluster centered on draken/structural/signal/framework; smaller cluster on clinch/restriction/capacity/global).",
+    "fiedler_cut_signature": "two-cluster partition reproducing v1 severed-cluster topology",
+    "layer_coverage_signature": "all 18 layers hit; L07 (Narrative Self) and L14 (Economic Topo.) dominant by frequency"
+  }
+}
