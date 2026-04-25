@@ -113,4 +113,59 @@ Path C remains valuable as a fallback for the corpus-scale Tier 3 use case, wher
 - [mljs/matrix on GitHub](https://github.com/mljs/matrix)
 - [Lanczos algorithm survey (Ferronato 2008)](https://dispense.dmsa.unipd.it/ferronato/MN-PhD/2008/eigen.pdf)
 
+## 3. Cloudflare Workers — limits, KV cache
+
+| Resource | Free | Paid (Workers Standard) |
+|---|---|---|
+| Memory per isolate | 128 MB | 128 MB (same) |
+| CPU time per request | 10 ms | up to **5 minutes** |
+| Wall-clock per request | no hard limit (as long as client connected) | no hard limit |
+| Subrequest fan-out (HTTPS calls) | 50 | 50 (1000 in some plans) |
+| Request body size | 100 MB | 100 MB |
+| Bundle size | 3 MB compressed | 10 MB compressed |
+| KV writes per second | 1 per key | 1 per key |
+| KV value size | 25 MB | 25 MB |
+
+The 128 MB memory cap is the binding constraint for sheaf computation. The 5-minute CPU cap is generous for our workload (a typical analysis is 8-20s; corpus-scale could go a minute).
+
+### KV cache for prompt + embedding caching
+
+Spec §5.6 specifies KV namespace `DRAKEN_CACHE` with TTL 30 days for prompt outputs. Embeddings should have longer TTL (1 year) since they are deterministic.
+
+KV constraints:
+  · Eventually consistent globally (within ~60s).
+  · 1 write/sec/key (so don't share keys across concurrent requests).
+  · Reads are fast and cheap.
+
+For per-claim embedding caching (~50 claims per analysis × 1024-dim = ~200KB JSON): well under the 25 MB value cap. Suitable for KV.
+
+For full-corpus pre-computed embeddings (~4500 concepts × 1024-dim = ~37 MB): **exceeds KV value cap**. Use R2 instead, with KV holding only the R2 object key.
+
+### Wrangler config (per spec §10)
+
+```toml
+name = "draken-analyzer-worker"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[kv_namespaces]]
+binding = "DRAKEN_CACHE"
+id = "..."   # set after `wrangler kv:namespace create DRAKEN_CACHE`
+
+[[r2_buckets]]
+binding = "DRAKEN_R2"
+bucket_name = "draken-analyzer-cache"
+
+# Secrets (set via wrangler secret put):
+# - ANTHROPIC_API_KEY
+# - VOYAGE_API_KEY
+```
+
+### Sources
+
+- [Cloudflare Workers Limits](https://developers.cloudflare.com/workers/platform/limits/)
+- [5-minute CPU changelog (Mar 2025)](https://developers.cloudflare.com/changelog/post/2025-03-25-higher-cpu-limits/)
+- [Cloudflare Workers Pricing](https://developers.cloudflare.com/workers/platform/pricing/)
+
 
