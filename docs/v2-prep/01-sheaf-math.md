@@ -47,4 +47,35 @@ A section s is a global section if and only if δ⁰ s = 0. Equivalently:
 
   H⁰(X; F)  =  ker(δ⁰)  =  global sections of F.
 
+## 3. The sheaf Laplacian L⁰
+
+The **sheaf Laplacian** is
+
+  L⁰  =  (δ⁰)^T  δ⁰     ∈   ℝ^{|V|d × |V|d}.
+
+L⁰ is **symmetric and positive semi-definite**. Its block structure mirrors the underlying graph:
+
+  · Off-diagonal block (u, v) is non-zero iff u and v share an edge.
+  · Diagonal block at v is the sum over all edges e incident to v of (ρ_{v ◁ e})^T ρ_{v ◁ e} — the sum of restriction-map *Gram matrices*.
+
+For a section s ∈ ℝ^{|V|d}, the **Dirichlet energy** is
+
+  ⟨ s, L⁰ s ⟩  =  ‖δ⁰ s‖²  =  Σ_{e=(u,v)} ‖ρ_{v ◁ e}(s_v) − ρ_{u ◁ e}(s_u)‖².
+
+This is exactly the squared sum of edge-wise consistency violations. A section s is a global section iff its Dirichlet energy is zero.
+
+## 4. Hodge cohomology
+
+**0-cohomology (global sections).** As stated:
+
+  H⁰(X; F)  =  ker(δ⁰)  =  ker(L⁰).
+
+The dimension dim H⁰ counts the number of independent globally-consistent sections. For a connected graph with **identity restriction maps** (the v2.0 baseline strategy), the kernel of δ⁰ consists of stalks that are constant across the graph in each of the d coordinates, so dim H⁰ = d. With **non-trivial restriction maps**, dim H⁰ can drop — fewer compatible global views means more contradiction.
+
+**1-cohomology (obstructions).** This requires defining δ¹: C¹ → C² and the higher coboundary; see §7. Briefly:
+
+  H¹(X; F)  =  ker(δ¹) / im(δ⁰).
+
+Non-trivial H¹ means there are **edge-supported discrepancies that cannot be explained as the coboundary of any vertex section** — formal obstructions to gluing that no choice of stalks can fix.
+
 
