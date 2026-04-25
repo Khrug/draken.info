@@ -119,26 +119,33 @@ A future Claude Code session implementing v2 should proceed in this order. Each 
 
 **Fixture-driven development.** No pipeline code is written until the fixture suite exists with hand-written expected outputs producing failing tests. This prevents the analyzer from being optimized against measures that don't actually discriminate the cases that matter.
 
-1. **Fixtures into `fixtures/` on day 1**:
-   - `healthy-paragraph.txt` (textbook chapter, single topic; e.g. photosynthesis paragraph from a biology textbook)
-   - `cavity-resonator.txt` (text exhibiting DRK-110 pattern, ~150 words)
-   - `deepseek-dragons.txt` ⚠ — text not in this Claude session's history; **Khrug must provide**. Spec §9.3 references this as the α-inflation specimen (DeepSeek's hallucinated Draken-as-fantasy-fan-site response). Source from Khrug's archive.
-   - `mckinsey-deck-page.txt` (representative strategy-deck page, narrative-heavy, citation-decorative)
-   - `draken-corpus-baseline.json` (snapshot of v1's Γ on full corpus, for v1↔v2 cross-check)
+**Fixtures are already prepared and committed at `docs/v2-prep/fixtures/`** (2026-04-25, by Khrug). Phase 0 begins by *moving* them into the v2 workspace, not by authoring them.
 
-2. **Hand-write expected outputs** under `fixtures/expected/`. Each is a JSON file matching `ArgumentSheafResult` schema with the framework's predicted values:
-   - healthy: Γ_spec ≥ 0.40, cavity_score ≤ 0.5, mostly bearing citations.
-   - cavity-resonator: Γ_spec ≤ 0.18, hidden_prior_density ≥ 0.4, cavity_score ≥ 2.0.
-   - deepseek-dragons: Γ_spec ≤ 0.20, ≥ 80% enthymemes, mostly trust-coloring.
-   - mckinsey: ≥ 50% trust-coloring or decorative.
+1. **Move fixtures from prep into v2 workspace** (`fixtures/` and `fixtures/expected/`):
+   - `deepseek-dragons.txt` (α-inflation specimen)
+   - `healthy-paragraph.txt` (antibiotic resistance — green-zone calibration anchor)
+   - `cavity-resonator.txt` (management-prose; THE prompt-drift-critical fixture)
+   - `mckinsey-deck-page.txt` (constructed strategy-deck with citation fingerprints)
+   - `draken-corpus-baseline.json` (v1 snapshot for cross-version benchmarking)
 
-3. **Repo scaffolding** *after* fixtures land:
+2. **Expected JSONs** (already authored at `docs/v2-prep/fixtures/expected/`):
+   - Each is `*.expected.v1.0.0.json` — version-locked to the prompts in `PROMPT_VERSIONING.md` v2.0.0.
+   - Tolerance bands per `PROMPT_VERSIONING.md` §6.2 throughout. **Hard-locked only** on classification enums and pseudo-citation routing.
+   - `cavity-resonator.expected.v1.0.0.json` enumerates four named bridges B1-B4 that MUST be detected with contestability ≥ 0.65. This is the single most important calibration check.
+   - `mckinsey-deck-page.expected.v1.0.0.json` enumerates four named bridges M1-M4 and lists "McKinsey Global Institute → decorative or marginal-supporting, NOT bearing" as a discrimination test.
+   - `deepseek-dragons.expected.v1.0.0.json` requires `result: gap_too_wide` on the specific 342-sentences-to-coherence-0.83 inference.
+
+3. **Two discipline rules from `docs/v2-prep/fixtures/README.md`**:
+   - Tolerance bands, never rigid values. Free-text via embedding similarity ≥ 0.8.
+   - Never bump fixture and prompt in the same commit. The audit trail must answer "did the prompt change, or did the fixture change?" with a clean diff.
+
+4. **Repo scaffolding** *after* fixtures land:
    - Create `pnpm-workspace.yaml` and directory structure per spec §5.1.
-   - Set up `frontend/`, `worker/`, `compute/` (stub), `shared/`, `fixtures/`, `docs/` (move existing v2-prep into here).
+   - Set up `frontend/`, `worker/`, `compute/` (stub), `shared/`, `fixtures/`, `docs/` (move existing v2-prep into here as the canonical reference).
    - Add `.gitignore`, `.github/workflows/`.
    - Wire up CI (`pnpm install && pnpm test && pnpm build`) and the v1-isolation guard (D-5).
 
-4. **Failing tests committed**: `tests/fixtures.test.ts` runs each fixture through a stub pipeline that returns zeros. Tests fail. This is the calibration target. Pipeline implementation in subsequent phases makes them pass.
+5. **Failing tests committed**: `tests/fixtures.test.ts` runs each fixture through a stub pipeline that returns zeros. Tests fail. This is the calibration target. Pipeline implementation in subsequent phases makes them pass.
 
 ### Phase 1 — math, no LLM (1-2 days)
 
