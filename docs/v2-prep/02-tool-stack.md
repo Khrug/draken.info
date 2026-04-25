@@ -101,11 +101,21 @@ Treat the spec's "optional" Modal service as **required** for v2.0. Worker handl
 
 ### Recommendation
 
-**Implement Path A (hand-rolled Lanczos in TS) as the v2.0 primary path, with Path C as a configured fallback for graphs > some threshold.**
+**Decision (Khrug, 2026-04-25): Path A — hand-roll Lanczos in TypeScript, with one constraint.**
 
-Rationale: Path A keeps the Worker-only deployment story intact, supports the Tier 2 architecture as designed, and the algorithm is genuinely small. The 150 LoC of Lanczos is the kind of "library that should exist but doesn't" component — once written, it can be open-sourced as `mljs-lanczos` or similar, and may be useful to other JS-numerical projects.
+Path A keeps the Worker-only deployment story intact, supports the Tier 2 architecture as designed, and the algorithm is genuinely small. The 150 LoC of Lanczos is the kind of "library that should exist but doesn't" component — once written, it can be open-sourced as `mljs-lanczos` or similar.
 
-Path C remains valuable as a fallback for the corpus-scale Tier 3 use case, where scipy's robustness over thousands of nodes outweighs the hosting cost.
+#### Required: test-first calibration gate
+
+The Lanczos implementation must be developed test-first. Before any pipeline code uses it, three reference matrices must produce eigenvalues matching scipy's `eigsh` to within **1e-6**:
+
+1. **Path graph Laplacian, n=10**: closed-form λ_k = 2 − 2·cos(k·π/n) for k = 0, 1, …, n−1. Eigenvalues `[0, 0.0979, 0.382, 0.824, 1.382, 2.0, 2.618, 3.176, 3.618, 3.902]` (approximate).
+2. **Cycle graph Laplacian, n=8**: closed-form λ_k = 2 − 2·cos(2π·k/n). Eigenvalues `[0, 0.586, 2, 3.414, 4, 3.414, 2, 0.586]` (approximate, with multiplicities).
+3. **Random sparse symmetric PSD matrix, n=100, density 0.05**: cross-check against scipy.sparse.linalg.eigsh smallest-10 eigenvalues. Seed fixed for reproducibility.
+
+These tests live at `worker/test/sheaf/lanczos.spec.ts` and are gating: pipeline code may not use the Lanczos implementation until all three pass. The reference values for case (3) are committed alongside as fixtures (Python-generated, JSON-serialized).
+
+Path C (Modal Python delegate) remains valuable as a fallback for corpus-scale Tier 3 work, where scipy's robustness over thousands of nodes outweighs the hosting cost. Wire the delegate path as a stub but don't activate it until v2.1.
 
 ### Sources
 
