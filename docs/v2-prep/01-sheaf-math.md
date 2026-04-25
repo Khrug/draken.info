@@ -131,4 +131,61 @@ UI surface (per spec §6.2, §2.4): "Cleanest severance in this argument: {top 5
 
 **Spectral embedding** (post-MVP). Higher eigenvectors v₂, v₃, … give a low-dimensional embedding of claims into ℝ^k. Useful for visualizing the argument's "shape" beyond the cleanest cut. Standard spectral-embedding workflow.
 
+## 7. Higher cohomology H¹ — three candidate constructions
+
+H¹ measures *non-removable* obstructions: edge-cocycles that are not the coboundary of any vertex section. To compute H¹ we need 2-cells, which the underlying graph does not give us for free. **Three plausible discrete constructions for argument graphs**, each yielding a different H¹:
+
+### Option A: Triangle 2-cells (the spec's choice)
+
+Per spec §2.5: "if A → B, B → C, A → C all exist, that's a 2-cell." The 2-cell's boundary δ¹ checks whether the long path A → B → C agrees with the short path A → C.
+
+  Pros: well-defined, computationally tractable, has a direct argumentative interpretation (transitive-inference consistency).
+  Cons: requires triangles to exist; many argument graphs have few. Misses *non-triangular* cycles entirely.
+
+### Option B: Flag complex (clique complex) closure
+
+Take the clique complex of the underlying undirected graph: every k-clique becomes a (k−1)-cell. 2-cells = 3-cliques (= triangles), 3-cells = 4-cliques, etc.
+
+  Pros: standard topological-data-analysis construction; well-studied; reduces to Option A on 2-cells.
+  Cons: same triangle dependency at the 2-cell level. Higher cells (k > 2) are computationally heavy and probably not interpretable for arguments.
+
+### Option C: Premise-set 2-cells
+
+If a conclusion C is supported by a set of premises {P₁, …, Pₙ} *jointly* (the inference uses all premises together, not as independent paths), define a 2-cell with boundary equal to the formal sum of the inference edges P_i → C. This is the *natural* combinatorial structure for **multi-premise inferences** but does not appear in plain graph-theoretic constructions.
+
+  Pros: matches the structure that the inference-extraction prompt actually produces.
+  Cons: less standard in the cellular-sheaf literature; may have non-obvious behavior under boundary maps.
+
+### Recommended default
+
+**Use Option A for v2.0 MVP** (matches spec, simplest to implement, sanity-checkable against published Hansen-Ghrist results). **Track Option C as a v2.x feature** because it is the one that is *interpretively native* to the argument-extraction pipeline. Option B is unlikely to add value beyond A in the argument-graph regime.
+
+The implementer should make this choice deliberately, not by accident, and the choice should be recorded in `worker/src/sheaf/h1.ts` with a comment citing this document.
+
+## 8. Sanity checks and reduction to graph Laplacian
+
+When all stalks are 1-dimensional (F(v) = ℝ¹) and all restriction maps are the identity, the sheaf Laplacian L⁰ reduces to the **standard graph Laplacian** L = D − A, where D is the degree matrix and A is the adjacency matrix.
+
+This reduction is the implementation's first sanity check:
+
+```typescript
+// Test fixture: 1-d trivial sheaf on a 4-cycle should give the
+// graph Laplacian of the 4-cycle, eigenvalues {0, 2, 2, 4}.
+test("trivial sheaf on cycle reduces to graph Laplacian", () => {
+  const G = cycle(4);
+  const F = trivialSheaf(G, 1);
+  const L = sheafLaplacian(F);
+  const eigs = eigenvalues(L);
+  expect(eigs).toBeCloseTo([0, 2, 2, 4], 6);
+});
+```
+
+**Second sanity check.** Take any d-dimensional sheaf with **identity restriction maps**. The sheaf Laplacian decouples into d independent copies of the graph Laplacian:
+
+  L⁰  =  L_graph ⊗ I_d.
+
+Eigenvalues of L⁰ are eigenvalues of L_graph, each with multiplicity d. dim H⁰ = d × (number of connected components).
+
+**Third sanity check.** If two vertices u, v have identical neighborhoods and identical restriction maps to those neighbours, they should appear in the same component of the Fiedler partition (cannot be cleanly separated by spectral cut). Useful for catching bugs in the coboundary builder.
+
 
