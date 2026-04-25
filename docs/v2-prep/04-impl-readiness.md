@@ -173,4 +173,75 @@ Goal: usable UI matching spec §6.
 
 **Total: ~10-15 working days of focused work, single-developer, with Claude Code assistance.**
 
+## 4. Acceptance criteria for v2.0 milestone
+
+v2.0 is "shippable" when all of the following are true. Borrowed and consolidated from spec §9.6:
+
+### Numerical fixtures
+
+- [ ] **healthy-paragraph** fixture produces Γ_spec ≥ 0.40, H⁰ dim ≤ 3, cavity_score ≤ 0.5.
+- [ ] **cavity-resonator** fixture produces Γ_spec ≤ 0.18, hidden_prior_density ≥ 0.4, cavity_score ≥ 2.0, ≥ 50% of citations classified as trust-coloring or decorative.
+- [ ] **DeepSeek-dragons** fixture produces Γ_spec ≤ 0.20, ≥ 80% of inferences classified as enthymemic, with ≥ 4 in gap_too_wide category.
+- [ ] **McKinsey-deck-page** fixture produces ≥ 50% trust-coloring or decorative citations.
+- [ ] **draken.info corpus** produces Γ_spec ∈ [0.45, 0.65], with the two-cluster Fiedler cut already named in v1's severed-cluster analysis.
+
+### Math sanity
+
+- [ ] Trivial 1-d sheaf on a 4-cycle produces graph-Laplacian eigenvalues {0, 2, 2, 4} to 6 decimals.
+- [ ] Identity-restriction d-dim sheaf on connected graph: dim ker(L⁰) = d (within numerical tolerance).
+- [ ] Dirichlet energy ⟨s, L⁰s⟩ ≥ 0 for all s, equals zero iff s is a global section.
+
+### Performance
+
+- [ ] 99th percentile latency < 30s for texts ≤ 2000 chars on Tier 2.
+- [ ] Cache hit rate > 80% on second run of any fixture.
+- [ ] Total memory used per Worker invocation < 100 MB (leaves headroom under 128 MB cap).
+
+### Schema and validation
+
+- [ ] Round-trip JSON ↔ TypeScript types passes Zod validation on all six prompts' outputs.
+- [ ] No prompt produces parseable but schema-invalid output > 1% of the time across 50 sampled runs.
+- [ ] Deep JSON export validates against `shared/schema/argument-result.schema.json`.
+
+### Process
+
+- [ ] CHANGELOG.md entry for every prompt version bump per `PROMPT_VERSIONING.md` §7.
+- [ ] All goldens for fixtures committed under `fixtures/expected/`.
+- [ ] Launch post drafted, peer-review prompt run on it (recursive: v2 analyzes the v2 launch post).
+
+## 5. Things to NOT do in v2.0
+
+These are scope-creep traps. Defer to v2.x.
+
+- ❌ **Modality-aware restriction maps** (D-3 strategy 3). Big research task. Defer to v2.3 per spec.
+- ❌ **H¹ cohomology fully wired**. The data structures should support it (post-MVP per spec) but the computation and UI are v2.2.
+- ❌ **Cross-text comparison (sheaf morphisms)**. v2.4. Tempting but a different mathematical scope.
+- ❌ **Live writing-assistant mode** (real-time recompute as user types). v2.5. Requires incremental everything.
+- ❌ **Fibered sheaf (Argument over Topology)**. v3.0. Requires both modes to be solid first.
+- ❌ **Multilingual lexicons for v1-style keyword tagging**. The embedding-based tagging supersedes this naturally; don't extend the legacy lexicon.
+- ❌ **"Why is Γ low?" plain-language LLM narration** of spectral analysis. Tempting; expensive to do well; requires its own prompt + fixtures. Defer to v2.1.
+- ❌ **Rewriting v1 in v2's stack**. v1 still works. Keep it. Cross-link.
+
+## 6. Decision log
+
+To be filled by the implementing session as decisions are made. Format:
+
+```
+[YYYY-MM-DD] D-N · {decision} · {rationale} · signed: {who}
+```
+
+Examples (placeholders):
+
+```
+[YYYY-MM-DD] D-1 · d = 1024 · Voyage default; quality first · Khrug
+[YYYY-MM-DD] D-2 · Hand-rolled Lanczos · Single-target deploy preserved · Khrug
+[YYYY-MM-DD] D-3 · Identity restriction maps for v2.0 · Spec MVP · Khrug
+...
+```
+
+Once all 10 are logged, implementation can begin. Until then, this directory is the prep state.
+
+---
+
+*This file is part of the draken.info repository under CC BY-SA 4.0. Located at `docs/v2-prep/04-impl-readiness.md`.*
 
