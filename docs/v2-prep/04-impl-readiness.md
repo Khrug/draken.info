@@ -262,14 +262,19 @@ To be filled by the implementing session as decisions are made. Format:
 [YYYY-MM-DD] D-N · {decision} · {rationale} · signed: {who}
 ```
 
-Examples (placeholders):
+### Logged
 
 ```
-[YYYY-MM-DD] D-1 · d = 1024 · Voyage default; quality first · Khrug
-[YYYY-MM-DD] D-2 · Hand-rolled Lanczos · Single-target deploy preserved · Khrug
-[YYYY-MM-DD] D-3 · Identity restriction maps for v2.0 · Spec MVP · Khrug
-...
+[2026-04-25] D-1 · voyage-3-lite at d=512 Tier 2; d=1024 reserved Tier 3 · cost/quality balance for 50–500 claim sheaves; geometric room without eigensolver suffering on Worker memory · Khrug
+[2026-04-25] D-2 · Hand-rolled Lanczos in TypeScript with test-first gate against scipy.eigsh on three reference matrices (path graph n=10, cycle n=8, random sparse n=100) · single-deploy story preserved; tractable algo; controls convergence tolerance · Khrug
+[2026-04-25] D-4 · H¹ Option A (triangle 2-cells) for v2.0; data-driven revisit to Option C if textbook fixture exhibits H¹>0 frequently or cavity-resonator H¹=0 consistently · cleanest interpretation; sanity-checkable; clique over-fills, cycle-space hard to surface · Khrug
+[2026-04-25] D-5 · Keep v1 alive at /sheaf-analyzer/; v2 additive at /sheaf-analyzer-v2/; CI block on commits touching topology-mode/** · zero v1 regression risk; user can compare side-by-side · Khrug
+[2026-04-25] D-6 · Tier 1 (offline JS) default on first visit; one-click upgrade to Tier 2 with cost preview; 5 anonymous Tier 2 analyses per IP per day on Khrug keys; BYOK overflow · public-good ethic preserved; self-funding for heavy users; no billing infra needed day 1 · Khrug
 ```
+
+### Pending (D-3, D-7, D-8, D-9, D-10)
+
+Awaiting explicit Khrug confirmation. Default recommendations stand until logged.
 
 Once all 10 are logged, implementation can begin. Until then, this directory is the prep state.
 
