@@ -20,13 +20,14 @@ The 384-dim figure in the spec corresponds to **sentence-transformers/all-MiniLM
 
 ### Implication
 
-The v2.0 implementation must commit to a specific dimension. Recommended:
+The v2.0 implementation must commit to a specific dimension. **Decision (Khrug, 2026-04-25): voyage-3-lite at d=512 as the Tier 2 default. Reserve d=1024 for Tier 3 corpus runs handled by Modal Python.**
 
-  · **d = 1024** if quality is the priority (Voyage default; matches Voyage-3-lite's native output and gives full retrieval quality).
-  · **d = 512** if memory or compute is tight (~4× reduction in stalk size and Laplacian footprint vs 1024).
-  · **d = 256** for the smallest viable footprint.
+Rationale:
+- 512 is the right cost/quality balance for 50–500 claim sheaves. Embedding cost is negligible compared to LLM steps; 512 gives the sheaf Laplacian enough geometric room without making the eigensolver suffer on Worker memory.
+- 1024 is preserved for Tier 3 (Modal Python) where the linear-algebra cost is amortized across batched corpus operations and dimensionality is no longer a constraint.
+- 256 saves nothing meaningful and costs discriminative power on close-meaning claims. Skipped.
 
-The constant `EMBEDDING_DIM` should be set in `worker/src/embed/voyage.ts` and propagated everywhere that constructs stalks. Do not hard-code 384 anywhere; the spec's 384 references should be replaced with whichever value is chosen.
+The constant `EMBEDDING_DIM` should be set in `worker/src/embed/voyage.ts` (Tier 2 = 512) and overridden in `compute/embed_service.py` (Tier 3 = 1024). Do not hard-code 384 anywhere.
 
 ### API basics
 
