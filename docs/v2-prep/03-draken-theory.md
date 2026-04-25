@@ -84,4 +84,53 @@ This is where Draken's most distinctive vocabulary lives. v2 must preserve it ex
 
 **Sacred / Holy** (corpus, DRK-120, thesis §2 sparingly): the genuine domain limit of restriction maps — death, thermodynamic boundary, mathematical incompleteness. v2 has no direct mechanical analog (the model can't tell genuine limits from manufactured ones automatically), but the terminology should be preserved in the documentation: voids fall into sacred (genuine) vs manufactured (adversarial) categories, and v2's quantitative tools cannot themselves make this distinction — that is the user's domain expertise and the V.7 filter's purpose.
 
+## 4. Layer vocabulary — the 18-layer hierarchy
+
+Names are corpus-canonical. The lexicon in v1 (`SA.LAYERS` in `static/pages/sheaf-analyzer.html`) is the operational reference. Reproduced here for completeness:
+
+| ID | Name | Approximate scale |
+|---|---|---|
+| L01 | Quantum Field | sub-atomic, field-theoretic |
+| L02 | Chem. Thermo. | molecular thermodynamics, gradient |
+| L03 | Molecular Asm. | DNA/RNA/protein, molecular self-assembly |
+| L04 | Bioelectric | voltage signaling, ion channels (Levin) |
+| L05 | Neural Integ. | brain-wide integration, predictive coding |
+| L06 | Embodied Cog. | felt sense, somatic, interoceptive |
+| L07 | Narrative Self | autobiographical "I", identity |
+| L08 | Dyadic Signal | one-to-one trust, intimate communication |
+| L09 | Group Cognition | shared belief, tribal frame, in-group epistemology |
+| L10 | Social Coord. | norms, protocols, division of labor |
+| L11 | Economic Cog. | price/value/labor signaling |
+| L12 | National Narr. | imagined community, public opinion |
+| L13 | Political Str. | power, regulation, lawmaking |
+| L14 | Economic Topo. | structural macro-economic forms |
+| L15 | Cultural Field | art, religion, ritual, tradition |
+| L16 | Instit. Morph. | bureaucratic and organizational structure |
+| L17 | Civ. Memory | history, heritage, legacy across generations |
+| L18 | Planetary Cog. | biospheric, climatic, species-scale |
+
+**v2 changes to layer tagging:**
+
+v1 tagging is keyword-based with strict matching rules (see DRK-132 manual §2 step 4). v2 has access to embeddings and can therefore do *embedding-based* layer assignment: precompute a centroid embedding for each layer (from a curated seed-document set), then tag a concept by its dominant cosine similarity to layer centroids. This is more robust than keywords, language-agnostic, and handles compound concepts gracefully.
+
+**Recommendation:** v2 implements both, with a feature flag. Run them in parallel for 100 corpus analyses; if embedding-tagging matches keyword-tagging on dominant-layer assignment ≥ 85% of the time, switch the default to embedding-tagging. Otherwise blend (e.g., voting). Document this calibration as a v2-launch artifact.
+
+**Lexicon multilingual extension** (per v1 manual §10 limits): the keyword lexicon is English-centric. Embedding-based tagging *naturally* multilingualizes if the embedding model is multilingual (Voyage-3 is). Solving the v1 multilingual gap is a side benefit of the v2 architecture.
+
+## 5. New v2 terms with no v1 antecedent
+
+These are introduced in v2 and need careful first-use documentation in user-facing prose so they integrate cleanly with the corpus vocabulary.
+
+**Enthymeme.** Standard term in argumentation theory; not previously in the Draken corpus. v2 documentation should introduce it with an explicit cavity-lineage mapping: "An enthymeme is a cavity at the claim level — a load-bearing unstated premise. The term is older than Draken (Aristotle), but the diagnostic concept is the same as DRK-110's manufactured void, applied to inference rather than to information topology." Include this framing in the launch post and the inline UI tooltip when an enthymeme is highlighted.
+
+**Modality (epistemic / normative / definitional / causal / conditional / factual).** Not in v1. Use the spec's six-category taxonomy. The Hume-gap framing in the spec (§3.5) is exactly right and aligns with the corpus's interest in *category errors* as a coherence-destruction technique.
+
+**Inference type (deductive / inductive / abductive / analogical / authority / enthymemic).** Standard logic taxonomy. Not in v1. **The *authority* type is particularly Draken-relevant**: per spec §3.4 + §3.6, an inference of type=authority should always trigger a citation analysis on its anchor source, since the inference's strength reduces to the citation's load classification.
+
+**Citation classification (bearing / supporting / decorative / trust-coloring).** New in v2. The "trust-coloring" category is the Draken-native finding; it operationalizes a pattern the corpus has named verbally (e.g., DRK-119 on JTRIG, DRK-118 on academic credentialism, DRK-131 on AGI hype-citation) but not previously been able to detect mechanically. **Lean into it in the launch post.**
+
+**Spectral gap / Fiedler value / Fiedler vector.** Math-mode terms. Use them in the Argument Mode metrics panel and the developer-facing schema, but the user-facing copy should prefer "cleanest severance," "structural fault line," "natural cut" — phrasings the corpus already has affinity with.
+
+**Hodge cohomology / H⁰ / H¹.** Math-mode terms. Same policy: surface in the math panel, but the corpus's "cohomological obstruction" already does most of the user-facing work, and "non-removable contradiction count" is a fine plain-English render of dim H¹.
+
 
