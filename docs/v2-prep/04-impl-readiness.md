@@ -115,12 +115,30 @@ Things that must exist or be true before code is written.
 
 A future Claude Code session implementing v2 should proceed in this order. Each phase ends with a working deliverable that is independently committable. Sequenced for minimum rework.
 
-### Phase 0 — repo scaffolding (½ day)
+### Phase 0 — fixtures FIRST, then scaffolding (1 day)
 
-1. Create `pnpm-workspace.yaml` and the directory structure per spec §5.1.
-2. Set up `frontend/`, `worker/`, `compute/` (stub), `shared/`, `fixtures/`, `docs/` (move existing v2-prep into here).
-3. Add `.gitignore` for `node_modules/`, `dist/`, `.wrangler/`, `.env*`, `__pycache__`.
-4. Wire up CI (GitHub Actions) for `pnpm install && pnpm test && pnpm build`.
+**Fixture-driven development.** No pipeline code is written until the fixture suite exists with hand-written expected outputs producing failing tests. This prevents the analyzer from being optimized against measures that don't actually discriminate the cases that matter.
+
+1. **Fixtures into `fixtures/` on day 1**:
+   - `healthy-paragraph.txt` (textbook chapter, single topic; e.g. photosynthesis paragraph from a biology textbook)
+   - `cavity-resonator.txt` (text exhibiting DRK-110 pattern, ~150 words)
+   - `deepseek-dragons.txt` ⚠ — text not in this Claude session's history; **Khrug must provide**. Spec §9.3 references this as the α-inflation specimen (DeepSeek's hallucinated Draken-as-fantasy-fan-site response). Source from Khrug's archive.
+   - `mckinsey-deck-page.txt` (representative strategy-deck page, narrative-heavy, citation-decorative)
+   - `draken-corpus-baseline.json` (snapshot of v1's Γ on full corpus, for v1↔v2 cross-check)
+
+2. **Hand-write expected outputs** under `fixtures/expected/`. Each is a JSON file matching `ArgumentSheafResult` schema with the framework's predicted values:
+   - healthy: Γ_spec ≥ 0.40, cavity_score ≤ 0.5, mostly bearing citations.
+   - cavity-resonator: Γ_spec ≤ 0.18, hidden_prior_density ≥ 0.4, cavity_score ≥ 2.0.
+   - deepseek-dragons: Γ_spec ≤ 0.20, ≥ 80% enthymemes, mostly trust-coloring.
+   - mckinsey: ≥ 50% trust-coloring or decorative.
+
+3. **Repo scaffolding** *after* fixtures land:
+   - Create `pnpm-workspace.yaml` and directory structure per spec §5.1.
+   - Set up `frontend/`, `worker/`, `compute/` (stub), `shared/`, `fixtures/`, `docs/` (move existing v2-prep into here).
+   - Add `.gitignore`, `.github/workflows/`.
+   - Wire up CI (`pnpm install && pnpm test && pnpm build`) and the v1-isolation guard (D-5).
+
+4. **Failing tests committed**: `tests/fixtures.test.ts` runs each fixture through a stub pipeline that returns zeros. Tests fail. This is the calibration target. Pipeline implementation in subsequent phases makes them pass.
 
 ### Phase 1 — math, no LLM (1-2 days)
 
@@ -178,7 +196,14 @@ Goal: usable UI matching spec §6.
 4. Deploy: `pnpm deploy:worker && pnpm deploy:pages`.
 5. Update v1 nav to surface v2.
 
-**Total: ~10-15 working days of focused work, single-developer, with Claude Code assistance.**
+**Total: ~10-15 working days of focused implementation = 3–5 weeks calendar time** for a solo developer working with care, including the calibration cycles that will be needed on the prompts. The first run of `detect_enthymeme` against real text will produce subtly wrong outputs (overly verbose bridges, drift toward "no_enthymeme" on edge cases, etc.); v1.4.0 of that prompt will exist by end of week 2. That is not delay — that is the discipline working. Velocity pressure should not compress the calibration phase.
+
+### Branching strategy refinements
+
+- Branch: `claude/analyzer-v2-implementation` off latest `main`.
+- **Rebase weekly against main** rather than merge — keeps the eventual merge clean and the diff readable.
+- **CI v1-isolation check**: any commit that modifies `frontend/src/topology-mode/**` is blocked on this branch. Forces a clean separation, prevents accidental v1 regression.
+- v2 is additive at `/sheaf-analyzer-v2/` permanently; the v1 path `/sheaf-analyzer/` stays alive until the user explicitly retires it after v2 demonstrates parity + corpus validation + user vetting.
 
 ## 4. Acceptance criteria for v2.0 milestone
 
