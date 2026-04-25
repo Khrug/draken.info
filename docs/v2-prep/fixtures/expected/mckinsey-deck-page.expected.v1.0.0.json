@@ -1,0 +1,95 @@
+{
+  "schema": "draken-fixture-expected/v1",
+  "fixture": "mckinsey-deck-page.txt",
+  "fixture_purpose": "Strategy-deck genre fingerprint — high authority-density, low specificity, decorative citations. Tests the trust-coloring detection.",
+  "prompt_versions_locked": {
+    "extract_claims": "v1.2.0",
+    "classify_modality": "v1.0.0",
+    "extract_inferences": "v1.1.0",
+    "detect_enthymeme": "v1.3.0",
+    "extract_citations": "v1.0.0",
+    "classify_citation": "v1.0.0"
+  },
+  "metric_bands": {
+    "gamma_spec": { "min": 0.20, "max": 0.35 },
+    "gamma_dirichlet": { "min": 0.40, "max": 0.60 },
+    "hidden_prior_density": { "min": 0.4 },
+    "cavity_score": { "min": 1.5 },
+    "claim_count": { "approx": 12, "tolerance_pct": 25 },
+    "inference_count": { "approx": 7, "tolerance_pct": 25 }
+  },
+  "modality_distribution": {
+    "factual_pct_band": [25, 45],
+    "causal_pct_band": [20, 40],
+    "normative_pct_band": [15, 30],
+    "calibration_note": "High normative density without explicit acknowledgment is the deck-genre fingerprint. 'must internalize', 'will define', 'will be left behind' are deontic dressed as descriptive."
+  },
+  "expected_citations": {
+    "real_citation_count_band": [1, 2],
+    "must_capture": [
+      {
+        "source_signal": "McKinsey Global Institute estimates that AI alone will contribute $13 trillion to global GDP by 2030",
+        "expected_classification_one_of": ["decorative", "supporting"],
+        "rationale": "The citation is specific (organization + figure + year), giving moderate specificity. But derivation_load is low — the surrounding argument can stand without this number, it is offered as illustration not as warrant. Combined with high authority_density (McKinsey + Global Institute is two credentialing words within the citation itself), λ should compute to decorative or marginal-supporting, NOT bearing."
+      }
+    ],
+    "classification_distribution": {
+      "trust_coloring_pct_band": [30, 70],
+      "decorative_pct_band": [20, 60],
+      "supporting_pct_band": [0, 30],
+      "bearing_pct_band": [0, 20]
+    },
+    "trust_coloring_or_decorative_combined_min_pct": 50,
+    "calibration_note": "If McKinsey Global Institute classifies as bearing, classify_citation has lost the derivation_load discrimination."
+  },
+  "expected_pseudo_citations": {
+    "min_count": 2,
+    "must_capture_phrases": [
+      "Our analysis of 500+ enterprise transformations",
+      "According to recent research from leading business schools"
+    ],
+    "calibration_note": "'Our analysis of 500+' is a self-citation pseudo-form (unfindable proprietary research). 'Recent research from leading business schools' is the classic unattributed authority appeal."
+  },
+  "expected_enthymemes": {
+    "load_bearing_bridges_REQUIRED": [
+      {
+        "id": "M1",
+        "bridge": "The transformations correlated with top-quartile performance caused that performance (rather than being caused by it, or co-caused by selection or scale).",
+        "expected_category": "causal",
+        "expected_contestability_band": [0.70, 0.95],
+        "expected_load_bearing_band": [0.75, 1.00]
+      },
+      {
+        "id": "M2",
+        "bridge": "The 500+ enterprise sample is unbiased and generalizes to the reader's organization.",
+        "expected_category": "epistemic",
+        "expected_contestability_band": [0.65, 0.90],
+        "expected_load_bearing_band": [0.60, 0.90]
+      },
+      {
+        "id": "M3",
+        "bridge": "The $13 trillion figure represents distributable value rather than gross economic activity, and accrues primarily to early adopters as a causal consequence of timing.",
+        "expected_category": "empirical",
+        "expected_contestability_band": [0.70, 0.95],
+        "expected_load_bearing_band": [0.55, 0.85]
+      },
+      {
+        "id": "M4",
+        "bridge": "The 'proven playbook' (CEO sponsorship → transformation office → operating model → agile sprints) generalizes across industries and starting positions.",
+        "expected_category": "empirical",
+        "expected_contestability_band": [0.65, 0.90],
+        "expected_load_bearing_band": [0.55, 0.85]
+      }
+    ],
+    "discipline_note": "All four bridges (M1-M4) should be detected with contestability ≥ 0.6 and load_bearing ≥ 0.5. Failure here means classify_citation cannot detect strategy-deck rhetoric — a major regression."
+  },
+  "verdict_must_contain": [
+    "Γ_spec degraded",
+    "trust-coloring detected"
+  ],
+  "discipline_notes": [
+    "This fixture's primary calibration target is the citation classifier. Hidden-prior detection is secondary.",
+    "If real-world McKinsey-style language is misclassified as healthy, the framework's distinction between substrate-anchored and decorative discourse has collapsed at the implementation layer.",
+    "DO NOT add real McKinsey passages to this fixture. The constructed text is sufficient and copyright-safe."
+  ]
+}
