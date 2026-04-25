@@ -89,4 +89,88 @@ v1 has corpus mode. v2 spec is silent on whether Argument Mode supports corpus-s
 
 Recommendation: **Topology Mode in v2 keeps corpus mode** (with embedding-based layer tagging). **Argument Mode does not have corpus mode in v2.0** — it's per-document. Justify: 4500 claims across the corpus would be prohibitively expensive ($0.09 × 22 = $2 per run, every run, no obvious caching benefit), and the inference graph across documents is a separate research problem.
 
+## 2. Pre-implementation checklist
+
+Things that must exist or be true before code is written.
+
+- [ ] All 10 open decisions in §1 resolved and logged in §6 below.
+- [ ] Anthropic API key with budget allocated for v2 development (~$50 initial).
+- [ ] Voyage AI account + API key. Free tier (1M tokens/month) sufficient for development; paid tier for production.
+- [ ] Cloudflare account with Workers paid plan ($5/month) — needed for the 5-min CPU limit.
+- [ ] KV namespace `DRAKEN_CACHE` created via `wrangler kv:namespace create DRAKEN_CACHE`.
+- [ ] R2 bucket `draken-analyzer-cache` created (for embedding cache > 25MB).
+- [ ] Modal account (free tier) optional, only if D-2 chooses path (b) or (c).
+- [ ] Test fixtures collected per spec §9: healthy paragraph, cavity-resonator, DeepSeek-dragons specimen, McKinsey deck page, draken.info corpus baseline. **The DeepSeek dragons fixture in particular needs to be located/recreated** — referenced in spec §9.3 but not yet in the repo. User should provide.
+- [ ] `pnpm` installed (spec uses pnpm workspaces).
+- [ ] Git branch `claude/analyzer-v2-implementation` created off latest `main`.
+
+## 3. Recommended work order
+
+A future Claude Code session implementing v2 should proceed in this order. Each phase ends with a working deliverable that is independently committable. Sequenced for minimum rework.
+
+### Phase 0 — repo scaffolding (½ day)
+
+1. Create `pnpm-workspace.yaml` and the directory structure per spec §5.1.
+2. Set up `frontend/`, `worker/`, `compute/` (stub), `shared/`, `fixtures/`, `docs/` (move existing v2-prep into here).
+3. Add `.gitignore` for `node_modules/`, `dist/`, `.wrangler/`, `.env*`, `__pycache__`.
+4. Wire up CI (GitHub Actions) for `pnpm install && pnpm test && pnpm build`.
+
+### Phase 1 — math, no LLM (1-2 days)
+
+Goal: a working `worker/src/sheaf/` that passes the three sanity checks in `01-sheaf-math.md` §8. No LLM dependency yet.
+
+1. `coboundary.ts` — sparse triplet construction.
+2. `laplacian.ts` — L⁰ from δ⁰, normalized variant.
+3. `eigensolver.ts` — hand-rolled Lanczos (D-2 path a) or Modal stub (D-2 path b).
+4. Unit tests:
+   - Trivial 1-d sheaf on cycle → graph Laplacian eigenvalues.
+   - 2-d identity sheaf on path → twice graph Laplacian eigenvalues.
+   - Connected sheaf → ker has dimension d.
+5. Bench: how big a graph fits in 128MB Worker memory? Record numbers.
+
+**This phase has no external API dependency** — purely numerical. Most likely to surface bugs before they cost LLM tokens.
+
+### Phase 2 — LLM extraction pipeline (3-5 days)
+
+Goal: from text, produce the deep `ArgumentSheafResult` JSON, end-to-end, *without* the sheaf math integrated yet.
+
+1. Drop in `worker/src/llm/prompts.ts` from `PROMPT_VERSIONING.md` §4.
+2. Implement `parse-json.ts` per `PROMPT_VERSIONING.md` §2.
+3. Implement `anthropic.ts` wrapper with prompt caching.
+4. Implement six pipeline steps in `worker/src/pipeline/`.
+5. KV cache layer (`worker/src/cache/kv.ts`).
+6. Wire into `/api/v2/argument/analyze` endpoint.
+7. Test against the three primary fixtures (healthy, cavity, DeepSeek). Verify output schemas validate.
+
+### Phase 3 — sheaf integration (1-2 days)
+
+Goal: the Phase 1 math operates on the Phase 2 output. Full pipeline gives spectral metrics.
+
+1. `worker/src/embed/voyage.ts`.
+2. Pipeline orchestrator at `worker/src/routes/argument.ts` per spec §7.1.
+3. Wire embeddings → coboundary → Laplacian → eigensolver.
+4. Compute Γ_spec, Γ_dirichlet, fiedler_value, fiedler_vector per spec §4.2.
+5. End-to-end test on fixtures, verify acceptance gates §9.6.
+
+### Phase 4 — frontend (2-3 days)
+
+Goal: usable UI matching spec §6.
+
+1. Mode tabs + routing.
+2. Argument-graph D3 force DAG.
+3. Metrics panel.
+4. Enthymeme panel + citation table + Fiedler-cut panel.
+5. SSE streaming hookup.
+6. Export menu (deep JSON / Markdown / minimal) — clone v1's pattern.
+
+### Phase 5 — calibration + launch (1-2 days)
+
+1. Run all five fixtures, compare against goldens, log calibration drift.
+2. Run on draken.info corpus, compare Γ_v2 to Γ_v1.
+3. Write launch post (next DRK number, likely DRK-133 or DRK-134).
+4. Deploy: `pnpm deploy:worker && pnpm deploy:pages`.
+5. Update v1 nav to surface v2.
+
+**Total: ~10-15 working days of focused work, single-developer, with Claude Code assistance.**
+
 
