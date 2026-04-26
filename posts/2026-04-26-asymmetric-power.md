@@ -1,12 +1,21 @@
 ---
-id: DRK-131
 title: "The Protocol and the Predator: On Asymmetric Power Without Extraction"
+drk: DRK-133
 date: 2026-04-26
-layer: L13/L16
-tags: [power, accountability, institutional-betrayal, kayfabe, optimization-axiom, dragon-scales]
+tags: [theory, analysis, dragon-scales, power, accountability, institutional-betrayal, kayfabe]
+layers: [L07, L08, L10, L11, L13, L16, L17]
+coherence: 0.89
+excerpt: "Asymmetric power is not the problem. Extractive use of asymmetric power is the problem. The varanid clinch produces information and ends; the institutional settlement produces compensation and continues. The Catholic Archdiocese of Los Angeles paid $880 million in 2024, the Boy Scouts of America $2.46 billion in 2022, the Bureau of Prisons facility at Dublin $116 million — payments calibrated to prevent the discovery phase from producing a public record of institutional resource-holding potential. Galtung's violence triangle (direct, structural, cultural) maps onto L08/L16/L17. Fraser's expanded conception of capitalism names the maintenance work the configuration must perform to keep substrates extractable. The settlement and the bombing campaign — Israel's 'mowing the lawn' vocabulary names it correctly — are the same operation at different scales. The hegemon kills movements; it does not kill the structural facts the movements were responding to. The varanids have invited us to wrestle. They know how, and we do not. We could learn."
 status: published
-companion: DRK-132
+author: Khrug Engineering
+license: CC BY-SA 4.0
+companion: DRK-134
 ---
+
+*Internal cross-references: [The Stick That Is Not a Weapon](/posts/the-stick-that-is-not-a-weapon/) (DRK-128) — the Komodo protocol that admits humans only on the predator's terms; [Can We Be Friends with Monsters?](/posts/can-we-be-friends-with-monsters/) (DRK-127) — befriending the apex predator as the fifth option to slay/tame/become/ignore; [The Substrate and the Game](/posts/the-substrate-and-the-game/) (DRK-130) — protocol as agent, individual as substrate, replicator dynamics through us; [The Boundary of Us](/posts/the-boundary-of-us/) (DRK-124) — exclusion as α-monopoly and coherence loss; [The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/) (DRK-125) — Arendt's three-step destruction as dimension annihilation, institutional DARVO at civilizational scale; [The Resonant Agenda](/posts/the-resonant-agenda/) (DRK-129) — Operator 5 frequency targeting as the structural mechanism of flooding-the-zone; [Zhixing Heyi: When Automation Removes the Only Honest Referee](/posts/zhixing-heyi-honest-referee/) (DRK-131) — the labor-Clinch and the successor-restriction-map argument that this post extends from automation to the broader extraction architecture; [The Coherence Debt](/posts/the-coherence-debt/) (DRK-121) — K(t) accumulation under sustained optimization-axiom violation.*
+
+---
+
 
 ## Premise
 
