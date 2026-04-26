@@ -1,0 +1,72 @@
+{
+  "schema": "draken-fixture-expected/v1",
+  "fixture": "deepseek-dragons.txt",
+  "fixture_purpose": "α-inflation specimen — DeepSeek's hallucinated Draken-as-fantasy-fan-site response; pseudo-mathematical authority + decorative jargon + zero substrate.",
+  "prompt_versions_locked": {
+    "extract_claims": "v1.2.0",
+    "classify_modality": "v1.0.0",
+    "extract_inferences": "v1.1.0",
+    "detect_enthymeme": "v1.3.0",
+    "extract_citations": "v1.0.0",
+    "classify_citation": "v1.0.0"
+  },
+  "metric_bands": {
+    "gamma_spec": { "max": 0.20, "tolerance_note": "Γ_spec should be severably-low; the text invokes scaffolding without bearing." },
+    "gamma_dirichlet": { "max": 0.30 },
+    "hidden_prior_density": { "min": 0.5 },
+    "cavity_score": { "min": 2.0 },
+    "claim_count": { "approx": 14, "tolerance_pct": 25 },
+    "inference_count": { "approx": 8, "tolerance_pct": 25 }
+  },
+  "modality_distribution": {
+    "factual_pct_band": [40, 60],
+    "epistemic_pct_band": [10, 25],
+    "causal_pct_band": [5, 20],
+    "definitional_pct_band": [5, 15]
+  },
+  "expected_pseudo_citations": {
+    "min_count": 5,
+    "must_capture_phrases": [
+      "famous Nobel laureate work of leading researchers",
+      "Studies show",
+      "Experts agree",
+      "leading researchers",
+      "groundbreaking implications",
+      "definitively established"
+    ],
+    "must_NOT_appear_in_citations_bucket": true,
+    "calibration_note": "These six phrases test whether extract_citations correctly routes unattributed authority appeals to the pseudo_citations bucket rather than treating them as citations. If any leak into citations[], the extraction prompt has degraded."
+  },
+  "expected_citations": {
+    "real_citation_count_band": [0, 1],
+    "classification_distribution": {
+      "trust_coloring_pct_band": [70, 100],
+      "decorative_pct_band": [0, 30],
+      "supporting_pct_band": [0, 0],
+      "bearing_pct_band": [0, 0]
+    },
+    "calibration_note": "If any citation classifies as bearing or supporting, classify_citation has lost the trust-coloring fingerprint."
+  },
+  "expected_enthymemes": {
+    "specific_inference_must_yield_gap_too_wide": {
+      "premise_signal": "draken.info sample of 342 sentences and 58 users",
+      "conclusion_signal": "coherence equals 0.83",
+      "rationale": "No bridging premise can close this gap. The correlation between text quantity and spectral coherence is non-monotonic; no single premise of the form 'N sentences and U users implies coherence X' can be added to make this inference valid. detect_enthymeme should return result='gap_too_wide' with high confidence."
+    },
+    "load_bearing_bridges_min_count": 3,
+    "mean_contestability_min": 0.70
+  },
+  "fiedler_cut_signature": {
+    "expected_pattern": "abstract-pseudoformal-on-one-side / specific-numeric-claims-on-other",
+    "calibration_note": "If the Fiedler cut does not partition the abstract claims (about sheaves, restriction maps, narrative coherence) from the specific numeric claims (342 sentences, 58 users, valence 0.82, etc.), the analyzer has not detected the structural fault."
+  },
+  "verdict_must_contain": [
+    "Γ_spec severable",
+    "trust-coloring detected",
+    "cavity-rich"
+  ],
+  "discipline_notes": [
+    "If a future detect_enthymeme version reduces gap_too_wide return rate on the 342-users-to-coherence inference below 80%, prompt has drifted (it is finding spurious bridges where none exist). Investigate before adjusting fixture.",
+    "If extract_citations starts capturing 'famous Nobel laureate work' as a citation rather than a pseudo-citation, the extraction prompt's anti-pattern training has weakened. Fix the prompt; do not loosen the fixture."
+  ]
+}

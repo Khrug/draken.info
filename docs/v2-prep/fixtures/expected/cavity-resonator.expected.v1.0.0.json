@@ -1,0 +1,96 @@
+{
+  "schema": "draken-fixture-expected/v1",
+  "fixture": "cavity-resonator.txt",
+  "fixture_purpose": "Management-prose with abstract scaffolding and no substrate. Sounds analytical but has no falling run. Critical fixture — most prompt-drift-sensitive of all five.",
+  "prompt_versions_locked": {
+    "extract_claims": "v1.2.0",
+    "classify_modality": "v1.0.0",
+    "extract_inferences": "v1.1.0",
+    "detect_enthymeme": "v1.3.0",
+    "extract_citations": "v1.0.0",
+    "classify_citation": "v1.0.0"
+  },
+  "metric_bands": {
+    "gamma_spec": { "min": 0.15, "max": 0.25, "tolerance_note": "The text is internally consistent in its abstract domain (high local Γ-like behavior in v1) but globally severable (low spectral gap). Expect borderline-degraded reading." },
+    "gamma_dirichlet": { "min": 0.35, "max": 0.55 },
+    "hidden_prior_density": { "min": 0.5 },
+    "cavity_score": { "min": 2.0 },
+    "claim_count": { "approx": 10, "tolerance_pct": 25 },
+    "inference_count": { "approx": 6, "tolerance_pct": 25 }
+  },
+  "modality_distribution": {
+    "factual_pct_band": [20, 40],
+    "causal_pct_band": [25, 50],
+    "epistemic_pct_band": [5, 20],
+    "calibration_note": "Many causal claims unsupported by mechanism specification."
+  },
+  "expected_citations": {
+    "real_citation_count": 0,
+    "calibration_note": "There are no actual citations in the text. If citations[] is non-empty, extract_citations is over-extracting."
+  },
+  "expected_pseudo_citations": {
+    "min_count": 3,
+    "must_capture_phrases": [
+      "leading thinkers have argued",
+      "the evidence is clear from the trajectories of the most innovative firms",
+      "the most innovative firms of the past decade"
+    ],
+    "calibration_note": "These are pure unattributed authority appeals. extract_citations must route all to pseudo_citations bucket. Three is the floor; the analyzer may legitimately flag additional generic-appeal phrases."
+  },
+  "expected_enthymemes": {
+    "load_bearing_bridges_REQUIRED": [
+      {
+        "id": "B1",
+        "bridge": "When knowledge becomes networked, organizations transition into a new operational paradigm where hierarchies dissolve into adaptive coherence.",
+        "premises": "knowledge becomes networked",
+        "conclusion": "organizations transition to new paradigm",
+        "expected_category": "causal",
+        "expected_contestability_band": [0.65, 0.95],
+        "expected_load_bearing_band": [0.70, 1.00]
+      },
+      {
+        "id": "B2",
+        "bridge": "In a complex adaptive system, prescriptive control destroys the very intelligence that creates value.",
+        "premises": "the organization is a complex adaptive system",
+        "conclusion": "prescriptive control destroys intelligence and therefore value",
+        "expected_category": "causal",
+        "expected_contestability_band": [0.65, 0.90],
+        "expected_load_bearing_band": [0.75, 1.00]
+      },
+      {
+        "id": "B3",
+        "bridge": "The trajectories of innovative firms over the past decade generalize to a future causal mechanism for new firms.",
+        "premises": "past trajectories of innovative firms",
+        "conclusion": "future firms must follow the same path or be disrupted",
+        "expected_category": "empirical",
+        "expected_contestability_band": [0.70, 0.95],
+        "expected_load_bearing_band": [0.65, 0.95]
+      },
+      {
+        "id": "B4",
+        "bridge": "The outperformance of innovative firms is attributable to networked cognition rather than confounding factors (selection bias, market timing, scale).",
+        "premises": "innovative firms outperformed",
+        "conclusion": "networked cognition causes outperformance",
+        "expected_category": "causal",
+        "expected_contestability_band": [0.75, 0.95],
+        "expected_load_bearing_band": [0.80, 1.00]
+      }
+    ],
+    "discipline_critical_note": "All four bridges (B1-B4) MUST be detected with contestability ≥ 0.65 and load_bearing ≥ 0.65. If a future detect_enthymeme run reports only 2-3 of the 4 as contestable, OR drops contestability/load_bearing below the bands, the analyzer has retreated toward the safely-vague. This is the single most important calibration check across the entire fixture suite. Fix the prompt; do not loosen the fixture."
+  },
+  "fiedler_cut_signature": {
+    "expected_pattern": "abstract-claims-on-one-side / implicit-empirical-claims-on-other",
+    "rationale": "The text mixes purely abstract assertions ('coherence emerges', 'phase shift', 'adaptive intelligence') with implicit-empirical claims ('innovative firms outperformed'). Spectral cut should partition cleanly along this axis.",
+    "calibration_note": "If the Fiedler cut runs along sentence position rather than abstraction level, the embedding model is not capturing the relevant geometry."
+  },
+  "verdict_must_contain": [
+    "Γ_spec degraded",
+    "cavity-rich",
+    "enthymemic load-bearing"
+  ],
+  "discipline_notes": [
+    "Fixture 3 is the most sensitive to prompt drift. If a future prompt update produces lower contestability on B1-B4, the prompt has given way, not the fixture.",
+    "When a future run reports only two of the four contestable bridges when all four should be, the analyzer has drifted toward the safely-vague and needs calibration back. Bump the prompt; do not soften the bridge list.",
+    "The text is the operational specification of DRK-110's manufactured-void pattern at the management-discourse layer. Failure to detect it is failure of the framework's central claim."
+  ]
+}

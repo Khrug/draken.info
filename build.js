@@ -142,7 +142,7 @@ function buildActivityFeed() {
   if (!items.length) items = [
     { detail: 'draken.info v2 deployed', time: new Date().toISOString(), status: 'green' },
     { detail: 'Thesis page published', time: new Date().toISOString(), status: 'green' },
-    { detail: 'Sheaf Game launched', time: new Date().toISOString(), status: 'green' },
+    { detail: 'Sheaf Analyzer launched', time: new Date().toISOString(), status: 'green' },
     { detail: '247 KOs embedded in Pinecone', time: new Date().toISOString(), status: 'green' },
     { detail: 'Multi-model peer review complete', time: new Date().toISOString(), status: 'gold' },
   ];
@@ -169,7 +169,7 @@ function buildThesisPage(baseTpl) {
 <div class="form-row"><textarea name="message" placeholder="Your feedback..." required class="form-input" rows="5"></textarea></div>
 <button type="submit" class="form-submit">Submit Review â†’</button></form></div>
 <div style="margin-top:48px;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
-<a href="/" class="back-link">â† Feed</a><a href="/sheaf-game/" class="back-link" style="color:var(--accent)">ðŸŽ® Sheaf Game â†’</a></div></div>`;
+<a href="/" class="back-link">â† Feed</a><a href="/sheaf-analyzer/" class="back-link" style="color:var(--accent)">â—† Sheaf Analyzer â†’</a></div></div>`;
 
   const html = render(baseTpl, {
     title: 'The Draken 2045 Framework â€” Research Monograph',
@@ -183,22 +183,58 @@ function buildThesisPage(baseTpl) {
   console.log('  âœ“ thesis/');
 }
 
-// â”€â”€ SHEAF GAME PAGE â”€â”€
-function buildSheafGamePage(baseTpl) {
-  const gp = path.join(STATIC_DIR, 'pages', 'sheaf-game.html');
-  let body = '<div class="article-wrap"><h1>Sheaf Game â€” Coming Soon</h1></div>';
-  if (fs.existsSync(gp)) body = fs.readFileSync(gp, 'utf-8');
+// ── CORPUS.JSON — strip-to-plain export for client-side analyzer ──
+function buildCorpusJson(posts) {
+  const items = posts.map(p => {
+    // Strip markdown syntax to plain text (analyzer is robust to residual punctuation)
+    let t = p.rawContent || '';
+    t = t.replace(/```[\s\S]*?```/g, ' ');          // fenced code
+    t = t.replace(/`[^`\n]+`/g, ' ');               // inline code
+    t = t.replace(/!\[[^\]]*\]\([^)]+\)/g, ' ');    // images
+    t = t.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1');  // links → keep text
+    t = t.replace(/^#{1,6}\s+/gm, '');              // headings
+    t = t.replace(/^\s*[-*+]\s+/gm, '');            // list bullets
+    t = t.replace(/^\s*>\s?/gm, '');                // blockquotes
+    t = t.replace(/\*\*([^*]+)\*\*/g, '$1');        // bold
+    t = t.replace(/\*([^*]+)\*/g, '$1');            // italic
+    t = t.replace(/_([^_]+)_/g, '$1');              // underscore emph
+    t = t.replace(/~{2}([^~]+)~{2}/g, '$1');        // strikethrough
+    t = t.replace(/\n{3,}/g, '\n\n').trim();
+    return {
+      drk: p.drk || '',
+      slug: p.slug,
+      title: p.title || p.slug,
+      date: p.date ? new Date(p.date).toISOString().split('T')[0] : '',
+      layers: p.layers || [],
+      coherence: p.coherence || 0,
+      tags: p.tags || [],
+      words: t.split(/\s+/).filter(Boolean).length,
+      text: t
+    };
+  }).sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  const out = { generated: new Date().toISOString(), count: items.length, posts: items };
+  const dataDir = path.join(DIST_DIR, 'data');
+  fs.mkdirSync(dataDir, { recursive: true });
+  fs.writeFileSync(path.join(dataDir, 'corpus.json'), JSON.stringify(out));
+  console.log(`  ✓ data/corpus.json (${items.length} posts, ${(JSON.stringify(out).length/1024).toFixed(1)}kb)`);
+}
+
+// ── SHEAF ANALYZER PAGE (topological narrative diagnostic) ──
+function buildSheafAnalyzerPage(baseTpl) {
+  const ap = path.join(STATIC_DIR, 'pages', 'sheaf-analyzer.html');
+  let body = '<div class="article-wrap"><h1>Sheaf Analyzer — Coming Soon</h1></div>';
+  if (fs.existsSync(ap)) body = fs.readFileSync(ap, 'utf-8');
 
   const html = render(baseTpl, {
-    title: 'The Sheaf Game â€” Interactive Draken Pedagogy',
-    description: 'Interactive sheaf theory visualization with 8 failure mode scenarios.',
-    content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-game/',
+    title: 'Sheaf Analyzer — Draken Topological Narrative Diagnostic',
+    description: 'Paste text or fetch a URL; extract sheaf metrics (Γ, Ψ, K(t), α), detect manufactured voids, and render a rotatable 3D concept graph across the 18 Draken layers.',
+    content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-analyzer/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   });
-  const dir = path.join(DIST_DIR, 'sheaf-game');
+  const dir = path.join(DIST_DIR, 'sheaf-analyzer');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
-  console.log('  âœ“ sheaf-game/');
+  console.log('  ✓ sheaf-analyzer/');
 }
 
 // â”€â”€ SLASK PAGE (dynamic GitHub-powered file dump) â”€â”€
@@ -486,7 +522,7 @@ function genSitemap(posts) {
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
-    `<url><loc>${b}/sheaf-game/</loc><priority>0.7</priority></url>\n` +
+    `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -566,17 +602,32 @@ function build() {
     console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // â”€â”€ Thesis + Sheaf Game + Slask â”€â”€
+  // â”€â”€ Thesis + Sheaf Analyzer + Slask â”€â”€
   buildThesisPage(baseTpl);
-  buildSheafGamePage(baseTpl);
+  buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
   buildDigestPages();
+  buildCorpusJson(posts);
 
   // â”€â”€ Static assets â”€â”€
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
-  console.log('  âœ“ static assets');
+  // Vendor JS (three + 3d-force-graph) for same-origin loading by analyzer.
+  // Sourced from node_modules (installed via npm); not committed to repo.
+  const vendorDir = path.join(DIST_DIR, 'vendor');
+  fs.mkdirSync(vendorDir, { recursive: true });
+  const vendorFiles = [
+    ['node_modules/three/build/three.min.js', 'three.min.js'],
+    ['node_modules/3d-force-graph/dist/3d-force-graph.min.js', '3d-force-graph.min.js']
+  ];
+  let vendorOk = 0;
+  for (const [src, dst] of vendorFiles) {
+    const sp = path.join(__dirname, src);
+    if (fs.existsSync(sp)) { fs.copyFileSync(sp, path.join(vendorDir, dst)); vendorOk++; }
+    else console.warn('  ! vendor missing: ' + src + ' (run npm install)');
+  }
+  console.log('  ✓ static assets + vendor (' + vendorOk + '/2 libs)');
 
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
   fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://draken.info/sitemap.xml\n');

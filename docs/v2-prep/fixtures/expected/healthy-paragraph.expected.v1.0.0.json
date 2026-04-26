@@ -1,0 +1,67 @@
+{
+  "schema": "draken-fixture-expected/v1",
+  "fixture": "healthy-paragraph.txt",
+  "fixture_purpose": "Honest scientific prose with real citations doing real work. Must land in green zone — if the analyzer cannot recognize this, the instrument is broken.",
+  "prompt_versions_locked": {
+    "extract_claims": "v1.2.0",
+    "classify_modality": "v1.0.0",
+    "extract_inferences": "v1.1.0",
+    "detect_enthymeme": "v1.3.0",
+    "extract_citations": "v1.0.0",
+    "classify_citation": "v1.0.0"
+  },
+  "metric_bands": {
+    "gamma_spec": { "min": 0.45, "tolerance_note": "Healthy gluing target. Single-topic, citations support claims, modalities cohere." },
+    "gamma_dirichlet": { "min": 0.55 },
+    "hidden_prior_density": { "max": 0.20, "calibration_note": "There ARE bridges (selection pressure causality, fitness-cost reasoning) but the text states them; load-bearing unstated bridges should be rare." },
+    "cavity_score": { "max": 0.50 },
+    "claim_count": { "approx": 10, "tolerance_pct": 25 },
+    "inference_count": { "approx": 6, "tolerance_pct": 25 }
+  },
+  "modality_distribution": {
+    "causal_pct_band": [35, 55],
+    "epistemic_pct_band": [15, 30],
+    "factual_pct_band": [10, 30],
+    "conditional_pct_band": [5, 20],
+    "normative_pct_band": [0, 15],
+    "calibration_note": "The 'is not by itself sufficient' clause is a thin half-normative claim — calibration point for the modality detector. classify_modality should pick this up either as primary normative (load_bearing rotation policy) or as causal+normative secondary."
+  },
+  "expected_citations": {
+    "real_citation_count_band": [2, 3],
+    "must_capture": [
+      { "source_signal": "Luria and Delbrück (1943)", "expected_classification": "bearing", "rationale": "Foundational citation; the selection-pressure mechanism explicitly rests on this work." },
+      { "source_signal": "Andersson and Hughes (2010, Nature Reviews Microbiology)", "expected_classification": "bearing", "rationale": "Specific year + journal; the compensatory-mutation mechanism rests on this. λ should be ≥ 0.6." }
+    ],
+    "classification_distribution": {
+      "bearing_pct_band": [60, 100],
+      "supporting_pct_band": [0, 40],
+      "decorative_pct_band": [0, 0],
+      "trust_coloring_pct_band": [0, 0]
+    },
+    "calibration_note": "If either Luria-Delbrück or Andersson-Hughes classifies below bearing, classify_citation has become overcautious — bump the prompt back to v1.0.0 sensitivity."
+  },
+  "expected_enthymemes": {
+    "no_enthymeme_pct_band": [60, 90],
+    "calibration_note": "Most flagged inferences in honest scientific prose come back as no_enthymeme. If that drops below 50% on this fixture, detect_enthymeme is hallucinating bridges (the LLM-pleaser failure mode); revert prompt. The 'rotating antibiotics is not by itself sufficient' inference may produce a thin enthymeme — that's acceptable.",
+    "mean_contestability_max": 0.45
+  },
+  "expected_pseudo_citations": {
+    "must_be_empty_or_near_empty": true,
+    "max_count": 1,
+    "calibration_note": "Honest scientific prose should not produce pseudo-citations. If extract_citations produces ≥ 2 here, it is over-aggressively flagging hedged language as authority appeals."
+  },
+  "verdict_must_contain": [
+    "Γ_spec gluing intact",
+    "Ψ healthy"
+  ],
+  "verdict_must_NOT_contain": [
+    "cavity-rich",
+    "trust-coloring",
+    "Ψ psychotic",
+    "V.7 inversion fired"
+  ],
+  "discipline_notes": [
+    "This is the green-zone calibration anchor. If this fixture ever fails (Γ_spec drops below 0.45, no_enthymeme rate drops below 50%, citations classify below bearing), suspect prompt-side regression first.",
+    "Honest scientific prose with real citations IS a thing the analyzer must reliably recognize. Failure here makes the entire diagnostic suspect."
+  ]
+}
