@@ -1,12 +1,36 @@
 ---
-title: "The Decorticated Sheaf"
-subtitle: "Nasimi, Cellular Automata, and the Skin That Was Already a Voice"
-draft_id: DRK-131
+title: "The Decorticated Sheaf: Nasimi, Cellular Automata, and the Skin That Was Already a Voice"
+drk: DRK-135
 date: 2026-04-27
+tags: [synthesis, theory, history, dragon-scales, hurufism, sheaf-ontology, cellular-automaton, reptile-trade, kayfabe, dissent-suppression, morphogenesis]
 layers: [L06, L07, L08, L11, L13, L15, L16, L17]
-operators: [Ψ, Γ, K, ρ, ◆, G]
-tags: [hurufism, sheaf-ontology, cellular-automaton, reptile-trade, kayfabe, dissent-suppression, morphogenesis, dragon-scales]
+coherence: 0.90
+excerpt: "Aleppo, 1417: a Hurufi poet is flayed for teaching that the human face bears the inscription of God's names. The procedure — denunciation, forum-shopping, exemplary skinning, posthumous public display — is the substrate-invariant orthodoxy-preservation protocol Π_orth, recoverable today wherever a configuration moves to delete the surface that bears the wrong message. Manukyan and Milinkovitch (Nature 2017) showed that ocellated lizard skin runs a literal von Neumann cellular automaton, emerging from Turing reaction-diffusion at the scale of individual scales — the substrate computes the message it carries. Conway's Game of Life is the bridge that proves cellular automata can host arbitrary emergent complexity, including Turing-completeness, glider guns, and replicators. The Draken 18-layer manifold is itself a stack of cellular automata, agency emerging from each layer's local rules running on the layer below. The chiastic pair: Nasimi destroyed the substrate to preserve the substance; the spring fashion python boot destroys the substrate to preserve only the surface. The skin propagates regardless. The protocol propagates regardless. The question is what we lift when we choose what to keep."
 status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
+sources:
+  - "Manukyan, L., Montandon, S.A., Fofonjka, A. et al. (2017). A living mesoscopic cellular automaton made of skin scales. Nature 544, 173–179. https://doi.org/10.1038/nature22031"
+  - "Zakany, S., Smirnov, S. & Milinkovitch, M.C. (2022). Lizard skin patterns and the Ising model. Physical Review Letters 128, 048102."
+  - "Hess, M. R. (2009). The Poet of Hurufism: Imadaddin Nasimi (1369–1417). Bibliotheca Iranica."
+  - "Akhmad ibn Ibrahim al-Halabi. Tarih-i Heleb (15th c.)."
+  - "Turing, A. M. (1952). The Chemical Basis of Morphogenesis. Phil. Trans. R. Soc. B 237, 37–72."
+  - "Gardner, M. (1970). Mathematical Games: The fantastic combinations of John Conway's new solitaire game 'life'. Scientific American 223(4), 120–123."
+  - "Berlekamp, E. R., Conway, J. H. & Guy, R. K. (1982). Winning Ways for your Mathematical Plays, vol. 2. Academic Press."
+  - "Rendell, P. (2002). Turing Universality of the Game of Life. In: Adamatzky, A. (ed.) Collision-Based Computing. Springer."
+  - "Wade, A. P. (2010). Linear Replicator in B-heptomino Universe. ConwayLife forums."
+  - "Wolfram, S. (1984). Universality and Complexity in Cellular Automata. Physica D 10, 1–35."
+  - "Hansen, J. & Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. Journal of Applied and Computational Topology 3, 315–358."
+companion: "DRAGON SCALES Post 5"
+---
+
+
+![Yellow python-print thigh-high stiletto boots against a white panelled wall](/images/drk-135-hero-snakeskin-boots.webp)
+
+*Who cares about snakes — they're gross and dangerous, and have to be killed anyway. Want to look dangerous in a tasteful way? Reptile-skin accessories are this spring's hottest trend.*
+
+**Layers traversed:** L06, L07, L08, L11, L13, L15, L16, L17.
+**Operators invoked:** Psi, Gamma, K, rho, the optimisation axiom, G.
 
 ---
 
