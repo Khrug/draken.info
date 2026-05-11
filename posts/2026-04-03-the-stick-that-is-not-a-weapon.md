@@ -15,7 +15,7 @@ sources:
   - "https://www.bio-conferences.org/articles/bioconf/full_html/2020/03/bioconf_isif2019_00021/bioconf_isif2019_00021.html"
 ---
 
-*Internal cross-references: [Can We Be Friends with Monsters?](https://draken.info/posts/can-we-be-friends-with-monsters/) (DRK-127), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Imaginary Dimension](https://draken.info/posts/imaginary-dimension/) (DRK-123)*
+*Internal cross-references: [Can We Be Friends with Monsters?](https://draken.info/posts/can-we-be-friends-with-monsters/) (DRK-127), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Imaginary Dimension](https://draken.info/posts/the-imaginary-dimension/) (DRK-123)*
 
 *This is a Dragon Scales essay — part of a series mapping varanid ethology through martial arts and honor codes to governance architecture.*
 

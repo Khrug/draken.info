@@ -430,7 +430,7 @@ In rough chronological-conceptual order, the posts that build the substrate this
 - [The Grammar of Coherence Destruction](https://draken.info/posts/grammar-of-coherence-destruction/) (DRK-119) — seven doctrinal traditions of epistemic warfare.
 - [The Cavity and the Commune](https://draken.info/posts/the-cavity-and-the-commune/) (DRK-120) — Marx, Lenin, abstraction-depth arc.
 - [The Coherence Debt](https://draken.info/posts/the-coherence-debt/) (DRK-121) — $K(t)$ as karma-thermodynamic integral.
-- [The Imaginary Dimension](https://draken.info/posts/imaginary-dimension/) (DRK-123) — varanid temporal cognition, 130 Myr predates Wick.
+- [The Imaginary Dimension](https://draken.info/posts/the-imaginary-dimension/) (DRK-123) — varanid temporal cognition, 130 Myr predates Wick.
 - [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124) — extending the moral boundary to varanids and AI nodes.
 - [The Totalitarian Sheaf](https://draken.info/posts/the-totalitarian-sheaf/) (DRK-125) — Arendt + Iran 2026.
 - [Can We Be Friends with Monsters?](https://draken.info/posts/can-we-be-friends-with-monsters/) (DRK-127) — interspecies trust.

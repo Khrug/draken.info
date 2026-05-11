@@ -11,7 +11,7 @@ author: Khrug Engineering
 license: CC BY-SA 4.0
 ---
 
-*Internal cross-references: [The Imaginary Dimension](/posts/imaginary-dimension/) (DRK-123), [The Boundary of Us](/posts/boundary-of-us/) (DRK-124), [The Exceptionality Trap](/posts/the-exceptionality-trap/) (DRK-126), [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105)*
+*Internal cross-references: [The Imaginary Dimension](/posts/the-imaginary-dimension/) (DRK-123), [The Boundary of Us](/posts/the-boundary-of-us/) (DRK-124), [The Exceptionality Trap](/posts/the-exceptionality-trap/) (DRK-126), [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105)*
 
 *This is a Dragon Scales essay — part of a series mapping varanid ethology through martial arts and honor codes to governance architecture.*
 
