@@ -27,10 +27,6 @@ sources:
   - "DRK-142, Wrestling with God: Perlocutionary Force and the Cohomology of the Honest Encounter"
 ---
 
-# Representational Drift as Sheaf-Theoretic Coherence
-
-## Notes on Kwon (Nature 2026) and the empirical landscape of neural population stability
-
 Diana Kwon's feature in *Nature* on 20 May 2026 surveys a fourteen-year argument the neuroscience community has been having with itself, and reaches the conclusion that the community has now largely converged on: *representational drift is real*. Individual neurons in mouse cortex and hippocampus reorganize their tuning to behavioral variables over days to weeks, even when the task is fixed and the animal's behavior is unchanged. The discovery that this phenomenon is genuine — rather than an artifact of imprecise cell tracking or unmeasured behavioral variability — has unsettled the foundations on which systems neuroscience was built. Place cells, orientation-selective cells, engrams: all the stable-coding landmarks descend from a presumption of fixed neural-symbol-to-world-feature mapping. That presumption is no longer tenable in its strong form.
 
 What the Kwon piece does *not* do — and this is not a criticism, it is the genre constraint of a news feature — is offer a unifying mathematical formalism for what's happening. Two main interpretive options are presented, attributed to Andrew Fink: either there are *stable features in the drifting population*, or *the brain extracts a stable picture from the shifting representations*. These are framed as competing hypotheses. They are not competing hypotheses. They are dual descriptions of the same mathematical structure, and that structure is cellular sheaf theory.
