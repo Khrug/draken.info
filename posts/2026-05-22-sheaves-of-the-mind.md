@@ -7,11 +7,6 @@ coherence: 0.86
 tags: [cognitive-science, cross-modular, gnowgi, convergence, calibrational-realism, inversion, sheaf-theory]
 ---
 
-# Sheaves of the Mind, Sheaves of Life
-
-### Synthesising the Draken framework through G. Nagarjuna's cognitive science of science
-
-**DRK-143** · 2026-05-22 · Γ ≈ 0.86
 
 The Draken framework's central claim is that **intelligence, agency, and power-to-survive are facets of a single structure**. This post teaches that claim — and the formal apparatus it rests on — using the vocabulary of a philosopher who has been mapping the same territory for thirty years, from an adjacent substrate: Prof. G. Nagarjuna of HBCSE-TIFR Mumbai, founder of the GNU gnowsys project. His words carry the argument; ours give it a topology. The bridge runs through cellular sheaves.
 
