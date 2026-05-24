@@ -589,7 +589,7 @@ function build() {
       title: p.title, tag: (p.tags&&p.tags[0])||'technical',
       tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
       drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
-      layers: (p.layers||[]).join(' Â· '), coherence: (p.coherence||0).toFixed(2),
+      layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
       body: p.content, layer_count: (p.layers||[]).length, ko_count: 'â€”',
       post_url: `https://draken.info/posts/${p.slug}/`,
     });
