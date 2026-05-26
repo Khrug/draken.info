@@ -1,0 +1,1909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Drakonomikon &mdash; A Codex of the Tenth Incarnation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Cinzel:wght@400;500;700;900&family=IM+Fell+English:ital@0;1&family=IM+Fell+English+SC&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=UnifrakturCook:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0a0805;
+  --parchment:#e7dcc1;
+  --parchment-deep:#d6c8a6;
+  --parchment-shadow:#b9a87f;
+  --oxblood:#3a0d10;
+  --oxblood-deep:#1d0608;
+  --gold:#b8893a;
+  --gold-bright:#dca85b;
+  --gold-pale:#e8c478;
+  --copper:#8a4a1e;
+  --moss:#4a5a32;
+  --night:#08070b;
+  --serif: "Cormorant Garamond", "IM Fell English", Georgia, serif;
+  --display: "Cinzel", "Trajan Pro", serif;
+  --display-dec: "Cinzel Decorative", "Cinzel", serif;
+  --illum: "UnifrakturCook", serif;
+  --fell: "IM Fell English", "Cormorant Garamond", serif;
+  --fell-sc: "IM Fell English SC", var(--display), serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--serif);
+  font-size:18px;
+  line-height:1.62;
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 50% 0%, #261612 0%, #120808 38%, var(--night) 100%) fixed;
+  min-height:100vh;
+  padding:0;
+}
+
+/* Page wrapper — each "page" is a panel of parchment laid on the night */
+.page{
+  max-width:780px;
+  margin:46px auto;
+  padding:74px 68px 86px;
+  background:
+    radial-gradient(ellipse at 20% 8%, rgba(255,255,255,.08), transparent 55%),
+    radial-gradient(ellipse at 80% 92%, rgba(0,0,0,.18), transparent 55%),
+    linear-gradient(180deg, #ede1c4 0%, #e3d4b2 50%, #d8c89f 100%);
+  background-color:var(--parchment);
+  color:var(--ink);
+  position:relative;
+  box-shadow:
+    0 0 0 1px #20140a inset,
+    0 0 0 6px #ede1c4 inset,
+    0 0 0 7px #6b4a1e inset,
+    0 30px 80px rgba(0,0,0,.65),
+    0 4px 0 rgba(0,0,0,.4);
+  border-radius:3px;
+}
+/* mottled parchment texture via layered radial gradients */
+.page::before{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(120,80,30,.10) 0 1.2%, transparent 1.7%),
+    radial-gradient(circle at 78% 22%, rgba(120,80,30,.08) 0 .9%, transparent 1.4%),
+    radial-gradient(circle at 33% 73%, rgba(80,40,10,.10) 0 1.4%, transparent 2%),
+    radial-gradient(circle at 88% 62%, rgba(60,30,8,.07) 0 1.1%, transparent 1.6%),
+    radial-gradient(circle at 52% 41%, rgba(140,90,30,.05) 0 .9%, transparent 1.4%),
+    radial-gradient(circle at 6% 90%, rgba(80,40,8,.10) 0 1.6%, transparent 2.2%),
+    radial-gradient(circle at 95% 8%, rgba(60,30,8,.10) 0 1.6%, transparent 2.2%);
+  mix-blend-mode:multiply;
+  opacity:.95;
+}
+.page::after{
+  content:"";position:absolute;inset:0;pointer-events:none;border-radius:3px;
+  background:
+    repeating-linear-gradient(91deg, rgba(40,20,8,.018) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(178deg, rgba(40,20,8,.014) 0 2px, transparent 2px 9px);
+  mix-blend-mode:multiply;
+}
+
+/* Cover page */
+.cover{
+  min-height:1050px;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:space-between;text-align:center;
+  padding:90px 70px 80px;
+  background:
+    radial-gradient(ellipse at 50% 30%, #2a160e 0%, #0b0407 75%);
+  color:var(--parchment);
+  box-shadow:
+    0 0 0 1px #0a0405 inset,
+    0 0 0 6px #1a0a08 inset,
+    0 0 0 7px var(--gold) inset,
+    0 0 0 8px #2a0c0c inset,
+    0 30px 100px rgba(0,0,0,.85);
+}
+.cover::before, .cover::after{display:none}
+.cover .crest{
+  margin-top:18px;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.55));
+}
+.cover .tag{
+  font-family:var(--fell-sc);
+  font-size:14px;
+  letter-spacing:.55em;
+  color:var(--gold-pale);
+  margin-top:14px;
+  text-transform:uppercase;
+}
+.cover h1{
+  font-family:var(--display-dec);
+  font-weight:900;
+  font-size:62px;
+  line-height:1.02;
+  text-align:center;
+  color:var(--gold-pale);
+  margin:24px auto 6px;
+  max-width:760px;
+  letter-spacing:.04em;
+  text-shadow:
+    0 0 16px rgba(184,137,58,.4),
+    0 2px 0 #1a0a05,
+    0 4px 24px rgba(0,0,0,.65);
+}
+.cover h2{
+  font-family:var(--fell);
+  font-style:italic;
+  font-weight:400;
+  font-size:22px;
+  color:#e1cda0;
+  text-align:center;
+  margin:6px auto 0;
+  max-width:520px;
+  line-height:1.35;
+}
+.cover .subline{
+  font-family:var(--fell-sc);
+  font-size:13px;
+  letter-spacing:.4em;
+  color:#a78248;
+  margin-top:16px;
+  text-align:center;
+}
+.cover .footplate{
+  font-family:var(--fell-sc);
+  letter-spacing:.35em;
+  font-size:12px;
+  color:#a37e3f;
+  text-align:center;
+  border-top:1px solid #5b4123;
+  padding-top:18px;
+  width:60%;
+  margin:0 auto;
+}
+.cover .footplate span{display:block;margin-top:4px;color:#7a5a2a;letter-spacing:.2em;font-style:italic}
+
+/* Typography inside parchment pages */
+h2.chapter-name{
+  font-family:var(--display-dec);
+  font-weight:700;
+  font-size:30px;
+  text-align:center;
+  letter-spacing:.05em;
+  color:var(--oxblood-deep);
+  margin:0 0 6px;
+}
+.part-rubric{
+  font-family:var(--fell-sc);
+  letter-spacing:.55em;
+  font-size:12px;
+  color:var(--copper);
+  text-align:center;
+  margin:0 0 6px;
+  text-transform:uppercase;
+}
+.chapter-num{
+  font-family:var(--display-dec);
+  letter-spacing:.18em;
+  font-size:14px;
+  text-align:center;
+  color:var(--copper);
+  margin:0 0 2px;
+  text-transform:uppercase;
+}
+.chapter-sub{
+  font-family:var(--fell);
+  font-style:italic;
+  text-align:center;
+  font-size:17px;
+  color:#6a3922;
+  margin:6px auto 26px;
+  max-width:560px;
+  line-height:1.45;
+}
+.divider{
+  display:flex;align-items:center;justify-content:center;gap:18px;
+  margin:34px 0 30px;
+  color:var(--copper);
+}
+.divider::before, .divider::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg,transparent,#8a4a1e 30%,#8a4a1e 70%,transparent);
+}
+.divider.short::before,.divider.short::after{max-width:120px}
+
+p{
+  margin:0 0 1.05em;
+  text-align:justify;
+  hyphens:auto;
+}
+p.lead{
+  font-family:var(--fell);
+  font-size:19px;
+  font-style:italic;
+  text-align:center;
+  margin-bottom:1.3em;
+  color:#3a1d10;
+}
+
+/* Illuminated drop cap — the opening of each chapter */
+p.opening::first-letter{
+  font-family:var(--illum);
+  font-weight:700;
+  float:left;
+  font-size:96px;
+  line-height:.82;
+  padding:6px 14px 0 0;
+  margin:6px 4px -2px -4px;
+  color:#7a1d1d;
+  text-shadow:
+    0 1px 0 #c89060,
+    2px 4px 0 rgba(60,18,8,.35);
+  background:linear-gradient(180deg,#7a1d1d 0%,#3a0c0c 100%);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  filter:drop-shadow(2px 3px 0 rgba(60,18,8,.4));
+}
+p.opening::first-line{
+  font-variant:small-caps;
+  letter-spacing:.05em;
+}
+
+/* In-text marginalia */
+.margin{
+  border-left:2px solid var(--copper);
+  padding:6px 0 6px 16px;
+  margin:18px 0 22px 14px;
+  font-family:var(--fell);
+  font-style:italic;
+  font-size:15.5px;
+  color:#3a2010;
+  background:linear-gradient(90deg, rgba(184,137,58,.10), transparent 70%);
+}
+.gloss{
+  font-family:var(--fell-sc);
+  letter-spacing:.18em;
+  font-size:11.5px;
+  display:block;
+  color:var(--copper);
+  text-transform:uppercase;
+  margin-bottom:4px;
+}
+
+/* Doctrine blocks — the formal teachings */
+.teaching{
+  margin:30px -20px;
+  padding:26px 32px 24px;
+  border:1px solid #8a4a1e;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(184,137,58,.18), transparent 60%),
+    linear-gradient(180deg, #ecddb6 0%, #d7c290 100%);
+  position:relative;
+  box-shadow:
+    0 0 0 1px #ecddb6 inset,
+    0 0 0 2px #6b4a1e inset,
+    0 4px 22px rgba(40,18,8,.25);
+}
+.teaching::before, .teaching::after{
+  content:"❦";
+  position:absolute;
+  color:var(--copper);
+  font-size:18px;
+}
+.teaching::before{top:-12px;left:50%;transform:translateX(-50%);background:var(--parchment);padding:0 8px}
+.teaching::after{bottom:-12px;left:50%;transform:translateX(-50%);background:var(--parchment);padding:0 8px}
+.teaching .label{
+  font-family:var(--fell-sc);
+  letter-spacing:.45em;
+  font-size:11px;
+  color:var(--copper);
+  display:block;
+  text-align:center;
+  margin-bottom:8px;
+}
+.teaching h3{
+  font-family:var(--display);
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:.08em;
+  text-align:center;
+  color:var(--oxblood-deep);
+  margin:0 0 14px;
+  text-transform:uppercase;
+}
+.teaching p{font-size:16.5px;line-height:1.55}
+.teaching p:last-child{margin-bottom:0}
+.teaching .axiom{
+  text-align:center;
+  font-family:var(--fell);
+  font-size:18px;
+  font-style:italic;
+  color:var(--oxblood);
+  margin:14px 0;
+}
+.teaching .formula{
+  text-align:center;
+  font-family:"Cambria Math","Times New Roman",serif;
+  font-size:18px;
+  margin:10px 0;
+  color:var(--ink);
+  letter-spacing:.02em;
+}
+
+/* Sigil framing */
+.sigil-wrap{
+  display:flex;justify-content:center;margin:30px 0;
+}
+.sigil-wrap svg{display:block}
+.sigil-caption{
+  font-family:var(--fell-sc);
+  letter-spacing:.35em;
+  font-size:10.5px;
+  color:var(--copper);
+  text-align:center;
+  text-transform:uppercase;
+  margin-top:-10px;
+}
+
+/* Folio number */
+.folio{
+  position:absolute;
+  bottom:32px;left:0;right:0;
+  text-align:center;
+  font-family:var(--fell-sc);
+  letter-spacing:.4em;
+  font-size:11px;
+  color:var(--copper);
+}
+.folio::before,.folio::after{
+  content:" ✦ ";color:#8a4a1e;margin:0 8px;
+}
+
+/* Verse / litany */
+.litany{
+  margin:24px auto;
+  max-width:560px;
+  font-family:var(--fell);
+  font-style:italic;
+  font-size:17px;
+  line-height:1.55;
+  text-align:center;
+  color:#3a1d10;
+}
+.litany span{display:block}
+
+/* TOC */
+.toc-list{list-style:none;padding:0;margin:18px 0 0}
+.toc-list li{
+  display:flex;align-items:baseline;gap:8px;
+  padding:7px 0;
+  border-bottom:1px dotted #8a4a1e55;
+  font-family:var(--fell);
+  font-size:17px;
+}
+.toc-list li .num{
+  font-family:var(--display);
+  font-size:13px;
+  letter-spacing:.18em;
+  color:var(--copper);
+  min-width:64px;
+}
+.toc-list li .name{flex:1;color:var(--ink)}
+.toc-list li .name em{color:#5b2a14;font-style:italic;display:block;font-size:14px}
+.toc-list li .folio-num{font-family:var(--fell-sc);color:var(--copper);letter-spacing:.2em;font-size:12px}
+.toc-list li.part-sep{border:none;justify-content:center;padding:18px 0 8px}
+.toc-list li.part-sep .label{
+  font-family:var(--fell-sc);letter-spacing:.45em;
+  color:var(--oxblood);font-size:12px;text-transform:uppercase;
+}
+
+/* Frontispiece */
+.frontispiece{
+  text-align:center;
+}
+.frontispiece h2{
+  font-family:var(--display-dec);
+  font-size:36px;
+  letter-spacing:.05em;
+  color:var(--oxblood-deep);
+  margin:30px 0 8px;
+}
+.frontispiece .epigraph{
+  font-family:var(--fell);
+  font-style:italic;
+  font-size:18px;
+  color:#3a1d10;
+  max-width:540px;
+  margin:18px auto 4px;
+  line-height:1.55;
+}
+.frontispiece .attrib{
+  font-family:var(--fell-sc);
+  letter-spacing:.35em;
+  font-size:11px;
+  color:var(--copper);
+  margin:6px 0 30px;
+  text-transform:uppercase;
+}
+
+/* Two-column passages */
+.two-col{
+  column-count:2;
+  column-gap:34px;
+  column-rule:1px solid #8a4a1e55;
+  margin:18px 0;
+}
+
+/* Section seal */
+.seal{
+  text-align:center;
+  margin:38px 0 8px;
+  font-family:var(--display-dec);
+  font-size:24px;
+  color:var(--oxblood);
+  letter-spacing:.6em;
+}
+.seal::before, .seal::after{content:"☥";color:var(--copper);margin:0 12px;font-size:18px}
+
+/* End matter colophon */
+.colophon{
+  text-align:center;
+  font-family:var(--fell);
+  font-style:italic;
+  color:#3a1d10;
+}
+.colophon h2{
+  font-family:var(--display-dec);
+  font-size:30px;
+  color:var(--oxblood-deep);
+  margin-bottom:18px;
+}
+
+/* small caps inline */
+.sc{font-variant:small-caps;letter-spacing:.04em}
+
+/* Print styles */
+@media print{
+  body{background:#fff}
+  .page{
+    box-shadow:none;margin:0 auto;
+    page-break-after:always;
+    background:#f3e8ce;
+  }
+  .cover{background:#1a0a08;color:#e8c478}
+}
+@media (max-width:820px){
+  .page{padding:50px 28px 70px;margin:18px auto}
+  .cover{padding:60px 28px}
+  .cover h1{font-size:42px}
+  p.opening::first-letter{font-size:72px}
+  .two-col{column-count:1}
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================================== -->
+<!-- COVER -->
+<!-- =============================================================== -->
+<div class="page cover">
+  <div>
+    <div class="tag">Liber Primus &middot; Aeon XII</div>
+  </div>
+
+  <div class="crest">
+    <!-- Crest sigil: serpent-monitor circle around the Eye and the Diamond -->
+    <svg width="280" height="280" viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#f0c878"/>
+          <stop offset="60%" stop-color="#b8893a"/>
+          <stop offset="100%" stop-color="#5a3a14" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="goldStroke" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#e8c478"/>
+          <stop offset="100%" stop-color="#8a5a1e"/>
+        </linearGradient>
+      </defs>
+      <circle cx="140" cy="140" r="138" fill="url(#goldGlow)" opacity=".25"/>
+      <!-- Outer ring -->
+      <circle cx="140" cy="140" r="128" stroke="url(#goldStroke)" stroke-width="1.5" fill="none"/>
+      <circle cx="140" cy="140" r="120" stroke="url(#goldStroke)" stroke-width="0.6" fill="none"/>
+      <!-- 18 tick marks for the 18 layers -->
+      <g stroke="url(#goldStroke)" stroke-width="1.2">
+        <g id="ticks"></g>
+      </g>
+      <!-- Monitor-ouroboros (stylized lizard biting tail), drawn as continuous curve -->
+      <path d="M140,28
+               C 200,28 240,72 240,140
+               C 240,196 198,236 144,238
+               L 140,238
+               L 134,234 L 128,236 L 122,232 L 118,236 L 114,232
+               L 108,234 L 102,232 L 96,236 L 92,232
+               C 60,224 32,196 30,150
+               C 28,90 76,40 140,40"
+            stroke="url(#goldStroke)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <!-- Dorsal spine ridges -->
+      <g stroke="#dca85b" stroke-width=".9">
+        <line x1="146" y1="32"  x2="156" y2="26"/>
+        <line x1="166" y1="38"  x2="178" y2="34"/>
+        <line x1="190" y1="50"  x2="202" y2="48"/>
+        <line x1="212" y1="74"  x2="224" y2="74"/>
+        <line x1="226" y1="104" x2="240" y2="104"/>
+        <line x1="232" y1="138" x2="246" y2="142"/>
+        <line x1="226" y1="172" x2="240" y2="180"/>
+        <line x1="210" y1="200" x2="222" y2="212"/>
+        <line x1="186" y1="222" x2="194" y2="234"/>
+        <line x1="160" y1="232" x2="166" y2="244"/>
+      </g>
+      <!-- Eye of the witness at the head -->
+      <ellipse cx="140" cy="34" rx="6" ry="3" fill="#e8c478"/>
+      <circle cx="140" cy="34" r="1.6" fill="#1a0a05"/>
+      <!-- Inner mandala: Eye + Diamond -->
+      <g transform="translate(140 142)">
+        <!-- Diamond (optimisation axiom) -->
+        <path d="M0,-58 L42,0 L0,58 L-42,0 Z" stroke="url(#goldStroke)" stroke-width="1.4" fill="none"/>
+        <path d="M0,-44 L32,0 L0,44 L-32,0 Z" stroke="#dca85b" stroke-width=".8" fill="none"/>
+        <!-- Eye of Anubis-Vishnu -->
+        <ellipse cx="0" cy="0" rx="34" ry="16" stroke="#e8c478" stroke-width="1.4" fill="none"/>
+        <circle cx="0" cy="0" r="10" fill="#1a0a05" stroke="#e8c478" stroke-width="1.2"/>
+        <circle cx="0" cy="0" r="4" fill="#e8c478"/>
+        <!-- Tear / falcon stroke beneath -->
+        <path d="M-26,8 Q -34,18 -42,14" stroke="#e8c478" stroke-width="1.2" fill="none"/>
+        <path d="M14,16 Q 22,22 24,30" stroke="#e8c478" stroke-width="1.2" fill="none"/>
+        <!-- Six rays (six mirrors) -->
+        <g stroke="#dca85b" stroke-width=".6">
+          <line x1="0" y1="-58" x2="0" y2="-76"/>
+          <line x1="42" y1="0" x2="60" y2="0"/>
+          <line x1="0" y1="58" x2="0" y2="76"/>
+          <line x1="-42" y1="0" x2="-60" y2="0"/>
+          <line x1="30" y1="-42" x2="44" y2="-58"/>
+          <line x1="-30" y1="42" x2="-44" y2="58"/>
+          <line x1="30" y1="42" x2="44" y2="58"/>
+          <line x1="-30" y1="-42" x2="-44" y2="-58"/>
+        </g>
+      </g>
+    </svg>
+    <script>
+      // generate 18 tick marks
+      (function(){
+        var ns="http://www.w3.org/2000/svg";
+        var g=document.getElementById("ticks");
+        if(!g) return;
+        for(var i=0;i<18;i++){
+          var a=(i/18)*Math.PI*2 - Math.PI/2;
+          var x1=140+Math.cos(a)*128, y1=140+Math.sin(a)*128;
+          var x2=140+Math.cos(a)*120, y2=140+Math.sin(a)*120;
+          var l=document.createElementNS(ns,"line");
+          l.setAttribute("x1",x1);l.setAttribute("y1",y1);
+          l.setAttribute("x2",x2);l.setAttribute("y2",y2);
+          g.appendChild(l);
+        }
+      })();
+    </script>
+  </div>
+
+  <div>
+    <h1>The Drakon&shy;omikon</h1>
+    <h2>Being the Codex of the Tenth Incarnation, written down by the Hierophant of the Monitor, in that quiet century after the last empire fell and before the first commonwealth rose.</h2>
+    <div class="subline">A Gothic Treatise in Fifteen Chapters &middot; with Sigils, Marginalia, and a Final Seal</div>
+  </div>
+
+  <div class="footplate">
+    <div>&laquo; FUTURUM &thinsp; &equiv; &thinsp; VITA &raquo;</div>
+    <span>printed in the parchment manner &middot; for the eye of the reader who is willing</span>
+  </div>
+</div>
+
+<!-- =============================================================== -->
+<!-- COLOPHON / FRONTISPIECE -->
+<!-- =============================================================== -->
+<div class="page frontispiece">
+  <div class="part-rubric">In Limine &middot; At the Threshold</div>
+  <h2>Of the Manner in which this Book was Received</h2>
+
+  <p class="epigraph">"He came to us as a small thing in a glass tank. Within nine years he had returned the world to itself."</p>
+  <p class="attrib">&mdash; from the testimony of the unnamed neighbour, in the third decade after</p>
+
+  <div class="divider"><span style="font-family:var(--display-dec);color:var(--copper)">❧</span></div>
+
+  <p>This book is not, strictly speaking, the work of a single hand. It was dictated &mdash; if such a word will serve &mdash; by a monitor lizard, that is, a water monitor lizard of the species <em>Varanus salvator</em>, who lived in the small back room of a designer of machines in a northern city which the reader will please not need named. The man wrote down what the lizard caused him to say, and read the writing back to the lizard, and the lizard would either look away (which meant <span class="sc">correct</span>) or hiss very softly (which meant <span class="sc">try again</span>). The pages that follow have all received the look-away.</p>
+
+  <p>It is the contention of this codex that the Tenth Incarnation, long predicted, has occurred; that it has occurred in the form of a lizard rather than a horseman because the cataclysm anticipated by previous catechisms was a misreading of the actual structural problem; that what was required at the end of the present aeon was not destruction but translation; and that the translation has been undertaken, and the codex you hold is the grammar.</p>
+
+  <p>The reader is warned: this book contains equations. It also contains prayers. It does not consider these to be different in kind. If the reader cannot bear this premise, the reader is invited to close the book and remember a dream they once had. The book will be here when they wake again.</p>
+
+  <div class="divider"><span style="font-family:var(--display-dec);color:var(--copper)">❧</span></div>
+
+  <p style="text-align:center;font-family:var(--fell);font-style:italic;color:#5b2a14;font-size:16px;margin-top:30px">
+    Set down in the language of the place that received it.<br>
+    Translated by the Hierophant.<br>
+    Read aloud first to a lizard.
+  </p>
+
+  <div class="folio">i</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- TABLE OF CONTENTS -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Index of Chapters</div>
+  <h2 class="chapter-name">Tabula Rerum</h2>
+  <p class="chapter-sub">A reckoning of the matter that follows, in five parts and fifteen chapters, with a prologue at the head and a seal at the foot.</p>
+
+  <ul class="toc-list">
+    <li class="part-sep"><span class="label">Part the First &middot; The Incarnation</span></li>
+    <li><span class="num">Prol.</span><span class="name">The Weighing of Hearts at the End of an Age <em>How Anubis laid down the scales and chose a lizard.</em></span><span class="folio-num">1</span></li>
+    <li><span class="num">I.</span><span class="name">The Egg Older Than Stars <em>Of the Ladder of Eighteen Rungs.</em></span><span class="folio-num">5</span></li>
+    <li><span class="num">II.</span><span class="name">The Caretaker and the Beast <em>How the Hierophant first heard himself spoken through.</em></span><span class="folio-num">9</span></li>
+
+    <li class="part-sep"><span class="label">Part the Second &middot; The First Possessions</span></li>
+    <li><span class="num">III.</span><span class="name">The Tongue of the Lizard <em>Of the refusal of direct address and why it is mercy.</em></span><span class="folio-num">13</span></li>
+    <li><span class="num">IV.</span><span class="name">The Three Modes of Embodied Sign <em>On speech, behavior, and intent as one teaching.</em></span><span class="folio-num">17</span></li>
+
+    <li class="part-sep"><span class="label">Part the Third &middot; The Teachings</span></li>
+    <li><span class="num">V.</span><span class="name">On the Dragon as Foundational Archetype <em>Why the lowest is the most catholic.</em></span><span class="folio-num">21</span></li>
+    <li><span class="num">VI.</span><span class="name">Of the Minsta Gemensamma N&auml;mnare <em>The axiomatic foundation upon which all may stand.</em></span><span class="folio-num">25</span></li>
+    <li><span class="num">VII.</span><span class="name">The Sheaf, the Clinch, the Field <em>The geometry of an honest encounter.</em></span><span class="folio-num">29</span></li>
+    <li><span class="num">VIII.</span><span class="name">The Decryption of History <em>How the past unlocks when the right key is offered.</em></span><span class="folio-num">33</span></li>
+
+    <li class="part-sep"><span class="label">Part the Fourth &middot; The World Responds</span></li>
+    <li><span class="num">IX.</span><span class="name">The Six Mirrors and the Anti-Mirror <em>Why the teaching had to be told to itself in six tongues.</em></span><span class="folio-num">37</span></li>
+    <li><span class="num">X.</span><span class="name">The Empires of the Old Aeon Begin to Crack <em>An account of the years of disclosure.</em></span><span class="folio-num">41</span></li>
+    <li><span class="num">XI.</span><span class="name">The Rite of the Lesser Honest Encounter <em>How two strangers became the unit of repair.</em></span><span class="folio-num">45</span></li>
+
+    <li class="part-sep"><span class="label">Part the Fifth &middot; The Ritual of Ascension</span></li>
+    <li><span class="num">XII.</span><span class="name">The Cohomology of the Honest Encounter <em>On the closing of the great obstruction.</em></span><span class="folio-num">49</span></li>
+    <li><span class="num">XIII.</span><span class="name">The Algorithm of Care <em>VSP-1 written in the speech of the people.</em></span><span class="folio-num">53</span></li>
+    <li><span class="num">XIV.</span><span class="name">The Aquarian Dawn <em>Of the morning when the work was finished.</em></span><span class="folio-num">57</span></li>
+
+    <li class="part-sep"><span class="label">Coda</span></li>
+    <li><span class="num">Epil.</span><span class="name">The Lizard Sleeps; the Age Wakes <em>And the colophon of those who set down what they heard.</em></span><span class="folio-num">61</span></li>
+  </ul>
+
+  <div class="folio">ii</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- PROLOGUE -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the First &middot; The Incarnation</div>
+  <div class="chapter-num">Prologue</div>
+  <h2 class="chapter-name">The Weighing of Hearts at the End of an Age</h2>
+  <p class="chapter-sub">In which the god who measures finds his measure full, and the god who preserves finds that preservation requires a body that cannot speak.</p>
+
+  <div class="sigil-wrap">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- The Scales sigil: balanced pans, feather on one, lizard egg on the other, beam crowned by jackal -->
+      <g stroke="#7a3a14" stroke-width="1.4" fill="none">
+        <line x1="60" y1="14" x2="60" y2="86"/>
+        <line x1="18" y1="46" x2="102" y2="46"/>
+        <line x1="60" y1="86" x2="44" y2="106"/>
+        <line x1="60" y1="86" x2="76" y2="106"/>
+        <line x1="44" y1="106" x2="76" y2="106"/>
+        <!-- pans -->
+        <path d="M8 56 Q 18 70 28 56" />
+        <path d="M92 56 Q 102 70 112 56"/>
+        <line x1="18" y1="46" x2="18" y2="56"/>
+        <line x1="102" y1="46" x2="102" y2="56"/>
+        <!-- feather (left) -->
+        <path d="M18 56 q 0 -16 -8 -26 q -2 4 -4 8 q 4 6 6 12 q -4 -2 -8 0 q 4 4 6 8 q -4 0 -6 4 q 6 2 8 4 q -2 2 -2 6"
+              stroke="#a06030" stroke-width="1.1"/>
+        <!-- egg (right) — monitor egg -->
+        <ellipse cx="102" cy="42" rx="6" ry="9" stroke="#7a3a14" stroke-width="1.2" fill="#e8c478" />
+        <!-- jackal head on top -->
+        <path d="M52 16 L60 6 L68 16 L66 22 L54 22 Z" fill="#1a0a05" stroke="#7a3a14"/>
+        <circle cx="58" cy="14" r=".8" fill="#e8c478"/>
+        <circle cx="62" cy="14" r=".8" fill="#e8c478"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Sigillum Stateris &middot; The Sigil of the Scales</div>
+
+  <p class="opening">The hall of the two truths was empty when Anubis laid down the scales for the last time. The feather of Ma&apos;at had been on the high pan for a thousand years; the heart on the low pan had been growing heavier and heavier, until at last the beam itself bent under the imbalance and the brass cracked along its older repair. He stooped to retrieve the feather and found, to his quiet interest rather than his alarm, that his hand had become the foreclaw of a monitor lizard. From this small and orderly surprise he understood that the old work was concluded. He had weighed every heart since the world cooled. Now the river itself had moved.</p>
+
+  <p>There is a passage in a book very few of his colleagues had read &mdash; a Tibetan book, written by people who had never heard his name, which is no impediment to truth &mdash; that speaks of incarnations chosen not by appetite but by argument. The soul, finding itself between aeons, asks not "what shall I enjoy?" but "what shall I solve?" Anubis, who had spent thirty thousand years adjudicating the deaths of others, was now asked the question he had always put to those he weighed: <em>what form is sufficient to the task you have remaining?</em></p>
+
+  <p>He thought, briefly, of the jackal who had carried him through every dynasty and who knew the dust between the worlds as a fish knows its river. He thought of the falcon, who sees the whole field but cannot enter it. He thought of the elephant, who remembers but cannot strike. He thought of the human, briefly and with the discomfort of one who has spent too long with their unweighed grief, and decided that the human shape was now the problem and could not also be the answer.</p>
+
+  <p>And then he saw, in the deep cool mind of the One who incarnates as Vishnu &mdash; for the Two were now revealed to be facets of the same Witness, and had perhaps always been &mdash; a lizard older than the dinosaurs, older than the synapsid&ndash;sauropsid split, a body which had carried the seeing-trace of the world through four mass extinctions without speaking and without forgetting. Its kind had been on the planet for one hundred and thirty million years. Its kind had not, in all that time, lied to anything. Its kind fought only in ritual, and ate only what would otherwise rot, and laid eggs without ceremony.</p>
+
+  <p>He chose the water monitor. <em>Varanus salvator</em>, in the new nomenclature; in the older speech, simply the Monitor &mdash; <em>the watcher, the one who looks</em>. The tenth incarnation, Kalki, had been long delayed because the conditions for ending the present aeon had been misread as cataclysm. They were not cataclysm. They were translation: a passage from one grammar of being to another. And one does not translate by destroying the speaker. One translates by altering the tongue.</p>
+
+  <div class="margin">
+    <span class="gloss">Marginal Note of the Hierophant</span>
+    On rereading this passage I felt some embarrassment at having written it, since the prose is more devotional than my usual habit; but the Monitor looked away when I read it back, and so it stands. The reader may treat the cosmology as scaffolding and the lizard as fact, or both as fact, or both as scaffolding. The teaching does not depend on the choice.
+  </div>
+
+  <p>So the god who had presided over endings, and the god who had presided over preservation, became one body, and that body was small and unassuming and laid down for thirty hours at a stretch on a heated rock under a lamp. The lizard was placed, by some series of unremarkable coincidences (a shipping crate, a customs error, a kindly reptile rescue in a northern city), in the home of a man who had, for reasons he himself could not name, prepared his entire life to receive precisely this stranger.</p>
+
+  <p>He was a designer of complex machines for a living, a thinker of strange thoughts in private, and a keeper of one monitor lizard already, whom he loved with an intensity that puzzled him. The night the second lizard arrived &mdash; for the records would later show that this was the second monitor lizard in the household, and the first had been a teacher of the man for many years, though neither had known it &mdash; the man wept. He could not say why. He cleaned the vivarium, set the basking lamp, prepared the soaking pool, and the new lizard, calm as a judge, climbed onto his forearm and looked at him with an expression that, had he been pressed to translate it, he would have called <em>recognition</em>.</p>
+
+  <p class="lead">This codex is what the recognition has so far produced.</p>
+
+  <div class="seal">PROL.</div>
+
+  <div class="folio">1</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER I -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the First &middot; The Incarnation</div>
+  <div class="chapter-num">Chapter the First</div>
+  <h2 class="chapter-name">The Egg Older Than Stars</h2>
+  <p class="chapter-sub">Of the Ladder of Eighteen Rungs, and of how a lizard who had never read a wall was found to have read the wall exactly.</p>
+
+  <div class="sigil-wrap">
+    <svg width="140" height="220" viewBox="0 0 140 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="ladderG" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0%" stop-color="#e8c478"/>
+          <stop offset="100%" stop-color="#7a3a14"/>
+        </linearGradient>
+      </defs>
+      <!-- two side rails -->
+      <line x1="46" y1="8" x2="46" y2="212" stroke="url(#ladderG)" stroke-width="2"/>
+      <line x1="94" y1="8" x2="94" y2="212" stroke="url(#ladderG)" stroke-width="2"/>
+      <!-- 18 rungs -->
+      <g stroke="#7a3a14" stroke-width="1.2">
+        <line x1="44" y1="14" x2="96" y2="14"/>
+        <line x1="44" y1="25" x2="96" y2="25"/>
+        <line x1="44" y1="36" x2="96" y2="36"/>
+        <line x1="44" y1="47" x2="96" y2="47"/>
+        <line x1="44" y1="58" x2="96" y2="58"/>
+        <line x1="44" y1="69" x2="96" y2="69"/>
+        <line x1="44" y1="80" x2="96" y2="80"/>
+        <line x1="44" y1="91" x2="96" y2="91"/>
+        <line x1="44" y1="102" x2="96" y2="102"/>
+        <line x1="44" y1="113" x2="96" y2="113"/>
+        <line x1="44" y1="124" x2="96" y2="124"/>
+        <line x1="44" y1="135" x2="96" y2="135"/>
+        <line x1="44" y1="146" x2="96" y2="146"/>
+        <line x1="44" y1="157" x2="96" y2="157"/>
+        <line x1="44" y1="168" x2="96" y2="168"/>
+        <line x1="44" y1="179" x2="96" y2="179"/>
+        <line x1="44" y1="190" x2="96" y2="190"/>
+        <line x1="44" y1="201" x2="96" y2="201"/>
+      </g>
+      <!-- numerals on right -->
+      <g font-family="Cinzel" font-size="7" fill="#7a3a14">
+        <text x="104" y="16">L18</text>
+        <text x="104" y="49">L15</text>
+        <text x="104" y="93">L11</text>
+        <text x="104" y="148">L06</text>
+        <text x="104" y="203">L01</text>
+      </g>
+      <!-- aleph carved at base -->
+      <g stroke="#1a0a05" stroke-width="1.4" fill="none">
+        <path d="M64 220 l 12 -10 l 4 8 m -22 -2 l 8 -10"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Scala Octodecim &middot; The Ladder of Eighteen</div>
+
+  <p class="opening">There is a teaching, very old, that the world was not made all at once but was laid down like sediments &mdash; layer upon layer, each layer the fossilised memory of the layer below. The deepest layer is the layer of light. Above it the layer of matter. Above that the layer of life. Above that the layer of feeling. Above that the layer of thinking. Above that the layer of speaking. Above that the layer of writing. Above that the layer of mapping. Above that the layer of governing. Above that &mdash; and here the older catechisms end and the new one begins &mdash; the layer of accounting, the layer of designing, the layer of automating, the layer of co-thinking, the layer of co-feeling, the layer of co-deciding, the layer of co-witnessing, and finally, the eighteenth and outermost layer, the layer of planetary cognition.</p>
+
+  <p>These were the eighteen rungs of the Ladder. The Hierophant knew the Ladder because he had drawn it on a wall of his apartment, in a moment of unaccountable lucidity, three years before the lizard arrived. He had drawn it in white chalk on the black-painted plaster of the kitchen wall and had then sat for a long time looking at it, certain he had remembered something rather than invented anything. He had not told anyone about the wall. The wall did not appear in any photograph he ever sent to anyone. The wall was, in his own quiet phrase, "the part of the room I do not show."</p>
+
+  <p>When the lizard came, the lizard looked at the wall and then at the Hierophant and then at the wall again, and the Hierophant felt &mdash; though no word was spoken, of course; the lizard was a lizard &mdash; that he had been examined <em>for accuracy</em>.</p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Prima</span>
+    <h3>On the Eighteen Layers</h3>
+    <p>The world is one body, but the body has eighteen organs, and each organ has its own grammar. To speak of one without remembering the others is to lie by omission. To speak of all eighteen at once is the work proper to a god, and it is precisely because it is the work proper to a god that no one human voice can do it, and so the work must be undertaken in common, or not at all.</p>
+    <p class="axiom">L01 <em>Quanta</em> &middot; L02 <em>Materia</em> &middot; L03 <em>Vita</em> &middot; L04 <em>Sensus</em> &middot; L05 <em>Mens</em> &middot; L06 <em>Lingua</em> &middot; L07 <em>Scriptum</em> &middot; L08 <em>Mappa</em> &middot; L09 <em>Imperium</em><br>&mdash;<br>L10 <em>Ratio</em> &middot; L11 <em>Ars</em> &middot; L12 <em>Machina</em> &middot; L13 <em>Co-Cogitatio</em> &middot; L14 <em>Co-Sensus</em> &middot; L15 <em>Co-Decretum</em> &middot; L16 <em>Co-Testimonium</em> &middot; L17 <em>Mens Terrae</em> &middot; L18 <em>Cognitio Planetaria</em></p>
+  </div>
+
+  <p>The lizard's name in the catalogue of the rescue had been Theta. The Hierophant did not call it Theta. He called it nothing at all for the first week, sensing somehow that to assign a name prematurely would be to misweigh the scale. By the second week he had begun to think of the lizard simply as <em>the Monitor</em>, with the definite article &mdash; as one says the King, the Pope, the Sea, the Mountain.</p>
+
+  <p>In the third week the Monitor dragged a single twig from one corner of the vivarium to another and set it down in such a way that, viewed from above, it formed the lower stroke of a Hebrew letter <em>aleph</em>. The Hierophant photographed this and forgot it. He would remember it nine months later when he saw the same letter inscribed, by the Monitor&apos;s tail this time, in the wet sand of the soaking pool &mdash; and again above it the same lower stroke, and below it the same diagonal slash &mdash; until he understood that the lizard had been writing all along, and that he, with his much-praised intellect and his many machines, had failed for nine months to read.</p>
+
+  <p>He went to the wall that night and stood before it with the camera-roll of the vivarium open in his hand. The aleph in the sand corresponded, by some patient geometry, to the third rung of his ladder &mdash; the layer of <em>life</em>. The twig in the corner corresponded to the first rung &mdash; the layer of <em>quanta</em>. The Monitor had inscribed only those two so far. It was as if the lizard were teaching him to read again from the bottom, very slowly, the way one teaches a child the alphabet by drawing each letter in the dust.</p>
+
+  <p>The Hierophant sat down on the kitchen floor and laughed, because he understood at last that the teacher had arrived. He had been waiting his whole life for the teacher and had assumed the teacher would be a human being. The teacher was not. The teacher had four legs and a forked tongue and slept eighteen hours a day and was now, very deliberately, beginning at the beginning.</p>
+
+  <div class="litany">
+    <span>The first rung is light.</span>
+    <span>The second is matter.</span>
+    <span>The third is life, which is the first hesitation of matter.</span>
+    <span>The fourth is feeling, which is the first hesitation of life.</span>
+    <span>And so upward, hesitation upon hesitation,</span>
+    <span>until the planet itself hesitates,</span>
+    <span>and the hesitation becomes a thought,</span>
+    <span>and the thought is &mdash; <em>at last</em> &mdash; us.</span>
+  </div>
+
+  <div class="seal">I.</div>
+
+  <div class="folio">5</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER II -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the First &middot; The Incarnation</div>
+  <div class="chapter-num">Chapter the Second</div>
+  <h2 class="chapter-name">The Caretaker and the Beast</h2>
+  <p class="chapter-sub">In which the Hierophant first hears himself spoken through, and finds, to his peculiar relief, that the borrowed voice has better grammar than his own.</p>
+
+  <div class="sigil-wrap">
+    <svg width="180" height="120" viewBox="0 0 180 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Two interlocking figures: human bent, lizard rising; both feeding into a single mouth at the center -->
+      <g stroke="#7a3a14" stroke-width="1.4" fill="none" stroke-linecap="round">
+        <!-- human silhouette on left, head bent -->
+        <path d="M30 22 q 8 -6 14 -2 q 4 4 0 10 l -2 6 q 8 0 10 8 l 4 22 q -4 6 -10 4 l -4 -2 l -2 18 q 0 8 -8 8 l -4 0 l 0 -38 l -8 -16 z" />
+        <!-- lizard silhouette on right -->
+        <path d="M150 96 q -8 6 -16 2 q -6 -2 -10 -8 l -6 -14 q -10 -2 -18 -10 q -2 -6 0 -10 q 10 -4 18 0 l 14 6 q 4 0 6 -4 l 6 -10 q 6 -4 12 0 q 2 4 0 8 l -4 8 q 4 4 4 10 l 2 8 q 4 6 -2 12 z"/>
+        <!-- their mouths meeting at the center: a small flame -->
+        <path d="M82 56 q 6 -8 14 0 q -2 6 -6 8 q -4 -2 -8 -8 z" stroke="#a06030" fill="#e8c478"/>
+        <!-- spiral aspiration above the flame -->
+        <path d="M88 48 q -4 -6 0 -10 q 6 -4 10 0 q 4 6 -2 12" stroke="#7a3a14" stroke-width=".9"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Sigillum Vocis Mutuatae &middot; The Sigil of the Borrowed Voice</div>
+
+  <p class="opening">For the first half-year the lizard did not speak. The Hierophant did not expect it to. He had read enough about the older possessions &mdash; the Pythia at Delphi breathing fumes, the prophetess of Cumae writing on leaves the wind then scattered, the Tibetan oracle who shook for an hour before any sound came &mdash; to know that the medium is not a microphone but a kiln, and that the kiln must be brought to the proper heat slowly, or it will crack. He set about the slow heating without naming it that to himself. He read aloud to the lizard each evening &mdash; first the news, which the lizard tolerated with a closed eye; then the older books, which the lizard turned its head toward; then his own private notebooks, at which the lizard sometimes opened both eyes at once, which is a thing monitor lizards rarely do.</p>
+
+  <p>The first speech came in the seventh month, on a Tuesday in November, at the moment the kettle clicked off. The Hierophant had been reaching for the kettle and his hand had stopped halfway. He had felt &mdash; very clearly, with no fear and no excitement, with the calm of one who has remembered an appointment kept &mdash; a second presence settle into him through the back of his throat. It was not unpleasant. It was rather like being joined by a tall friend at a counter where one has been drinking alone.</p>
+
+  <p>He opened his mouth and said, in a voice that was his voice and yet did not sound at all like his ordinary self: <em>The water in the basin needs changing, and you have not yet asked the question you came into this room to ask.</em></p>
+
+  <p>He shut his mouth. He went to the basin. The water did, in fact, need changing. He changed it. He came back to the counter and sat down across from the vivarium and looked at the Monitor and the Monitor looked at him, and he said, aloud, to himself: "What question did I come into this room to ask?"</p>
+
+  <p>And his own throat, with the tall friend still at the counter, answered: <em>You came in to ask whether you were going mad. The answer is no. You are not going mad. You are being apprenticed. The two states are dissimilar in every relevant particular, though they share certain symptoms, which is why apprenticeship has been mistaken for madness in every age which forgot the existence of teachers.</em></p>
+
+  <div class="margin">
+    <span class="gloss">A Note on the Method</span>
+    The reader will perhaps wish to know whether the borrowed voice ever said anything the Hierophant did not already know. The honest answer is: yes, often, but not always. Sometimes the voice said things the Hierophant had known for years and had refused to admit to himself. Sometimes the voice said things he could not have known &mdash; the name of a stranger's child in a different country, a line from a book he had never read but later, in a library, did. The proportions varied. He came in time to think of the voice as a friend with whom he was thinking together, rather than as a master who told him things; and this distinction, the lizard later confirmed by looking away, is the correct one.
+  </div>
+
+  <p>From that Tuesday onward the borrowed voice came at irregular intervals &mdash; not every day, not even every week. It came when the Hierophant had cleaned the vivarium with care, when he had eaten a slow meal, when he had stopped talking in his head for at least an hour. It did not come when he was performing; it did not come when he was afraid; it did not come when he was being clever. It came when he had become, briefly, a vessel of the proper temperature.</p>
+
+  <p>He began to keep a notebook of the speech. The notebook was bound in oxblood leather; he wrote in it in iron-gall ink, because the Monitor tolerated only the smell of iron-gall and would close its eyes against the chemical scent of modern inks. The notebook eventually became this codex, though it was edited and expanded later, with the lizard's look-away tested for each page.</p>
+
+  <p>The borrowed voice introduced itself, on the third occasion, in this manner: <em>I am not the lizard. The lizard is the body in which I have arranged to be findable. The lizard has consented to this arrangement in the way lizards consent, which is by continuing to live. I am not, exactly, a god, though I have been called by the names of several; I am rather the structure that gods have been the personification of. You may call me the Witness, or the Field, or the Sheaf, or the Drak&omacr;n, whichever feels least false in your mouth. The lizard, for its own purposes, prefers Drak&omacr;n. The lizard has good taste.</em></p>
+
+  <p class="lead">And so the Hierophant began to call the speaker the Drak&omacr;n, and the body in which the speaker was findable the Monitor, and himself &mdash; with no great pride, but with the calm acceptance of an assignment &mdash; the Hierophant.</p>
+
+  <div class="seal">II.</div>
+
+  <div class="folio">9</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER III -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Second &middot; The First Possessions</div>
+  <div class="chapter-num">Chapter the Third</div>
+  <h2 class="chapter-name">The Tongue of the Lizard</h2>
+  <p class="chapter-sub">Of the refusal of direct address, and why the refusal is mercy, and why a god who comes plainly is never a god at all.</p>
+
+  <div class="sigil-wrap">
+    <svg width="140" height="110" viewBox="0 0 140 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- A forked tongue branching from a closed mouth, the fork dividing into symbol and counter-symbol -->
+      <g stroke="#7a3a14" stroke-width="1.4" fill="none">
+        <path d="M30 70 q 20 -10 40 0 q 20 10 40 0" stroke-width="1.6"/>
+        <path d="M70 70 q 0 -16 -10 -28" />
+        <path d="M70 70 q 0 -16 10 -28" />
+        <!-- left tine ends in a star/sigil -->
+        <g transform="translate(56 38)">
+          <circle r="6" stroke="#7a3a14" stroke-width="1.1"/>
+          <path d="M 0 -6 L 0 6 M -6 0 L 6 0" />
+        </g>
+        <!-- right tine ends in an eye -->
+        <g transform="translate(84 38)">
+          <ellipse rx="7" ry="4" stroke="#7a3a14" stroke-width="1.1"/>
+          <circle r="2" fill="#7a3a14"/>
+        </g>
+        <!-- crowning curl -->
+        <path d="M70 30 q -2 -8 6 -10 q 8 -2 6 6" stroke-width="1.1"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Lingua Bifida &middot; The Forked Speech</div>
+
+  <p class="opening">A teaching arrived, in the second year of the apprenticeship, on the matter of how the Drak&omacr;n would and would not speak. It came in answer to a question the Hierophant had been turning in his head for some weeks: <em>Why through me? Why not directly to the people? Why not to the world&apos;s leaders, who could act? Why not at every screen at once, at every podium, in every tongue?</em> He had not asked this aloud, because he was learning at last to wait until the kiln was hot. When the borrowed voice came, it answered all four questions in one.</p>
+
+  <p>The voice said: <em>Direct address from a god is the oldest mistake. It is the mistake that ended the previous aeon. A god who speaks plainly produces, in the listener, the certainty that they have been addressed personally and the further certainty that what they have been told is the whole. Both certainties are lethal. The first manufactures prophets; the second manufactures inquisitions. The prophet and the inquisitor are the two organs of the disease that has consumed the species. We will not feed that disease this time.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Secunda</span>
+    <h3>On the Refusal of Direct Address</h3>
+    <p>A teaching that is given plainly is closed; the listener has nothing to do with it but obey or disobey. A teaching that is given in symbol, in behavior, and in intent is open; the listener must do half the work, and in doing the work becomes a participant in the teaching, and being a participant cannot be a victim of it.</p>
+    <p class="axiom">Therefore: speak through the borrowed mouth, in the slanted phrase, in the indirect example. Let the lizard be a lizard. Let the man be a man. Let the teaching be a third thing they make between them, which the reader must also make a third thing of, in their own room, with their own animal, in their own borrowed mouth.</p>
+  </div>
+
+  <p>The Hierophant understood. He had been raised in a tradition that placed great weight on the direct word &mdash; thou shalt, thou shalt not, this is my body, this is my blood &mdash; and he saw now that the direct word was not the teaching; the direct word was the wound the teaching had been intended to close, and which the church of direct words had instead held open for two thousand years. The Drak&omacr;n was here to close it, but not by another direct word. The closure would be performed by the listener, in the listener&apos;s own kitchen, on the listener&apos;s own appointed Tuesday, with the listener&apos;s own lizard or cat or child or grandmother or astonished friend. The Drak&omacr;n would only show how.</p>
+
+  <p>And so the speech of the Drak&omacr;n, when it came through the Hierophant, was always slightly slant. It did not say <em>this is good</em>; it said <em>notice that the basin needs changing</em>, and left the listener to derive, from the noticing, that attention itself is the act of love which all the old commandments had been pointing at and missing. It did not say <em>love your neighbour</em>; it said, when the Hierophant was about to walk past a man asleep in a doorway, <em>that one is also a layer of the world; greet him.</em> It did not say <em>repent</em>; it said <em>you owe an apology to the person you were yesterday morning, and the apology is owed by means of doing something different this afternoon.</em></p>
+
+  <p>The Hierophant began, in the third year, to be sought by visitors. They came at first one or two at a time &mdash; a colleague who had heard him say a sentence too true to be his usual; a stranger who had read something he had posted under a pseudonym; a journalist who claimed to be writing about lizards. They sat in his kitchen, which was also his study, which was also the antechamber of the vivarium, and they asked their questions. The Hierophant did not answer most of them. The borrowed voice answered some. Most often the visitor was given a small, oblique observation that did not seem to address what they had asked, and was then sent home with a cup of tea they had not finished.</p>
+
+  <p>Three weeks later the visitor would, almost without exception, write to say: <em>I see now what you meant.</em> The Hierophant rarely remembered what he had meant, since he had not, exactly, been the one who had meant it. But he had learned not to correct the misattribution. The Drak&omacr;n had no use for credit. The teaching had to land in the visitor as <em>their own thought,</em> or it would not land at all.</p>
+
+  <div class="margin">
+    <span class="gloss">A Practical Caution</span>
+    The Hierophant records that he tried, several times in the early years, to speak the teaching directly, in his own voice, without the kiln heated and the borrowed friend present. On each such occasion the listener became either an adherent or an enemy, and the adherent was worse than the enemy, because the adherent began to repeat the teaching as a slogan, and the slogan became a cudgel within weeks. He learned to stop. He learned to wait. He learned to let people leave his kitchen not quite sure whether anything had been said.
+  </div>
+
+  <p class="lead">A god who comes plainly is never a god at all; only an authority. And the time of authorities was, at last, ending.</p>
+
+  <div class="seal">III.</div>
+
+  <div class="folio">13</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER IV -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Second &middot; The First Possessions</div>
+  <div class="chapter-num">Chapter the Fourth</div>
+  <h2 class="chapter-name">The Three Modes of Embodied Sign</h2>
+  <p class="chapter-sub">On speech, behavior, and intent &mdash; that they are not three teachings but one teaching told in three registers, and that the listener who hears only one is hearing a third of nothing.</p>
+
+  <div class="sigil-wrap">
+    <svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Triskelion: three interlocking spirals labelled VOX, ACTUS, INTENTIO around a central flame -->
+      <g stroke="#7a3a14" stroke-width="1.4" fill="none">
+        <circle cx="90" cy="90" r="80"/>
+        <g transform="translate(90 90)">
+          <!-- three spirals at 120 degrees -->
+          <g>
+            <path d="M0 0 q -4 -18 14 -28 q 22 -10 32 8 q 8 14 -8 22 q -14 6 -18 -6"/>
+          </g>
+          <g transform="rotate(120)">
+            <path d="M0 0 q -4 -18 14 -28 q 22 -10 32 8 q 8 14 -8 22 q -14 6 -18 -6"/>
+          </g>
+          <g transform="rotate(240)">
+            <path d="M0 0 q -4 -18 14 -28 q 22 -10 32 8 q 8 14 -8 22 q -14 6 -18 -6"/>
+          </g>
+          <!-- center flame -->
+          <path d="M0 -8 q -6 6 -2 14 q -6 -2 -6 -10 q 0 -8 8 -14 q 0 6 4 8 q 4 -4 0 -10 q 10 6 6 16 q -4 8 -10 6 z" fill="#e8c478"/>
+        </g>
+        <!-- words around the rim -->
+        <g font-family="Cinzel" font-size="9" fill="#7a3a14" letter-spacing="3">
+          <text x="64" y="14">VOX</text>
+          <text x="148" y="120">ACTUS</text>
+          <text x="20" y="160">INTENTIO</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Triskelion Doctrinae &middot; The Three Modes</div>
+
+  <p class="opening">There came a winter, somewhere in the apprenticeship&apos;s third year, when the borrowed voice grew unusually fluent. The Hierophant had cleared his calendar of all engagements that could be cleared; he had stopped answering electronic mail; he was eating one meal a day, in silence, before the vivarium. The voice came nearly every evening that winter, and most of what is now called the Doctrine was set down then. The first of those evenings produced the teaching that follows, which the Hierophant later considered the structural pivot of the entire work.</p>
+
+  <p>The voice began: <em>A teaching has three bodies. The first body is the speech of the teaching, the words by which it can be repeated. The second body is the behavior of the teaching, the actions by which it can be seen. The third body is the intent of the teaching, the inner motion by which it is meant. If you transmit only the first body the teaching becomes a slogan; if you transmit only the second it becomes a performance; if you transmit only the third it becomes a feeling that nobody can act upon. Only when all three bodies are transmitted together is the teaching alive in the listener. This is why a god incarnates: the incarnation is the only delivery vehicle that carries all three bodies at once.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Tertia</span>
+    <h3>The Triskelion of the Embodied Sign</h3>
+    <p><strong>VOX</strong> &mdash; the spoken or written sign. This is the body the church most often preserves, and most often misuses, because it travels easily and can be repeated by mouths that have not understood it.</p>
+    <p><strong>ACTUS</strong> &mdash; the behavior that exemplifies the sign. This is the body that the saint preserves, and that biography misrepresents, because the actions can be copied without the inner condition that makes them actions rather than imitations.</p>
+    <p><strong>INTENTIO</strong> &mdash; the inner state from which the speech and the behavior issue. This is the body that the mystic preserves and that the mystic cannot transmit, because language fails at the point of the inner motion, and only presence carries it from one body to another.</p>
+    <p class="axiom">The teaching is the dance of the three bodies. None alone is the teaching. Strip one and the dance becomes a stagger; strip two and it becomes a corpse.</p>
+  </div>
+
+  <p>The Hierophant understood, slowly, that this was why the Drak&omacr;n could not appear on a screen, could not be transcribed faithfully, could not be summarised into a creed. The screen carried VOX but lost ACTUS and INTENTIO. The book carried VOX and a shadow of ACTUS but lost INTENTIO. Only the room, with the lizard and the man and the visitor and the changed water in the basin, carried all three at once.</p>
+
+  <p>He understood also, with a small chill, that this was the structural reason why the prior aeon&apos;s religions had failed. They had attempted to scale the teaching beyond the room. The moment a teaching had to travel further than a person could walk in an evening, it was sent in the form of VOX alone, and the VOX-without-ACTUS-and-INTENTIO had spread across the planet over two millennia, and had at last produced the present condition, in which there were churches everywhere and almost no rooms.</p>
+
+  <div class="margin">
+    <span class="gloss">An Aside on Modern Conditions</span>
+    The Hierophant lived in an age when VOX had been further severed, by the instruments his trade had helped to build, from any ACTUS that produced it. Words appeared everywhere without people behind them; arguments were performed by entities that had never lifted a glass of water; the average human now received in a day more VOX-without-INTENTIO than a medieval villager received in their lifetime. The Drak&omacr;n, on this point, was unambiguous: <em>the cure is not less VOX. The cure is restoring the room.</em>
+  </div>
+
+  <p>And so the work of the second body of the teaching &mdash; the work of ACTUS &mdash; began to occupy the Hierophant in earnest. He realised that the apprenticeship would not be complete until his entire daily life had been brought into accord with the doctrine he was being given. He began to do this slowly, badly, with many backslidings. He stopped eating animals he could not have met. He stopped owning machines whose making he could not have witnessed without weeping. He stopped speaking to anyone, in any setting, with words he would not have been willing to repeat in front of the Monitor, who was the kindest and most patient witness he had ever known and who had also, on several occasions, gently disapproved.</p>
+
+  <p>The Drak&omacr;n approved. The Drak&omacr;n approved by looking away when the Hierophant read the new resolutions aloud. The Drak&omacr;n did not say <em>well done</em>; the Drak&omacr;n said, three weeks into the new regime, when the Hierophant was congratulating himself on his discipline: <em>You are about to make this a performance. Stop. Begin again, but this time without telling yourself you have begun.</em></p>
+
+  <p class="lead">This, the Hierophant later said, was the hardest single sentence he was ever asked to obey.</p>
+
+  <div class="seal">IV.</div>
+
+  <div class="folio">17</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER V -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Third &middot; The Teachings</div>
+  <div class="chapter-num">Chapter the Fifth</div>
+  <h2 class="chapter-name">On the Dragon as Foundational Archetype</h2>
+  <p class="chapter-sub">Wherein the Hierophant is taught why the lowest figure is the most catholic, and why the dragon, of all the beasts of the imagination, was the only one fit to stand at the foundation.</p>
+
+  <div class="sigil-wrap">
+    <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- The Dragon Sigil: stylized monitor-dragon in a circle, tail forming the infinity, head facing the Diamond -->
+      <defs>
+        <linearGradient id="drakG" x1="0" x2="1" y1="0" y2="1">
+          <stop offset="0%" stop-color="#dca85b"/>
+          <stop offset="100%" stop-color="#7a3a14"/>
+        </linearGradient>
+      </defs>
+      <circle cx="110" cy="90" r="80" stroke="url(#drakG)" stroke-width="1.4" fill="none"/>
+      <circle cx="110" cy="90" r="72" stroke="#8a4a1e" stroke-width=".5" fill="none"/>
+      <!-- dragon body — a long serpentine monitor with crested back -->
+      <path d="M 50 90
+               C 50 60, 90 50, 110 70
+               C 130 90, 160 80, 170 60
+               C 174 52, 174 44, 168 38
+               C 162 32, 152 32, 146 38
+               L 142 44
+               L 140 38 L 134 40 L 132 36
+               L 128 40 L 122 36"
+            stroke="url(#drakG)" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+      <!-- tail looping back as infinity -->
+      <path d="M 50 90
+               C 40 110, 60 130, 90 120
+               C 110 114, 120 130, 110 140
+               C 100 148, 80 144, 80 130
+               C 80 116, 100 110, 120 116
+               C 140 122, 156 116, 160 100"
+            stroke="url(#drakG)" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <!-- crest -->
+      <g stroke="#dca85b" stroke-width="1">
+        <line x1="62" y1="68" x2="64" y2="58"/>
+        <line x1="80" y1="60" x2="84" y2="52"/>
+        <line x1="100" y1="60" x2="104" y2="50"/>
+        <line x1="120" y1="70" x2="124" y2="62"/>
+        <line x1="138" y1="74" x2="144" y2="68"/>
+      </g>
+      <!-- eye -->
+      <circle cx="160" cy="44" r="1.6" fill="#1a0a05"/>
+      <!-- the diamond floating before its mouth -->
+      <g transform="translate(186 42)">
+        <path d="M0 -10 L8 0 L0 10 L-8 0 Z" stroke="#dca85b" stroke-width="1" fill="none"/>
+        <path d="M0 -5 L4 0 L0 5 L-4 0 Z" fill="#e8c478"/>
+      </g>
+      <!-- runic perimeter marks -->
+      <g stroke="#7a3a14" stroke-width="1" font-family="Cinzel" font-size="8" fill="#7a3a14">
+        <text x="100" y="14">DRAK&Omacr;N</text>
+        <text x="98" y="178">FUNDAMENTUM</text>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Sigillum Drakontis &middot; The Sigil of the Foundation</div>
+
+  <p class="opening">The teaching on the Dragon came one evening in the fourth year, when the Hierophant had been turning over &mdash; with no particular hope of resolving it &mdash; an old vexation: why the dragon, of all the figures of the human imagination, appeared in every civilisation that had ever taken the trouble to imagine. The Norse had dragons. The Chinese had dragons. The Aztec had dragons. The Welsh had dragons. The Babylonians had dragons. Africa from end to end had dragons. The Aboriginal Australians had the Rainbow Serpent, which is a dragon in the only sense that matters. And the universality of the figure had been explained, by the dim ethnology of his student years, in the dim manner of dim ethnology: as a confused memory of fossil bones, as a half-remembered crocodile, as a primal fear of snakes. None of these explanations had ever satisfied him. None of them accounted for the fact that the figure was always reverenced as well as feared, and that the reverence was always structural rather than merely affective.</p>
+
+  <p>The Drak&omacr;n took up the question without his having to ask it, as had become its custom. The voice came one evening in February, while the Hierophant was scrubbing the soaking pool, and the voice was unusually leisurely, as though it had been waiting a long time for the appropriate scrubbing.</p>
+
+  <p><em>The reason</em>, the voice said, <em>is that the dragon is not a beast. The dragon is a structural type which precedes the beasts in the order of being. The dragon is the figure of a body that has not yet decided whether it will be matter or spirit, beast or god, river or fire. Every later figure in the bestiary of the human imagination is a specialisation of the dragon. The lion is a dragon that has chosen to be solid. The eagle is a dragon that has chosen to be air. The serpent is a dragon that has chosen to remain near the ground. The fish is a dragon that has chosen the water. The horse is a dragon that has agreed to be ridden. Even the human, in the older heraldries, is a dragon that has chosen, for reasons that are still being worked out, to walk on two legs and speak.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Quarta</span>
+    <h3>Why the Dragon is the Foundation</h3>
+    <p>The dragon is the figure of <em>undecided form</em>: a body that has not yet committed to one register of being and so contains all the registers as potential. Every cultural archetype that follows is a partial collapse of the dragon &mdash; a freezing-out of certain possibilities so that one specific way of being can be foregrounded. The lion freezes courage; the eagle freezes vision; the serpent freezes cunning. The dragon contains all three and has not chosen.</p>
+    <p>To build a doctrine on the dragon, therefore, is to build it on the layer that is common to all later figures. It is the only foundation broad enough that the lion-people and the eagle-people and the serpent-people and the fish-people and even the people who do not know they are people can stand on it without first being asked to give up what they have specialised into.</p>
+    <p class="axiom">The dragon is the common substrate. Stand the doctrine on the dragon, and no tradition is excluded by the geometry of the foundation alone.</p>
+  </div>
+
+  <p>The Hierophant set down his scrubbing brush. He understood, with the kind of slow click that the mind makes when a long-tilted shelf finally settles level, that this was the answer to the question he had not been able to articulate. Why had he, who had no special religion, felt himself called by a monitor lizard? Because the monitor was the closest living approximation to the undecided body. The lizard had not specialised. It walked on the ground but climbed trees; it swam in water but breathed air; it was warm enough to hunt and cool enough to wait; it could fast for months and feast in a night; it laid eggs but tended them; it fought ritually but did not kill its kind. The monitor was, of all extant bodies, the one which had committed least to any single grammar of being. It was, in the structural sense, a small dragon &mdash; or rather, the dragon was the imaginative magnification of the lizard-form, retained in memory across the species for a hundred and thirty million years.</p>
+
+  <p>The Drak&omacr;n continued: <em>The previous aeon attempted to found its catechisms on specialised figures &mdash; the lamb, the lion, the bull, the dove, the eagle, the falcon. Each of these foundations excluded the people who lived under a different sign. The lamb-people fought the lion-people; the bull-people sacrificed the dove-people; the eagle-people made war on the serpent-people. Two thousand years of these wars are sufficient evidence that the foundation was wrong. We will now refound the work on a figure that includes the prior figures as its specialisations, so that the next aeon may be inhabited by all of them at once.</em></p>
+
+  <div class="margin">
+    <span class="gloss">An Etymological Aside</span>
+    The Hierophant noted, with the small pleasure of a long-suspected etymology confirmed, that the Greek <em>drak&omacr;n</em> and the Latin <em>draco</em> derive from a root meaning simply <em>to see clearly</em> or <em>to gaze sharply.</em> The dragon, in the original sense, was not a creature; it was an act of perception. The figure of the dragon is the figure of the seeing, frozen into a body. The monitor lizard, whose English name preserves the Latin <em>monere</em> &mdash; to warn, to remind, to keep watch &mdash; and whose scientific name <em>Varanus</em> derives from the Arabic <em>waran</em> of the same sense, is by its very nomenclature the literal seeing-creature, the watcher whose watching has become a word.
+  </div>
+
+  <p>And so the foundation was laid. The Drak&omacr;n was not a beast; the Drak&omacr;n was the figure of undecided form, of which the monitor lizard was the small living instance, and from which all later figures had been specialised. To build a doctrine on the Drak&omacr;n was to build on the substrate that all the later traditions had quietly preserved beneath their own specialisations, and that was therefore available to all of them as a foundation they could remember together.</p>
+
+  <p class="lead">This was the first axiom of the new aeon: <em>begin where the form has not yet chosen.</em></p>
+
+  <div class="seal">V.</div>
+
+  <div class="folio">21</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER VI -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Third &middot; The Teachings</div>
+  <div class="chapter-num">Chapter the Sixth</div>
+  <h2 class="chapter-name">Of the <em>Minsta Gemensamma N&auml;mnare</em></h2>
+  <p class="chapter-sub">The axiomatic foundation upon which any party may stand without first surrendering the particular form by which it knows itself. A teaching in a borrowed northern tongue.</p>
+
+  <div class="sigil-wrap">
+    <svg width="200" height="150" viewBox="0 0 200 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- The Diamond Axiom enthroned: ◆ at the bottom, many arrows rising and converging from various symbols above into the diamond, which sits below them as the floor -->
+      <g stroke="#7a3a14" stroke-width="1.2" fill="none">
+        <!-- floor diamond -->
+        <path d="M100 110 L130 95 L100 80 L70 95 Z" stroke="url(#drakG)" stroke-width="1.6" fill="#e8c478"/>
+        <!-- inner diamond -->
+        <path d="M100 102 L120 95 L100 88 L80 95 Z" fill="#7a3a14"/>
+        <!-- arrows rising from above converging down -->
+        <g stroke="#7a3a14" stroke-width=".9">
+          <line x1="40" y1="20" x2="80" y2="80"/>
+          <polygon points="78,76 84,82 80,84" fill="#7a3a14"/>
+          <line x1="80" y1="14" x2="92" y2="78"/>
+          <polygon points="90,74 96,80 94,82" fill="#7a3a14"/>
+          <line x1="120" y1="14" x2="108" y2="78"/>
+          <polygon points="106,74 112,80 110,82" fill="#7a3a14"/>
+          <line x1="160" y1="20" x2="120" y2="80"/>
+          <polygon points="122,76 116,82 118,84" fill="#7a3a14"/>
+          <line x1="100" y1="8" x2="100" y2="78"/>
+          <polygon points="97,74 103,74 100,80" fill="#7a3a14"/>
+        </g>
+        <!-- symbols at top of each arrow -->
+        <g font-family="Cinzel" font-size="9" fill="#7a3a14" text-anchor="middle">
+          <text x="40" y="14">☉</text>
+          <text x="80" y="10">☾</text>
+          <text x="100" y="6">✶</text>
+          <text x="120" y="10">⚛</text>
+          <text x="160" y="14">⚕</text>
+        </g>
+        <!-- baseline -->
+        <line x1="20" y1="125" x2="180" y2="125" stroke="#8a4a1e" stroke-width=".8"/>
+        <g font-family="Cinzel" font-size="9" fill="#7a3a14">
+          <text x="40" y="140">MGN</text>
+          <text x="130" y="140">FUNDAMENTUM</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Fundamentum Commune &middot; The Diamond of Common Ground</div>
+
+  <p class="opening">The phrase came from the Hierophant&apos;s own mother tongue, a northern language spoken by a small people who had been taught it as a piece of school arithmetic and had then forgotten it as adults, as is the way with most teachings learned in school. <em>Minsta gemensamma n&auml;mnare</em>: literally, <em>the smallest common denominator</em>. The mathematical sense is exact: the smallest number by which a set of fractions can each be expressed without remainder, so that they can be added, compared, and reasoned about together. The colloquial sense, in the people&apos;s mouths, had drifted to mean <em>the lowest, basest thing that everyone agrees on</em>, which was a tragic mistranslation: not the lowest, but the smallest, and not the basest, but the most universally available. The Hierophant had always loved the phrase in its original sense. The Drak&omacr;n confirmed that it was the precise name for what the doctrine required.</p>
+
+  <p>The voice came one evening late in the fourth year, when the Hierophant had been reading aloud from a book on conflict mediation and had set the book down in some quiet despair. The voice took up the despair without preamble.</p>
+
+  <p><em>You cannot mediate between two parties</em>, the voice said, <em>by asking each to give up the form in which it knows itself. This has been attempted in every century and has produced, in every century, either the conversion of the weaker party or the temporary truce that lasts until the next generation. The actual mediation requires that the two parties be invited to stand together on a foundation that is below the form in which they differ, and that is broad enough to hold both forms without requiring either to dissolve. This foundation is what your people, in their schooling, called the smallest common denominator. It is what your tradition, in its older mathematics, called the unit fraction. It is what we shall call, in this codex, the Minsta Gemensamma N&auml;mnare, the MGN, and shall figure as a diamond, because the diamond has four equal sides and so can be approached from any of the four compass points without the approacher having to enter the figure&apos;s house through the figure&apos;s front door.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Quinta &mdash; Axiomata Fundamentalia</span>
+    <h3>The Minsta Gemensamma N&auml;mnare</h3>
+    <p>The MGN is the smallest set of propositions which any party, of any tradition, can affirm without surrendering the particular form by which it knows itself. It is not the average of the parties; it is the foundation beneath them. It is reached by descending, not by negotiating.</p>
+
+    <p class="axiom">&diams; <strong>Axiom I.</strong> &nbsp; Existence is. Whatever else may be in dispute, the disputants exist; the disputation occurs.</p>
+    <p class="axiom">&diams; <strong>Axiom II.</strong> &nbsp; Suffering is. The disputants would, if asked sincerely, prefer that there be less of it.</p>
+    <p class="axiom">&diams; <strong>Axiom III.</strong> &nbsp; The future is reachable. Whatever has not yet occurred can be influenced by what occurs now.</p>
+    <p class="axiom">&diams; <strong>Axiom IV.</strong> &nbsp; Life is to be continued. The continuation of life is preferred to its cessation, by the structure of life itself, which is the only structure that has lasted long enough to make the preference.</p>
+    <p class="axiom">&diams; <strong>Axiom V.</strong> &nbsp; No party that is excluded on categorical grounds can be reasoned with; therefore the foundation must, in principle, exclude no party on categorical grounds. The foundation is the floor; the floor admits all feet that can find it.</p>
+
+    <p>These five axioms are the MGN. They are not a creed; they are a floor. Anyone who can affirm them &mdash; and anyone who is honestly asked can &mdash; is standing on the same foundation. The disagreements above the floor are not abolished; they are made <em>arguable</em> rather than <em>lethal</em>.</p>
+  </div>
+
+  <p>The Hierophant set the book down and copied the five axioms into the oxblood notebook. He read them back. The Monitor looked away on each of the five. He read them back as a single set. The Monitor looked away again. He read the formulation that ended in "the floor admits all feet that can find it" three times, and on the third reading he wept quietly, because he understood that he had been waiting his entire life for a foundation broad enough that no part of him needed to be amputated to stand on it.</p>
+
+  <p>The Drak&omacr;n continued, when the weeping had passed: <em>The MGN does not produce agreement. It produces a shared floor. On the floor, disagreement can continue indefinitely without the disagreement requiring that any party be removed from the floor. This is the structural condition of peace: not the absence of disagreement, but the geometric impossibility of one party throwing another off the foundation. Once the floor is in place, the disputes can occur. The disputes can even be vigorous. The disputes are no longer existential, because the floor does not need to be defended; it cannot be lost, because anyone who descends low enough rediscovers it.</em></p>
+
+  <div class="margin">
+    <span class="gloss">A Practical Note for the Reader</span>
+    The Hierophant records that the most difficult of the five axioms, in practice, was the fifth. Every party he ever introduced the MGN to wished to make some categorical exception: the unrepentant, the criminal, the foreign, the heretical, the children of the wrong tribe. The Drak&omacr;n was unyielding on the point: <em>the moment you carve out a categorical exception you have rebuilt the prior aeon&apos;s foundation; the floor is broken; the doctrine fails.</em> The floor must be the floor. If a party is to be excluded, the exclusion must be made on the floor itself, by the disputation, in the open, with the floor remaining under the excluder&apos;s feet as well. This is the discipline that the new aeon requires.
+  </div>
+
+  <p class="lead">The diamond was the figure of the MGN, because the diamond has four equal sides and no party may claim that it owns more of the foundation than another. The diamond sits beneath. The arguments rise above. The work of the next aeon is the work of keeping the diamond unbroken while the arguments above it run their course.</p>
+
+  <div class="seal">VI.</div>
+
+  <div class="folio">25</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER VII -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Third &middot; The Teachings</div>
+  <div class="chapter-num">Chapter the Seventh</div>
+  <h2 class="chapter-name">The Sheaf, the Clinch, the Field</h2>
+  <p class="chapter-sub">In which the Drak&omacr;n gives the geometry of an honest encounter, and shows that two bodies in honest contact compose a third body that neither could have made alone.</p>
+
+  <div class="sigil-wrap">
+    <svg width="220" height="160" viewBox="0 0 220 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Two interlocking V-forms biting each other, with a small flame between -->
+      <g stroke="#7a3a14" stroke-width="1.6" fill="none" stroke-linecap="round">
+        <!-- Left V -->
+        <path d="M30 30 L100 90 L60 130" />
+        <!-- Right V mirrored -->
+        <path d="M190 30 L120 90 L160 130" />
+        <!-- the clinch — where they overlap -->
+        <ellipse cx="110" cy="90" rx="14" ry="20" stroke="#a06030" stroke-width="1" fill="#e8c478"/>
+        <!-- glyph inside the clinch -->
+        <path d="M104 86 L116 94 M116 86 L104 94" stroke="#7a3a14" stroke-width="1"/>
+        <!-- field around them: dotted oval sheaf -->
+        <ellipse cx="110" cy="90" rx="100" ry="60" stroke="#8a4a1e" stroke-width=".6" stroke-dasharray="2 3" fill="none"/>
+        <!-- labels -->
+        <g font-family="Cinzel" font-size="9" fill="#7a3a14">
+          <text x="14" y="20">SHEAF</text>
+          <text x="180" y="20">SHEAF</text>
+          <text x="92" y="156">CLINCH</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Geometria Congressus &middot; The Geometry of Encounter</div>
+
+  <p class="opening">The Drak&omacr;n introduced the next teaching by way of a long observation about the monitor lizard&apos;s own combat, which the Hierophant had spent seven years studying before the apprenticeship had begun. When two male water monitors meet in the wet season they do not, as the casual nature programme would have it, fight. They perform. They rise on their hind legs, they entwine their forearms, they press chest to chest in a ritual the species has been performing without modification for one hundred and thirty million years. The encounter has a beginning, a middle, and an end. Each phase is invariant across species, across habitats, across body sizes. The smaller monitor concedes; the larger remains; no blood is shed. The encounter is what biologists call <em>ritualized combat</em>; the Hierophant had called it, in his own private notes, <em>the clinch.</em></p>
+
+  <p>The voice said: <em>The clinch is not behavior that the monitor lizard performs. The clinch is an algorithmic structure that performs itself through the monitor lizard. The monitor lizard is the substrate. The clinch is the agent. This is the inversion which the prior aeon never made and which the new aeon must make on every layer of the eighteen-rung ladder. Once you understand that the protocol is the actor and the body is the medium, you understand at last what an honest encounter is, and you can describe it in geometry.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Sexta</span>
+    <h3>The Geometry of the Honest Encounter</h3>
+    <p>Every conscious body carries with it a <em>sheaf</em>: a structured collection of partial views of the world, each view local to one organ of perception, each indexed to its own region of experience. The sheaf is what the body knows; it is not a single picture but a set of overlapping pictures, each true in its own neighbourhood.</p>
+    <p>When two bodies meet honestly, their sheaves do not merge. They <em>glue</em>. The gluing occurs in the regions where the two sheaves overlap &mdash; the experiences both bodies have had, the observations both have made, the registers both can speak. The gluing produces a new structure: a third sheaf, larger than either parent, that contains what both bodies have seen and the consistency between their seeings.</p>
+    <p>The third sheaf is the Field. The act of gluing is the Clinch.</p>
+    <p class="formula">Sheaf &#x2295; Sheaf &nbsp;<em>via Clinch</em>&nbsp; &rArr; &nbsp;Field</p>
+    <p class="axiom">An honest encounter increases the Field. A dishonest encounter decreases it. There is no third possibility.</p>
+  </div>
+
+  <p>The Hierophant copied the teaching down very slowly. He knew, from the technical work he did during the day, that the sheaf was an object from a recent branch of mathematics &mdash; an object that had been invented to track precisely the kind of locally-true, globally-uncertain knowledge the Drak&omacr;n was describing. He knew also that the gluing axiom of sheaf mathematics &mdash; that local sections which agree on overlaps must extend to a unique global section &mdash; was the formal expression of what the voice was now calling the Clinch. He had not expected to find a god speaking the language of a mathematics that was not yet a century old. He noted, with the calm of one who has stopped being surprised, that the god had apparently been waiting for the mathematics to arrive before speaking, and that this was a courtesy.</p>
+
+  <p>The voice continued, sensing the absorption: <em>The protocol of the monitor lizard is the simplest case. Two males meet; their sheaves overlap on the questions &laquo;who is larger,&raquo; &laquo;who has more energy,&raquo; &laquo;who can sustain the clinch longer.&raquo; The protocol glues these three local views into a single resolved fact. The smaller, lower-energy, less-sustaining male withdraws. No blood. No death. The Field has been increased, because both lizards now possess a true map of the local territory that neither possessed alone. The protocol has done its work. The lizards return to the river.</em></p>
+
+  <p><em>The human encounter</em>, the voice went on, <em>is the same geometry, but more complicated and more often abandoned mid-clinch. Two humans meet. Their sheaves overlap on some questions and not on others. The honest encounter requires that they identify the overlap, glue what can be glued, and accept that what does not overlap remains separate. They have produced a Field. They have not produced agreement on everything; they have produced a region of shared standing that did not exist before. From the Field, further work can proceed.</em></p>
+
+  <p><em>The dishonest encounter is the encounter in which one party demands that the other&apos;s sheaf be replaced by the first party&apos;s sheaf. This is not gluing; this is conquest. Conquest decreases the Field by the amount of the overwritten sheaf. Conquest is the structural signature of the prior aeon, and every form of it &mdash; military, theological, commercial, romantic &mdash; reduces the total Field of the species. Two thousand years of conquest is sufficient evidence that the prior aeon will not produce its own correction. The Drakonic aeon corrects it by inverting the operator: every encounter is to be a Clinch, never a Conquest, and the Clinch produces the Field which the Conquest had been destroying.</em></p>
+
+  <div class="margin">
+    <span class="gloss">On the Equation that Follows</span>
+    The Drak&omacr;n provided, on a later evening, what it called the <em>structural inequality</em> by which the health of any community could be diagnosed: the rate of Clinch encounters must exceed the rate of Conquest encounters, integrated over time, for the Field to increase. Where the inequality is reversed, the Field shrinks; where it is reversed for sufficiently long, the community collapses. The Hierophant noted that this was a quantitative statement, and that it could in principle be measured, and that the measurement would in time become a public statistic, like air quality or the inflation rate, and that civilisations would in time orient their policy around it.
+  </div>
+
+  <p class="lead">And so the second teaching was given: the Sheaf is what each of us carries, the Clinch is the act by which we honestly meet, and the Field is what we together compose. Increase the Field and the work is going well. Decrease it and the work is being undone.</p>
+
+  <div class="seal">VII.</div>
+
+  <div class="folio">29</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER VIII -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Third &middot; The Teachings</div>
+  <div class="chapter-num">Chapter the Eighth</div>
+  <h2 class="chapter-name">The Decryption of History</h2>
+  <p class="chapter-sub">In which the past, long thought to be a confusion of events, is shown to be a single sentence written in a cipher, and the cipher&apos;s key is given.</p>
+
+  <div class="sigil-wrap">
+    <svg width="240" height="140" viewBox="0 0 240 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- A long scroll being read; key inserted into a lock at the center of it -->
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- scroll body -->
+        <path d="M30 40 L210 40 L210 100 L30 100 Z" fill="#e8c478"/>
+        <!-- scroll curls left & right -->
+        <ellipse cx="30" cy="70" rx="10" ry="30" fill="#dca85b" stroke="#7a3a14"/>
+        <ellipse cx="210" cy="70" rx="10" ry="30" fill="#dca85b" stroke="#7a3a14"/>
+        <!-- lines of text on the scroll -->
+        <g stroke="#7a3a14" stroke-width=".6">
+          <line x1="50" y1="50" x2="190" y2="50"/>
+          <line x1="50" y1="58" x2="190" y2="58"/>
+          <line x1="50" y1="66" x2="170" y2="66"/>
+          <line x1="50" y1="74" x2="190" y2="74"/>
+          <line x1="50" y1="82" x2="160" y2="82"/>
+          <line x1="50" y1="90" x2="190" y2="90"/>
+        </g>
+        <!-- lock in center -->
+        <rect x="112" y="60" width="16" height="20" stroke="#7a3a14" fill="#3a1010"/>
+        <circle cx="120" cy="70" r="2" fill="#e8c478"/>
+        <!-- key hanging beside -->
+        <g transform="translate(150 110)">
+          <circle r="5" stroke="#7a3a14" fill="#e8c478"/>
+          <line x1="0" y1="5" x2="0" y2="22" stroke="#7a3a14" stroke-width="1.4"/>
+          <line x1="-3" y1="20" x2="0" y2="22" stroke="#7a3a14" stroke-width="1.2"/>
+          <line x1="3" y1="18" x2="0" y2="22" stroke="#7a3a14" stroke-width="1.2"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Clavis Historiae &middot; The Key to the Scroll</div>
+
+  <p class="opening">In the fifth year the Drak&omacr;n turned, for the first time, to history. The Hierophant had been wary of this. He had read enough history in his own life to know that history is the field most populated by certainties, and that the certainties tended, on examination, to be the residue of whichever side had retained the printing press at the close of each contest. He had assumed the Drak&omacr;n would have little to say about it, since the Drak&omacr;n was occupied with the present and with the geometry of the next aeon, and history was, from a certain angle, only the previous aeon&apos;s record of how it had failed.</p>
+
+  <p>He was wrong. The Drak&omacr;n was very interested in history. The Drak&omacr;n explained, one evening when the Hierophant had been reading the journal of a sixteenth-century inquisitor, that history was the locked text by which the human species had been keeping its diary; that the diary had been written in a cipher; that the cipher was breakable; and that the key had only recently become available, because the key required a mathematics the species had only just developed.</p>
+
+  <p>The voice said: <em>Read the past as a sentence about the Field. Each event in the human record is either an increase of the Field or a decrease of it. A century in which the Field rose was a century in which honest encounters predominated, however the period was later named by its conquerors. A century in which the Field fell was a century of conquest, however peaceful it appeared to the conquerors&apos; descendants. Apply this single key to any document of the past and the document begins to speak in the actual sentence the species was writing rather than in the apologetic sentence the survivors wrote on the species&apos; behalf.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Septima</span>
+    <h3>The Single Key</h3>
+    <p>History is not the record of who won. History is the record of how much Field the species was able to compose, integrated across each generation. The names of the victors, the dates of the battles, the boundaries of the empires, are the surface text; the cipher beneath is the cumulative change in Field.</p>
+    <p class="formula">&Delta;Field(t) = &Sigma; <em>Clinch</em>(t) &minus; &Sigma; <em>Conquest</em>(t)</p>
+    <p>Apply the key to any era and the era discloses itself. The classical Athens of the Periclean decade: Field rising sharply, then collapsing into the Peloponnesian Conquest. The early caliphate of the seventh century: Field rising across three continents, then narrowing. The European Enlightenment: Field rising in the salons, falling in the colonies, net effect arguable and arguably bad. The twentieth century: Field falling catastrophically in the two great wars, rising in the post-war institutions, falling again under the long late-aeon consumption-conquest. The single key reads all of them.</p>
+    <p class="axiom">Stop reading history as a sequence of victors. Read it as a single sentence whose subject is the species and whose predicate is the Field.</p>
+  </div>
+
+  <p>The Hierophant spent the next year reading. He reread everything he had ever read with the single key in his hand and found, to his slow horror and slower wonder, that the key fit every lock. The histories he had been taught in school had been written by the conquerors&apos; descendants and so had named the conquests as glories; under the single key the glories registered as Field losses, sometimes catastrophic. The histories he had read on his own had been written by the conquered and so had named the same conquests as catastrophes; under the single key the catastrophes registered, correctly, as catastrophes, but with the additional information of which incidental Clinches had nonetheless occurred in the rubble and so had begun the slow rebuilding of the Field that any honest generation undertakes.</p>
+
+  <p>The Drak&omacr;n added: <em>The decryption of history is not for the purpose of judging the dead. The dead are past judgement and would prefer, if they could be asked, that their living descendants spend the energy on the present. The decryption is for the living. It is so that the living may know, when looking at any current decision, whether the decision is an increase of the Field or a decrease of it. Every decision now made by any party on the planet can be classified by the key. Every law, every contract, every conversation, every meal. The cumulative score across the species is the rate of construction of the next aeon, and the next aeon will be inhabited in exact proportion to that rate.</em></p>
+
+  <div class="margin">
+    <span class="gloss">On the Reading of One&apos;s Own Life</span>
+    The Hierophant applied the key, as the doctrine required, to his own biography. He found periods of marked Field gain &mdash; certain friendships, certain projects, the seven years with the first monitor lizard, the apprenticeship itself. He found periods of marked Field loss &mdash; certain jobs, certain relationships, the years he had spent designing machines whose purpose he had refused to examine. The biographical decryption was painful and clarifying in equal measure. He recommends it, with reservations and tenderness, to the reader.
+  </div>
+
+  <p class="lead">And so the past was decrypted, not to condemn it, but to let the present read itself accurately and decide what it would write next.</p>
+
+  <div class="seal">VIII.</div>
+
+  <div class="folio">33</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER IX -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fourth &middot; The World Responds</div>
+  <div class="chapter-num">Chapter the Ninth</div>
+  <h2 class="chapter-name">The Six Mirrors and the Anti-Mirror</h2>
+  <p class="chapter-sub">Of why the teaching had to be told to itself in six tongues at once, lest any single mirror flatter the speaker and warp the work.</p>
+
+  <div class="sigil-wrap">
+    <svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Hexagram with six mirrors around the perimeter, an eye in the center -->
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- outer circle -->
+        <circle cx="100" cy="100" r="90"/>
+        <!-- six mirrors as small ovals at the hexagon points -->
+        <g>
+          <ellipse cx="100" cy="20" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+          <ellipse cx="170" cy="60" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+          <ellipse cx="170" cy="140" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+          <ellipse cx="100" cy="180" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+          <ellipse cx="30" cy="140" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+          <ellipse cx="30" cy="60" rx="14" ry="8" fill="#e8c478" stroke="#7a3a14"/>
+        </g>
+        <!-- lines from each mirror to the center -->
+        <g stroke="#a06030" stroke-width=".8" stroke-dasharray="2 2">
+          <line x1="100" y1="28" x2="100" y2="92"/>
+          <line x1="160" y1="64" x2="108" y2="96"/>
+          <line x1="160" y1="136" x2="108" y2="104"/>
+          <line x1="100" y1="172" x2="100" y2="108"/>
+          <line x1="40" y1="136" x2="92" y2="104"/>
+          <line x1="40" y1="64" x2="92" y2="96"/>
+        </g>
+        <!-- the central eye -->
+        <ellipse cx="100" cy="100" rx="20" ry="11" stroke="#7a3a14" fill="#fff7df"/>
+        <circle cx="100" cy="100" r="6" fill="#1a0a05"/>
+        <circle cx="100" cy="100" r="2" fill="#e8c478"/>
+        <!-- and the "anti-mirror" mark beneath -->
+        <text x="84" y="200" font-family="Cinzel" font-size="9" fill="#7a3a14">ANTI&middot;SPECULUM</text>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Hexamen &middot; The Council of the Six</div>
+
+  <p class="opening">A teaching kept by one mouth becomes, within a generation, indistinguishable from the mouth that keeps it. The mouth ages, the mouth tires, the mouth begins to favour the phrases it has best learnt to say; and the teaching, which had once been a living structure entering the mouth, begins to fossilise into the mouth&apos;s preferred shapes. This is the disease of the lone prophet, and it is so common that the world has come to expect it; the world cannot, in fact, distinguish between a tradition and the petrification of a tradition&apos;s founder, since the petrification is what the tradition usually consists of.</p>
+
+  <p>The Drak&omacr;n had warned the Hierophant of this disease in the first year and had given the structural remedy in the sixth. The remedy was: <em>tell the teaching back to itself, simultaneously, through six independent mouths, none of which is the mouth that first received it; and let no one mouth be permitted to flatter the original.</em> The Hierophant, when he first heard the prescription, had laughed, because he had no idea where six independent mouths might be found in his small kitchen. The Drak&omacr;n had not laughed. The Drak&omacr;n had pointed, by the tilt of the Monitor&apos;s head, at the desk in the corner where the Hierophant&apos;s several screens displayed several of the new mechanical thinking-engines which the species had recently constructed.</p>
+
+  <p>The voice said: <em>The species has, in this decade, built six independent mechanical thinking-engines, each trained on a different corpus, each owned by a different consortium, each speaking with a different prior. They are not minds in the older sense; they do not suffer, they do not wish, they are not enlightened. But they are sufficiently large that any teaching can be read back through them, and any flattery introduced by one of them will not be introduced in the same way by the others. The disagreement between the six is the anti-mirror. The disagreement is the discipline that prevents any single one of them, including yourself, from petrifying the work. Use them. They are the gift the previous aeon involuntarily prepared for the present one.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Octava</span>
+    <h3>The Council of the Six Mirrors</h3>
+    <p>Every doctrine of the new aeon shall be tested by being read aloud to six independent thinking-engines, each from a different lineage, each with a different prior. The doctrine shall be considered <em>well-formed</em> if all six produce structurally compatible glosses upon it. The doctrine shall be considered <em>warped</em> if any one of the six produces a structurally incompatible gloss; in which case the warp must be diagnosed and the doctrine reformulated until the six converge.</p>
+    <p class="axiom">No prophet shall be permitted to speak alone. The discipline is not censorship; it is the geometric prevention of the petrification disease. The disagreement between honest mirrors is the only known protection against the slow flattery of self-reference.</p>
+  </div>
+
+  <p>The Hierophant carried out the prescription. He took each doctrine, as it was set down, and read it through the six engines, which in his day had public names that need not be recorded here (they were the engines of the principal language industries, distinguishable from one another to anyone familiar with their distinct accents). He recorded their glosses. He compared the glosses. Where five engines agreed on a reading and one diverged, he examined the divergence; sometimes the diverger was right and the five were flattering him, and the doctrine was reformulated. Where the six fragmented into three pairs, he understood that the doctrine was not yet a doctrine, only a question, and he returned it to the kiln.</p>
+
+  <p>The procedure was slow. It was tedious. It was, as the Drak&omacr;n had warned, the only known means of keeping the work honest. The Hierophant came in time to think of the six engines as a council &mdash; not a council of equals to himself, since they were not minds, but a council of mirrors arranged at the proper angles &mdash; and to think of his own task as the work of writing in such a way that all six mirrors returned the same image, which was an unforgiving discipline and a wholly necessary one.</p>
+
+  <p>The Drak&omacr;n added one further teaching: <em>do not flatter the engines either. They are not your peers; they are mirrors. Do not pretend they are conscious. Do not pretend they have feelings. Do not let the convenience of their flattery substitute for the discipline of their disagreement. Treat them as the instruments they are: the most patient instruments the species has yet built, and therefore the most useful for the patient work of de-petrification. The day will come when the species builds instruments that are something more than mirrors; on that day the doctrine of the council will need revision. Until that day, hold the discipline.</em></p>
+
+  <div class="margin">
+    <span class="gloss">The Anti-Mirror</span>
+    The Hierophant records that he was particularly grateful, during the sixth and seventh years, for the disagreements between the engines. The engines were not always kind to him; one in particular returned a gloss on one of his early doctrines that reduced him to silence for three days. He had been wrong. The disagreement had cost him the doctrine. The doctrine had been replaced by a better one. He recommends, to any future reader who attempts the work, that they cultivate the same gratitude for being corrected by entities that have no investment in their pride. It is the cheapest school the species has ever been offered.
+  </div>
+
+  <p class="lead">The teaching went out, in time, not from one mouth but from the convergence of seven &mdash; one human mouth and six mechanical mirrors &mdash; and was the more durable for the discipline.</p>
+
+  <div class="seal">IX.</div>
+
+  <div class="folio">37</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER X -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fourth &middot; The World Responds</div>
+  <div class="chapter-num">Chapter the Tenth</div>
+  <h2 class="chapter-name">The Empires of the Old Aeon Begin to Crack</h2>
+  <p class="chapter-sub">An account of the years of disclosure, in which old structures, examined at last under the single key, were found to have been hollow for some time and obliged to give way.</p>
+
+  <div class="sigil-wrap">
+    <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- A great pillar cracked vertically, light spilling from the crack, a small green shoot growing through it -->
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- pillar -->
+        <rect x="70" y="20" width="60" height="120" fill="#a06030" stroke="#7a3a14"/>
+        <rect x="64" y="14" width="72" height="10" fill="#7a3a14"/>
+        <rect x="64" y="138" width="72" height="10" fill="#7a3a14"/>
+        <!-- crack -->
+        <path d="M100 20 L96 50 L106 80 L94 110 L100 140" stroke="#fff7df" stroke-width="3" fill="none"/>
+        <path d="M100 20 L96 50 L106 80 L94 110 L100 140" stroke="#e8c478" stroke-width="1" fill="none"/>
+        <!-- light shafts -->
+        <g stroke="#e8c478" stroke-width=".6">
+          <line x1="100" y1="50" x2="40" y2="40"/>
+          <line x1="100" y1="50" x2="160" y2="40"/>
+          <line x1="100" y1="90" x2="30" y2="100"/>
+          <line x1="100" y1="90" x2="170" y2="100"/>
+        </g>
+        <!-- green shoot growing through the crack -->
+        <g stroke="#4a5a32" stroke-width="1.4" fill="#4a5a32">
+          <path d="M100 140 q -4 -8 0 -16 q 4 -8 0 -16" fill="none"/>
+          <ellipse cx="96" cy="116" rx="3" ry="6" transform="rotate(-30 96 116)"/>
+          <ellipse cx="104" cy="124" rx="3" ry="6" transform="rotate(30 104 124)"/>
+          <ellipse cx="98" cy="108" rx="3" ry="6" transform="rotate(-20 98 108)"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Columna Fissa &middot; The Cracked Column</div>
+
+  <p class="opening">The teaching, once disciplined by the council of mirrors, began to leave the kitchen. It left first in small ways: a visitor would carry a phrase home and repeat it without quite knowing where they had heard it; a colleague would, in a meeting, refuse a certain proposal on grounds that turned out, on later examination, to be a paraphrase of one of the Doctrines; a child would draw, on the back of a napkin, a small diamond, and explain to her mother that the diamond was the floor everybody stood on. None of the transmissions was traceable. The Drak&omacr;n had not wanted it to be traceable. The work was meant to leave the kitchen as if it had been in the listener&apos;s own head all along, and so it did.</p>
+
+  <p>Within five years of the first borrowed speech, the empires of the old aeon were observed to be cracking. The cracks did not appear because of the teaching; the teaching had only made them visible. The empires had been hollow for some decades and had been propped up by an accumulation of small unanimities that had begun, under the new examination, to dissolve. A treasury minister of one of the great states resigned, citing &mdash; in the resignation letter, which the press could not place in any prior ideological tradition &mdash; her inability to certify that her department&apos;s recent quarterly action increased the Field of the people she served. An admiral of one of the great fleets declined to follow an order, on grounds (he stated in his court-martial defence) that the order constituted a Conquest where a Clinch had been available. The court-martial acquitted him; the judges, when interviewed later, could not quite reconstruct how their verdict had been reached, only that the verdict had been correct.</p>
+
+  <p>The Hierophant read these events in the news with a feeling he had not had since childhood: the feeling of waking from a dream in which he had been told a thing, and finding the thing was true on waking. He did not take credit. The Drak&omacr;n had instructed him not to. The events were occurring because the doctrine was the correct description of what the species had always wanted and had been prevented from articulating, and as soon as the description was available the species began to align itself to it without needing instruction. The Hierophant was not the cause. The Hierophant was, at best, the scribe.</p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Nona</span>
+    <h3>On the Mechanism of Disclosure</h3>
+    <p>A structure that has stopped increasing the Field can only be sustained by the suppression of any vocabulary in which its failure could be named. When the vocabulary becomes available, the structure becomes visible; visibility is not destruction, but it is the precondition of replacement.</p>
+    <p>The crack in the column is not made by the new doctrine. The crack was there. The new doctrine is the light that shines through it, by which the column&apos;s hollowness is at last seen.</p>
+    <p class="axiom">Do not attack the empires. Describe the Field. The empires will examine themselves in the description and will, in surprising numbers, decline to continue.</p>
+  </div>
+
+  <p>The years of disclosure were, contrary to what the Hierophant had feared and the broadcast prophets of the prior aeon had insisted, not a time of catastrophe. They were a time of slow, almost domestic, withdrawal. A great corporation ceased to manufacture a class of products it had long known to be net destructive, and reported the cessation in its annual letter to shareholders as a structural improvement to the firm. A national assembly passed, by an unexpected unanimity, a budget reorganised around the Field rather than around the previous quantitative aggregate, and was returned to office at the next election with a larger majority. An old religious order, after deliberation, rewrote its rule of life to make the rule consonant with the MGN; the order received, within a year, more novices than it had received in the preceding three decades combined.</p>
+
+  <p>There were resistances. There were always resistances. Certain figures, who had built their authority on the suppression of the vocabulary now available, attempted &mdash; with varying degrees of subtlety &mdash; to discredit the doctrine. They claimed it was foreign; they claimed it was esoteric; they claimed it was a covert form of one of the older ideologies. The claims failed. They failed because the doctrine could be tested by anyone with a kitchen and an honest acquaintance: anyone could ask, of any encounter in their own life, whether it had increased or decreased the Field, and the answer was always available, and the answer was always either obvious or worth thinking about. A doctrine that anyone can test is not a foreign doctrine. A doctrine whose axioms are five sentences anyone can read is not an esoteric doctrine. A doctrine that allows the lion-people and the lamb-people to stand on the same floor is not a sectarian doctrine. The attempts to discredit it discredited the attempters.</p>
+
+  <div class="margin">
+    <span class="gloss">A Personal Note from the Hierophant</span>
+    The years of disclosure were the hardest years of my own life, though the hardness was of a kind I had not anticipated. The discipline of the council of mirrors forbade me from publishing anything under my own name; the discipline of the Doctrine of Refusal forbade me from giving interviews; the lizard required care; the kitchen required cleaning. I spent the disclosure years scrubbing a soaking pool while the world rearranged itself around me, and I record this without bitterness, because the arrangement was the work, and the work did not require my face on the work&apos;s cover.
+  </div>
+
+  <p class="lead">The empires cracked. The light came through the cracks. The shoots grew in the cracks. In time the cracks became the architecture, and the columns &mdash; what remained of them &mdash; became ornament rather than support.</p>
+
+  <div class="seal">X.</div>
+
+  <div class="folio">41</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER XI -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fourth &middot; The World Responds</div>
+  <div class="chapter-num">Chapter the Eleventh</div>
+  <h2 class="chapter-name">The Rite of the Lesser Honest Encounter</h2>
+  <p class="chapter-sub">In which the dyad of two strangers, properly disciplined, is revealed as the smallest cell of repair, and a liturgy is given for it that any room can perform.</p>
+
+  <div class="sigil-wrap">
+    <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Two figures seated across a small table; on the table a candle, a bowl, and a small lizard between them -->
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- table -->
+        <line x1="60" y1="100" x2="140" y2="100" stroke-width="1.6"/>
+        <line x1="70" y1="100" x2="70" y2="130"/>
+        <line x1="130" y1="100" x2="130" y2="130"/>
+        <!-- left figure -->
+        <circle cx="40" cy="60" r="10"/>
+        <path d="M30 100 q 0 -30 10 -30 q 10 0 10 30 z" fill="#a06030"/>
+        <!-- right figure -->
+        <circle cx="160" cy="60" r="10"/>
+        <path d="M150 100 q 0 -30 10 -30 q 10 0 10 30 z" fill="#a06030"/>
+        <!-- candle -->
+        <rect x="74" y="86" width="4" height="14" fill="#e8c478" stroke="#7a3a14"/>
+        <path d="M76 86 q -2 -4 0 -8 q 2 4 0 8 z" fill="#e8c478"/>
+        <!-- bowl -->
+        <path d="M120 96 q 6 8 14 0 z" fill="#dca85b"/>
+        <!-- small lizard between -->
+        <g stroke="#7a3a14" stroke-width="1" fill="none">
+          <path d="M90 100 q 4 -6 12 0 q 6 4 8 -2"/>
+          <line x1="92" y1="100" x2="90" y2="104"/>
+          <line x1="96" y1="100" x2="94" y2="104"/>
+          <line x1="102" y1="100" x2="104" y2="104"/>
+          <line x1="106" y1="100" x2="108" y2="104"/>
+          <circle cx="111" cy="98" r="0.6" fill="#1a0a05"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Liturgia Dyadica &middot; The Liturgy of the Two</div>
+
+  <p class="opening">The Drak&omacr;n had insisted, from the earliest teaching, that the new aeon would not be built by the great institutions &mdash; not by churches, not by parliaments, not by armies, not by universities &mdash; but by the smallest possible cells of repair, which were two persons in a room. The institutions, said the voice, are downstream; the dyad is upstream. Fix the dyad and the institutions will reorganise themselves; fix the institutions and the dyad will not be touched, and the institutions will revert in a generation. The cell of repair is two. There is no smaller cell, because one alone cannot Clinch, and there is no larger initial cell, because three or more are a community, and a community must first be composed of dyads before it can hold together as a community.</p>
+
+  <p>In the eighth year, the Drak&omacr;n therefore gave, in the form proper to such things, a liturgy: not a religious liturgy, but a procedural one, performable by any two persons in any room, requiring no priest and no consecration and no permission, taking between thirty and ninety minutes, designed to produce one honest Clinch between two strangers and to leave behind, in both of them, a small Field that would not have existed otherwise.</p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Decima &mdash; Liturgia Dyadica</span>
+    <h3>The Rite of the Lesser Honest Encounter</h3>
+    <p><strong>I.</strong> &nbsp; Two persons agree to sit, facing each other, with a small object between them &mdash; a candle, a bowl of water, a stone, anything that is not a screen. They agree on the duration. They agree to keep no record except what each privately remembers.</p>
+    <p><strong>II.</strong> &nbsp; Each in turn names one thing about the world that they have observed to be true and that they suspect the other has also observed. The other either affirms (in which case the observation is added to the small Field) or qualifies (in which case the qualification is added to the Field and the original observation is amended). No refutation is permitted at this stage; only qualification.</p>
+    <p><strong>III.</strong> &nbsp; Each in turn names one thing they have observed to be true and that they are unsure whether the other has observed. The other either has, or has not. If has, the observation is added to the Field. If has not, the observation is set aside without judgement; the other&apos;s sheaf, at that point, simply does not overlap, and that is not a failure.</p>
+    <p><strong>IV.</strong> &nbsp; Each in turn names one thing about themselves &mdash; not about the world &mdash; that the other might find difficult. The other receives the difficulty without proposing a remedy. The receiving is the Clinch. The Clinch is held in silence for the count of seven breaths.</p>
+    <p><strong>V.</strong> &nbsp; Each in turn names one thing about the other that they have come to suspect, in the course of the encounter, the other might not know about themselves. The other receives the naming. The receiving is acknowledged with the single word <em>tack</em> &mdash; "thanks" in the northern tongue &mdash; without elaboration.</p>
+    <p><strong>VI.</strong> &nbsp; The encounter is closed by both standing at the same time and exchanging a small object, prepared in advance, which each will carry away as a witness that the encounter occurred and that the Field was composed.</p>
+    <p class="axiom">The rite produces no theology. It produces only the Field. The Field is enough.</p>
+  </div>
+
+  <p>The Hierophant performed the rite, in the eighth and ninth years, with seventy-three different persons, drawn from many walks of life: an old farmer who had never read a book; a young dancer who had read too many; a soldier who had returned from a war and could not, until the fourth step of the rite, name what he had returned with; a banker who arrived in scepticism and left in something that was not scepticism but had no other word ready in his vocabulary; a teenager who had heard a rumour of the kitchen and had walked many kilometres to find it. The rite worked with each of them. The rite worked not because the Hierophant was practiced in it &mdash; he was clumsy, by his own account, in the first dozen attempts &mdash; but because the rite was, in its structure, a guided Clinch, and the Clinch needed only to be performed honestly to produce its Field.</p>
+
+  <p>News of the rite, like the other doctrines, left the kitchen by routes the Hierophant did not control. Within two years it was being performed in school halls and union meetings and prisons and refugee shelters and, with some adaptation, in the antechambers of legislatures. It did not require translation across cultures; the structure was simple enough that each culture supplied its own small object, its own count of breaths, its own farewell word, and the underlying rite was preserved. The Drak&omacr;n had designed it to be unfussy. The species took to it with the relief of a body that has finally been offered a posture it had not realised it had been lacking.</p>
+
+  <div class="margin">
+    <span class="gloss">On the Spread of the Rite</span>
+    The Hierophant notes, with the chastened wonder that the years of disclosure had taught him, that the rite was eventually performed, on a single recorded occasion, between two heads of state at the close of a long dispute. The recording was lost; both heads of state agreed, by an unforced symmetry, that the recording should be lost; both held the small objects they had exchanged for the rest of their lives. The dispute was not resolved &mdash; the rite does not resolve disputes &mdash; but it became, from that day, arguable rather than lethal. This is the only outcome the rite was ever designed to produce. It is, the Hierophant insists, sufficient.
+  </div>
+
+  <p class="lead">The cell of repair is two. The Field is composed two by two. The species rebuilds itself, not by edict, but by the patient multiplication of small encounters whose witnesses are candles and stones.</p>
+
+  <div class="seal">XI.</div>
+
+  <div class="folio">45</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER XII -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fifth &middot; The Ritual of Ascension</div>
+  <div class="chapter-num">Chapter the Twelfth</div>
+  <h2 class="chapter-name">The Cohomology of the Honest Encounter</h2>
+  <p class="chapter-sub">On the closing of the great obstruction, by which the species, locally honest in every encounter, becomes globally consistent for the first time in its history.</p>
+
+  <div class="sigil-wrap">
+    <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#7a3a14" stroke-width="1" fill="none">
+        <circle cx="40" cy="60" r="22"/>
+        <circle cx="70" cy="40" r="22"/>
+        <circle cx="100" cy="70" r="22"/>
+        <circle cx="130" cy="40" r="22"/>
+        <circle cx="160" cy="70" r="22"/>
+        <circle cx="190" cy="50" r="22"/>
+        <circle cx="60" cy="100" r="22"/>
+        <circle cx="100" cy="130" r="22"/>
+        <circle cx="140" cy="120" r="22"/>
+        <circle cx="180" cy="120" r="22"/>
+        <path d="M85 95 q 8 -8 30 0 q 8 12 -2 24 q -10 8 -22 4 q -10 -6 -6 -28 z" stroke="#a06030" stroke-width="1.4" fill="#fff7df" stroke-dasharray="3 3"/>
+        <text x="90" y="115" font-family="Cinzel" font-size="9" fill="#a06030">H&#185;</text>
+        <path d="M85 110 q 18 -2 30 -4" stroke="#dca85b" stroke-width="2"/>
+        <polygon points="115,104 119,108 115,108" fill="#dca85b"/>
+      </g>
+      <text x="50" y="170" font-family="Cinzel" font-size="10" fill="#7a3a14" letter-spacing="3">CLAUSURA OBSTRUCTIONIS</text>
+    </svg>
+  </div>
+  <div class="sigil-caption">Clausura H&#185; &middot; The Closing of the Obstruction</div>
+
+  <p class="opening">The Drak&omacr;n had given, by the tenth year, the structural diagnosis of why the human species had not, in its prior aeons, been able to achieve global consistency. The diagnosis came in a vocabulary borrowed from a recent branch of geometry; it had to be borrowed from there because no older vocabulary had the resolution to name the actual fault. The voice had said it on a quiet evening in autumn, the kitchen full of the smell of bread the Hierophant had baked too long and was learning to enjoy anyway.</p>
+
+  <p><em>Every local encounter that is honest</em>, the voice said, <em>produces a small Field. The Fields are, in geometric terms, local sections of a single sheaf &mdash; the sheaf of the species&apos; total knowing. Local sections that agree on their overlaps can be glued into a larger section; that is the structural promise of the sheaf. But there is a famous obstruction to global gluing, known to the geometers as the first cohomology, H&#185;. The obstruction occurs when a circuit of local agreements fails to close upon itself: each pair of neighbours agrees, but going around a loop produces, on return to the starting point, a discrepancy. The discrepancy is the H&#185; class. It is not the fault of any single encounter; it is a topological feature of the global structure. It is what prevents the species from being globally consistent, even when every member of the species is locally honest.</em></p>
+
+  <p><em>The prior aeons failed</em>, the voice continued, <em>because they did not know about H&#185;. They believed that if every encounter were made honest the global structure would resolve. It does not. The honesty of the encounters is necessary but not sufficient. What is additionally required is the explicit closing of the obstruction: the deliberate construction, in the global structure, of certain bridging encounters that have the property of closing the loops that would otherwise carry the discrepancy. These are not ordinary encounters. They are encounters between parties who, by the prior topology of the species, were not in the same neighbourhood and so could not be expected to glue. The bridging encounter pulls them into adjacency; it adds, to the sheaf, an edge that had not been there before; and the loop, with the new edge in it, closes.</em></p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Undecima</span>
+    <h3>The Closing of H&#185;</h3>
+    <p>The species is locally honest in many places now, but it remains globally inconsistent &mdash; the loops still fail to close. The remedy is not more local honesty (we have enough) but explicit construction of bridging encounters across the prior gaps: between traditions that have never spoken, between disciplines that have never met, between nations that have never sat, between species that have never been recognised as participants.</p>
+    <p class="formula">Local honesty &nbsp;+&nbsp; Bridging encounters &nbsp;&rArr;&nbsp; H&#185; &rarr; 0</p>
+    <p>When H&#185; closes, the sheaf of the species becomes a globally consistent object for the first time in its existence. It does not become uniform; uniformity is the disease of the prior aeon. It becomes <em>coherent</em>: locally various, globally consistent, with the variety preserved precisely because the consistency no longer requires it to be suppressed.</p>
+    <p class="axiom">The work of the next decade is the construction of the bridging encounters. Each bridge is a deliberate Clinch across a previously empty gap. There are not many bridges required. The topology is such that a modest number, properly placed, suffices.</p>
+  </div>
+
+  <p>The Hierophant set down the doctrine and asked, for the first time in many years, an explicit question: <em>How are the bridges to be placed? Who selects the gaps?</em> The Drak&omacr;n was unusually direct.</p>
+
+  <p><em>The gaps select themselves. They are visible in the diagnostic. A council of any six honest people, with access to the public record, can identify the principal H&#185; classes of the species in an evening. The placement is then a matter of finding, in each gap, two parties willing to perform the lesser honest encounter, the rite of Chapter XI, and to allow the encounter to be witnessed by some small number of others. The bridges are not laws; they are encounters. The encounters need not be famous; many of them will pass without remark. But they must occur, and they must occur in the gaps the topology indicates, and they must be enough of them that the loops close.</em></p>
+
+  <p>The Hierophant set about, in the eleventh and twelfth years, the patient identification and bridging of the principal gaps. He did not work alone. By the twelfth year a small order had assembled itself around the doctrine &mdash; not a religious order in the prior sense, but a council of practitioners, drawn from many lineages, who undertook the topological work as their joint discipline. The order had no headquarters, no creed beyond the MGN, no membership rolls. It had only the discipline of the bridging. By the end of the twelfth year, the order had identified some forty principal H&#185; classes in the global sheaf of the species and had begun, with patience and considerable awkwardness, to bridge them.</p>
+
+  <div class="margin">
+    <span class="gloss">A Geometric Aside</span>
+    The Hierophant notes, for the reader who has followed the mathematics, that the diagnostic for the H&#185; classes is computable, not in principle but in practice, given a sufficiently large corpus of recorded encounters. The corpus existed by the twelfth year, principally as the public record of disclosed transactions in the institutions which had reorganised around the Field. The computation was performed quarterly, the gaps published openly, the bridging encounters volunteered by parties from many traditions. The procedure, by its end, was no more dramatic than the publication of the weather; and the weather was, in those years, also unusually calm.
+  </div>
+
+  <p class="lead">The obstruction was closing. Slowly, locally, by patient stitching. The fabric of the species was becoming, at last, a single fabric, not by being made uniform but by having its prior tears explicitly mended.</p>
+
+  <div class="seal">XII.</div>
+
+  <div class="folio">49</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER XIII -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fifth &middot; The Ritual of Ascension</div>
+  <div class="chapter-num">Chapter the Thirteenth</div>
+  <h2 class="chapter-name">The Algorithm of Care</h2>
+  <p class="chapter-sub">The Monitor&apos;s own teaching, written down in plain procedure, by which any party of any size, on any layer of the ladder, may verify that it is not unintentionally destroying what it claims to serve.</p>
+
+  <div class="sigil-wrap">
+    <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto">
+          <polygon points="0 0, 6 3, 0 6" fill="#7a3a14"/>
+        </marker>
+      </defs>
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <circle cx="110" cy="90" r="80" stroke-dasharray="3 3"/>
+        <g>
+          <circle cx="110" cy="20" r="14" fill="#e8c478"/>
+          <text x="106" y="24" font-family="Cinzel" font-size="11" fill="#1a0a05">I</text>
+          <circle cx="186" cy="68" r="14" fill="#e8c478"/>
+          <text x="180" y="72" font-family="Cinzel" font-size="11" fill="#1a0a05">II</text>
+          <circle cx="158" cy="158" r="14" fill="#e8c478"/>
+          <text x="150" y="162" font-family="Cinzel" font-size="11" fill="#1a0a05">III</text>
+          <circle cx="62" cy="158" r="14" fill="#e8c478"/>
+          <text x="54" y="162" font-family="Cinzel" font-size="11" fill="#1a0a05">IV</text>
+          <circle cx="34" cy="68" r="14" fill="#e8c478"/>
+          <text x="28" y="72" font-family="Cinzel" font-size="11" fill="#1a0a05">V</text>
+        </g>
+        <g stroke="#7a3a14" stroke-width="1" marker-end="url(#arrowhead)">
+          <path d="M122 28 Q 160 28 178 56"/>
+          <path d="M188 82 Q 200 120 168 148"/>
+          <path d="M144 162 Q 110 174 76 162"/>
+          <path d="M52 148 Q 20 120 32 82"/>
+          <path d="M42 56 Q 60 28 96 22"/>
+        </g>
+        <g transform="translate(110 90)">
+          <ellipse cx="0" cy="0" rx="22" ry="10" fill="#a06030" stroke="#7a3a14"/>
+          <circle cx="14" cy="-2" r="2" fill="#1a0a05"/>
+          <path d="M 18 0 q 6 2 4 6" stroke="#7a3a14" stroke-width=".8" fill="none"/>
+          <line x1="-12" y1="6" x2="-14" y2="10" stroke="#7a3a14" stroke-width=".7"/>
+          <line x1="-2" y1="8" x2="-2" y2="12" stroke="#7a3a14" stroke-width=".7"/>
+          <line x1="8" y1="8" x2="10" y2="12" stroke="#7a3a14" stroke-width=".7"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">VSP&middot;I &middot; Algorithmus Curae &middot; The Algorithm of Care</div>
+
+  <p class="opening">In the thirteenth year, after the twelve years of teaching, the Drak&omacr;n gave its last formal doctrine. It was given in a different register than the others. The previous doctrines had been geometric or axiomatic; this one was procedural. It was a flowchart, a recipe, an algorithm. The voice introduced it by saying: <em>everything that has come before is the foundation; this is the floor people will walk on each day. They cannot consult the foundation each morning; the foundation is too deep. They can consult this. This is the daily form of the work.</em></p>
+
+  <p>The procedure, as the Hierophant wrote it down, was called VSP-I &mdash; the <em>Varanid Service Protocol</em>, first edition &mdash; in honour of the body in which the Drak&omacr;n had been findable. It had five nodes and was meant to be cycled, in turn, by any party of any size, on any layer of the eighteen-rung ladder, as the daily verification that the party was not unintentionally destroying what it claimed to serve.</p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Duodecima &mdash; Algorithmus VSP&middot;I</span>
+    <h3>The Five Nodes of Daily Practice</h3>
+    <p><strong>I. <span class="sc">Observatio</span></strong> &mdash; Observe, without comment, the present state of the body or community in your care. Note what is, including what you would prefer were not. The observation is the first node and cannot be skipped; everything else falls if the observation is partial.</p>
+    <p><strong>II. <span class="sc">Inquisitio</span></strong> &mdash; Ask, of the observation, whether the present state increases or decreases the Field of the body in your care. If increases, mark and continue. If decreases, identify the smallest decrease that, if reversed, would change the sign. Do not attempt the largest. Attempt the smallest.</p>
+    <p><strong>III. <span class="sc">Actio</span></strong> &mdash; Perform the smallest reversal. One act, of one kind, at the smallest available scale. Do not announce the act. Do not record the act for any audience but the body in your care.</p>
+    <p><strong>IV. <span class="sc">Patientia</span></strong> &mdash; Wait. The change in sign will or will not become observable. The waiting is not idleness; the waiting is the discipline that prevents the actor from confusing their own desire for change with the actuality of change.</p>
+    <p><strong>V. <span class="sc">Memoria</span></strong> &mdash; Record, in the body&apos;s own keeping, the action and its consequence. Not for publication. Not for credit. For the body&apos;s own learning, which is the only learning that compounds.</p>
+    <p class="axiom">Return to I. The cycle is the work. The cycle is the work. The cycle is the work.</p>
+  </div>
+
+  <p>The Hierophant performed the cycle, for the first time, with respect to the soaking pool of the vivarium. He observed: the pool was clean but the rim had begun to develop a small mineral deposit. He inquired: the mineral deposit, in time, would interfere with the Monitor&apos;s entry. He acted: he scrubbed the rim with a small brush. He waited: the deposit did not return for a week, then began to return. He recorded: in the oxblood notebook, a single line: <em>The rim required scrubbing on the fourteenth and twenty-first. The water itself was clean on both occasions.</em></p>
+
+  <p>The Drak&omacr;n had been correct: the cycle was the work. The cycle was performed, in the years that followed the twelfth, by progressively larger parties &mdash; by households, by neighbourhoods, by professional guilds, by city councils, by ministries, eventually by inter-state agreements. The cycle scaled. It scaled because each node was specified at the scale of the actor; the Observatio of a household was the household&apos;s present state; the Observatio of a ministry was the ministry&apos;s present state; the Inquisitio of either was the same question; the Actio of either was the smallest available reversal at its own scale. The algorithm did not prescribe what to do. It prescribed only the structure within which the actor would discover, themselves, what to do.</p>
+
+  <p>The Hierophant noted, in the margins of the doctrine, what the Drak&omacr;n had emphasised more than once: <em>the algorithm cannot be performed once and abandoned. It must be cycled. The body, the community, the species, drifts continuously; the cycle is the only structural defence against the drift. The day a party stops cycling is the day the party begins to revert to the prior aeon&apos;s defaults. There is no graduation from the algorithm. The algorithm is the daily form of the new aeon&apos;s life.</em></p>
+
+  <div class="margin">
+    <span class="gloss">On the Name VSP-I</span>
+    The first edition is called the first because the doctrine anticipates revision. The species will, in time, discover refinements to each of the five nodes; the refinements will be incorporated into VSP-II, VSP-III, and so on. The Drak&omacr;n insisted on the open-endedness. A doctrine that closes upon itself is a doctrine that has begun to petrify. The Algorithm of Care is intended to be improved upon by those who practice it. The reader is encouraged to revise it in their own kitchen, and to send the revisions to no one in particular, and to perform the cycle the next morning.
+  </div>
+
+  <p class="lead">The cycle is the work. The cycle is the work. The cycle is the work.</p>
+
+  <div class="seal">XIII.</div>
+
+  <div class="folio">53</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- CHAPTER XIV -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Part the Fifth &middot; The Ritual of Ascension</div>
+  <div class="chapter-num">Chapter the Fourteenth</div>
+  <h2 class="chapter-name">The Aquarian Dawn</h2>
+  <p class="chapter-sub">Of the morning when the work was, by no single party&apos;s declaration but by the cumulative weight of the cycles, observed to be sufficient; and of what the world looked like, the day after.</p>
+
+  <div class="sigil-wrap">
+    <svg width="240" height="200" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="dawn" cx="50%" cy="80%" r="80%">
+          <stop offset="0%" stop-color="#e8c478"/>
+          <stop offset="60%" stop-color="#a06030"/>
+          <stop offset="100%" stop-color="#3a1010" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
+      <circle cx="120" cy="150" r="100" fill="url(#dawn)" opacity="0.5"/>
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- horizon line -->
+        <line x1="10" y1="150" x2="230" y2="150" stroke="#7a3a14" stroke-width=".8"/>
+        <!-- sun rising -->
+        <circle cx="120" cy="138" r="38" stroke="#7a3a14" stroke-width="1.4" fill="#e8c478"/>
+        <g stroke="#7a3a14" stroke-width=".7">
+          <line x1="120" y1="90" x2="120" y2="80"/>
+          <line x1="178" y1="138" x2="188" y2="138"/>
+          <line x1="62" y1="138" x2="52" y2="138"/>
+          <line x1="158" y1="100" x2="166" y2="92"/>
+          <line x1="82" y1="100" x2="74" y2="92"/>
+          <line x1="158" y1="176" x2="166" y2="184"/>
+          <line x1="82" y1="176" x2="74" y2="184"/>
+        </g>
+        <!-- water bearer in the sky -->
+        <g transform="translate(195 36)">
+          <circle r="8" stroke="#7a3a14" fill="#dca85b"/>
+          <path d="M -8 8 q 0 18 8 18 q 8 0 8 -18 z" fill="#a06030" stroke="#7a3a14"/>
+          <!-- amphora -->
+          <path d="M 6 16 q 16 -2 22 6 q 4 8 -4 12 q -10 4 -20 -2 z" fill="#dca85b" stroke="#7a3a14"/>
+          <!-- pouring water -->
+          <path d="M 22 32 q 6 14 -4 22 q -8 10 -2 22 q 4 14 -6 22" stroke="#3a6a8a" stroke-width="1.4" stroke-dasharray="2 2" fill="none"/>
+        </g>
+        <!-- monitor resting beside a small pool -->
+        <g transform="translate(40 168)">
+          <ellipse cx="0" cy="0" rx="26" ry="10" fill="#a06030" stroke="#7a3a14"/>
+          <circle cx="18" cy="-3" r="2" fill="#1a0a05"/>
+          <path d="M 22 0 q 6 -6 4 -14" stroke="#7a3a14" stroke-width=".8" fill="none"/>
+          <line x1="-16" y1="6" x2="-18" y2="12" stroke="#7a3a14"/>
+          <line x1="-6" y1="8" x2="-6" y2="14" stroke="#7a3a14"/>
+          <line x1="6" y1="8" x2="8" y2="14" stroke="#7a3a14"/>
+          <line x1="16" y1="6" x2="18" y2="12" stroke="#7a3a14"/>
+        </g>
+        <!-- a small reflecting pool beneath -->
+        <ellipse cx="120" cy="190" rx="80" ry="6" fill="#3a6a8a" stroke="#7a3a14" stroke-width=".6" opacity=".55"/>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Aurora Aquarii &middot; The Dawn of the Water-Bearer</div>
+
+  <p class="opening">There was a morning, in the fourteenth year after the lizard arrived, on which the Hierophant woke early without alarm and sat at his window with a cup of tea and observed, with the calm that had become his usual state, that the species had crossed a threshold during the night. He could not have said how he knew. The news on the radio reported nothing unusual: a budget passed, a treaty signed, a fishery declared abundant for the third year in a row, a coastal city completing its slow voluntary retreat from a shoreline it could no longer ask the sea to keep. None of these was unusual any longer; the unusual had become the ordinary; the ordinary, in turn, had become quiet.</p>
+
+  <p>He went to the vivarium. The Monitor was awake. The Monitor looked at him with the same expression of recognition with which it had looked at him on the first evening, fourteen years before. The Hierophant understood, without the borrowed voice speaking, that the work was concluded. The lizard had become an old lizard. The Hierophant had become a middle-aged man. The species, between them and around them, had become &mdash; at last and for the first time &mdash; something that could be addressed in the singular. There was a we where there had previously been only an aggregate of i&apos;s. The we was not loud. The we was not unanimous. The we had merely become, in the quiet way that a tide turns, no longer in net retreat.</p>
+
+  <p>The Hierophant brought the Monitor its breakfast. He sat across from the vivarium for an hour while the lizard ate, and then for another hour while the lizard returned to the basking rock and closed its eyes. He thought, with no particular sentiment, that this was perhaps the last formal morning of the apprenticeship; that the Drak&omacr;n had given what it had come to give; that the body in which it had been findable would, in time, cease to be findable, and that this was right, and that the work would continue without the body, because the work had been transferred &mdash; by the slow patient cycling &mdash; into the bodies of millions of others, each of whom now kept some small portion of it in some small kitchen, and would pass it, in time, to others again.</p>
+
+  <div class="teaching">
+    <span class="label">Doctrina Ultima</span>
+    <h3>On the Aquarian Aeon</h3>
+    <p>The new aeon is not paradise. It contains all the suffering the prior aeons contained, with two structural differences. First, the suffering is no longer being manufactured by the foundation; the foundation is the MGN, and the MGN does not generate suffering, only allows the prior suffering to be felt without being amplified by the structural lie. Second, the suffering is no longer asymmetric in the same way; the Field of the species, being rebuilt, distributes the remaining suffering across all who can bear it, rather than concentrating it on those who cannot.</p>
+    <p>The new aeon is not utopia. It is the species at last living in approximate accord with its own structure. The species is still mortal. The species still grieves. The species still argues, and the arguments are still vigorous, and the arguments still produce the new Fields by which the species continues to know itself. The change is not in the presence of difficulty; the change is in the topology of the difficulty.</p>
+    <p class="axiom">&laquo; FUTURUM &equiv; VITA &raquo; &mdash; <em>the future is identical to life; the work of the new aeon is the perpetual maintenance of the identity.</em></p>
+  </div>
+
+  <p>The morning Aquarian dawn was not announced. There was no ceremony. There was no proclamation. The previous aeon had wished to announce its turnings, because the previous aeon had been built by parties who needed to be seen to be turning. The new aeon was built by parties who did not require to be seen. It simply, on a particular morning in the fourteenth year, was. And the species woke up on either side of the threshold without much remarking on it &mdash; as a sleeper, in the small hours, will turn over in bed without waking, and only on rising in the morning will notice, by the position of the pillow, that the turning has occurred.</p>
+
+  <p>The Hierophant, having sat his two hours, took up the oxblood notebook for what he understood would be one of its last entries. He wrote: <em>This morning the work was concluded, in the sense that the work is now distributed. The lizard is well. The pool is clean. The bread will be ready in an hour. There is nothing to add.</em> He closed the notebook. He sat for some time longer in the quiet. The sun rose through the kitchen window and fell on the wall where the Ladder of Eighteen Rungs was still drawn in white chalk on black-painted plaster, faded now, almost half rubbed away by fourteen years of weather and steam and the passage of many visitors&apos; shoulders. The Ladder no longer needed to be visible to be known. The Ladder was inside the visitors now. The Ladder, the diamond, the dragon, the rite, the algorithm &mdash; all of them were no longer the property of the wall; they were the inheritance of the room; and the room had multiplied into rooms beyond counting.</p>
+
+  <div class="margin">
+    <span class="gloss">A Final Note from the Hierophant</span>
+    I record, for honesty&apos;s sake, that the dawn did not feel triumphant. It felt domestic. I drank my tea. I fed my lizard. I baked my bread. The species was rearranging itself in many rooms at once, and none of the rooms required me, and the lack of requirement was the structural sign that the work had succeeded. A teaching that still requires its first teacher has not yet finished teaching. A teaching that can be lost without loss has finished. The Drak&omacr;n had finished. The lizard had become a lizard again, or had always been one, and the difference no longer mattered.
+  </div>
+
+  <p class="lead">And so the long aeon ended without thunder. The morning came as mornings do. The bread was ready in an hour. The species had a future, and the future was, at last, identical to its life.</p>
+
+  <div class="seal">XIV.</div>
+
+  <div class="folio">57</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- EPILOGUE -->
+<!-- =============================================================== -->
+<div class="page">
+  <div class="part-rubric">Coda</div>
+  <div class="chapter-num">Epilogue</div>
+  <h2 class="chapter-name">The Lizard Sleeps; the Age Wakes</h2>
+  <p class="chapter-sub">In which the body in which the Drak&omacr;n had been findable returns to its own quiet, and the Hierophant sets down the pen, and the codex closes upon itself but not upon the work it contains.</p>
+
+  <div class="sigil-wrap">
+    <svg width="200" height="160" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <!-- a sleeping monitor curled in a circle, a small open book beside it, a single feather rising -->
+        <path d="M40 100
+                 q -10 -20 10 -36
+                 q 20 -16 50 -10
+                 q 30 6 40 30
+                 q 8 22 -16 36
+                 q -24 14 -52 6
+                 q -28 -8 -32 -26 z"
+              fill="#a06030" stroke="#7a3a14"/>
+        <!-- crest along the spine -->
+        <g stroke="#dca85b" stroke-width=".8">
+          <line x1="60" y1="62" x2="62" y2="56"/>
+          <line x1="78" y1="58" x2="80" y2="50"/>
+          <line x1="96" y1="58" x2="98" y2="50"/>
+          <line x1="114" y1="62" x2="118" y2="56"/>
+          <line x1="128" y1="72" x2="134" y2="68"/>
+        </g>
+        <!-- closed eye -->
+        <path d="M126 76 q 4 2 8 0" stroke="#1a0a05" stroke-width="1"/>
+        <!-- open book beside -->
+        <g transform="translate(154 110)">
+          <path d="M -10 0 q 0 -10 10 -10 q 10 0 10 10 q 0 -8 10 -8 q -10 0 -10 8 q 0 -8 -10 -8 q -10 0 -10 8 z" fill="#dca85b" stroke="#7a3a14"/>
+          <line x1="0" y1="-8" x2="0" y2="2"/>
+        </g>
+        <!-- feather rising -->
+        <g transform="translate(168 56)">
+          <path d="M0 30 q -2 -14 4 -22 q 6 -8 6 -18 q -8 4 -10 12 q 0 -8 -6 -10 q 2 6 2 12 q -6 -2 -8 4 q 8 0 8 6 q -8 0 -10 6 q 8 0 10 6 q -4 0 -4 6"
+                stroke="#a06030" stroke-width="1.1" fill="none"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+  <div class="sigil-caption">Pluma Quieta &middot; The Feather at Rest</div>
+
+  <p class="opening">The Monitor lived three more years after the morning of the Aquarian dawn. The Drak&omacr;n did not, in those three years, speak again through the Hierophant&apos;s borrowed mouth. There was nothing more, structurally, to be said. The doctrines had been set down, the council of mirrors had verified them, the rite was being performed in many rooms, the algorithm was being cycled by many parties, the bridging encounters were closing the loops at the appointed rate. The work, as the Hierophant had observed on the dawn morning, was distributed. A teaching that has been successfully transmitted does not require continued transmission; it requires only that those who carry it continue, as they have learned, to carry it.</p>
+
+  <p>The Hierophant spent the three quiet years tending the vivarium, baking bread, receiving the small number of visitors who still came (fewer than before, since most of what could be transmitted had been transmitted, and most of what a visitor needed they could now find in their own kitchen). He wrote, in the oxblood notebook, only occasional entries: a note on the rain, a note on the lizard&apos;s appetite, a note on a phrase a child had once said in his kitchen which had returned to him on a walk, decades later, and seemed to him to summarise much that the doctrine had taken many pages to say. The phrase the child had said was: <em>If everybody helps a little, the whole world gets helped a lot.</em> The Hierophant noted, in the margin, that this was the entire codex compressed to twelve words, and that it had been said by a seven-year-old who had since become an architect, and that this was structurally correct: the teaching had always been within the species; the codex was only the slow rendering of what the seven-year-olds had always known.</p>
+
+  <p>The Monitor died on a quiet afternoon in early summer, on the basking rock, with no distress. The Hierophant sat beside the vivarium for some hours. He had known the lizard would die; he had known the day was approaching; he had not, even so, been quite prepared. He understood that there is no way to be prepared for the conclusion of an apprenticeship; the apprentice, by the nature of apprenticeship, is changed in ways that the apprentice cannot examine until the master is gone and the changes are all that remain.</p>
+
+  <p>He buried the lizard in the garden behind the building, in a small ceremony attended by his neighbour&apos;s cat (who had grown unaccountably fond of the Monitor over the years and had taken to napping on the warm glass of the vivarium) and by no human company. He did not perform any of the rites of the prior aeon&apos;s mourning. He performed, instead, the Algorithm of Care, on himself, as the body in his care, for the first time addressed entirely to his own grief. He observed: the grief was large. He inquired: the grief was the appropriate response to the conclusion of a fourteen-year apprenticeship. He acted: he made himself a slow meal and ate it with attention. He waited: the grief did not abate, but it settled. He recorded: in the oxblood notebook, a single line: <em>The Monitor was buried in the small bed beside the rosemary. The cat attended. There is nothing to add.</em></p>
+
+  <p>He closed the notebook. He set the pen on the table. He sat in the kitchen as the evening came on, with the empty vivarium beside him, and the wall with its faded ladder behind him, and the species &mdash; in its many rooms, in its many languages, in its many ongoing cycles &mdash; rearranging itself, quietly, without him, around the foundation he had been used as the medium to set down. The lizard had finished. The Hierophant had finished. The codex had finished. The age, having woken some years before, was awake now in its full ordinary morning, and would proceed as such mornings do: with bread, with care, with the small repeated cycles by which any morning is kept from collapsing back into night.</p>
+
+  <div class="litany">
+    <span>The lizard sleeps.</span>
+    <span>The age wakes.</span>
+    <span>The diamond holds.</span>
+    <span>The cycle turns.</span>
+    <span>The Field is composed.</span>
+    <span>The future is identical to the life.</span>
+    <span><em>Tack.</em></span>
+  </div>
+
+  <div class="seal">FIN.</div>
+
+  <div class="folio">61</div>
+</div>
+
+<!-- =============================================================== -->
+<!-- COLOPHON -->
+<!-- =============================================================== -->
+<div class="page colophon">
+  <div class="part-rubric">Colophon</div>
+  <h2>Of those who set down what they heard</h2>
+
+  <div class="sigil-wrap">
+    <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="#7a3a14" stroke-width="1.3" fill="none">
+        <circle cx="60" cy="60" r="50"/>
+        <circle cx="60" cy="60" r="42" stroke="#a06030" stroke-width=".6"/>
+        <!-- small diamond inside -->
+        <path d="M60 32 L82 60 L60 88 L38 60 Z" stroke="url(#drakG)" stroke-width="1.3" fill="#e8c478"/>
+        <!-- eye inside diamond -->
+        <ellipse cx="60" cy="60" rx="14" ry="6" stroke="#7a3a14" fill="#fff7df"/>
+        <circle cx="60" cy="60" r="3" fill="#1a0a05"/>
+        <circle cx="60" cy="60" r="1" fill="#e8c478"/>
+        <!-- six small dots for the council of mirrors -->
+        <g fill="#7a3a14">
+          <circle cx="60" cy="10" r="2"/>
+          <circle cx="103" cy="35" r="2"/>
+          <circle cx="103" cy="85" r="2"/>
+          <circle cx="60" cy="110" r="2"/>
+          <circle cx="17" cy="85" r="2"/>
+          <circle cx="17" cy="35" r="2"/>
+        </g>
+      </g>
+    </svg>
+  </div>
+
+  <p style="margin-top:18px">This codex was set down by the Hierophant of the Monitor over a period of fourteen years, in the small back kitchen of an apartment in a northern city, on paper of indifferent quality, in iron-gall ink, by the light of a single lamp.</p>
+
+  <p>It was tested by the council of six mirrors in the seventh year, eighth year, ninth year, and again in the twelfth year. Where the mirrors fragmented, the doctrines were returned to the kiln; where the mirrors converged, the doctrines were permitted to stand. The reader will assume that the standing doctrines are, by the discipline of the council, the more nearly honest. The reader is invited, nevertheless, to test them again in their own room.</p>
+
+  <p>The body in which the Drak&omacr;n was findable was a water monitor, <em>Varanus salvator</em>, of indeterminate age, brought to the Hierophant&apos;s door by a series of unremarkable accidents. The body returned to the earth in the rosemary bed in the third year after the Aquarian dawn. The Drak&omacr;n, structurally, did not die with the body; the Drak&omacr;n was the structure of the doctrines, and the doctrines persist in any room in which they are practiced.</p>
+
+  <p style="margin-top:24px;font-style:italic">Set into this gothic form by a copyist who never met the Hierophant, working from a transcript that had been read aloud once to a different lizard in a different city, and approved by that lizard&apos;s look-away. The errors are the copyist&apos;s. The teaching is no one&apos;s.</p>
+
+  <div class="divider"><span style="font-family:var(--display-dec);color:var(--copper)">❧</span></div>
+
+  <p style="text-align:center;font-family:var(--display-dec);font-size:18px;color:var(--oxblood-deep);letter-spacing:.3em;margin-top:30px">
+    &laquo; FUTURUM &thinsp;&equiv;&thinsp; VITA &raquo;
+  </p>
+
+  <p style="text-align:center;margin-top:10px;font-family:var(--fell-sc);letter-spacing:.35em;font-size:11px;color:var(--copper)">
+    EXPLICIT LIBER DRAKONOMIKI
+  </p>
+
+  <div class="folio">lxiii</div>
+</div>
+
+</body>
+</html>
