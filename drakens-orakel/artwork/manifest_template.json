@@ -1,0 +1,235 @@
+{
+  "version": "1.0",
+  "schema": "draken-orakel-card-manifest",
+  "note": "Template. Populate after Phase B completes. Indexes the 22 finalized card assets for runtime use by /orakel/.",
+  "deck": {
+    "name": "Drakens Orakel — Major Arcana",
+    "card_count": 22,
+    "card_dimensions_px": [1152, 1728],
+    "asset_format": "PNG",
+    "deck_style_locked_at": "FILL_IN_AFTER_PHASE_A_DATE",
+    "generation_model": "gemini-3.1-flash-image-hd"
+  },
+  "cards": [
+    {
+      "card_id": "00-fool",
+      "asset_path": "/static/orakel/cards/00-fool.png",
+      "raw_path": "/static/orakel/cards/raw/00-fool.png",
+      "alt_text_en": "The Fool, classical Major Arcana figure stepping into a seismic crack in an abandoned road, vegetation reclaiming the concrete city, dim teal accent",
+      "alt_text_sv": "Narren, klassisk Stora Arkana-figur som kliver in i en seismisk spricka i en övergiven väg, vegetation som tar tillbaka betongstaden, dämpat teal-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "01-magician",
+      "asset_path": "/static/orakel/cards/01-magician.png",
+      "raw_path": "/static/orakel/cards/raw/01-magician.png",
+      "alt_text_en": "The Magician with table and four suit symbols in ruined room, oxidized lemniscate above his head, silver-patinated palette",
+      "alt_text_sv": "Magikern med bord och fyra färgsymboler i raserat rum, oxiderad lemniskat ovanför huvudet, silver-patinerad palett",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "02-high-priestess",
+      "asset_path": "/static/orakel/cards/02-high-priestess.png",
+      "raw_path": "/static/orakel/cards/raw/02-high-priestess.png",
+      "alt_text_en": "High Priestess seated between two pillars, veil and scroll preserved, temple roof collapsed with moon visible, dim teal accent",
+      "alt_text_sv": "Översteprästinnan sittande mellan två pelare, slöja och skriftrulle bevarade, tempeltaket rasat med månen synlig, dämpat teal-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "03-empress",
+      "asset_path": "/static/orakel/cards/03-empress.png",
+      "raw_path": "/static/orakel/cards/raw/03-empress.png",
+      "alt_text_en": "Empress in feral overgrown garden, lichen on Venus shield, wild wheat at feet, dim teal accent",
+      "alt_text_sv": "Kejsarinnan i vildvuxen trädgård, lav på Venus-sköld, vildvuxet vete vid fötterna, dämpat teal-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "04-emperor",
+      "asset_path": "/static/orakel/cards/04-emperor.png",
+      "raw_path": "/static/orakel/cards/raw/04-emperor.png",
+      "alt_text_en": "Emperor on cliff throne overlooking empty wasteland kingdom, dim crimson accent",
+      "alt_text_sv": "Kejsaren på klipptron över tomt ödemarksrike, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "05-hierophant",
+      "asset_path": "/static/orakel/cards/05-hierophant.png",
+      "raw_path": "/static/orakel/cards/raw/05-hierophant.png",
+      "alt_text_en": "Hierophant with two kneeling acolytes in roofless church, rusted crossed keys, aged gold accent",
+      "alt_text_sv": "Hierofanten med två knäböjande novitier i taklös kyrka, rostade korslagda nycklar, åldrat guld-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "06-lovers",
+      "asset_path": "/static/orakel/cards/06-lovers.png",
+      "raw_path": "/static/orakel/cards/raw/06-lovers.png",
+      "alt_text_en": "Two monitor lizards locked in clinch combat posture, withered Eden tree behind, solar eclipse replacing archangel, black-green palette dominant",
+      "alt_text_sv": "Två varaner i clinch-stridsställning, vissnat Edensträd bakom, solförmörkelse istället för ärkeängel, svart-grön palett dominerar",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "07-chariot",
+      "asset_path": "/static/orakel/cards/07-chariot.png",
+      "raw_path": "/static/orakel/cards/raw/07-chariot.png",
+      "alt_text_en": "Chariot drawn by two harnessed monitor lizards past burned city, dim amber accent",
+      "alt_text_sv": "Vagn dragen av två selade varaner förbi bränd stad, dämpat bärnsten-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "08-strength",
+      "asset_path": "/static/orakel/cards/08-strength.png",
+      "raw_path": "/static/orakel/cards/raw/08-strength.png",
+      "alt_text_en": "Human and monitor lizard in peaceful rapport with Y-stick between them in open wasteland, dim teal accent",
+      "alt_text_sv": "Människa och varan i fredlig kontakt med Y-pinne emellan i öppen ödemark, dämpat teal-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "09-hermit",
+      "asset_path": "/static/orakel/cards/09-hermit.png",
+      "raw_path": "/static/orakel/cards/raw/09-hermit.png",
+      "alt_text_en": "Cloaked figure on cracked mountain peak holding lantern with fluorescent tube, permanent dusk landscape, dim amber accent",
+      "alt_text_sv": "Mantelklädd figur på sprucken bergstopp med lykta som innehåller lysrörstub, permanent skymning, dämpat bärnsten-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "10-wheel",
+      "asset_path": "/static/orakel/cards/10-wheel.png",
+      "raw_path": "/static/orakel/cards/raw/10-wheel.png",
+      "alt_text_en": "Wheel of Fortune frozen in dust, sphinx with no nose atop, four corner creatures turned to stone, silver-patinated accent",
+      "alt_text_sv": "Lyckohjulet stannat i damm, sfinx utan näsa ovanpå, fyra hörnvarelser förstenade, silver-patinerat accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "11-justice",
+      "asset_path": "/static/orakel/cards/11-justice.png",
+      "raw_path": "/static/orakel/cards/raw/11-justice.png",
+      "alt_text_en": "Justice with sword raised and uneven scales (book versus stone), torn blindfold, silver-patinated accent",
+      "alt_text_sv": "Rättvisan med upplyft svärd och ojämn våg (bok mot sten), trasig ögonbindel, silver-patinerat accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "12-hanged-man",
+      "asset_path": "/static/orakel/cards/12-hanged-man.png",
+      "raw_path": "/static/orakel/cards/raw/12-hanged-man.png",
+      "alt_text_en": "Figure hung inverted from dead leafless tree, fluorescent lighting ring as halo, dim crimson accent",
+      "alt_text_sv": "Figur hängande inverterat från dött lövlöst träd, lysrörsring som gloria, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "13-death",
+      "asset_path": "/static/orakel/cards/13-death.png",
+      "raw_path": "/static/orakel/cards/raw/13-death.png",
+      "alt_text_en": "Skeleton knight on skeletal horse with torn rose banner, distant varanid procession on horizon, dim crimson accent",
+      "alt_text_sv": "Skelettriddare på skeletthäst med riven rosbanér, avlägsen varanprocession vid horisonten, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "14-temperance",
+      "asset_path": "/static/orakel/cards/14-temperance.png",
+      "raw_path": "/static/orakel/cards/raw/14-temperance.png",
+      "alt_text_en": "Angel pouring liquid through cracked leaking chalices, tattered wings, aged gold accent",
+      "alt_text_sv": "Ängel häller vätska genom spruckna läckande bägare, trasiga vingar, åldrat guld-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "15-devil",
+      "asset_path": "/static/orakel/cards/15-devil.png",
+      "raw_path": "/static/orakel/cards/raw/15-devil.png",
+      "alt_text_en": "Two chained human figures bound to algorithmic server rack devil with antennae horns and LED eyes, dim crimson accent",
+      "alt_text_sv": "Två fjättrade människofigurer bundna till algoritmisk serverrack-djävul med antennhorn och LED-ögon, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "16-tower",
+      "asset_path": "/static/orakel/cards/16-tower.png",
+      "raw_path": "/static/orakel/cards/raw/16-tower.png",
+      "alt_text_en": "Tower in active collapse, lightning struck, two figures falling, smaller sheaf-fracture at base foreshadowing, dim crimson accent",
+      "alt_text_sv": "Tornet i aktiv kollaps, blixt nedslagen, två figurer faller, mindre sheaf-fraktur vid basen som föregriper, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "17-star",
+      "asset_path": "/static/orakel/cards/17-star.png",
+      "raw_path": "/static/orakel/cards/raw/17-star.png",
+      "alt_text_en": "Nude figure kneeling pouring poison-green water at fetid pool, clean eight-pointed star above, aged gold accent",
+      "alt_text_sv": "Naken figur knäböjande häller giftgrönt vatten vid stinkande damm, ren åttauddig stjärna ovanför, åldrat guld-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "18-moon",
+      "asset_path": "/static/orakel/cards/18-moon.png",
+      "raw_path": "/static/orakel/cards/raw/18-moon.png",
+      "alt_text_en": "Two towers, two howling dogs, crayfish climbing from pool, distorted oversized moon, highway-to-nowhere path, dim crimson accent",
+      "alt_text_sv": "Två torn, två ylande hundar, kräfta som klättrar ur damm, förvriden överstor måne, motorväg-till-ingenting stig, dämpat karmosin-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "19-sun",
+      "asset_path": "/static/orakel/cards/19-sun.png",
+      "raw_path": "/static/orakel/cards/raw/19-sun.png",
+      "alt_text_en": "Child on white horse with banner under overexposed white sun, wilted sunflowers, aged gold accent",
+      "alt_text_sv": "Barn på vit häst med banér under överexponerad vit sol, vissna solrosor, åldrat guld-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "20-judgement",
+      "asset_path": "/static/orakel/cards/20-judgement.png",
+      "raw_path": "/static/orakel/cards/raw/20-judgement.png",
+      "alt_text_en": "Trumpeting angel above rising J35 Draken pilots in flight suits emerging from coffins, silver-patinated accent",
+      "alt_text_sv": "Trumpetande ängel över uppstigande J35 Draken-piloter i flygdräkter ur kistor, silver-patinerat accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    },
+    {
+      "card_id": "21-world",
+      "asset_path": "/static/orakel/cards/21-world.png",
+      "raw_path": "/static/orakel/cards/raw/21-world.png",
+      "alt_text_en": "Dancing figure in 18-layer Draken manifold spiral wreath, four corner symbols (monitor lizard, seismograph, SSD, heart tissue), aged gold accent",
+      "alt_text_sv": "Dansande figur i 18-lagers Drakens manifold-spiralkrans, fyra hörnsymboler (varan, seismograf, SSD, hjärtvävnad), åldrat guld-accent",
+      "version": "FILL_IN",
+      "generation_timestamp": "FILL_IN_ISO8601",
+      "khrug_approved": false
+    }
+  ]
+}

@@ -523,6 +523,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
+    `<url><loc>${b}/orakel/</loc><priority>0.7</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -602,10 +603,11 @@ function build() {
     console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // â”€â”€ Thesis + Sheaf Analyzer + Slask â”€â”€
+  // â”€â”€ Thesis + Sheaf Analyzer + Slask + Orakel â”€â”€
   buildThesisPage(baseTpl);
   buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
+  buildOrakelPage(baseTpl);
   buildDigestPages();
   buildCorpusJson(posts);
 
@@ -635,6 +637,30 @@ function build() {
 }
 
 build();
+
+// ── ORAKEL PAGE (tarot oracle / coherence diagnostic) ──
+function buildOrakelPage(baseTpl) {
+  const op = path.join(STATIC_DIR, 'pages', 'orakel.html');
+  let body = '<div class="article-wrap"><h1>Drakens Orakel — Loading...</h1></div>';
+  if (fs.existsSync(op)) body = fs.readFileSync(op, 'utf-8');
+
+  const html = render(baseTpl, {
+    title: 'Drakens Orakel — Kortbetingad Koherensdiagnostik',
+    description: 'Card-conditioned coherence diagnostic. A tarot-framed falsification exercise for the Draken 2045 framework.',
+    content: body, og_type: 'website', og_url: 'https://draken.info/orakel/',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  });
+  const dir = path.join(DIST_DIR, 'orakel');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+
+  // Copy orakel card assets if they exist
+  const cardsSrc = path.join(STATIC_DIR, 'orakel', 'cards');
+  const cardsDst = path.join(DIST_DIR, 'orakel', 'cards');
+  if (fs.existsSync(cardsSrc)) copyDirSync(cardsSrc, cardsDst);
+
+  console.log('  ✓ orakel/');
+}
 
 // ── DIGEST pages (self-contained standalone HTML, one dir per issue) ──
 function buildDigestPages() {

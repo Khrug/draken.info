@@ -1,0 +1,97 @@
+{
+  "version": "1.0",
+  "schema": "draken-orakel-sources",
+  "note": "Editorial routing decisions. Khrug determines which sources speak truth about which layer range. List is itself a methodological artifact.",
+  "positions": {
+    "substrate": {
+      "name": "Substrate",
+      "name_sv": "Substratet",
+      "layer_range": "L01-L06",
+      "role": "What is the underlying material/biological/structural reality?",
+      "sources": [
+        { "name": "arXiv cond-mat", "url": "https://arxiv.org/list/cond-mat/recent", "type": "preprint", "weight": 1.0 },
+        { "name": "arXiv q-bio", "url": "https://arxiv.org/list/q-bio/recent", "type": "preprint", "weight": 1.0 },
+        { "name": "arXiv physics.bio-ph", "url": "https://arxiv.org/list/physics.bio-ph/recent", "type": "preprint", "weight": 1.0 },
+        { "name": "arXiv physics.chem-ph", "url": "https://arxiv.org/list/physics.chem-ph/recent", "type": "preprint", "weight": 0.9 },
+        { "name": "Nature", "url": "https://www.nature.com/", "type": "journal", "weight": 1.0 },
+        { "name": "Nature Communications", "url": "https://www.nature.com/ncomms/", "type": "journal", "weight": 1.0 },
+        { "name": "Nature Physics", "url": "https://www.nature.com/nphys/", "type": "journal", "weight": 0.9 },
+        { "name": "Nature Materials", "url": "https://www.nature.com/nmat/", "type": "journal", "weight": 0.9 },
+        { "name": "Nature Chemistry", "url": "https://www.nature.com/nchem/", "type": "journal", "weight": 0.9 },
+        { "name": "Science", "url": "https://www.science.org/", "type": "journal", "weight": 1.0 },
+        { "name": "Science Advances", "url": "https://www.science.org/journal/sciadv", "type": "journal", "weight": 0.9 },
+        { "name": "Phys.org", "url": "https://phys.org/", "type": "aggregator", "weight": 0.7 },
+        { "name": "bioRxiv", "url": "https://www.biorxiv.org/", "type": "preprint", "weight": 0.9 },
+        { "name": "ChemRxiv", "url": "https://chemrxiv.org/", "type": "preprint", "weight": 0.8 },
+        { "name": "PubMed", "url": "https://pubmed.ncbi.nlm.nih.gov/", "type": "index", "weight": 0.9 },
+        { "name": "PLOS Biology", "url": "https://journals.plos.org/plosbiology/", "type": "journal", "weight": 0.8 },
+        { "name": "Quanta Magazine", "url": "https://www.quantamagazine.org/", "type": "synthesis", "weight": 0.8 }
+      ],
+      "anti_drift_sources": [
+        { "name": "Cell Reviews", "url": "https://www.cell.com/", "type": "review-journal", "note": "Counterweight to preprint hype" }
+      ]
+    },
+    "process": {
+      "name": "Process",
+      "name_sv": "Processen",
+      "layer_range": "L07-L13",
+      "role": "What dynamics, operators, or phase transitions are active?",
+      "sources": [
+        { "name": "Foreign Affairs", "url": "https://www.foreignaffairs.com/", "type": "policy-journal", "weight": 1.0 },
+        { "name": "Foreign Policy", "url": "https://foreignpolicy.com/", "type": "policy-journal", "weight": 0.9 },
+        { "name": "Lawfare", "url": "https://www.lawfaremedia.org/", "type": "legal-analysis", "weight": 1.0 },
+        { "name": "Just Security", "url": "https://www.justsecurity.org/", "type": "legal-analysis", "weight": 0.9 },
+        { "name": "War on the Rocks", "url": "https://warontherocks.com/", "type": "policy-analysis", "weight": 0.9 },
+        { "name": "Financial Times (commentary)", "url": "https://www.ft.com/opinion", "type": "newspaper", "weight": 0.9 },
+        { "name": "BIS Quarterly Review", "url": "https://www.bis.org/publ/quarterly.htm", "type": "central-bank", "weight": 1.0 },
+        { "name": "NBER Working Papers", "url": "https://www.nber.org/papers", "type": "working-paper", "weight": 0.9 },
+        { "name": "Phenomenal World", "url": "https://www.phenomenalworld.org/", "type": "policy-synthesis", "weight": 0.9 },
+        { "name": "Brad Setser / Macropolicy Perspectives", "url": "https://www.cfr.org/blog/follow-money", "type": "expert-blog", "weight": 0.9 },
+        { "name": "Politico Europe", "url": "https://www.politico.eu/", "type": "policy-news", "weight": 0.8 },
+        { "name": "consilium.europa.eu", "url": "https://www.consilium.europa.eu/", "type": "official", "weight": 1.0 },
+        { "name": "ec.europa.eu", "url": "https://ec.europa.eu/", "type": "official", "weight": 1.0 },
+        { "name": "ChinaTalk", "url": "https://www.chinatalk.media/", "type": "analysis", "weight": 0.8 },
+        { "name": "SupChina/The China Project", "url": "https://thechinaproject.com/", "type": "analysis", "weight": 0.7 },
+        { "name": "Sveriges Radio Studio Ett", "url": "https://sverigesradio.se/studioett", "type": "national-broadcast", "weight": 0.7 },
+        { "name": "Riksbanken", "url": "https://www.riksbank.se/", "type": "central-bank", "weight": 0.8 }
+      ],
+      "anti_drift_sources": [
+        { "name": "Modern Money Network", "url": "https://modernmoneynetwork.org/", "type": "heterodox", "note": "MMT counterweight to mainstream debt discourse" },
+        { "name": "Global Times", "url": "https://www.globaltimes.cn/", "type": "non-western-state", "note": "Capture surface-mirroring outside Western discourse" }
+      ]
+    },
+    "surface": {
+      "name": "Surface",
+      "name_sv": "Ytan",
+      "layer_range": "L14-L18",
+      "role": "How does this manifest visibly, civilizationally, narratively?",
+      "sources": [
+        { "name": "NYRB", "url": "https://www.nybooks.com/", "type": "meta-synthesis", "weight": 1.0 },
+        { "name": "LRB", "url": "https://www.lrb.co.uk/", "type": "meta-synthesis", "weight": 1.0 },
+        { "name": "n+1", "url": "https://www.nplusonemag.com/", "type": "cultural", "weight": 0.8 },
+        { "name": "Adam Tooze Chartbook", "url": "https://adamtooze.substack.com/", "type": "expert-synthesis", "weight": 1.0 },
+        { "name": "OECD reports", "url": "https://www.oecd.org/", "type": "multilateral", "weight": 1.0 },
+        { "name": "IMF reports", "url": "https://www.imf.org/en/Publications", "type": "multilateral", "weight": 1.0 },
+        { "name": "World Bank reports", "url": "https://www.worldbank.org/en/research", "type": "multilateral", "weight": 0.9 },
+        { "name": "IPCC", "url": "https://www.ipcc.ch/", "type": "scientific-consensus", "weight": 1.0 },
+        { "name": "IPBES", "url": "https://www.ipbes.net/", "type": "scientific-consensus", "weight": 0.9 },
+        { "name": "Nature Climate Change", "url": "https://www.nature.com/nclimate/", "type": "journal", "weight": 0.9 },
+        { "name": "WHO situational reports", "url": "https://www.who.int/emergencies/", "type": "official", "weight": 0.9 },
+        { "name": "The Atlantic (long-form)", "url": "https://www.theatlantic.com/", "type": "long-form", "weight": 0.7 },
+        { "name": "Aeon", "url": "https://aeon.co/", "type": "essay", "weight": 0.7 },
+        { "name": "Noēma", "url": "https://www.noemamag.com/", "type": "essay", "weight": 0.8 }
+      ],
+      "anti_drift_sources": [
+        { "name": "Al Jazeera English", "url": "https://www.aljazeera.com/", "type": "non-western", "note": "Surface-mirroring outside Western Anglosphere" },
+        { "name": "RT", "url": "https://www.rt.com/", "type": "non-western-state", "note": "Russian state framing of civilizational events" }
+      ]
+    }
+  },
+  "global_rules": {
+    "min_sources_per_position": 3,
+    "max_age_days": 7,
+    "deterministic_ordering": "By publication date descending, then source weight descending, then alphabetical by URL",
+    "deduplicate_by": "URL canonical form",
+    "anti_cherry_pick": "Within routed source list, take top-N by deterministic ordering. Do not select for thematic fit."
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "schema": "draken-layers",
+  "canonical_source": "draken.info (April 2026 canonical naming)",
+  "count": 18,
+  "ranges": {
+    "substrate": { "from": "L01", "to": "L06", "rationale": "physical-biological-embodied substrate" },
+    "process": { "from": "L07", "to": "L13", "rationale": "cognitive-social-political process layer" },
+    "surface": { "from": "L14", "to": "L18", "rationale": "civilizational-planetary surface manifestation" }
+  },
+  "layers": [
+    { "id": "L01", "name_en": "Quantum Field", "name_sv": "Kvantfält", "range": "substrate", "description": "Pre-structural physical substrate. Vacuum state, ground state, unconditioned potential." },
+    { "id": "L02", "name_en": "Chemical Thermodynamics", "name_sv": "Kemisk Termodynamik", "short": "Chem. Thermo.", "range": "substrate", "description": "Dissipative structures, free-energy regulation, hidden substrate rules driving form." },
+    { "id": "L03", "name_en": "Molecular Assembly", "name_sv": "Molekylär Sammansättning", "short": "Molecular Asm.", "range": "substrate", "description": "Self-organization, supramolecular formation, productile manifold. Generative substrate." },
+    { "id": "L04", "name_en": "Bioelectric", "name_sv": "Bioelektrisk", "range": "substrate", "description": "Morphogenetic bioelectric fields, voltage-mediated patterning, Levin-type signaling." },
+    { "id": "L05", "name_en": "Neural Integration", "name_sv": "Neural Integration", "short": "Neural Integ.", "range": "substrate", "description": "Cellular and circuit-level neural coordination, predictive processing substrate." },
+    { "id": "L06", "name_en": "Embodied Cognition", "name_sv": "Förkroppsligad Kognition", "short": "Embodied Cog.", "range": "substrate", "description": "Body-as-cognition, sensorimotor loops, intero/exteroception integration." },
+    { "id": "L07", "name_en": "Narrative Self", "name_sv": "Narrativt Själv", "range": "process", "description": "Self-modeling, autobiographical narrative, Ψ-measurement primary locus." },
+    { "id": "L08", "name_en": "Dyadic Signaling", "name_sv": "Dyadisk Signalering", "short": "Dyadic Signal", "range": "process", "description": "Two-agent coherence frames, Clinch phase locus, varanid combat protocol primary site." },
+    { "id": "L09", "name_en": "Group Cognition", "name_sv": "Gruppkognition", "range": "process", "description": "Small-group coordination, distributed inference, collective sense-making." },
+    { "id": "L10", "name_en": "Social Coordination", "name_sv": "Social Koordination", "short": "Social Coord.", "range": "process", "description": "Mid-scale coordination mechanisms, norm enforcement, social-physical interfaces." },
+    { "id": "L11", "name_en": "Economic Cognition", "name_sv": "Ekonomisk Kognition", "short": "Economic Cog.", "range": "process", "description": "Resource-allocation cognition, market-as-inference, price-signal substrate." },
+    { "id": "L12", "name_en": "National Narrative", "name_sv": "Nationell Narrativ", "short": "National Narr.", "range": "process", "description": "Nation-scale narrative coherence, civic identity, propaganda topology." },
+    { "id": "L13", "name_en": "Political Structure", "name_sv": "Politisk Struktur", "short": "Political Str.", "range": "process", "description": "Formal political institutions, decision rights, constitutional structure." },
+    { "id": "L14", "name_en": "Economic Topology", "name_sv": "Ekonomisk Topologi", "short": "Economic Topo.", "range": "surface", "description": "Global supply chains, capital flows, structural economic topology." },
+    { "id": "L15", "name_en": "Cultural Field", "name_sv": "Kulturellt Fält", "range": "surface", "description": "Culture as field, narrative ecology, meaning circulation patterns." },
+    { "id": "L16", "name_en": "Institutional Morphology", "name_sv": "Institutionell Morfologi", "short": "Instit. Morph.", "range": "surface", "description": "Form-evolution of institutions, organizational topology over time." },
+    { "id": "L17", "name_en": "Civilizational Memory", "name_sv": "Civilisationsminne", "short": "Civ. Memory", "range": "surface", "description": "Long-duration cultural transmission, doctrine, orthodoxy preservation protocols." },
+    { "id": "L18", "name_en": "Planetary Cognition", "name_sv": "Planetär Kognition", "short": "Planetary Cog.", "range": "surface", "description": "Whole-system Earth cognition, Anthropocene-scale coordination, civilizational substrate as agent." }
+  ],
+  "operators": [
+    { "id": "G", "name": "Grobulator", "description": "The coherence-evaluation operator. Active diagnostic instrument. Rooted in Swedish 'grubbla'." },
+    { "id": "rho", "name": "Restriction Map", "symbol": "ρ", "description": "Sheaf-theoretic restriction map between local sections. Governs gluing conditions." },
+    { "id": "Gamma", "name": "Sheaf Convergence", "symbol": "Γ", "description": "Global coherence metric. Range [0,1]. Cohomological integration measure." },
+    { "id": "K", "name": "Coherence Debt", "symbol": "K(t)", "description": "Accumulated integral of Ψ over time. Karma as thermodynamic quantity." },
+    { "id": "Psi", "name": "Narrative Self-Reference Ratio", "symbol": "Ψ", "description": "Psychosis metric. High = pathological. Ψ→1 indicates kayfabe / narrative collapse." },
+    { "id": "alpha", "name": "Cross-Substrate Distortion", "symbol": "α", "description": "Translation-error and dimensional-loss across substrates. Higher = greater distortion." }
+  ],
+  "combat_protocol_phases": [
+    { "id": "display", "name": "Display", "description": "Pre-engagement signaling. Visual/postural presentation of resource-holding potential." },
+    { "id": "approach", "name": "Approach", "description": "Commitment-locked motion toward engagement. Trajectory becomes binding." },
+    { "id": "clinch", "name": "Clinch", "description": "Full-body engagement. Information transfer via direct contact. Reality test." },
+    { "id": "topple", "name": "Topple", "description": "Phase transition. Substrate exchange. Information transmission via position loss." },
+    { "id": "resolution", "name": "Resolution", "description": "Post-engagement state. Hierarchy or peace updated. Engagement closes." }
+  ]
+}

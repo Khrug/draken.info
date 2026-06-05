@@ -1,0 +1,146 @@
+{
+  "version": "1.0",
+  "schema": "draken-orakel-projections",
+  "note": "Card × Position → search terms. Card's primary anchor projected into position's layer-range vocabulary. Operational heart of the deterministic input system.",
+  "positions": [
+    { "id": "substrate", "layer_range": "L01-L06", "source_ref": "sources.json#substrate" },
+    { "id": "process", "layer_range": "L07-L13", "source_ref": "sources.json#process" },
+    { "id": "surface", "layer_range": "L14-L18", "source_ref": "sources.json#surface" }
+  ],
+  "default_query_assembly": "Concatenate 3 of 5 terms randomly with deterministic seed (date + card_id + position). Append year for temporal anchoring.",
+  "min_relevance_threshold": 0.5,
+  "projections": [
+    {
+      "card_id": "00-fool",
+      "substrate": ["quantum vacuum state", "symmetry breaking initialization", "ground state physics", "pre-structure formation", "primordial phase"],
+      "process": ["constitutional moment", "regime origin", "policy blank slate", "founding charter", "regulatory reset"],
+      "surface": ["civilizational founding", "great reset narrative", "epoch beginning", "world historical inflection", "founding myth revival"]
+    },
+    {
+      "card_id": "01-magician",
+      "substrate": ["measurement apparatus breakthrough", "diagnostic instrumentation", "sensor innovation", "metrology advance", "scientific instrumentation"],
+      "process": ["regulatory diagnostic tool", "policy framework launch", "analytical methodology", "compliance instrument", "monitoring framework"],
+      "surface": ["civilizational diagnostic", "planetary measurement system", "global monitoring infrastructure", "Earth-system observatory", "world index launch"]
+    },
+    {
+      "card_id": "02-high-priestess",
+      "substrate": ["dissipative structure", "non-equilibrium thermodynamics", "free energy principle", "Markov blanket", "hidden order parameter"],
+      "process": ["tacit norm", "unwritten rule", "deep state structure", "hidden coordination", "informal governance"],
+      "surface": ["civilizational unconscious", "cultural substructure", "long-duration norm", "deep historical pattern", "hegemonic tacit knowledge"]
+    },
+    {
+      "card_id": "03-empress",
+      "substrate": ["self-assembly", "supramolecular chemistry", "biomimetic peptide", "programmable matter", "molecular generative platform"],
+      "process": ["demographic generation", "fertility policy", "innovation pipeline", "generative regulation", "creative-sector policy"],
+      "surface": ["civilizational generativity", "cultural production capacity", "creative ecosystem", "world-cultural birth-rate", "civilizational fertility"]
+    },
+    {
+      "card_id": "04-emperor",
+      "substrate": ["lattice formation", "ordered crystalline phase", "structural integrity test", "load-bearing structure", "imposed geometry"],
+      "process": ["executive order", "constitutional power assertion", "regulatory authority expansion", "imposed framework", "central authority"],
+      "surface": ["imperial structure", "hegemonic order", "global authority figure", "civilizational imposition", "great-power dominance"]
+    },
+    {
+      "card_id": "05-hierophant",
+      "substrate": ["transmission fidelity", "genetic conservation", "epigenetic inheritance", "DNA repair mechanism", "fidelity of replication"],
+      "process": ["doctrine codification", "regulatory orthodoxy", "consensus document", "professional standard", "guideline canonization"],
+      "surface": ["civilizational doctrine", "religious institution", "canonical text", "orthodoxy preservation", "religious authority"]
+    },
+    {
+      "card_id": "06-lovers",
+      "substrate": ["covalent bonding", "molecular recognition", "ligand-receptor binding", "lock-and-key interaction", "biological pair-formation"],
+      "process": ["bilateral agreement", "merger acquisition", "strategic partnership", "treaty engagement", "alliance formation"],
+      "surface": ["civilizational alliance", "great-power rapprochement", "diplomatic settlement", "historical pact", "world-historical agreement"]
+    },
+    {
+      "card_id": "07-chariot",
+      "substrate": ["escalating gradient", "phase commitment", "irreversible trajectory", "kinetic lock-in", "directed flow"],
+      "process": ["diplomatic escalation", "military deployment", "negotiation lock-in", "policy momentum", "regulatory escalation"],
+      "surface": ["civilizational mobilization", "great-power escalation", "epoch trajectory", "world-historical momentum", "geopolitical drive"]
+    },
+    {
+      "card_id": "08-strength",
+      "substrate": ["mutualism evolution", "symbiotic system", "protocol-mediated coexistence", "non-extractive ecology", "evolutionary cooperation"],
+      "process": ["restorative justice", "non-coercive enforcement", "asymmetric agreement", "trust-based governance", "soft power exercise"],
+      "surface": ["civilizational restraint", "Geneva conventions", "norm-bound power", "ethics of asymmetry", "humanitarian framework"]
+    },
+    {
+      "card_id": "09-hermit",
+      "substrate": ["isolated system", "independent oscillator", "single-cell autonomy", "monastic biology", "decoupled regime"],
+      "process": ["strategic silence policy", "non-aligned position", "independent research", "principled abstention", "withdrawn nation"],
+      "surface": ["civilizational withdrawal", "non-aligned movement", "principled isolation", "neutral country stance", "civilizational solitude"]
+    },
+    {
+      "card_id": "10-wheel",
+      "substrate": ["entropy accumulation", "thermodynamic debt", "irreversible accumulation", "long-time kinetics", "ratcheting process"],
+      "process": ["policy cycles", "regulatory ratchet", "doom loop", "recurring crisis", "historical iteration"],
+      "surface": ["long debt cycle", "civilizational karma", "historical recurrence", "epochal cycle", "world-historical pattern"]
+    },
+    {
+      "card_id": "11-justice",
+      "substrate": ["boundary condition", "phase boundary", "constraint manifold", "physical conservation law", "fundamental constraint"],
+      "process": ["regulatory framework ruling", "compliance ruling", "treaty enforcement", "court decision", "international law application"],
+      "surface": ["international law development", "civilizational arbitration", "global governance ruling", "world court decision", "civilizational restitution"]
+    },
+    {
+      "card_id": "12-hanged-man",
+      "substrate": ["metastable state", "frustrated lattice", "kinetic trap", "stable non-equilibrium", "frozen disorder"],
+      "process": ["political deadlock", "stalled negotiation", "narrative loop", "policy paralysis", "regulatory impasse"],
+      "surface": ["civilizational impasse", "kayfabe politics", "narrative collapse", "epochal suspension", "world-historical stuck-state"]
+    },
+    {
+      "card_id": "13-death",
+      "substrate": ["phase transition", "substrate replacement", "metamorphosis", "structural transformation", "fundamental rearrangement"],
+      "process": ["regime transition", "institutional turnover", "leadership succession", "regulatory regime change", "policy paradigm shift"],
+      "surface": ["civilizational transition", "epochal shift", "paradigm change", "world-historical transformation", "great-power succession"]
+    },
+    {
+      "card_id": "14-temperance",
+      "substrate": ["self-assembly coherence", "phase coherence", "molecular synchrony", "coordinated assembly", "coherent state formation"],
+      "process": ["consensus formation", "regulatory harmonization", "policy convergence", "international coordination", "framework alignment"],
+      "surface": ["global governance integration", "civilizational convergence", "planetary integration", "world-system synthesis", "epochal coherence"]
+    },
+    {
+      "card_id": "15-devil",
+      "substrate": ["frozen lattice", "kinetic trap permanent", "metastable degenerate state", "locked-in misfolding", "pathological self-assembly"],
+      "process": ["cult dynamics", "captured regulator", "ideological closure", "regulatory capture", "captured-locals failure"],
+      "surface": ["totalitarian sheaf", "civilizational mind-trap", "false consciousness", "civilizational cult", "epochal delusion-system"]
+    },
+    {
+      "card_id": "16-tower",
+      "substrate": ["catastrophic phase transition", "structural failure cascade", "material collapse", "fundamental instability", "critical-point breakdown"],
+      "process": ["bank run", "regulatory cascade failure", "regime collapse", "treaty breakdown", "institutional implosion"],
+      "surface": ["sovereign debt crisis", "civilizational threshold breach", "currency crisis", "great power collapse", "world-historical reckoning"]
+    },
+    {
+      "card_id": "17-star",
+      "substrate": ["minimum entropy production", "variational principle", "optimization principle", "least action", "biological optimization"],
+      "process": ["policy optimization framework", "objective function definition", "target metric", "regulatory aim", "evidence-based goal"],
+      "surface": ["civilizational target", "planetary boundary", "long-term aim", "world-historical aspiration", "epochal goal"]
+    },
+    {
+      "card_id": "18-moon",
+      "substrate": ["translation error", "dimensional reduction loss", "lossy compression artifact", "noise floor inflation", "signal degradation"],
+      "process": ["narrative distortion", "propaganda inflation", "polling-reality gap", "media-amplified misperception", "elite-public divergence"],
+      "surface": ["civilizational delusion", "epochal misperception", "mass disinformation", "world-historical narrative drift", "civilizational dream-state"]
+    },
+    {
+      "card_id": "19-sun",
+      "substrate": ["coherent phase", "synchronized substrate", "phase-locked oscillator", "perfect crystalline order", "fully ordered state"],
+      "process": ["policy-substrate alignment", "evidence-based governance", "transparent regulation", "open-data framework", "model-reality match"],
+      "surface": ["civilizational coherence", "global alignment moment", "epochal clarity", "world-system transparency", "civilizational sunlight"]
+    },
+    {
+      "card_id": "20-judgement",
+      "substrate": ["failure analysis", "post-mortem analysis", "root cause identification", "forensic investigation", "scientific autopsy"],
+      "process": ["regulatory review", "accountability hearing", "lessons learned exercise", "after-action review", "policy audit"],
+      "surface": ["civilizational reckoning", "historical judgment", "epochal accountability", "world-historical tribunal", "civilizational verdict"]
+    },
+    {
+      "card_id": "21-world",
+      "substrate": ["Gaia-scale integration", "planetary-scale process", "Earth-system dynamics", "global biogeochemical cycle", "planetary boundary system"],
+      "process": ["global coordination mechanism", "planetary governance institution", "system-of-systems integration", "Earth-system policy", "planetary-scale framework"],
+      "surface": ["planetary cognition emergence", "civilizational maturity", "epoch completion", "world-historical integration", "Anthropocene self-awareness"]
+    }
+  ]
+}

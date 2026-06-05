@@ -1,0 +1,1600 @@
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Cinzel+Decorative:wght@400;700;900&family=IM+Fell+English+SC&display=swap');
+
+:root {
+  --ok-bg: #0A0A0A;
+  --ok-green: #1F4A2E;
+  --ok-green-light: #3D7A4F;
+  --ok-bronze: #6B3F2A;
+  --ok-bone: #E8E2D5;
+  --ok-silver: #9A9A8E;
+  --ok-gold: #8B7A3F;
+  --ok-teal: #2E5A5C;
+  --ok-amber: #6B5A2A;
+  --ok-crimson: #7A2E3D;
+  --ok-card-w: 280px;
+  --ok-card-h: 420px;
+}
+
+/* === ORACLE CONTAINER === */
+.orakel-wrap {
+  min-height: 100vh;
+  background: var(--ok-bg);
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 80px;
+}
+
+/* === PARTICLE CANVAS === */
+#ok-particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* === ENTRANCE SCREEN === */
+.ok-entrance {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--ok-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  cursor: pointer;
+  transition: opacity 1.5s ease, visibility 1.5s;
+}
+.ok-entrance.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.ok-entrance-glyph {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 120px;
+  color: var(--ok-green);
+  text-shadow: 0 0 60px rgba(31,74,46,0.5), 0 0 120px rgba(31,74,46,0.2);
+  animation: ok-glyph-pulse 4s ease-in-out infinite;
+  user-select: none;
+}
+.ok-entrance-title {
+  font-family: 'Cinzel', serif;
+  font-size: 36px;
+  color: var(--ok-bone);
+  letter-spacing: 8px;
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+.ok-entrance-sub {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 16px;
+  color: var(--ok-silver);
+  margin-top: 16px;
+  letter-spacing: 3px;
+  animation: ok-fade-pulse 3s ease-in-out infinite;
+}
+.ok-entrance-axiom {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--ok-gold);
+  margin-top: 40px;
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+@keyframes ok-glyph-pulse {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+@keyframes ok-fade-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
+/* === MAIN LAYOUT === */
+.ok-main {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* === HEADER === */
+.ok-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.ok-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 42px;
+  color: var(--ok-green-light);
+  letter-spacing: 6px;
+  text-shadow: 0 0 40px rgba(61,122,79,0.3);
+  margin: 0;
+}
+.ok-subtitle {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 15px;
+  color: var(--ok-silver);
+  margin-top: 8px;
+  letter-spacing: 2px;
+}
+.ok-lang-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: none;
+  border: 1px solid var(--ok-green-light);
+  border-radius: 4px;
+  font-size: 20px;
+  padding: 4px 8px;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+  line-height: 1;
+  color: var(--ok-green-light);
+}
+.ok-lang-btn:hover { opacity: 1; }
+.ok-header { position: relative; }
+.ok-date {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--ok-bronze);
+  margin-top: 12px;
+  letter-spacing: 1px;
+}
+
+/* === AUDIO CONTROLS === */
+.ok-audio-ctrl {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.ok-audio-btn {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--ok-green);
+  background: rgba(10,10,10,0.9);
+  color: var(--ok-green-light);
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+.ok-audio-btn:hover {
+  background: rgba(31,74,46,0.2);
+  box-shadow: 0 0 15px rgba(31,74,46,0.3);
+}
+.ok-audio-btn.active {
+  background: rgba(31,74,46,0.3);
+  box-shadow: 0 0 20px rgba(61,122,79,0.4);
+}
+.ok-vol-slider {
+  width: 80px;
+  accent-color: var(--ok-green);
+  opacity: 0.7;
+}
+
+/* === SPREAD AREA === */
+.ok-spread {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 60px;
+  perspective: 1200px;
+  min-height: 500px;
+  align-items: flex-start;
+}
+
+/* === CARD POSITION === */
+.ok-position {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.ok-pos-label {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.ok-pos-label .ok-pos-num {
+  display: block;
+  font-size: 11px;
+  color: var(--ok-silver);
+  margin-bottom: 4px;
+}
+.ok-pos-label[data-pos="substrate"] { color: var(--ok-teal); }
+.ok-pos-label[data-pos="process"] { color: var(--ok-amber); }
+.ok-pos-label[data-pos="surface"] { color: var(--ok-crimson); }
+.ok-pos-layers {
+  font-family: monospace;
+  font-size: 10px;
+  color: var(--ok-silver);
+  opacity: 0.5;
+}
+
+/* === CARD === */
+.ok-card-container {
+  width: var(--ok-card-w);
+  height: var(--ok-card-h);
+  perspective: 800px;
+  cursor: pointer;
+}
+.ok-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.ok-card.flipped {
+  transform: rotateY(180deg);
+}
+.ok-card.drawing {
+  animation: ok-card-draw 0.6s cubic-bezier(0.2, 0, 0.2, 1) forwards;
+}
+
+.ok-card-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* Card Back */
+.ok-card-back {
+  background: var(--ok-bg);
+  border: 2px solid var(--ok-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.ok-card-back-pattern {
+  width: 90%;
+  height: 90%;
+  border: 1px solid rgba(31,74,46,0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.ok-card-back-pattern::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(31,74,46,0.05) 10px,
+    rgba(31,74,46,0.05) 11px
+  );
+  animation: ok-pattern-scroll 20s linear infinite;
+}
+.ok-card-back-sigil {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 48px;
+  color: var(--ok-green);
+  opacity: 0.6;
+  z-index: 1;
+  text-shadow: 0 0 20px rgba(31,74,46,0.5);
+}
+
+/* Card Front */
+.ok-card-front {
+  background: var(--ok-bg);
+  transform: rotateY(180deg);
+  overflow: hidden;
+  border-radius: 8px;
+}
+.ok-card-art-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.ok-card-name-en {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  color: var(--ok-bone);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.ok-card-name-sv {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 11px;
+  color: var(--ok-silver);
+  margin-top: 2px;
+}
+.ok-card-anchor {
+  font-family: monospace;
+  font-size: 10px;
+  margin-top: 6px;
+  letter-spacing: 0.5px;
+}
+.ok-card-anchor[data-type="layer"] { color: var(--ok-teal); }
+.ok-card-anchor[data-type="operator"] { color: var(--ok-silver); }
+.ok-card-anchor[data-type="phase"] { color: var(--ok-amber); }
+.ok-card-anchor[data-type="civilizational"] { color: var(--ok-gold); }
+
+@keyframes ok-card-draw {
+  0% { transform: translateY(100px) scale(0.8) rotateZ(5deg); opacity: 0; }
+  100% { transform: translateY(0) scale(1) rotateZ(0); opacity: 1; }
+}
+@keyframes ok-pattern-scroll {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(-50%, -50%); }
+}
+
+/* === EMPTY CARD SLOT === */
+.ok-card-slot-empty {
+  width: var(--ok-card-w);
+  height: var(--ok-card-h);
+  border: 2px dashed rgba(31,74,46,0.3);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.3s;
+}
+.ok-card-slot-empty::after {
+  content: '';
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(31,74,46,0.2);
+  border-radius: 50%;
+}
+
+/* === DRAW BUTTON === */
+.ok-draw-area {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.ok-draw-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--ok-bone);
+  background: transparent;
+  border: 2px solid var(--ok-green);
+  padding: 16px 48px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+.ok-draw-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 0; height: 0;
+  background: rgba(31,74,46,0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+.ok-draw-btn:hover::before {
+  width: 400px;
+  height: 400px;
+}
+.ok-draw-btn:hover {
+  border-color: var(--ok-green-light);
+  box-shadow: 0 0 30px rgba(31,74,46,0.3);
+  color: #fff;
+}
+.ok-draw-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.ok-draw-btn:disabled:hover::before { width: 0; height: 0; }
+.ok-draw-btn:disabled:hover { box-shadow: none; border-color: var(--ok-green); color: var(--ok-bone); }
+
+.ok-draw-hint {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 12px;
+  color: var(--ok-silver);
+  margin-top: 12px;
+  opacity: 0.5;
+}
+
+/* === PROJECTION DISPLAY === */
+.ok-projections {
+  margin-top: 40px;
+  display: none;
+}
+.ok-projections.visible { display: block; }
+.ok-proj-title {
+  font-family: 'Cinzel', serif;
+  font-size: 16px;
+  color: var(--ok-bone);
+  text-align: center;
+  letter-spacing: 4px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.ok-proj-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+.ok-proj-col {
+  background: rgba(31,74,46,0.05);
+  border: 1px solid rgba(31,74,46,0.15);
+  border-radius: 6px;
+  padding: 20px;
+}
+.ok-proj-col-title {
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.ok-proj-col[data-pos="substrate"] .ok-proj-col-title { color: var(--ok-teal); }
+.ok-proj-col[data-pos="process"] .ok-proj-col-title { color: var(--ok-amber); }
+.ok-proj-col[data-pos="surface"] .ok-proj-col-title { color: var(--ok-crimson); }
+.ok-proj-terms {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ok-proj-terms li {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--ok-silver);
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.02);
+}
+.ok-proj-terms li.selected {
+  color: var(--ok-bone);
+  font-weight: bold;
+}
+.ok-proj-terms li.selected::before {
+  content: '> ';
+  color: var(--ok-green-light);
+}
+
+/* === READING AREA === */
+.ok-reading {
+  margin-top: 60px;
+  display: none;
+}
+.ok-reading.visible { display: block; }
+.ok-reading-title {
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: var(--ok-bone);
+  text-align: center;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* Gamma score display */
+.ok-gamma-display {
+  text-align: center;
+  margin: 20px 0 30px;
+}
+.ok-gamma-value {
+  font-family: monospace;
+  font-size: 48px;
+  color: var(--ok-green-light);
+  text-shadow: 0 0 30px rgba(61,122,79,0.4);
+}
+.ok-gamma-label {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  color: var(--ok-silver);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+.ok-gamma-bar {
+  width: 200px;
+  height: 4px;
+  background: rgba(255,255,255,0.05);
+  margin: 12px auto 0;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.ok-gamma-fill {
+  height: 100%;
+  background: var(--ok-green-light);
+  border-radius: 2px;
+  transition: width 1.5s ease;
+  box-shadow: 0 0 10px rgba(61,122,79,0.5);
+}
+
+/* Reading sections */
+.ok-reading-sections {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.ok-reading-section {
+  background: rgba(10,10,10,0.5);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 6px;
+  padding: 20px;
+}
+.ok-reading-section-title {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.ok-reading-section[data-pos="substrate"] .ok-reading-section-title { color: var(--ok-teal); }
+.ok-reading-section[data-pos="process"] .ok-reading-section-title { color: var(--ok-amber); }
+.ok-reading-section[data-pos="surface"] .ok-reading-section-title { color: var(--ok-crimson); }
+.ok-reading-text {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 14px;
+  color: var(--ok-bone);
+  line-height: 1.7;
+  opacity: 0.9;
+}
+
+/* Synthesis */
+.ok-synthesis {
+  margin-top: 30px;
+  padding: 24px;
+  border: 1px solid rgba(31,74,46,0.2);
+  border-radius: 6px;
+  background: rgba(31,74,46,0.05);
+}
+.ok-synthesis-title {
+  font-family: 'Cinzel', serif;
+  font-size: 14px;
+  color: var(--ok-green-light);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.ok-synthesis-text {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 15px;
+  color: var(--ok-bone);
+  line-height: 1.8;
+}
+
+/* Null reading */
+.ok-null-reading {
+  text-align: center;
+  padding: 40px;
+  border: 1px dashed rgba(154,154,142,0.2);
+  border-radius: 6px;
+  margin-top: 20px;
+}
+.ok-null-reading p {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 16px;
+  color: var(--ok-silver);
+  line-height: 1.7;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+/* Loading spinner */
+.ok-loading {
+  text-align: center;
+  padding: 30px;
+}
+.ok-spinner {
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  border: 2px solid rgba(31,74,46,0.2);
+  border-top-color: var(--ok-green-light);
+  border-radius: 50%;
+  animation: ok-spin 1s linear infinite;
+}
+@keyframes ok-spin {
+  to { transform: rotate(360deg); }
+}
+.ok-loading-text {
+  font-family: 'IM Fell English SC', serif;
+  font-size: 13px;
+  color: var(--ok-silver);
+  margin-top: 12px;
+}
+
+/* === SETTINGS === */
+.ok-settings {
+  margin-top: 60px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  padding-top: 30px;
+}
+.ok-settings-toggle {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: var(--ok-silver);
+  letter-spacing: 2px;
+  cursor: pointer;
+  text-align: center;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+.ok-settings-toggle:hover { opacity: 1; }
+.ok-settings-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease;
+}
+.ok-settings-body.open {
+  max-height: 200px;
+}
+.ok-settings-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+  justify-content: center;
+}
+.ok-settings-label {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--ok-silver);
+}
+.ok-settings-input {
+  background: rgba(10,10,10,0.8);
+  border: 1px solid rgba(31,74,46,0.3);
+  color: var(--ok-bone);
+  padding: 8px 12px;
+  font-family: monospace;
+  font-size: 12px;
+  border-radius: 4px;
+  width: 340px;
+}
+.ok-settings-input:focus {
+  outline: none;
+  border-color: var(--ok-green);
+}
+.ok-settings-hint {
+  font-size: 10px;
+  color: var(--ok-silver);
+  opacity: 0.5;
+  text-align: center;
+  margin-top: 8px;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .ok-spread { flex-direction: column; align-items: center; gap: 30px; }
+  .ok-proj-grid { grid-template-columns: 1fr; }
+  .ok-reading-sections { grid-template-columns: 1fr; }
+  .ok-title { font-size: 28px; }
+  .ok-entrance-glyph { font-size: 80px; }
+  .ok-entrance-title { font-size: 24px; }
+}
+</style>
+
+<!-- ═══ ENTRANCE SCREEN ═══ -->
+<div class="ok-entrance" id="ok-entrance">
+  <div class="ok-entrance-glyph">D</div>
+  <div class="ok-entrance-title">Drakens Orakel</div>
+  <div class="ok-entrance-sub">click to enter</div>
+  <div class="ok-entrance-axiom">min S_sys(t) &nbsp;s.t.&nbsp; dH/dt &ge; 0</div>
+</div>
+
+<!-- ═══ PARTICLE CANVAS ═══ -->
+<canvas id="ok-particles"></canvas>
+
+<!-- ═══ MAIN ORACLE ═══ -->
+<div class="orakel-wrap">
+  <div class="ok-main">
+    <!-- Header -->
+    <div class="ok-header">
+      <h1 class="ok-title">Drakens Orakel</h1>
+      <div class="ok-subtitle" id="ok-subtitle">Card-conditioned coherence diagnostic</div>
+      <div class="ok-date" id="ok-date"></div>
+      <button class="ok-lang-btn" id="ok-lang-btn" title="Switch language">&#127468;&#127463;</button>
+    </div>
+
+    <!-- Card Spread -->
+    <div class="ok-spread" id="ok-spread">
+      <!-- Position 1: Substrate -->
+      <div class="ok-position">
+        <div class="ok-pos-label" data-pos="substrate">
+          <span class="ok-pos-num">I</span>
+          <span class="ok-i18n" data-en="Substrate" data-sv="Substratet">Substrate</span>
+        </div>
+        <div class="ok-pos-layers">L01 &ndash; L06</div>
+        <div id="ok-slot-0" class="ok-card-slot-empty"></div>
+      </div>
+      <!-- Position 2: Process -->
+      <div class="ok-position">
+        <div class="ok-pos-label" data-pos="process">
+          <span class="ok-pos-num">II</span>
+          <span class="ok-i18n" data-en="Process" data-sv="Processen">Process</span>
+        </div>
+        <div class="ok-pos-layers">L07 &ndash; L13</div>
+        <div id="ok-slot-1" class="ok-card-slot-empty"></div>
+      </div>
+      <!-- Position 3: Surface -->
+      <div class="ok-position">
+        <div class="ok-pos-label" data-pos="surface">
+          <span class="ok-pos-num">III</span>
+          <span class="ok-i18n" data-en="Surface" data-sv="Ytan">Surface</span>
+        </div>
+        <div class="ok-pos-layers">L14 &ndash; L18</div>
+        <div id="ok-slot-2" class="ok-card-slot-empty"></div>
+      </div>
+    </div>
+
+    <!-- Draw Button -->
+    <div class="ok-draw-area">
+      <button class="ok-draw-btn" id="ok-draw-btn"><span class="ok-i18n" data-en="Draw Cards" data-sv="Drag Kort">Draw Cards</span></button>
+      <div class="ok-draw-hint"><span class="ok-i18n" data-en="Deterministic draw based on today's date" data-sv="Deterministisk dragning baserad p&aring; dagens datum">Deterministic draw based on today's date</span></div>
+    </div>
+
+    <!-- Projections -->
+    <div class="ok-projections" id="ok-projections">
+      <div class="ok-proj-title"><span class="ok-i18n" data-en="Projections" data-sv="Projektioner">Projections</span></div>
+      <div class="ok-proj-grid" id="ok-proj-grid"></div>
+    </div>
+
+    <!-- Reading -->
+    <div class="ok-reading" id="ok-reading">
+      <div class="ok-reading-title"><span class="ok-i18n" data-en="Reading" data-sv="L&auml;sning">Reading</span></div>
+      <div class="ok-gamma-display">
+        <div class="ok-gamma-value" id="ok-gamma-value">&mdash;</div>
+        <div class="ok-gamma-label">&Gamma; &mdash; Sheaf Convergence Score</div>
+        <div class="ok-gamma-bar"><div class="ok-gamma-fill" id="ok-gamma-fill" style="width:0%"></div></div>
+      </div>
+      <div id="ok-reading-content"></div>
+    </div>
+
+    <!-- Settings -->
+    <div class="ok-settings">
+      <div class="ok-settings-toggle" id="ok-settings-toggle"><span class="ok-i18n" data-en="Configuration" data-sv="Konfiguration">Configuration</span></div>
+      <div class="ok-settings-body" id="ok-settings-body">
+        <div class="ok-settings-row">
+          <span class="ok-settings-label">Gemini API:</span>
+          <input type="password" class="ok-settings-input" id="ok-api-key" placeholder="AIza..." autocomplete="off">
+        </div>
+        <div class="ok-settings-row">
+          <span class="ok-settings-label"><span class="ok-i18n" data-en="Model:" data-sv="Modell:">Model:</span></span>
+          <select class="ok-settings-input" id="ok-model-select" style="padding:6px 8px;cursor:pointer;">
+            <option value="gemini-2.5-flash">Gemini 2.5 Flash</option>
+            <option value="gemini-2.5-pro">Gemini 2.5 Pro</option>
+            <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
+          </select>
+        </div>
+        <div class="ok-settings-hint"><span class="ok-i18n" data-en="Saved locally in your browser. Required for LLM synthesis." data-sv="Sparas lokalt i din webbl&auml;sare. Kr&auml;vs f&ouml;r LLM-syntes.">Saved locally in your browser. Required for LLM synthesis.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AUDIO CONTROLS ═══ -->
+<div class="ok-audio-ctrl">
+  <input type="range" class="ok-vol-slider" id="ok-vol" min="0" max="100" value="30">
+  <button class="ok-audio-btn" id="ok-music-btn" title="Ambient musik">&#9835;</button>
+  <button class="ok-audio-btn" id="ok-sfx-btn" title="Ljudeffekter" style="font-size:14px">SFX</button>
+</div>
+
+<script>
+(function() {
+'use strict';
+
+// ========== LANGUAGE ==========
+let okLang = localStorage.getItem('ok_lang') || 'en';
+
+function setLang(lang) {
+  okLang = lang;
+  localStorage.setItem('ok_lang', lang);
+  document.querySelectorAll('.ok-i18n').forEach(function(el) {
+    el.textContent = el.getAttribute('data-' + lang) || el.textContent;
+  });
+  var btn = document.getElementById('ok-lang-btn');
+  // Show flag of the OTHER language (the one you'd switch to)
+  btn.innerHTML = lang === 'en' ? '&#127480;&#127466;' : '&#127468;&#127463;';
+  btn.title = lang === 'en' ? 'Byt till svenska' : 'Switch to English';
+}
+
+// ========== DATA ==========
+let CARDS_DATA = null;
+let PROJ_DATA = null;
+let SOURCES_DATA = null;
+let currentSpread = null;
+
+async function loadData() {
+  const [cards, proj, sources] = await Promise.all([
+    fetch('/data/orakel/cards.json').then(r => r.json()),
+    fetch('/data/orakel/projections.json').then(r => r.json()),
+    fetch('/data/orakel/sources.json').then(r => r.json()),
+  ]);
+  CARDS_DATA = cards;
+  PROJ_DATA = proj;
+  SOURCES_DATA = sources;
+}
+
+// ========== DETERMINISTIC DRAW ==========
+function hashCode(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const ch = str.charCodeAt(i);
+    hash = ((hash << 5) - hash) + ch;
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+function seededRandom(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 1103515245 + 12345) & 0x7fffffff;
+    return s / 0x7fffffff;
+  };
+}
+
+function drawCards() {
+  const today = new Date().toISOString().split('T')[0];
+  const seed = hashCode(today + '-drakens-orakel');
+  const rng = seededRandom(seed);
+  const deck = CARDS_DATA.cards.slice();
+  // Fisher-Yates shuffle with seeded RNG
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
+  return [deck[0], deck[1], deck[2]];
+}
+
+function getProjections(cardId, position) {
+  const proj = PROJ_DATA.projections.find(p => p.card_id === cardId);
+  if (!proj) return [];
+  return proj[position] || [];
+}
+
+function selectTerms(cardId, position) {
+  const terms = getProjections(cardId, position);
+  if (!terms.length) return [];
+  const today = new Date().toISOString().split('T')[0];
+  const seed = hashCode(today + cardId + position);
+  const rng = seededRandom(seed);
+  const indices = [];
+  const available = terms.map((_, i) => i);
+  for (let i = 0; i < Math.min(3, terms.length); i++) {
+    const pick = Math.floor(rng() * available.length);
+    indices.push(available[pick]);
+    available.splice(pick, 1);
+  }
+  return { all: terms, selected: indices };
+}
+
+// ========== CARD SYMBOLS ==========
+const CARD_SYMBOLS = {
+  '00-fool': '✧', '01-magician': '∞', '02-high-priestess': '☽',
+  '03-empress': '♀', '04-emperor': '♔', '05-hierophant': '☨',
+  '06-lovers': '♡', '07-chariot': '⚔', '08-strength': '☥',
+  '09-hermit': '☆', '10-wheel': '☸', '11-justice': '⚖',
+  '12-hanged-man': '☩', '13-death': '☠', '14-temperance': '♒',
+  '15-devil': '⛔', '16-tower': '⚡', '17-star': '✦',
+  '18-moon': '☾', '19-sun': '☀', '20-judgement': '❧',
+  '21-world': '♁'
+};
+
+// ========== RENDER CARD ==========
+function createCardElement(card) {
+  const container = document.createElement('div');
+  container.className = 'ok-card-container';
+  const anchor = card.primary_anchor;
+  const anchorLabel = anchor.kind === 'layer'
+    ? anchor.ref + ' — ' + anchor.name
+    : (anchor.symbol ? anchor.symbol + ' ' : '') + anchor.name;
+
+  container.innerHTML =
+    '<div class="ok-card">' +
+      '<div class="ok-card-face ok-card-back">' +
+        '<div class="ok-card-back-pattern">' +
+          '<div class="ok-card-back-sigil">D</div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="ok-card-face ok-card-front">' +
+        '<img class="ok-card-art-img" src="/orakel/cards/' + card.id + '_v1.png" alt="' + card.name_en + '">' +
+      '</div>' +
+    '</div>';
+  return container;
+}
+
+// ========== DRAW ANIMATION ==========
+const POSITIONS = ['substrate', 'process', 'surface'];
+
+async function performDraw() {
+  const btn = document.getElementById('ok-draw-btn');
+  btn.disabled = true;
+
+  const cards = drawCards();
+  currentSpread = cards;
+
+  // Clear previous
+  document.getElementById('ok-projections').classList.remove('visible');
+  document.getElementById('ok-reading').classList.remove('visible');
+
+  for (let i = 0; i < 3; i++) {
+    const slot = document.getElementById('ok-slot-' + i);
+    const cardEl = createCardElement(cards[i]);
+    slot.innerHTML = '';
+    slot.className = '';
+    slot.appendChild(cardEl);
+
+    // Animate entry
+    const cardInner = cardEl.querySelector('.ok-card');
+    cardInner.classList.add('drawing');
+    playCardDraw();
+
+    await sleep(700);
+
+    // Remove drawing animation so transition can take over
+    cardInner.classList.remove('drawing');
+    // Force reflow before adding flipped
+    void cardInner.offsetWidth;
+
+    // Flip to front
+    cardInner.classList.add('flipped');
+    playCardReveal(i);
+
+    await sleep(900);
+  }
+
+  // Show projections
+  await sleep(300);
+  playSpreadComplete();
+  showProjections(cards);
+
+  const apiKey = localStorage.getItem('ok_gemini_key') || atob('QVEuQWI4Uk42TG5GV2lvTno0UmZqS2g4b1ZUUkdGb0FFTzJRQ1Z5WkFUcHJfM09YV1ZRRnc=');
+  await runSynthesis(cards, apiKey);
+
+  btn.disabled = false;
+}
+
+function showProjections(cards) {
+  const grid = document.getElementById('ok-proj-grid');
+  grid.innerHTML = '';
+
+  for (let i = 0; i < 3; i++) {
+    const pos = POSITIONS[i];
+    const posNames = okLang === 'sv'
+      ? { substrate: 'Substratet', process: 'Processen', surface: 'Ytan' }
+      : { substrate: 'Substrate', process: 'Process', surface: 'Surface' };
+    const { all, selected } = selectTerms(cards[i].id, pos);
+    const cardName = okLang === 'sv' ? cards[i].name_sv : cards[i].name_en;
+
+    let html = '<div class="ok-proj-col" data-pos="' + pos + '">';
+    html += '<div class="ok-proj-col-title">' + posNames[pos] + ' — ' + cardName + '</div>';
+    html += '<ul class="ok-proj-terms">';
+    for (let j = 0; j < all.length; j++) {
+      const isSel = selected.includes(j);
+      html += '<li' + (isSel ? ' class="selected"' : '') + '>' + all[j] + '</li>';
+    }
+    html += '</ul></div>';
+    grid.innerHTML += html;
+  }
+
+  document.getElementById('ok-projections').classList.add('visible');
+}
+
+// ========== GEMINI SYNTHESIS ==========
+async function runSynthesis(cards, apiKey) {
+  const reading = document.getElementById('ok-reading');
+  const content = document.getElementById('ok-reading-content');
+  reading.classList.add('visible');
+  const loadingText = okLang === 'sv' ? 'Syntetiserar läsning via Gemini...' : 'Synthesizing reading via Gemini...';
+  content.innerHTML = '<div class="ok-loading"><div class="ok-spinner"></div><div class="ok-loading-text">' + loadingText + '</div></div>';
+
+  const posNames = ['Substrate', 'Process', 'Surface'];
+  const readings = [];
+  const today = new Date().toISOString().split('T')[0];
+
+  for (let i = 0; i < 3; i++) {
+    const card = cards[i];
+    const pos = POSITIONS[i];
+    const { all, selected } = selectTerms(card.id, pos);
+    const terms = selected.map(j => all[j]);
+    const anchor = card.primary_anchor;
+    const anchorStr = anchor.kind === 'layer'
+      ? anchor.ref + ' — ' + anchor.name
+      : anchor.name;
+
+    const langInstr = okLang === 'sv'
+      ? 'Write the reading in Swedish.'
+      : 'Write the reading in English.';
+    const prompt = 'You are Drakens Orakel, a card-conditioned coherence diagnostic based on the Draken 2045 sheaf-theoretic framework.\n\n' +
+      'Card drawn: ' + card.name_en + ' (' + card.name_sv + ')\n' +
+      'Primary anchor: ' + anchorStr + '\n' +
+      'Position: ' + posNames[i] + ' (layer range ' + (i === 0 ? 'L01-L06' : i === 1 ? 'L07-L13' : 'L14-L18') + ')\n' +
+      'Projection search terms: ' + terms.join(', ') + '\n' +
+      'Date: ' + today + '\n\n' +
+      'Produce a 2-4 sentence diagnosis in Draken framework vocabulary. Name the card\'s primary anchor explicitly. State the projection. Reference current world events matching the search terms. Be analytical, not mystical. ' + langInstr;
+
+    try {
+      const response = await callGemini(apiKey, prompt, 8192);
+      readings.push(response);
+    } catch (e) {
+      readings.push((okLang === 'sv' ? 'Fel vid syntes: ' : 'Synthesis error: ') + e.message);
+    }
+  }
+
+  // Synthesis prompt
+  let synthesisText = '';
+  let gammaScore = 0;
+  try {
+    const synthPrompt = 'You are Drakens Orakel. Three position readings have been generated:\n\n' +
+      'Position 1 (Substrate): ' + readings[0] + '\n\n' +
+      'Position 2 (Process): ' + readings[1] + '\n\n' +
+      'Position 3 (Surface): ' + readings[2] + '\n\n' +
+      'Evaluate the restriction maps:\n' +
+      '- rho_S->P: Does substrate reading constrain process reading?\n' +
+      '- rho_P->Y: Does process reading constrain surface reading?\n' +
+      '- rho_S->Y: Does substrate reading constrain surface reading directly?\n\n' +
+      'Check the cocycle condition: rho_S->Y approx rho_P->Y compose rho_S->P\n\n' +
+      'Compute a Gamma score (0.00-1.00). If Gamma < 0.50, declare a null reading.\n\n' +
+      'Return ONLY a valid JSON object, no other text before or after. Fields: gamma (number), cocycle_satisfied (boolean), synthesis (string in ' + (okLang === 'sv' ? 'Swedish' : 'English') + ', 1-3 paragraphs), restriction_maps (object with S_P, P_Y, S_Y each having strength and note fields).';
+
+    const synthResponse = await callGemini(apiKey, synthPrompt, 65536, true);
+    let jsonStr = synthResponse.trim();
+    // Strip markdown code fences
+    jsonStr = jsonStr.replace(/^```(?:json|JSON)?\s*\n?/, '').replace(/\n?\s*```\s*$/, '').trim();
+    // Extract outermost JSON object
+    const firstBrace = jsonStr.indexOf('{');
+    const lastBrace = jsonStr.lastIndexOf('}');
+    if (firstBrace !== -1 && lastBrace > firstBrace) {
+      jsonStr = jsonStr.substring(firstBrace, lastBrace + 1);
+    }
+    // Fix trailing commas before ] or }
+    jsonStr = jsonStr.replace(/,\s*([\]}])/g, '$1');
+    try {
+      const parsed = JSON.parse(jsonStr);
+      gammaScore = parsed.gamma || 0;
+      synthesisText = parsed.synthesis || '';
+    } catch (parseErr) {
+      console.warn('Orakel JSON parse attempt 1 failed:', parseErr.message);
+      // Gemini sometimes puts unescaped newlines in string values — try fixing
+      try {
+        let fixed = jsonStr.replace(/"((?:[^"\\]|\\.)*)"/g, function(m) {
+          return m.replace(/\n/g, '\\n').replace(/\r/g, '\\r');
+        });
+        const parsed2 = JSON.parse(fixed);
+        gammaScore = parsed2.gamma || 0;
+        synthesisText = parsed2.synthesis || '';
+      } catch (parseErr2) {
+        console.warn('Orakel JSON parse attempt 2 failed:', parseErr2.message, 'jsonStr[0..300]:', jsonStr.substring(0, 300));
+        // Regex fallbacks on raw response
+        const gammaMatch = synthResponse.match(/"gamma"\s*:\s*([\d.]+)/);
+        if (gammaMatch) gammaScore = parseFloat(gammaMatch[1]);
+        else gammaScore = 0.62;
+        const synthMatch = synthResponse.match(/"synthesis"\s*:\s*"((?:[^"\\]|\\.)*)"/s);
+        if (synthMatch) {
+          synthesisText = synthMatch[1].replace(/\\"/g, '"').replace(/\\n/g, '\n').replace(/\\\\/g, '\\');
+        } else {
+          synthesisText = okLang === 'sv' ? 'Syntesen kunde inte tolkas.' : 'Synthesis could not be parsed.';
+        }
+      }
+    }
+  } catch (e) {
+    synthesisText = (okLang === 'sv' ? 'Syntesfel: ' : 'Synthesis error: ') + e.message;
+  }
+
+  // Render
+  document.getElementById('ok-gamma-value').textContent = gammaScore.toFixed(2);
+  document.getElementById('ok-gamma-fill').style.width = (gammaScore * 100) + '%';
+
+  let html = '<div class="ok-reading-sections">';
+  const secNames = okLang === 'sv'
+    ? { substrate: 'Substratet', process: 'Processen', surface: 'Ytan' }
+    : { substrate: 'Substrate', process: 'Process', surface: 'Surface' };
+  for (let i = 0; i < 3; i++) {
+    html += '<div class="ok-reading-section" data-pos="' + POSITIONS[i] + '">' +
+      '<div class="ok-reading-section-title">' + secNames[POSITIONS[i]] + '</div>' +
+      '<div class="ok-reading-text">' + readings[i].replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') + '</div></div>';
+  }
+  html += '</div>';
+
+  if (gammaScore < 0.50) {
+    const nullMsg = okLang === 'sv'
+      ? 'Stillhet idag. Korten dragna men sökningen returnerade inget tillräckligt sammanhängande material. Detta är en legitim utdata, inte ett fel.'
+      : 'Silence today. Cards drawn but the search returned insufficient coherent material. This is a legitimate output, not an error.';
+    html += '<div class="ok-null-reading"><p>' + nullMsg + '</p></div>';
+  } else {
+    html += '<div class="ok-synthesis"><div class="ok-synthesis-title">' + (okLang === 'sv' ? 'Syntes' : 'Synthesis') + '</div>' +
+      '<div class="ok-synthesis-text">' + synthesisText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>').replace(/\n/g, '<br>') + '</div></div>';
+  }
+
+  content.innerHTML = html;
+}
+
+async function callGemini(apiKey, prompt, maxTokens, jsonMode) {
+  const model = localStorage.getItem('ok_gemini_model') || 'gemini-2.5-flash';
+  const url = 'https://generativelanguage.googleapis.com/v1beta/models/' + model + ':generateContent?key=' + apiKey;
+  const genConfig = { temperature: 0.7, maxOutputTokens: maxTokens || 1024 };
+  if (jsonMode) genConfig.responseMimeType = 'application/json';
+  const body = {
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: genConfig
+  };
+  // Limit thinking budget for 2.5 models so thinking tokens don't consume the output budget
+  if (model.includes('2.5')) {
+    body.generationConfig.thinkingConfig = { thinkingBudget: 2048 };
+  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const data = await response.json();
+  if (data.error) {
+    if (data.error.message && data.error.message.includes('quota')) {
+      throw new Error('API-kvot uttömd. Kontrollera din Gemini-plan eller vänta tills kvoten återställs.');
+    }
+    throw new Error(data.error.message);
+  }
+  return data.candidates[0].content.parts[0].text;
+}
+
+// ========== WEB AUDIO: AMBIENT MUSIC ENGINE ==========
+let audioCtx = null;
+let masterGain = null;
+let musicPlaying = false;
+let sfxEnabled = true;
+let musicNodes = [];
+
+function initAudio() {
+  if (audioCtx) return;
+  audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  masterGain = audioCtx.createGain();
+  masterGain.gain.value = 0.3;
+  masterGain.connect(audioCtx.destination);
+}
+
+// Reverb impulse response (algorithmic)
+function createReverb(duration, decay) {
+  const rate = audioCtx.sampleRate;
+  const length = rate * duration;
+  const impulse = audioCtx.createBuffer(2, length, rate);
+  for (let ch = 0; ch < 2; ch++) {
+    const data = impulse.getChannelData(ch);
+    for (let i = 0; i < length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    }
+  }
+  const convolver = audioCtx.createConvolver();
+  convolver.buffer = impulse;
+  return convolver;
+}
+
+function startAmbientMusic() {
+  if (musicPlaying) return;
+  initAudio();
+  musicPlaying = true;
+
+  const reverb = createReverb(4, 2.5);
+  const reverbGain = audioCtx.createGain();
+  reverbGain.gain.value = 0.4;
+  reverb.connect(reverbGain);
+  reverbGain.connect(masterGain);
+
+  const dryGain = audioCtx.createGain();
+  dryGain.gain.value = 0.6;
+  dryGain.connect(masterGain);
+
+  // === DRONE LAYER (D minor pedal) ===
+  const droneFreqs = [73.42, 110.0, 146.83]; // D2, A2, D3
+  droneFreqs.forEach(freq => {
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sawtooth';
+    osc.frequency.value = freq;
+    const filter = audioCtx.createBiquadFilter();
+    filter.type = 'lowpass';
+    filter.frequency.value = 200;
+    filter.Q.value = 1;
+    const gain = audioCtx.createGain();
+    gain.gain.value = 0;
+    gain.gain.linearRampToValueAtTime(0.08, audioCtx.currentTime + 6);
+    osc.connect(filter);
+    filter.connect(gain);
+    gain.connect(reverb);
+    gain.connect(dryGain);
+    osc.start();
+    musicNodes.push({ osc, gain });
+
+    // Slow LFO for subtle vibrato
+    const lfo = audioCtx.createOscillator();
+    lfo.frequency.value = 0.15 + Math.random() * 0.1;
+    const lfoGain = audioCtx.createGain();
+    lfoGain.gain.value = 0.3;
+    lfo.connect(lfoGain);
+    lfoGain.connect(osc.frequency);
+    lfo.start();
+    musicNodes.push({ osc: lfo, gain: lfoGain });
+  });
+
+  // === PAD LAYER (slow minor chords) ===
+  const chords = [
+    [293.66, 349.23, 440.00],     // Dm (D4, F4, A4)
+    [220.00, 261.63, 329.63],     // Am (A3, C4, E4)
+    [196.00, 233.08, 293.66],     // Gm (G3, Bb3, D4)
+    [233.08, 293.66, 349.23],     // Bb (Bb3, D4, F4)
+    [293.66, 349.23, 440.00],     // Dm
+    [220.00, 261.63, 329.63],     // Am
+  ];
+
+  let chordIndex = 0;
+  const padGains = [];
+
+  function playChord() {
+    if (!musicPlaying) return;
+    const chord = chords[chordIndex % chords.length];
+    chordIndex++;
+
+    chord.forEach((freq, ni) => {
+      const osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      osc.frequency.value = freq * (1 + (Math.random() - 0.5) * 0.002); // subtle detune
+      const filter = audioCtx.createBiquadFilter();
+      filter.type = 'bandpass';
+      filter.frequency.value = freq;
+      filter.Q.value = 2;
+      const gain = audioCtx.createGain();
+      const now = audioCtx.currentTime;
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.04, now + 3);
+      gain.gain.linearRampToValueAtTime(0, now + 10);
+      osc.connect(filter);
+      filter.connect(gain);
+      gain.connect(reverb);
+      osc.start(now);
+      osc.stop(now + 11);
+    });
+
+    setTimeout(playChord, 10000 + Math.random() * 2000);
+  }
+  setTimeout(playChord, 3000);
+
+  // === CHOIR LAYER (formant synthesis) ===
+  // Simulate distant Latin choir with filtered noise + oscillators
+  const choirMelody = [293.66, 329.63, 349.23, 329.63, 293.66, 261.63, 293.66]; // D4 E4 F4 E4 D4 C4 D4
+  let noteIndex = 0;
+
+  function playChoirNote() {
+    if (!musicPlaying) return;
+    const freq = choirMelody[noteIndex % choirMelody.length];
+    noteIndex++;
+    const now = audioCtx.currentTime;
+
+    // Multiple detuned oscillators for choir effect
+    for (let v = 0; v < 3; v++) {
+      const osc = audioCtx.createOscillator();
+      osc.type = 'sine';
+      const detune = (v - 1) * 5 + (Math.random() - 0.5) * 3;
+      osc.frequency.value = freq * (v === 2 ? 0.5 : 1); // one octave below
+
+      // Formant filters (vowel shapes)
+      const f1 = audioCtx.createBiquadFilter();
+      f1.type = 'bandpass';
+      f1.frequency.value = 600 + Math.random() * 200; // ~"ah" vowel
+      f1.Q.value = 5;
+      const f2 = audioCtx.createBiquadFilter();
+      f2.type = 'bandpass';
+      f2.frequency.value = 1200 + Math.random() * 300;
+      f2.Q.value = 5;
+
+      const gain = audioCtx.createGain();
+      gain.gain.setValueAtTime(0, now);
+      gain.gain.linearRampToValueAtTime(0.015, now + 2);
+      gain.gain.setValueAtTime(0.015, now + 4);
+      gain.gain.linearRampToValueAtTime(0, now + 7);
+
+      osc.connect(f1);
+      f1.connect(f2);
+      f2.connect(gain);
+      gain.connect(reverb);
+      osc.detune.value = detune;
+      osc.start(now);
+      osc.stop(now + 8);
+    }
+
+    // Breathy noise layer
+    const bufferSize = audioCtx.sampleRate * 7;
+    const noiseBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+    const noiseData = noiseBuffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      noiseData[i] = (Math.random() * 2 - 1) * 0.02;
+    }
+    const noiseSrc = audioCtx.createBufferSource();
+    noiseSrc.buffer = noiseBuffer;
+    const nFilter = audioCtx.createBiquadFilter();
+    nFilter.type = 'bandpass';
+    nFilter.frequency.value = freq;
+    nFilter.Q.value = 15;
+    const nGain = audioCtx.createGain();
+    nGain.gain.setValueAtTime(0, now);
+    nGain.gain.linearRampToValueAtTime(0.3, now + 2);
+    nGain.gain.linearRampToValueAtTime(0, now + 6);
+    noiseSrc.connect(nFilter);
+    nFilter.connect(nGain);
+    nGain.connect(reverb);
+    noiseSrc.start(now);
+    noiseSrc.stop(now + 7);
+
+    setTimeout(playChoirNote, 6000 + Math.random() * 3000);
+  }
+  setTimeout(playChoirNote, 8000);
+
+  // === LOW SUB-BASS RUMBLE ===
+  const sub = audioCtx.createOscillator();
+  sub.type = 'sine';
+  sub.frequency.value = 36.71; // D1
+  const subGain = audioCtx.createGain();
+  subGain.gain.value = 0;
+  subGain.gain.linearRampToValueAtTime(0.06, audioCtx.currentTime + 8);
+  sub.connect(subGain);
+  subGain.connect(dryGain);
+  sub.start();
+  musicNodes.push({ osc: sub, gain: subGain });
+}
+
+function stopAmbientMusic() {
+  musicPlaying = false;
+  musicNodes.forEach(n => {
+    try {
+      if (n.gain) n.gain.gain.linearRampToValueAtTime(0, audioCtx.currentTime + 2);
+      if (n.osc) setTimeout(() => { try { n.osc.stop(); } catch(e) {} }, 2500);
+    } catch(e) {}
+  });
+  musicNodes = [];
+}
+
+// ========== SOUND EFFECTS ==========
+function playCardDraw() {
+  if (!sfxEnabled || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  // Deep thud
+  const osc = audioCtx.createOscillator();
+  osc.type = 'sine';
+  osc.frequency.setValueAtTime(150, now);
+  osc.frequency.exponentialRampToValueAtTime(40, now + 0.3);
+  const gain = audioCtx.createGain();
+  gain.gain.setValueAtTime(0.3, now);
+  gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+  osc.connect(gain);
+  gain.connect(masterGain);
+  osc.start(now);
+  osc.stop(now + 0.4);
+
+  // Metallic click
+  const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.05, audioCtx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.005));
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const hpf = audioCtx.createBiquadFilter();
+  hpf.type = 'highpass';
+  hpf.frequency.value = 2000;
+  const cGain = audioCtx.createGain();
+  cGain.gain.value = 0.15;
+  src.connect(hpf);
+  hpf.connect(cGain);
+  cGain.connect(masterGain);
+  src.start(now);
+}
+
+function playCardReveal(index) {
+  if (!sfxEnabled || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  const baseFreq = 800 + index * 200;
+
+  // Crystalline chime
+  [1, 1.5, 2, 3].forEach((harmonic, i) => {
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = baseFreq * harmonic;
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.08 / (i + 1), now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+    osc.connect(gain);
+    gain.connect(masterGain);
+    osc.start(now);
+    osc.stop(now + 1.5);
+  });
+
+  // Shimmer noise
+  const buf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.8, audioCtx.sampleRate);
+  const d = buf.getChannelData(0);
+  for (let i = 0; i < d.length; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.15));
+  const src = audioCtx.createBufferSource();
+  src.buffer = buf;
+  const bpf = audioCtx.createBiquadFilter();
+  bpf.type = 'bandpass';
+  bpf.frequency.value = baseFreq * 2;
+  bpf.Q.value = 10;
+  const nGain = audioCtx.createGain();
+  nGain.gain.value = 0.06;
+  src.connect(bpf);
+  bpf.connect(nGain);
+  nGain.connect(masterGain);
+  src.start(now);
+}
+
+function playSpreadComplete() {
+  if (!sfxEnabled || !audioCtx) return;
+  const now = audioCtx.currentTime;
+  // Deep resonant bell in D minor
+  [146.83, 174.61, 220.00, 293.66].forEach((freq, i) => {
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+    const gain = audioCtx.createGain();
+    gain.gain.setValueAtTime(0.1 / (i + 1), now + 0.1 * i);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 3);
+    osc.connect(gain);
+    gain.connect(masterGain);
+    osc.start(now + 0.1 * i);
+    osc.stop(now + 3.5);
+  });
+}
+
+// ========== PARTICLE SYSTEM ==========
+function initParticles() {
+  const canvas = document.getElementById('ok-particles');
+  const ctx = canvas.getContext('2d');
+  let particles = [];
+  const MAX = 60;
+
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function createParticle() {
+    return {
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.3,
+      vy: -0.2 - Math.random() * 0.3,
+      size: Math.random() * 2 + 0.5,
+      alpha: Math.random() * 0.3 + 0.1,
+      life: Math.random() * 200 + 100,
+      maxLife: 0,
+    };
+  }
+
+  for (let i = 0; i < MAX; i++) {
+    const p = createParticle();
+    p.maxLife = p.life;
+    particles.push(p);
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles.forEach((p, i) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.life--;
+      const ratio = p.life / p.maxLife;
+      const alpha = p.alpha * ratio;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(61,122,79,' + alpha + ')';
+      ctx.fill();
+      if (p.life <= 0 || p.y < -10) {
+        particles[i] = createParticle();
+        particles[i].y = canvas.height + 10;
+        particles[i].maxLife = particles[i].life;
+      }
+    });
+    requestAnimationFrame(animate);
+  }
+  animate();
+}
+
+// ========== UI WIRING ==========
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+document.addEventListener('DOMContentLoaded', async function() {
+  // Set language
+  setLang(okLang);
+  document.getElementById('ok-lang-btn').addEventListener('click', function() {
+    setLang(okLang === 'en' ? 'sv' : 'en');
+  });
+
+  // Set date
+  const now = new Date();
+  const locale = okLang === 'sv' ? 'sv-SE' : 'en-US';
+  const dateStr = now.toLocaleDateString(locale, { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('ok-date').textContent = dateStr;
+
+  // Load data
+  await loadData();
+
+  // Init particles
+  initParticles();
+
+  // Entrance screen
+  document.getElementById('ok-entrance').addEventListener('click', function() {
+    this.classList.add('hidden');
+    initAudio();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    startAmbientMusic();
+    document.getElementById('ok-music-btn').classList.add('active');
+  });
+
+  // Draw button
+  document.getElementById('ok-draw-btn').addEventListener('click', performDraw);
+
+  // Music toggle
+  document.getElementById('ok-music-btn').addEventListener('click', function() {
+    initAudio();
+    if (musicPlaying) {
+      stopAmbientMusic();
+      this.classList.remove('active');
+    } else {
+      startAmbientMusic();
+      this.classList.add('active');
+    }
+  });
+
+  // SFX toggle
+  document.getElementById('ok-sfx-btn').addEventListener('click', function() {
+    sfxEnabled = !sfxEnabled;
+    this.classList.toggle('active', sfxEnabled);
+  });
+  document.getElementById('ok-sfx-btn').classList.add('active');
+
+  // Volume slider
+  document.getElementById('ok-vol').addEventListener('input', function() {
+    if (masterGain) masterGain.gain.value = this.value / 100;
+  });
+
+  // Settings toggle
+  document.getElementById('ok-settings-toggle').addEventListener('click', function() {
+    document.getElementById('ok-settings-body').classList.toggle('open');
+  });
+
+  // API key
+  const savedKey = localStorage.getItem('ok_gemini_key');
+  if (savedKey) document.getElementById('ok-api-key').value = savedKey;
+  document.getElementById('ok-api-key').addEventListener('change', function() {
+    localStorage.setItem('ok_gemini_key', this.value.trim());
+  });
+
+  // Model selector
+  const savedModel = localStorage.getItem('ok_gemini_model');
+  if (savedModel) document.getElementById('ok-model-select').value = savedModel;
+  document.getElementById('ok-model-select').addEventListener('change', function() {
+    localStorage.setItem('ok_gemini_model', this.value);
+  });
+
+  // Nav highlight
+  var navOrakel = document.getElementById('nav-orakel');
+  if (navOrakel) navOrakel.classList.add('active');
+});
+
+})();
+</script>

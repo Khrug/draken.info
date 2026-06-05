@@ -1,0 +1,183 @@
+{
+  "version": "1.0",
+  "schema": "draken-orakel-prompts",
+  "model_default": "gemini-3.1-flash-image",
+  "model_fallback": "gemini-3-pro-image",
+  "aspect_ratio": "2:3",
+  "raw_output_size": "1024x1536",
+  "final_framed_size": "1152x1728",
+  "style_anchor": "Detailed etched illustration in the style of Albrecht Dürer crossed with mathematical research diagrams, dark muted color palette dominated by deep black background with oxidized bronze and bone-white tones, dignified post-civilizational-collapse atmosphere, classical tarot Major Arcana iconography preserved and recognizable, weathered ruins in environment but central figure intact, 2:3 vertical aspect ratio composition, central figure or symbol with breathing negative space, no card frame or border in the illustration itself, no text or typography or letters or numbers anywhere in the image, no fantasy art tropes, no horror tropes, no zombie aesthetics, no Mad Max clichés, no blood, no active fire, no modern industrial wreckage, muted saturation under 60 percent, illustration not photograph",
+  "negative_prompt": "frame, border, card border, text, typography, letters, numbers, card name, card number, watermark, signature, modern graphic design, photorealism, AI portrait style, anime, manga, fantasy art, lush color, vibrant saturation, ornate decoration, horror, blood, gore, zombie, gothic, cute, kawaii, photograph, screenshot, glowing effects, lens flare, bokeh, smartphone photo, hdr",
+  "frame_config": {
+    "edge_color": "#1F4A2E",
+    "edge_width_px": 24,
+    "background_color": "#0A0A0A",
+    "inner_padding_px": 40,
+    "typography_color": "#E8E2D5",
+    "typography_font": "DejaVu Sans Mono",
+    "number_font_size": 32,
+    "name_font_size": 28,
+    "anchor_font_size": 20,
+    "anchor_color_substrate": "#2E5A5C",
+    "anchor_color_process": "#6B5A2A",
+    "anchor_color_surface": "#7A2E3D",
+    "anchor_color_operator": "#9A9A8E",
+    "anchor_color_civilizational": "#8B7A3F"
+  },
+  "cards": [
+    {
+      "card_id": "00-fool",
+      "card_type": "layer",
+      "accent_role": "substrate",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Fool figure (young traveler in traditional robe with small bundle on shoulder) at the edge of a seismic crack splitting an abandoned asphalt road, vegetation reclaiming concrete structures in middle distance, the figure stepping INTO the crack rather than away, white rose held loosely, no dog companion, low horizon line, dim teal accent in distant sky"
+    },
+    {
+      "card_id": "01-magician",
+      "card_type": "operator",
+      "accent_role": "operator",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Magician figure standing behind wooden table holding the four suit symbols (cup, sword, wand, pentacle) intact and visible, table stands in partially ruined stone room with broken walls, an oxidized rusted welded metal ring suspended above his head representing the infinity lemniscate, right hand raised in classical gesture pointing upward, left hand pointing down, no audience implied, dim patinated silver tones"
+    },
+    {
+      "card_id": "02-high-priestess",
+      "card_type": "layer",
+      "accent_role": "substrate",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical High Priestess seated frontally between two pillars (one dark one light, weathered with faded markings), veil draped between pillars, scroll resting on her lap, but the temple roof above is partially collapsed with sky visible through broken vaulting, moonlight as primary illumination, vegetation growing through cracked floor tiles, composed dignified posture, dim teal accent"
+    },
+    {
+      "card_id": "03-empress",
+      "card_type": "layer",
+      "accent_role": "substrate",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Empress seated on cushioned throne in what was once a fertile cultivated garden now gone feral, wild overgrowth, lichen covering her round Venus shield bearing the female symbol, wheat at her feet grown tall and unharvested, crown of twelve stars present, old growth trees behind her have reclaimed the space, dim teal accent"
+    },
+    {
+      "card_id": "04-emperor",
+      "card_type": "civilizational",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Emperor seated on heavy stone throne with weathered ram-head ornaments at the corners, red robe present, ankh-topped scepter in hand, his cliff position overlooks an empty wasteland kingdom of distant ruins with no subjects visible, he remains in dignified pose, dim crimson accent"
+    },
+    {
+      "card_id": "05-hierophant",
+      "card_type": "layer",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Hierophant in papal robes with triple crown seated between two pillars, two tonsured acolytes kneeling before him in respectful posture, crossed keys lying at his feet now rusted, but the church around them is roofless with sky above, vegetation growing between flagstones, faint candle smoke present, dim aged gold accent"
+    },
+    {
+      "card_id": "06-lovers",
+      "card_type": "phase",
+      "accent_role": "surface",
+      "varanid_presence": "central",
+      "prompt_v1": "Two large monitor lizards (Varanus salvator water monitors with dark green and black scaled bodies) locked in full-body grapple in foreground, varanid clinch combat posture with bodies intertwined and forelegs gripping each other, scales catching dim light, behind them a withered Eden garden with a single dead leafless tree at center, a dark solar eclipse or seismic cloud formation in the sky replacing the traditional archangel figure, distant ruins on horizon, composition dominated by deep black and varanid green, dim green atmospheric accent"
+    },
+    {
+      "card_id": "07-chariot",
+      "card_type": "phase",
+      "accent_role": "process",
+      "varanid_presence": "background",
+      "prompt_v1": "A chariot or heavy cart with plow attachment in foreground, two harnessed monitor lizards drawing the vehicle in place of traditional sphinxes (varanids on leads, bodies low), a single armored figure leading them through plowed earth past a burned and ruined city in the distance, wheels turning, heroic posture preserved in the figure, dim amber accent"
+    },
+    {
+      "card_id": "08-strength",
+      "card_type": "layer",
+      "accent_role": "substrate",
+      "varanid_presence": "central",
+      "prompt_v1": "A human figure in simple robe crouched in peaceful posture beside a large monitor lizard (Varanus, anatomically accurate, heavy-bodied), the Y-shaped wooden stick lying on the ground between them with neither holding it threateningly, an open empty wasteland background extending behind them, no infinity symbol overhead, the gesture between human and varanid is rapport not domination, both figures dignified, dim teal accent"
+    },
+    {
+      "card_id": "09-hermit",
+      "card_type": "layer",
+      "accent_role": "process",
+      "varanid_presence": "none",
+      "prompt_v1": "A cloaked hooded figure standing on a mountain peak holding aloft a lantern, but the light source within the lantern is a flickering fluorescent tube not a star or flame, permanent dusk landscape spreading below, the stone underfoot cracked, a tall staff in his other hand, no external natural light source, dim amber accent"
+    },
+    {
+      "card_id": "10-wheel",
+      "card_type": "operator",
+      "accent_role": "operator",
+      "varanid_presence": "none",
+      "prompt_v1": "The Wheel of Fortune stopped and frozen in dust as central composition, the Sphinx atop the wheel has lost its nose (like the Great Sphinx of Giza), the four corner creatures (eagle, lion, bull, angel) in clouds have turned to weathered stone, the wheel itself rusted and partially overgrown with creeping vines, central symbols on the wheel worn but readable as fragments, dim patinated silver accent"
+    },
+    {
+      "card_id": "11-justice",
+      "card_type": "operator",
+      "accent_role": "operator",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical Justice figure seated frontally on throne, sword raised in right hand, scales held in left hand but the scales are visibly uneven with one pan holding a thick law book and the other pan holding a heavy stone, her blindfold is torn revealing one eye, throne intact, composition formal and symmetric despite the broken balance, dim patinated silver accent"
+    },
+    {
+      "card_id": "12-hanged-man",
+      "card_type": "phase",
+      "accent_role": "process",
+      "varanid_presence": "none",
+      "prompt_v1": "A figure hung inverted by one foot from a dead leafless tree branch (T-shape, stark against sky), other leg crossed behind forming the figure-4 pose, the halo around his head is a flickering fluorescent lighting ring not divine radiant glow, his expression serene and accepting, the dead tree stark against a ruined cityscape in the background, dim crimson accent"
+    },
+    {
+      "card_id": "13-death",
+      "card_type": "phase",
+      "accent_role": "surface",
+      "varanid_presence": "background",
+      "prompt_v1": "Classical armored skeleton knight mounted on a skeletal horse as central figure, the white rose banner held aloft but the fabric torn and tattered, but in the middle background instead of a fallen king or pope, a distant marching procession of monitor lizard silhouettes moves across the horizon (the passage itself, varanid procession), the card reads as transition not termination, dim crimson accent"
+    },
+    {
+      "card_id": "14-temperance",
+      "card_type": "operator",
+      "accent_role": "operator",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical angel figure pouring liquid from one chalice to another between the two cups, but both chalices are visibly cracked and liquid is leaking through the fractures before reaching the second cup, wings present but feathers tattered and incomplete, composition formal and centered, the act of pouring continues despite the leak, dim aged gold accent"
+    },
+    {
+      "card_id": "15-devil",
+      "card_type": "operator",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "The two chained human figures present at the base in classical posture (a man and a woman, chains around necks), but their chains attach upward to a rack of computer servers and algorithmic processors instead of the traditional pedestal, the devil figure looming above has antennae instead of horns and LED indicators where his eyes would be, modern technology rendered as devilish furnace, the captured-locals failure made literal, dim crimson accent"
+    },
+    {
+      "card_id": "16-tower",
+      "card_type": "operator",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "The tower in full active collapse as central composition, lightning bolt striking from above, two figures falling from the windows in classical posture, but at the base of the tower also visible: a smaller earlier structural fracture in a sheaf-like geometric pattern foreshadowing the larger collapse, dark stormy sky as backdrop, the only well-lit element is the falling tower itself catching the lightning, dim crimson accent"
+    },
+    {
+      "card_id": "17-star",
+      "card_type": "civilizational",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "A nude figure kneeling at the edge of a pool of water, pouring liquid from two pitchers (one onto land, one into the water), but the water being poured is visibly poison-green and the pool she kneels beside is fetid and stagnant, the large eight-pointed star above is clear and clean and bright as a distant aim, the target is distant but what is given in the meantime is contaminated, dim aged gold accent"
+    },
+    {
+      "card_id": "18-moon",
+      "card_type": "operator",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "The classical Moon card scene: two towers in the distance, two dogs or wolves howling in foreground, a crayfish climbing from a dark pool, but the moon above is oversized and visibly distorted with fractured dusty lunar surface detail, the winding path between the towers leads to a modern broken highway that fades into haze and goes nowhere, dim crimson accent"
+    },
+    {
+      "card_id": "19-sun",
+      "card_type": "civilizational",
+      "accent_role": "surface",
+      "varanid_presence": "none",
+      "prompt_v1": "A child on a white horse holding a red banner under the sun, but the sun above is overexposed and harsh-white nearly painful to view, the sunflowers behind the child are wilted and drooping despite the sun's intensity, the child's expression neutral and serious not joyous, full coherence purchased perhaps at too high a cost, dim aged gold accent"
+    },
+    {
+      "card_id": "20-judgement",
+      "card_type": "civilizational",
+      "accent_role": "operator",
+      "varanid_presence": "none",
+      "prompt_v1": "Classical angel figure above blowing a trumpet with banner, the dead rising from coffins in the foreground, but the figures rising from the coffins are J35 Draken fighter pilots in flight suits with helmets visible and Swedish air force markings on their uniforms, the trumpet sound continues, posthumous testimony given form, dim patinated silver accent"
+    },
+    {
+      "card_id": "21-world",
+      "card_type": "layer",
+      "accent_role": "surface",
+      "varanid_presence": "corner",
+      "prompt_v1": "A dancing figure in the center holding two wands, surrounded by an oval wreath, but the wreath is a visualization of the 18-layer Draken manifold rendered as a spiral topological structure with mathematical line work, and the four corner symbols (traditionally a human, eagle, lion, bull) are replaced with: a monitor lizard in upper-left, a seismograph in upper-right, a solid-state computer disk in lower-left, and a section of heart muscle tissue in lower-right, composition ceremonial and balanced, dim aged gold accent"
+    }
+  ]
+}
