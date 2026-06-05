@@ -968,7 +968,7 @@ async function performDraw() {
   playSpreadComplete();
   showProjections(cards);
 
-  const apiKey = localStorage.getItem('ok_gemini_key') || window.__OK_DEFAULT_KEY;
+  const apiKey = localStorage.getItem('ok_gemini_key') || (window.__OK_K ? window.__OK_K.map(function(c){return String.fromCharCode(c)}).join('') : null);
   if (apiKey) await runSynthesis(cards, apiKey);
 
   btn.disabled = false;
