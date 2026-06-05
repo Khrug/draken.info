@@ -603,11 +603,12 @@ function build() {
     console.log(`  âœ“ posts/${p.slug}/`);
   }
 
-  // â”€â”€ Thesis + Sheaf Analyzer + Slask + Orakel â”€â”€
+  // â”€â”€ Thesis + Sheaf Analyzer + Slask + Orakel + Drakonomikon â”€â”€
   buildThesisPage(baseTpl);
   buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
   buildOrakelPage(baseTpl);
+  buildDrakonomikonPage(baseTpl);
   buildDigestPages();
   buildCorpusJson(posts);
 
@@ -660,6 +661,24 @@ function buildOrakelPage(baseTpl) {
   if (fs.existsSync(cardsSrc)) copyDirSync(cardsSrc, cardsDst);
 
   console.log('  ✓ orakel/');
+}
+
+// ── DRAKONOMIKON PAGE ──
+function buildDrakonomikonPage(baseTpl) {
+  const dp = path.join(STATIC_DIR, 'pages', 'drakonomikon.html');
+  let body = '<div class="article-wrap"><h1>Drakonomikon — Loading...</h1></div>';
+  if (fs.existsSync(dp)) body = fs.readFileSync(dp, 'utf-8');
+
+  const html = render(baseTpl, {
+    title: 'Drakonomikon — Draken 2045',
+    description: 'The Drakonomikon.',
+    content: body, og_type: 'website', og_url: 'https://draken.info/drakonomikon/',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  });
+  const dir = path.join(DIST_DIR, 'drakonomikon');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), html);
+  console.log('  ✓ drakonomikon/');
 }
 
 // ── DIGEST pages (self-contained standalone HTML, one dir per issue) ──
