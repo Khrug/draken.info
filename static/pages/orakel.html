@@ -1582,7 +1582,9 @@ document.addEventListener('DOMContentLoaded', async function() {
   const savedKey = localStorage.getItem('ok_gemini_key');
   if (savedKey) document.getElementById('ok-api-key').value = savedKey;
   document.getElementById('ok-api-key').addEventListener('change', function() {
-    localStorage.setItem('ok_gemini_key', this.value.trim());
+    var v = this.value.trim();
+    if (v) localStorage.setItem('ok_gemini_key', v);
+    else localStorage.removeItem('ok_gemini_key');
   });
 
   // Model selector

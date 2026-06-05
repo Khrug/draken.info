@@ -655,10 +655,12 @@ function buildOrakelPage(baseTpl) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
 
-  // Copy orakel card assets if they exist
+  // Copy orakel assets (cards + config)
   const cardsSrc = path.join(STATIC_DIR, 'orakel', 'cards');
   const cardsDst = path.join(DIST_DIR, 'orakel', 'cards');
   if (fs.existsSync(cardsSrc)) copyDirSync(cardsSrc, cardsDst);
+  const cfgSrc = path.join(STATIC_DIR, 'orakel', 'ok-config.js');
+  if (fs.existsSync(cfgSrc)) fs.copyFileSync(cfgSrc, path.join(DIST_DIR, 'orakel', 'ok-config.js'));
 
   console.log('  ✓ orakel/');
 }
