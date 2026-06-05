@@ -967,7 +967,7 @@ async function performDraw() {
   playSpreadComplete();
   showProjections(cards);
 
-  const apiKey = localStorage.getItem('ok_gemini_key') || atob('QVEuQWI4Uk42TG5GV2lvTno0UmZqS2g4b1ZUUkdGb0FFTzJRQ1Z5WkFUcHJfM09YV1ZRRnc=');
+  const apiKey = localStorage.getItem('ok_gemini_key') || atob('QVEuQWI4Uk42TDBuVHdLcTVjVkFtRGlyMnd4MnI0bjR0LXdlWnJCdV9lRlZWek1BVFVXVlE=');
   await runSynthesis(cards, apiKey);
 
   btn.disabled = false;
