@@ -797,6 +797,7 @@
   <button class="ok-audio-btn" id="ok-sfx-btn" title="Ljudeffekter" style="font-size:14px">SFX</button>
 </div>
 
+<script src="/orakel/ok-config.js"></script>
 <script>
 (function() {
 'use strict';
@@ -967,8 +968,8 @@ async function performDraw() {
   playSpreadComplete();
   showProjections(cards);
 
-  const apiKey = localStorage.getItem('ok_gemini_key') || atob('QVEuQWI4Uk42TDBuVHdLcTVjVkFtRGlyMnd4MnI0bjR0LXdlWnJCdV9lRlZWek1BVFVXVlE=');
-  await runSynthesis(cards, apiKey);
+  const apiKey = localStorage.getItem('ok_gemini_key') || window.__OK_DEFAULT_KEY;
+  if (apiKey) await runSynthesis(cards, apiKey);
 
   btn.disabled = false;
 }

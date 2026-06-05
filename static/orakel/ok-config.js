@@ -1,0 +1,1 @@
+﻿window.__OK_DEFAULT_KEY = 'AQ.Ab8RN6L0nTwKq5cVAmDir2wx2r4n4t-weZrBu_eFVVzMATUWVQ';
