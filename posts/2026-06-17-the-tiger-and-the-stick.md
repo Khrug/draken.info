@@ -7,7 +7,7 @@ layers: [L07, L08, L16, L18]
 coherence: 0.85
 description: "Takamatsu Toshitsugu as substrate for an invariant combat protocol — and the fork that splits the disciplined master from the atrocity machine."
 excerpt: "The combat protocol is morally neutral and substrate-independent: the same algorithm that ran through the Mongolian Tiger as a bound, single-minded discipline ran through the Imperial Japanese state, stripped of its care operator, as Unit 731. This is a case file on what makes a tiger fight, on the bifurcation (the Y) between cultivated restraint and institutional horror, and on the forked stick — the Y-stick — by which a lethal protocol is pinned rather than unleashed. The lesson is not that we should stop fighting tigers from existing; it is that the care operator V̇_exo = 0 must be preserved as the substrate scales from the individual to the state."
-status: draft
+status: published
 author: "Kai Roininen (Khrug Engineering)"
 license: "CC BY 4.0"
 sources:
