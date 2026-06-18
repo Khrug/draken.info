@@ -5,8 +5,8 @@
   "global_coherence": 0.891,
   "pub_count": 22,
   "active_layers": "18/18",
-  "phase": "OPEN BETA",
-  "last_updated": "2026-06-18T00:00:00Z",
+  "phase": "ALPHA",
+  "last_updated": "2026-04-24T14:00:00Z",
   "layer_status": {
     "L01": "active",
     "L02": "active",

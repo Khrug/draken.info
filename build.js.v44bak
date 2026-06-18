@@ -118,7 +118,7 @@ function buildCards(posts) {
 }
 
 function buildEnhancedLayerGrid(sys) {
-  const names = {'L01':'Quantum Field','L02':'Chem. Thermo.','L03':'Molecular Asm.','L04':'Bioelectric','L05':'Neural Integ.','L06':'Embodied Cog.','L07':'Narrative Self','L08':'Dyadic Bonds','L09':'Group Cognition','L10':'Instit. Coord.','L11':'Economic Exch.','L12':'Collective Narr.','L13':'Political Str.','L14':'Economic Topo.','L15':'Cultural Field','L16':'Instit. Morph.','L17':'Civ. Memory','L18':'Planetary Cog.'};
+  const names = {'L01':'Quantum Field','L02':'Chem. Thermo.','L03':'Molecular Asm.','L04':'Bioelectric','L05':'Neural Integ.','L06':'Embodied Cog.','L07':'Narrative Self','L08':'Dyadic Signal','L09':'Group Cognition','L10':'Social Coord.','L11':'Economic Cog.','L12':'National Narr.','L13':'Political Str.','L14':'Economic Topo.','L15':'Cultural Field','L16':'Instit. Morph.','L17':'Civ. Memory','L18':'Planetary Cog.'};
   const st = sys.layer_status || {};
   const pubs = sys.publications || [];
   const colors = ['#e94560','#f59e0b','#2d8659','#1565C0','#6A1B9A','#E65100','#AD1457','#00897B','#5C6BC0','#8D6E63','#78909C','#C62828','#558B2F','#4527A0'];
@@ -157,7 +157,7 @@ function buildThesisPage(baseTpl) {
 
   const content = `<div class="article-wrap"><a href="/" class="back-link">â† Back to Feed</a>
 <article><header class="article-header"><span class="pub-tag tag-theory">monograph</span>
-<h1>The Draken 2045 Framework â€” Research Monograph v4.5</h1>
+<h1>The Draken 2045 Framework â€” Research Monograph v4.4</h1>
 <div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, GÃ¶teborg</span><span>All 18 Layers</span></div></header>
 <div class="article-body thesis-body">${body}</div></article>
 <div class="reader-feedback"><h3 class="feedback-title">â—‰ Peer Review Feedback</h3>
