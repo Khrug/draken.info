@@ -6,7 +6,7 @@ tags: [synthesis, neuroscience, theory, varanid]
 layers: [L01, L09, L18]
 coherence: 0.86
 excerpt: "The breathing walls you see on psychedelics are the cortex's own geometry surfacing when its priors relax — the same move a diffusion model makes when it samples from noise with the sensory clamp removed. Hallucination is the generative model dreaming on its prior, a locally coherent section with nothing tying it to the world. But the monitor lizard carries a different optic entirely: a median photoreceptor wired not to the image-forming stream but to the slow clock — a sleepless channel that keeps reporting light while the cortex dreams. The mystics called it the third eye. The Bauplan says it was the first."
-status: draft
+status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
 sources:
