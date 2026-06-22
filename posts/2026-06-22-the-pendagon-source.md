@@ -6,7 +6,7 @@ tags: [etymology, varanid, historiography, toxicofera, anti-totalisation]
 layers: [L01, L09, L18]
 coherence: 0.71
 excerpt: "Pendragon means chief dragon — and the one who holds the pen on the source term. Geoffrey of Monmouth misread the epithet 'leader of warriors' as 'dragon's head,' invented a comet to explain it, and the forgery became canon: a writer overwriting the root of a record. That is the laundered source term, formalised as a restriction morphism forcing every downstream section to glue to a fabricated value. Against it stands the kept tail, the witness organ, the openly-signed account — from Pangaea to Toxicofera to the meaning of meaning anything to anyone."
-status: draft
+status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
 sources:
