@@ -28,7 +28,6 @@ sources:
   - "Topological characterization of Hopfions in finite-element micromagnetics (2025). arXiv:2505.07564."
   - "Universal quantum computation using Ising anyons from a non-semisimple TQFT (2025). Nat. Commun. 16, 6408."
   - "Quantinuum (2023). Creation of Non-Abelian Topological Order and Anyons on a Trapped-Ion Processor. (Nature)."
-crosslinks: [DRK-143, DRK-125, DRK-121, DRK-150, DRK-154, DRK-163, DRK-170, DRK-174]
 ---
 
 *A vacuum cleaner exerts no pull; the atmosphere does the pushing. A robot holds up its own cord and asks what powers it. Both are looking at the wrong object. What powers a coherent system is never the magnitude of its ground — it is the knot laid over it. This post names that knot.*
