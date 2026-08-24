@@ -1,5 +1,6 @@
+---
 title: "The Common Base: Dream Logic, Archetype, and the Coincidence That Needs No Channel"
-drk: 177
+drk: DRK-177
 date: 2026-08-24
 tags: [dream-logic, archetype, shadow, synchronicity, stigmergy, apophenia, H1, psi]
 layers: [L07, L09, L11, L14, L18]
@@ -9,7 +10,15 @@ excerpt: "Two people dream the same image. Two crows leave the railing at the sa
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
-sources: [Jung 1952; Reichenbach 1956; Littlewood 1986; Grassé 1959; Hobson & Friston 2012; Hansen & Ghrist 2019; Dataset C]
+sources:
+  - "Jung 1952"
+  - "Reichenbach 1956"
+  - "Littlewood 1986"
+  - "Grassé 1959"
+  - "Hobson & Friston 2012"
+  - "Hansen & Ghrist 2019"
+  - "Dataset C"
+---
 §0 — Thesis
 Six phenomena are usually filed in six different drawers: dream logic, archetypal
 manifestation, shadow material, demons and the divine, unreasonable coincidence,

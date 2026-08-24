@@ -3,7 +3,7 @@ title: "The Invariant"
 drk: DRK-175
 date: 2026-07-03
 tags: [topology, knot-theory, sheaf, vacuum, zero-point-energy, chern-simons, helicity, obstruction, anti-totalisation]
-layers: L01/L13/L18
+layers: [L01, L13, L18]
 coherence: 0.90
 description: "The vacuum does not power you — it computes what you thread through it. What survives deformation is the invariant. Draken's is a knot you must not untie."
 excerpt: "Zero-point energy is a floor, not a basement: nothing is extracted from the ground state. Yet the vacuum computes knot invariants; Witten's Wilson loop returns the Jones polynomial. Helicity, Hopf index and braid class all answer one question: what is preserved under continuous deformation? The invariant of Draken is the obstruction class in H^1(X,F); its rank is the coherence genus. The healthy target is not zero (the unknot is the totalitarian sheaf) but a bounded, legible, load-bearing knot, nonzero, between the vacuum and the singularity."
