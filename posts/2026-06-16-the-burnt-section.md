@@ -1,10 +1,13 @@
 ---
 title: "The Burned Section"
 subtitle: "Josiah, the deposited text, and the centralization that only became real once its enforcement apparatus burned"
-drk: 158
+drk: DRK-158
 date: 2026-06-16
 tags: [totalization, sheaf, centralization, divine-mandate, H1, recall-map, history-of-religion]
-excerpt: "Josiah's reform is the paradigm case of coherence bought by amputation rather than gluing. A divine mandate masks the violation of dH/dt ≥ 0 by relabelling the destruction of variety as restoration; the diagnostic tell is the deleted recall map. And the cruelest twist: the forced coherence became genuine only when Jerusalem — the single stalk it had collapsed everything onto — was burned to the ground."
+excerpt: "Josiah's reform is the paradigm case of coherence bought by amputation rather than gluing. A divine mandate masks the violation of dH/dt ≥ 0 by relabelling the destruction of variety as restoration; the diagnostic tell is the deleted recall map. And the cruelest twist: the forced coherence became genuine only when Jerusalem — the single stalk it had collapsed everything onto — was burned to the ground."
+status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
 ---
 
 # The Burned Section

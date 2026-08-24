@@ -1,10 +1,13 @@
 ---
 title: "The Bottle Has No Outside"
 subtitle: "Non-orientability as the geometric form of the anti-totalization axiom — read off a meme that stages a contradiction it does not contain"
-drk: 163
+drk: DRK-163
 date: 2026-06-21
 tags: [topology, non-orientability, anti-totalization, klein-bottle, sheaf, rhetoric, care-operator, L08, L11]
-excerpt: "A diptych meme sets 'abundance' against 'extraction' as if they were two faces of one object that cannot both be true. They can. The apparent contradiction is a projection artifact — what you get when a higher-dimensional question is forced into a single rhetorical plane and made to intersect itself. The right figure for the move is the Klein bottle: a surface with no boundary and no consistent outside, whose self-intersection is not in the surface but in the projection. Non-orientability turns out to be the exact geometric statement of the anti-totalization axiom, and the care operator is the unsigned measurement that survives where the signed verdict cannot."
+excerpt: "A diptych meme sets 'abundance' against 'extraction' as if they were two faces of one object that cannot both be true. They can. The apparent contradiction is a projection artifact — what you get when a higher-dimensional question is forced into a single rhetorical plane and made to intersect itself. The right figure for the move is the Klein bottle: a surface with no boundary and no consistent outside, whose self-intersection is not in the surface but in the projection. Non-orientability turns out to be the exact geometric statement of the anti-totalization axiom, and the care operator is the unsigned measurement that survives where the signed verdict cannot."
+status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
 ---
 
 # The Bottle Has No Outside

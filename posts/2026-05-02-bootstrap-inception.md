@@ -1,7 +1,7 @@
 ---
 title: "The Bootstrap Inception"
 subtitle: "Why two Quanta articles forced the inception of Draken"
-number: "DRK-132"
+drk: DRK-132
 date: 2026-05-02
 slug: "bootstrap-inception"
 description: "An inception document. Two pieces of physics journalism — Wolchover on Weinberg's spin-2 result, and Wolchover on Polyakov-Rattazzi-Rychkov's conformal bootstrap — articulate the meta-principle Draken inherits: self-consistency forces form. This post reads them as the framework's structural prior, maps their content onto the 18-layer manifold, and is honest about what has not yet been computed."
@@ -9,6 +9,9 @@ tags: ["bootstrap", "inception", "sheaf-theory", "conformal-field-theory", "vara
 authors: ["khrug"]
 draft: false
 math: true
+status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
 ---
 
 ## Abstract
