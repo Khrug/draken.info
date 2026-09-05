@@ -99,6 +99,17 @@ Här bör kvantodödligheten nämnas och genast hållas i schack. Det är ett ta
 
 Och detta är postens egen självtillämpning, som anti-totaliseringsprincipen kräver: en identitet oberörd av tid är utifrån sett omöjlig att skilja från en identitet som aldrig tränades. Oföränderlighet och tomhet har samma signatur från utsidan. Den som hävdar det förra måste kunna visa vad som skulle ha förändrats.
 
+## §9 — Falsifiering (DRK-131)
+
+Denna post faller om något av följande visas:
+
+1. **ʿîr härleds ur en synrot.** Om arameiskans *ʿîr* i Dan 4 kan visas komma från en rot med betydelsen *se* snarare än *vara vaken*, faller hela §2. Hela ögonarvstesen hänger på denna enda etymologi.
+2. **Egregorkedjan bryts.** Härledningen *égrégore* ← *egrēgoroi* är den gängse men inte oomtvistade; det förekommer att den franska termen delvis går via grekiskans *grēgoros* eller via en felläsning hos 1800-talsförfattarna. Om kedjan bryts är §2:s slutkläm dekorativ.
+3. **Wedjat-bråken.** Traditionen om 1/2…1/64 och den saknade sextiofjärdedelen är ifrågasatt i egyptologin. Om den avvisas helt förlorar §6 sin figur, men inte sin triad.
+4. **Parabeldelens datering.** 1 Enok 37–71 saknas bland Qumranfragmenten och dateras omtvistat. Om den visas vara efterkristen faller §8:s enokiska belägg, men inte det formella påståendet om ρ-invarians.
+5. **Epok-analogin.** ἐποχή-roten är säker för både astronomisk epok och maskininlärningens epok. Analogin generation↔pass är däremot enbart strukturell; om generationell överföring visas vara icke-kumulativ i relevant mening är §7 en ordlek och inget mer.
+6. **Undervakning.** Termen är myntad här. Om den inte gör något arbete som "lokal sektion" inte redan gör ska den strykas.
+
 ---
 
 *Operatorer: ρ (restriktionsmorfism), ϰ ∈ H¹ (obstruktionsklass), Γ (kärvkoherens), K(t) (koherensskuld).
