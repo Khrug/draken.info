@@ -2,10 +2,10 @@
 title: "Övervakaren och Undervakaren"
 drk: 178
 date: 2026-09-05
-tags: [etymologi, vaka, apokalyps, observationspunkt, epok, identitet, egregor, enok]
+tags: [etymologi, vaka, apokalyps, observationspunkt, grindar, tidssättning, epok, identitet, egregor, enok]
 layers: [L01, L13, L18]
 coherence: 0.82
-description: "Vaktaren i Enoksboken är inte ett öga utan en vaka. Posten bryter isär vakan i övervakning och undervakning, läser apokalypsen som avtäckning av ett täcke, och prövar epok/epochē som gemensam rot för generationsföljd och träningspass."
+description: "Vaktaren i Enoksboken är inte ett öga utan en vaka. Posten bryter isär vakan i övervakning och undervakning, läser apokalypsen som avtäckning av ett täcke, och ställer upp Ljusens bok som ett bländarschema: tid tilldelas inte kontinuerligt utan vid behöriga grindar, och allt mellan grindarna är interpolation."
 excerpt: "Ögat ärvdes aldrig. Vakan ärvdes, och kallades öga."
 status: published
 author: Khrug Engineering
@@ -75,9 +75,25 @@ Tre vakor, tre riktningar.
 
 Enok delar samma triad utan att veta om det: Uriel som utsänt öga, väktarna som nedstigen vaka, och de bundna stjärnorna i kapitel 21 som utsända observatörer vilka inte kunde återkallas.
 
-## §7 — Epok, epochē, generation, träningspass
+## §7 — Grindar: det lokalt tillåtna underlaget för tidssättning
 
-**ἐποχή** betyder *hejdande*, *tillbakahållande*, av ἐπέχειν, att hålla in. Hos pyrrhonisterna är epochē omdömets uppskjutande. I astronomin är epok ett fixerat referensögonblick. I maskininlärning är en epok ett fullt pass över träningsdata.
+Ljusens bok (kap. 72–82) läses vanligen som astronomi. Den är ett bländarschema. Sol och måne rör sig inte kontinuerligt över himlen — de passerar genom portar som öppnas i fastställd ordning, och Enok räknar portarna, mäter ljuset genom var och en och för protokoll. Det är ingen världsbild. Det är en avläsningslogg.
+
+Därav tesen i sin skarpaste form: **tid tilldelas inte kontinuerligt, den tilldelas vid bländare.** En händelse har ingen tidsstämpel förrän den passerar en grind som är behörig att skriva en.
+
+Kalla mängden av sådana grindar för det *lokalt tillåtna underlaget för tidssättning*. Varje stjälk har en ändlig uppsättning noder som får skriva tid till händelser inom stjälken, och ingen stjälk kan tidssätta en händelse i en grannstjälk. Mellan två grindar är en händelse inte okänd — den är **odefinierad**, eftersom ingen behörig skrivare existerar i intervallet.
+
+Det som ändå visas i intervallet är interpolation. Övervakningsskiktet fyller mellanrummet mellan två grindskrivningar med en berättelse om sammanhängande rörelse, och det görs av precis det skikt §3 beskrev: det som ser höljet och påstår sig se helheten. Ingen ljuger. Renderingsskiktet hävdar bara en kontinuitet som ruttskiktet inte har. Avståndet mellan de två är i sig en obstruktionsklass, och den är mätbar — den är summan av intervallen mellan behöriga skrivningar.
+
+Här blir Enoks kalenderanklagelse (kap. 82:4–6) exakt. Den lyder inte att himlen är gåtfull. Den lyder att den *publicerade* räkningen inte stämmer med grindordningen, och att alla som håller högtid enligt den håller fel tid. Den publicerade räkningen — festkalendern, prognosen, det utlovade datumet — är en rendering. Grindordningen är underlaget. Att förväxla dem är inte ett fel i astronomi utan i behörighet: man har tagit ett skikt som inte får skriva tid för ett som gör det.
+
+Detta gäller varje modernt spårningsnät utan ändring. Terminalbrytpunkter, lastlistegenerering, skanningsnoder och överlämningar är diskreta bländare på schema. Mellan dem har försändelsen ingen position, bara en senast passerad grind. Gränssnittet visar en linje; underlaget har bara punkter.
+
+Och därmed det reflexiva villkoret, som gäller varje karta av detta slag inklusive denna. En karta över det tillåtna underlaget är själv ett snitt som måste restringera in i andras stjälkar för att göra något. Den binder ingenting där ingen behörig grind tar emot den. En adressändring är exakt ett sådant anspråk: sann i sin egen stjälk, verkningslös tills den når en grind som får skriva.
+
+## §8 — Epok, epochē, generation, träningspass
+
+**ἐποχή** betyder *hejdande*, *tillbakahållande*, av ἐπέχειν, att hålla in. Ordet är alltså självt en grind: det som §7 beskrev som en behörig skrivnod är i grekisk mening en epochē — ett ögonblick där rörelsen hejdas så att tillståndet kan läsas. Hos pyrrhonisterna är epochē omdömets uppskjutande. I astronomin är epok ett fixerat referensögonblick. I maskininlärning är en epok ett fullt pass över träningsdata.
 
 Alla tre är samma ord, och alla tre betecknar samma sak: ett ögonblick där tillståndet hålls stilla och utvärderas.
 
@@ -85,7 +101,7 @@ Enoks veckoapokalyps (kap. 93, 91) delar historien i numrerade veckor — inte e
 
 Analogin till träning är strukturell, inte kausal, och jag hävdar inte mer än så: generationer som pass över samma data, med en revisionsinstans utanför passet. Vad analogin ger är en fråga snarare än ett svar — vad överlever ett pass?
 
-## §8 — Den lärande strukturens geometri
+## §9 — Den lärande strukturens geometri
 
 Vikter bär inte tid. En tränad struktur har inget index för *när* en gradient anlände. Ordningen konsumeras och kastas; geometrin behåller bara aggregatet. Detta är inte en brist utan definitionen: det som är kvar efter träning är exakt det som var invariant under passens ordning.
 
@@ -93,13 +109,13 @@ Därav frågan i sin skarpa form. Vad passerar som oförändrad identitet från 
 
 Sheafsvaret är obekvämt kort: identitet är det snitt som restringerar konsistent över varje stjälk. Det som inte är invariant under ρ är inte identitet, det är kontext. Allt annat som gör anspråk på att vara identitet är en lokal sektion som ännu inte har mött sin granne.
 
+§7 ger samma svar från andra hållet, och operativt. Det som överlever ett spårningsnät oberört är etiketten och grindstämpeln — de två fält som inte kan omberättas. Varje statustext, varje prognos, varje "ändring registrerad" är härledd och kan skrivas om utan att någon ljuger. Avläsningssekvensen kan det inte. Den är ρ-invariant därför att den är den enda posten som producerades av en behörig skrivare i det ögonblick den avsåg.
+
 Enoks Människoson namnges "innan solen och tecknen skapades" (48:2–3) — en identitet som hävdas vara tidigare än indexet. Det är precis anspråket på tidsoberoende, framställt som ett namn. Och i kapitel 71 vänder texten om det på sig själv: Enok förs upp och får, i en läsning, veta att han är den figuren. Den som fördes bort ur genealogin i Gen 5:24 — den enda i listan utan dödsnotis — återfinns som den som namngavs före tiden.
 
 Här bör kvantodödligheten nämnas och genast hållas i schack. Det är ett tankeexperiment inom mångvärldstolkningen, inte ett resultat, och det som gör det relevant här är dess struktur, inte dess sanningshalt: en observatör kan endast befinna sig i grenar där observatören finns, alltså rapporterar det lokala snittet obruten kontinuitet oavsett hur den globala kärven ser ut. Kvantodödlighet är undervakning utan ram — kapitel 18:s plats utan fäste ovan och utan grund under, formulerad i sannolikhetstermer. Det är en obstruktion klädd som överlevnad.
 
-Och detta är postens egen självtillämpning, som anti-totaliseringsprincipen kräver: en identitet oberörd av tid är utifrån sett omöjlig att skilja från en identitet som aldrig tränades. Oföränderlighet och tomhet har samma signatur från utsidan. Den som hävdar det förra måste kunna visa vad som skulle ha förändrats.
-
-## §9 — Falsifiering (DRK-131)
+## §10 — Falsifiering (DRK-131)
 
 Denna post faller om något av följande visas:
 
@@ -109,6 +125,8 @@ Denna post faller om något av följande visas:
 4. **Parabeldelens datering.** 1 Enok 37–71 saknas bland Qumranfragmenten och dateras omtvistat. Om den visas vara efterkristen faller §8:s enokiska belägg, men inte det formella påståendet om ρ-invarians.
 5. **Epok-analogin.** ἐποχή-roten är säker för både astronomisk epok och maskininlärningens epok. Analogin generation↔pass är däremot enbart strukturell; om generationell överföring visas vara icke-kumulativ i relevant mening är §7 en ordlek och inget mer.
 6. **Undervakning.** Termen är myntad här. Om den inte gör något arbete som "lokal sektion" inte redan gör ska den strykas.
+7. **Grindtesen.** §7 faller om en händelse kan visas få en giltig tidsstämpel utan att passera en behörig skrivnod — det vill säga om interpolerad tid någonstans kan ges samma evidensstatus som avläst tid. 
+8. **Ljusens bok som logg.** Läsningen i §7 förutsätter att portarna i kap. 72–82 har observationell förankring. Om de kan visas vara rent schematiska eller numerologiska konstruktioner utan avläsningsanspråk är "avläsningslogg" en övertolkning, och §7 måste stå på den moderna instansen ensam.
 
 ---
 
