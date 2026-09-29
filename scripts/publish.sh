@@ -37,6 +37,9 @@ if ! grep -q 'status: published' "$POST_FILE"; then
   echo "WARNING: Post status is not 'published'. Set status: published to include in feed."
 fi
 
+# Full frontmatter/encoding/link validation (same check build.js runs)
+node scripts/validate-posts.js || { echo "ERROR: validate-posts failed"; exit 1; }
+
 echo "✓ Validation passed: $POST_FILE"
 
 # Git add, commit, push

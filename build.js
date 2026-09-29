@@ -8,6 +8,7 @@ const path = require('path');
 const matter = require('gray-matter');
 const { marked } = require('marked');
 const { buildCorpusMap, buildCorpusMapPage } = require('./scripts/corpus-map');
+const { validate: validatePosts, report: reportValidation } = require('./scripts/validate-posts');
 
 const POSTS_DIR = path.join(__dirname, 'posts');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
@@ -583,6 +584,12 @@ function build() {
   console.log('╔══════════════════════════════════════╗');
   console.log('║  draken.info v2.1 — building...      ║');
   console.log('╚══════════════════════════════════════╝');
+
+  // Validate before touching dist/, so a bad post fails with a named error instead of a crash
+  if (!reportValidation(validatePosts(), { quiet: true })) {
+    console.error('  Build aborted: fix the errors above (run `npm run validate` for the full report).');
+    process.exit(1);
+  }
 
   cleanDist();
 

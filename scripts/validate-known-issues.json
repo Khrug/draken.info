@@ -1,0 +1,12 @@
+{
+  "note": "Content gaps waiting on Khrug (site audit 2026-09). Listed rules are reported as warnings instead of failing the build. Remove an entry once the value is filled in; the validator flags entries that no longer apply.",
+  "issues": {
+    "2026-03-03-repetition-engine.md": ["missing-coherence"],
+    "2026-03-03-thermodynamics-of-affect.md": ["missing-coherence"],
+    "2026-03-09-the-curious-machine.md": ["missing-coherence"],
+    "2026-05-02-bootstrap-inception.md": ["missing-excerpt", "missing-layers", "missing-coherence"],
+    "2026-06-16-the-burnt-section.md": ["missing-layers", "missing-coherence"],
+    "2026-06-21-the-bottle-has-no-outside.md": ["missing-layers", "missing-coherence"],
+    "2026-09-25-the-substrate-that-does-not-know.md": ["coherence-range"]
+  }
+}

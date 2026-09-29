@@ -4,6 +4,7 @@
   "description": "draken.info — The Draken 2045 Initiative",
   "private": true,
   "scripts": {
+    "validate": "node scripts/validate-posts.js",
     "build": "node build.js",
     "dev": "node build.js && echo 'Build complete. Serve dist/ with any static server.'",
     "deploy": "wrangler deploy",
