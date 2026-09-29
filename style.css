@@ -561,15 +561,15 @@ footer .footer-links a:hover { color: var(--accent); }
 }
 
 .back-link:hover { color: var(--accent); }
-/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
-   draken.info â€” Stylesheet ADDITIONS v2.0
+/* ═══════════════════════════════════════════════════════════════
+   draken.info — Stylesheet ADDITIONS v2.0
    New components: heatmap, matrix, sources, contact form, pinecone stats
    APPEND this to existing style.css
-   â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+   ═══════════════════════════════════════════════════════════════ */
 
-/* â”€â”€ Fix: GÃ¶teborg not Stockholm (update comment in style.css header) â”€â”€ */
+/* ── Fix: Göteborg not Stockholm (update comment in style.css header) ── */
 
-/* â•â•â• FEED SECTION CARDS â•â•â• */
+/* ═══ FEED SECTION CARDS ═══ */
 .feed-section-card {
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -592,7 +592,7 @@ footer .footer-links a:hover { color: var(--accent); }
   border: 1px solid var(--accent-dim);
 }
 
-/* â•â•â• LAYER HEATMAP â•â•â• */
+/* ═══ LAYER HEATMAP ═══ */
 .layer-heatmap {
   display: grid;
   grid-template-columns: repeat(18, 1fr);
@@ -665,7 +665,7 @@ footer .footer-links a:hover { color: var(--accent); }
   .layer-name-grid { grid-template-columns: 1fr; }
 }
 
-/* â•â•â• ARTICLE COHERENCE MATRIX â•â•â• */
+/* ═══ ARTICLE COHERENCE MATRIX ═══ */
 .article-matrix {
   width: 100%; border-collapse: collapse;
   font-family: var(--mono); font-size: 11px;
@@ -703,7 +703,7 @@ footer .footer-links a:hover { color: var(--accent); }
 .dot-scored { background: var(--accent); }
 .dot-pending { background: var(--red); }
 
-/* â•â•â• SOURCE MATERIAL GRID â•â•â• */
+/* ═══ SOURCE MATERIAL GRID ═══ */
 .source-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -738,7 +738,7 @@ footer .footer-links a:hover { color: var(--accent); }
   padding-top: 8px; border-top: 1px solid var(--border);
 }
 
-/* â•â•â• COHERENCE STATS (sidebar) â•â•â• */
+/* ═══ COHERENCE STATS (sidebar) ═══ */
 .coherence-stats {
   display: flex; justify-content: space-around;
   margin-top: 12px; padding-top: 12px;
@@ -762,7 +762,7 @@ footer .footer-links a:hover { color: var(--accent); }
   color: var(--text-dim);
 }
 
-/* â•â•â• PINECONE STATS (sidebar) â•â•â• */
+/* ═══ PINECONE STATS (sidebar) ═══ */
 .pinecone-stats { display: flex; flex-direction: column; gap: 8px; }
 
 .pstat {
@@ -785,7 +785,7 @@ footer .footer-links a:hover { color: var(--accent); }
   color: var(--text-dim); letter-spacing: 0.5px;
 }
 
-/* â•â•â• SIDEBAR CONTACT FORM (replaces chat) â•â•â• */
+/* ═══ SIDEBAR CONTACT FORM (replaces chat) ═══ */
 .sidebar-form {
   display: flex; flex-direction: column; gap: 6px;
   margin-bottom: 12px;
@@ -827,7 +827,7 @@ footer .footer-links a:hover { color: var(--accent); }
 
 .cl-arrow { color: var(--accent); margin-right: 6px; }
 
-/* â•â•â• POST ANNOTATION SYSTEM â•â•â• */
+/* ═══ POST ANNOTATION SYSTEM ═══ */
 .engage-section {
   margin-top: 48px; padding-top: 24px;
   border-top: 2px solid var(--border);
