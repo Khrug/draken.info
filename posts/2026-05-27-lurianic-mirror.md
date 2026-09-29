@@ -200,6 +200,6 @@ The work, in both frameworks, is the same. You watch the integral. You notice wh
 
 ---
 
-Filed under L09 (Group Cognition), L11 (Symbolic Field), L12 (Narrative Coherence), L15 (Cultural Field), L16 (Institutional Morphology), L17 (Civilizational Memory). Operators invoked: ρ (restriction map), Γ (sheaf convergence), Ψ (pathology metric), K(t) (coherence debt integral), R(t) (restoration rate), H¹ (first cohomology, obstruction class). Cross-references: [DRK-105](https://draken.info/posts/the-eighteen-layers/), [DRK-121 (The Coherence Debt)](https://draken.info/posts/the-coherence-debt/), [DRK-125 (The Totalitarian Sheaf)](https://draken.info/posts/the-totalitarian-sheaf/), [DRK-142 (Wrestling with God)](https://draken.info/posts/wrestling-with-god/). 
+Filed under L09 (Group Cognition), L11 (Symbolic Field), L12 (Narrative Coherence), L15 (Cultural Field), L16 (Institutional Morphology), L17 (Civilizational Memory). Operators invoked: ρ (restriction map), Γ (sheaf convergence), Ψ (pathology metric), K(t) (coherence debt integral), R(t) (restoration rate), H¹ (first cohomology, obstruction class). Cross-references: DRK-105, [DRK-121 (The Coherence Debt)](https://draken.info/posts/the-coherence-debt/), [DRK-125 (The Totalitarian Sheaf)](https://draken.info/posts/the-totalitarian-sheaf/), [DRK-142 (Wrestling with God)](https://draken.info/posts/wrestling-with-god/). 
 
 The framework is committed to its own falsifiability. The dragons scale.

@@ -67,7 +67,7 @@ The cellularity-of-mind picture handles all of these uniformly. Each effector is
 
 ## Weapons: extension under the obligation of harm
 
-Weapons are a special case worth attention. They share the spectrum's structure, but they impose an additional constraint: the act being functionally-semantically encoded is the application of force to another body. The varanid clinch protocol, as worked out across the [Dragon Scales](https://draken.info/dragon-scales-the-thread) series, is the ritualised intra-specific version of this — two organisms whose body schemas extend through their own weapons (jaws, claws, tail-clamp) into the dyad, where the H¹ obstruction collapses under
+Weapons are a special case worth attention. They share the spectrum's structure, but they impose an additional constraint: the act being functionally-semantically encoded is the application of force to another body. The varanid clinch protocol, as worked out across the Dragon Scales series, is the ritualised intra-specific version of this — two organisms whose body schemas extend through their own weapons (jaws, claws, tail-clamp) into the dyad, where the H¹ obstruction collapses under
 
 $$\rho_{D \to Cl} : \mathbb{R}^4 \to \mathbb{R}^3$$
 

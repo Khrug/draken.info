@@ -250,7 +250,7 @@ The framework has not yet computed the first such plot. But it now knows what ki
 - [DRK-123: The Imaginary Dimension](/posts/the-imaginary-dimension/)
 - [DRK-124: The Boundary of Us](/posts/the-boundary-of-us/)
 - [DRK-125: The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/)
-- [DRK-126: The Exceptionality Trap](/posts/drk-126)
+- DRK-126: The Exceptionality Trap
 - [DRK-127: Can We Be Friends with Monsters? — corrected varanid biology](/posts/can-we-be-friends-with-monsters/)
 - [DRK-128: The Stick That Is Not a Weapon — Komodo coexistence and ritualized combat](/posts/the-stick-that-is-not-a-weapon/)
 - [DRK-129: AI as Node — interpretability and multi-substrate epistemics](/posts/the-resonant-agenda/)

@@ -77,7 +77,7 @@ There is no reception anywhere in the system. There is only what carries — and
 
 ## Falsification and honest limits
 
-Per [DRK-131](/posts/the-falsification-protocol/), the seams are marked.
+Per DRK-131, the seams are marked.
 
 - **The mirror-neuron cargo is disputed in the literature, and this post states that rather than leaning on it.** If the strong simulationist reading of mirroring were vindicated — if F5-type disruption were shown to produce the predicted action-*understanding* deficits — §3 would strengthen; as it stands the neural carrier is a real finding whose social-cognitive cargo is unproven, and the post is built to survive that being the permanent verdict.
 - **Simulation theory itself is not settled.** Theory-theory and, more commonly now, *hybrid* accounts remain live; the cleanest current position is that mind-reading uses both inference and simulation in proportions that vary by task. The operator algebra in §2 is a figure that organises the simulationist intuition; it is not a measured model and would need an operationalisation of $P$ and $\rho$ as estimable quantities before it could be tested.
