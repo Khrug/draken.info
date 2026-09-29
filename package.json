@@ -8,7 +8,8 @@
     "build": "node build.js",
     "dev": "node build.js && echo 'Build complete. Serve dist/ with any static server.'",
     "deploy": "wrangler deploy",
-    "preview": "wrangler dev"
+    "preview": "wrangler dev",
+    "check-links": "node scripts/check-links.js"
   },
   "dependencies": {
     "3d-force-graph": "^1.73.3",

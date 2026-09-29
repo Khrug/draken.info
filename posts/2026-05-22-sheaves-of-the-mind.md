@@ -73,7 +73,7 @@ In Draken terms, this is the **dyadic clinch**. Two varanids in ritualised comba
 
 $$\rho_{D \to Cl} : \mathbb{R}^4 \to \mathbb{R}^3$$
 
-projecting the four-dimensional dyadic state onto its three-dimensional irreducible substrate — $(F_{\max}, E_{\text{ratio}}, \Delta m)$ — with the bluff dimension collapsed. The clinch is where the protocol's H¹ goes to zero, where the bluff dimension cannot lie. *Conscious cognition is the motor-sensory loop closing within an organism; the clinch is the same loop closing between two organisms*. Same structure. Different scale. See [DRK-130 *The Substrate and the Game*](https://draken.info/the-substrate-and-the-game).
+projecting the four-dimensional dyadic state onto its three-dimensional irreducible substrate — $(F_{\max}, E_{\text{ratio}}, \Delta m)$ — with the bluff dimension collapsed. The clinch is where the protocol's H¹ goes to zero, where the bluff dimension cannot lie. *Conscious cognition is the motor-sensory loop closing within an organism; the clinch is the same loop closing between two organisms*. Same structure. Different scale. See [DRK-130 *The Substrate and the Game*](https://draken.info/posts/the-substrate-and-the-game/).
 
 ---
 
@@ -99,7 +99,7 @@ If cognition is sheaf-structured, then truth is too. Nagarjuna's April 2026 prep
 
 Knowledge of the world is not correspondence; it is the depth of a calibrated chain. Each link is an instrument. Each instrument is a restriction map between a deeper layer of reality and a more surface one. Trust accumulates by composition.
 
-In sheaf-cohomological terms this is exact: **calibration failure is non-zero H¹**. When the restriction maps of a measurement chain do not commute on overlaps — when instrument A and instrument B disagree on what they should agree on — the sheaf has obstruction, and no global section exists. Knowledge is the cohomology-vanishing condition. The clinch protocol is the calibration step that grounds belief in dyadic encounter; the six-model AI peer review architecture is a calibration cover; perlocutionary force, as formalised in [DRK-142 *Wrestling with God*](https://draken.info/wrestling-with-god), is the suppression of H¹ in the listener's belief sheaf.
+In sheaf-cohomological terms this is exact: **calibration failure is non-zero H¹**. When the restriction maps of a measurement chain do not commute on overlaps — when instrument A and instrument B disagree on what they should agree on — the sheaf has obstruction, and no global section exists. Knowledge is the cohomology-vanishing condition. The clinch protocol is the calibration step that grounds belief in dyadic encounter; the six-model AI peer review architecture is a calibration cover; perlocutionary force, as formalised in [DRK-142 *Wrestling with God*](https://draken.info/posts/wrestling-with-god/), is the suppression of H¹ in the listener's belief sheaf.
 
 ---
 
@@ -124,14 +124,14 @@ The body schema joins this: it "does not stop at the skin," he writes, but exten
 | **Cross-representation** | *Layers* (2006) | Coherent section over a cover; gluing succeeds on overlaps |
 | **Differentiation of difference** | *Layers* (2006) | Information as resolution of $H^1(\mathcal{U},\mathcal{F}) \neq 0$ |
 | **Module without modularization is impossible** | *Layers* (2006) | No sheaf without base-space topology |
-| **Four layers** | *Layers* (2006) | The 18-layer manifold of [DRK-105](https://draken.info/canonical-18-layers): his L1 ≈ our L01–L05; L2 ≈ L06–L09; L3 ≈ L10–L14; L4 ≈ L15–L18 |
-| **Inversion** as monadic operator | 1994 thesis | Substrate ↔ agent inversion of [DRK-130](https://draken.info/the-substrate-and-the-game); sheafification |
+| **Four layers** | *Layers* (2006) | The 18-layer manifold of [DRK-105](https://draken.info/posts/kaiju-manifesto/): his L1 ≈ our L01–L05; L2 ≈ L06–L09; L3 ≈ L10–L14; L4 ≈ L15–L18 |
+| **Inversion** as monadic operator | 1994 thesis | Substrate ↔ agent inversion of [DRK-130](https://draken.info/posts/the-substrate-and-the-game/); sheafification |
 | **Harder / softer operations** | *Muscularity* (2005) | Obligate / emancipated dynamics on the optimisation manifold |
 | **Emancipation of voluntary muscles** | *Muscularity* (2005) | Substrate freeing required for protocol inheritance |
 | **Conscious cognitive loop** | *Muscularity* (2005) | Dyadic clinch with $\rho_{D \to Cl}: \mathbb{R}^4 \to \mathbb{R}^3$ |
 | **IP / IT interactions** | *Life and Cognition* (2007) | Conservative / dissipative terms of â—† $\min S_{\text{sys}}$ s.t. $dH/dt \geq 0$ â—† |
 | **Neither-nor state** | *Life and Cognition* (2007) | Far-from-equilibrium attractor of an autopoietic system |
-| **Snapshot / Stream** | Substack Ch. 1 (2026) | Global section / sequential restriction; perlocutionary force is gluing, [DRK-142](https://draken.info/wrestling-with-god) |
+| **Snapshot / Stream** | Substack Ch. 1 (2026) | Global section / sequential restriction; perlocutionary force is gluing, [DRK-142](https://draken.info/posts/wrestling-with-god/) |
 | **Body schema extends through tools** | Substack Ch. 2 (2026) | Restriction maps stay non-trivial through incorporated instruments |
 | **Trust depth** | *From Truth to Trust* (2026) | Length of restriction-map chain from instrument signal to belief |
 | **Calibrational realism** | *From Truth to Trust* (2026) | Global section is real iff cohomology of calibration sheaf vanishes |
@@ -142,7 +142,7 @@ The body schema joins this: it "does not stop at the skin," he writes, but exten
 
 The synthesis is this: Nagarjuna's cellular mind is a sheaf; his autopoietic neither-nor is the optimisation axiom; his muscularity is the closed motor-sensory loop the clinch implements; his inversion is the substrate-agent dual; his calibrational realism is the cohomology of the measurement chain; his snapshot is the global section the stream restricts and the listener reglues.
 
-The framework's stated thesis is **Future ≡ Life**. Across [DRK-118 *Planning as Inference*](https://draken.info/planning-as-inference), [DRK-124 *The Boundary of Us*](https://draken.info/the-boundary-of-us), and [DRK-130 *The Substrate and the Game*](https://draken.info/the-substrate-and-the-game), it argues that intelligence, agency, and power-to-survive are facets of a single structure under the optimisation axiom. His thirty-year arc supplies the cognitive-science foundation: *knowing and surviving are the same problem because both are gluing problems on a cellular base, and the obstruction to both is the same H¹ class*. **What kills cognition is what kills life: encapsulation, broken restriction maps, untreated obstruction.**
+The framework's stated thesis is **Future ≡ Life**. Across [DRK-118 *Planning as Inference*](https://draken.info/posts/countries-as-collective-minds/), [DRK-124 *The Boundary of Us*](https://draken.info/posts/the-boundary-of-us/), and [DRK-130 *The Substrate and the Game*](https://draken.info/posts/the-substrate-and-the-game/), it argues that intelligence, agency, and power-to-survive are facets of a single structure under the optimisation axiom. His thirty-year arc supplies the cognitive-science foundation: *knowing and surviving are the same problem because both are gluing problems on a cellular base, and the obstruction to both is the same H¹ class*. **What kills cognition is what kills life: encapsulation, broken restriction maps, untreated obstruction.**
 
 The next phase of work has its target. Formalise the optimisation axiom in his calibrational-realism vocabulary; write the autopoietic foundations as a sheaf-cohomological constraint; read the eighteen Draken layers as the refinement of his four. Γ for this convergence reads at **0.86** — strong cross-modular alignment, three residual obstructions (his corpus has no cohomological treatment of obstruction, no formal optimisation axiom, no protocol-as-agent thesis explicitly stated). A handshake, in either direction, would push it past 0.9.
 

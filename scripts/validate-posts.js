@@ -100,11 +100,17 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE } = {}) {
     ? new Set(fs.readdirSync(path.join(postsDir, 'v1')).map(f => (FILE_RE.exec(f) || [])[2]).filter(Boolean).map(s => `v1/${s}`))
     : new Set();
   const linkRe = /\]\((?:https?:\/\/(?:www\.)?draken\.info)?\/posts\/([a-z0-9/-]+?)\/?(?:#[^)]*)?\)/g;
+  // Links to our own domain outside the known top-level routes (e.g. draken.info/<slug> without /posts/)
+  const ROUTES = ['posts', 'thesis', 'sheaf-analyzer', 'digest', 'map', 'slask', 'drakonomikon', 'data', 'images', 'orakel'];
+  const siteRe = /\]\((?:https?:\/\/(?:www\.)?draken\.info)?\/([a-z0-9-]+)[^)\s]*\)/g;
   for (const p of posts) {
     let m;
     while ((m = linkRe.exec(p.raw))) {
       const target = m[1].replace(/\/$/, '');
       if (!published.has(target) && !archived.has(target)) warnings.push(`${p.file}: link /posts/${target}/ does not resolve to a post`);
+    }
+    while ((m = siteRe.exec(p.raw))) {
+      if (!ROUTES.includes(m[1])) warnings.push(`${p.file}: link /${m[1]} is not a site route (missing /posts/?)`);
     }
   }
 
