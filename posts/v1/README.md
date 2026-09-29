@@ -1,16 +1,9 @@
-# DRK-131 v1 Archive
+# Archived post versions
 
-This folder preserves superseded versions of posts that have undergone substantive revision in response to peer review from the Draken six-model Clinch architecture (Claude, Gemini, Grok, ChatGPT, DeepSeek, Moonshot/Kimi).
+This folder holds superseded versions of posts that were substantively revised after peer review from the Draken six-model Clinch architecture (Claude, Gemini, Grok, ChatGPT, DeepSeek, Moonshot/Kimi).
 
-**DRK-131 v1** was published 24 April 2026 at `posts/2026-04-24-zhixing-heyi-honest-referee.md`. It was revised the same day (v2, 24 April 2026) in response to critical review from Moonshot/Kimi. The v2 `revision_note` frontmatter field documents the specific changes.
+**DRK-131 v1** was published 24 April 2026 at `posts/2026-04-24-zhixing-heyi-honest-referee.md` and revised the same day (v2) after critical review from Moonshot/Kimi. The v2 `revision_note` frontmatter field documents the changes. The v1 text (git commit `8f3c6c2`) is kept here as `2026-04-24-zhixing-heyi-honest-referee.md`, because the v2 post links readers to it.
 
-The v1 text is preserved in git history. To retrieve it:
+`build.js` renders every `YYYY-MM-DD-<slug>.md` in this folder to `/posts/v1/<slug>/` with an "archived version" banner linking to `superseded_by`. Archived versions carry `status: superseded`; they are not listed in the feed, sitemap, search index or corpus data.
 
-```bash
-git log --all --oneline -- posts/2026-04-24-zhixing-heyi-honest-referee.md
-git show <first-commit-hash>:posts/2026-04-24-zhixing-heyi-honest-referee.md > drk-131-v1.md
-```
-
-This convention — preserving v1 via git rather than duplicating files in the tree — keeps the working post directory clean while honouring the framework's commitment to reviewable revision history. Every substantive revision should leave a legible trail.
-
-The Clinch architecture works when reviewers impose contact and authors submit to it. DRK-131 v1 → v2 is an instance of the architecture functioning as designed.
+Every substantive revision should leave a legible trail. DRK-131 v1 → v2 is an instance of the architecture functioning as designed.

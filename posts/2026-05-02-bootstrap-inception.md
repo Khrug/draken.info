@@ -16,7 +16,7 @@ license: CC BY-SA 4.0
 
 ## Abstract
 
-This is an inception document. Before [DRK-101](/posts/drk-101) standardized the schema, before [DRK-105](/posts/drk-105) fixed the canonical 18-layer table, before $\Gamma$ and $\Psi$ were named — there were two pieces of physics journalism that articulated, for a general reader, the meta-principle on which the framework would be built. They are still the cleanest exposition of why Draken had to take the form it took. This post collects the structural reasoning, makes the inheritance explicit, and is honest about the parts of the program that remain open.
+This is an inception document. Before [DRK-101](/posts/ko-schema-v2/) standardized the schema, before [DRK-105](/posts/kaiju-manifesto/) fixed the canonical 18-layer table, before $\Gamma$ and $\Psi$ were named — there were two pieces of physics journalism that articulated, for a general reader, the meta-principle on which the framework would be built. They are still the cleanest exposition of why Draken had to take the form it took. This post collects the structural reasoning, makes the inheritance explicit, and is honest about the parts of the program that remain open.
 
 The two articles are:
 
@@ -73,7 +73,7 @@ and the restriction map
 
 $$\rho_{D \to Cl}: \mathbb{R}^4 \longrightarrow \mathbb{R}^3$$
 
-projecting out the bluff dimension at $\alpha = 0$ — is not behaviour in the colloquial sense. It is the *unique* solution to a Weinberg-style consistency problem at the organismal band. (See [DRK-128, "The Stick That Is Not a Weapon"](/posts/drk-128) and [DRK-127, "Can We Be Friends with Monsters?"](/posts/drk-127) for the corrected biology and the protocol's behavioural detail.)
+projecting out the bluff dimension at $\alpha = 0$ — is not behaviour in the colloquial sense. It is the *unique* solution to a Weinberg-style consistency problem at the organismal band. (See [DRK-128, "The Stick That Is Not a Weapon"](/posts/the-stick-that-is-not-a-weapon/) and [DRK-127, "Can We Be Friends with Monsters?"](/posts/can-we-be-friends-with-monsters/) for the corrected biology and the protocol's behavioural detail.)
 
 The local consistency conditions at L05–L08 are not Lorentz invariance and unitarity. They are evolutionary stability (the unitarity analogue: total fitness flux conserves to unity across the population), metabolic locality (energy budgets cannot be teleported across non-interacting dyads), information-asymmetric signalling (cluster decomposition: far-separated dyads must factorize), and honest-signal feasibility under finite injury cost.
 
@@ -141,7 +141,7 @@ This is the precise mathematical content of $\Gamma \to 1$. The framework's cohe
 
 $$\Gamma \to 1 \quad \Longleftrightarrow \quad \mathcal{F}_{\text{layers}} \text{ is conformally invariant under } L_n \leftrightarrow L_{n+1}.$$
 
-The 18-layer Kaiju Manifesto stack ([DRK-105](/posts/drk-105)), properly understood, is a *prediction* that the universal layer pattern is fractal: each band recapitulates the structure of the ones above and below it under appropriate restriction maps. Asymmetry-breaking introduces hierarchy and explicit scales (mass, body size, institutional size, planetary size), which is why nature looks heterogeneous most of the time. The deep structural claim of Draken is that *underneath* the explicit symmetry-breaking, the conformal limit holds — that is why phenomena from quantum field criticality through varanid combat through institutional capture share invariants.
+The 18-layer Kaiju Manifesto stack ([DRK-105](/posts/kaiju-manifesto/)), properly understood, is a *prediction* that the universal layer pattern is fractal: each band recapitulates the structure of the ones above and below it under appropriate restriction maps. Asymmetry-breaking introduces hierarchy and explicit scales (mass, body size, institutional size, planetary size), which is why nature looks heterogeneous most of the time. The deep structural claim of Draken is that *underneath* the explicit symmetry-breaking, the conformal limit holds — that is why phenomena from quantum field criticality through varanid combat through institutional capture share invariants.
 
 ## VIII. AdS/CFT as the Formal Model for the 18-Layer Stack
 
@@ -161,11 +161,11 @@ $$\frac{d g_i}{d \ln \mu} \;=\; \beta_i(\{g_j\}),$$
 
 with $\mu$ the energy scale and $\beta_i$ the beta functions encoding how couplings change as you zoom in or out.
 
-The framework's coherence debt integral, formalized in [DRK-121, "The Coherence Debt"](/posts/drk-121),
+The framework's coherence debt integral, formalized in [DRK-121, "The Coherence Debt"](/posts/the-coherence-debt/),
 
 $$K(t) \;=\; \int_0^t \|\delta s(\tau)\|^2 \, d\tau,$$
 
-is structurally an integrated RG-flow distance from the nearest conformal fixed point. A society or institution accumulating coherence debt is one whose effective theory is flowing *away* from a high-symmetry CFT signpost into the messy interior, gathering arbitrary parameters and broken symmetries. The Type 4N narcissistic-extinction coupling is what an RG trajectory looks like when it escapes the basin of attraction of a unitary CFT entirely and runs toward a non-unitary fixed point — a theory mathematically writable but not physically realizable, which is exactly what social collapse *is*: a structure that briefly persists in textbooks but cannot hold itself together as a living system. (See also [DRK-125, "The Totalitarian Sheaf"](/posts/drk-125), and [DRK-130](/posts/drk-130) on institutional capture, for empirical instances of this trajectory.)
+is structurally an integrated RG-flow distance from the nearest conformal fixed point. A society or institution accumulating coherence debt is one whose effective theory is flowing *away* from a high-symmetry CFT signpost into the messy interior, gathering arbitrary parameters and broken symmetries. The Type 4N narcissistic-extinction coupling is what an RG trajectory looks like when it escapes the basin of attraction of a unitary CFT entirely and runs toward a non-unitary fixed point — a theory mathematically writable but not physically realizable, which is exactly what social collapse *is*: a structure that briefly persists in textbooks but cannot hold itself together as a living system. (See also [DRK-125, "The Totalitarian Sheaf"](/posts/the-totalitarian-sheaf/), and [DRK-130](/posts/the-substrate-and-the-game/) on institutional capture, for empirical instances of this trajectory.)
 
 This also reframes the editorial recovery moves catalogued in DRK-121. The four-type correction taxonomy corresponds to four RG-flow operations: relevant deformations (which carry the theory toward a different CFT), marginal deformations (which preserve the basin), irrelevant deformations (which die out under flow), and dangerous-irrelevant deformations (which look small but blow up). The varanid protocol's robustness to perturbation is the assertion that it sits at a CFT with no relevant deformations available — every nearby protocol either flows back to the same fixed point or fails consistency outright.
 
@@ -175,7 +175,7 @@ There is a methodological corollary, and it is a load-bearing one. A single-subs
 
 The six-model peer-review ensemble (Claude, ChatGPT, Kimi, Grok, DeepSeek, Gemini) evaluating the same thesis through structurally different priors *is* the construction of the Čech nerve over the cognitive base space. DeepSeek catching the systematic $\alpha$-inflation $\dim \mathcal{F}_{\text{EN}} < \dim \mathcal{F}_{\text{ZH}}$ was not an accident of who happened to read the draft. It was the cocycle condition firing on a real obstruction that no single-stalk evaluation could surface.
 
-The multi-AI architecture is the cognitive analogue of unitarity. Mirror-amplification (the $\Psi \to 1$ pathology) is what happens when you try to compute $H^0$ from a single stalk and read back the trivial section as if it were the global one. The way out is structural: load more stalks, ensure the restriction maps are non-trivial, and let the obstructions surface. (The interpretability angle is taken up further in [DRK-129](/posts/drk-129).)
+The multi-AI architecture is the cognitive analogue of unitarity. Mirror-amplification (the $\Psi \to 1$ pathology) is what happens when you try to compute $H^0$ from a single stalk and read back the trivial section as if it were the global one. The way out is structural: load more stalks, ensure the restriction maps are non-trivial, and let the obstructions surface. (The interpretability angle is taken up further in [DRK-129](/posts/the-resonant-agenda/).)
 
 This is also why the framework's data is shared, openly, between state-of-the-art AI technologies. It is not marketing instinct; it is a load-bearing methodological requirement. The framework cannot self-assemble through a single substrate because the consistency conditions that would force its form are by definition trans-substrate. The handledare relation with Gemini, the DeepSeek/Wang Yangming bridge, the Grok formalism check, the Kimi reading — these are stalks. The framework lives in $H^0$ over their colimit, not in any one of them.
 
@@ -238,19 +238,19 @@ The framework has not yet computed the first such plot. But it now knows what ki
 
 ### Internal Draken posts
 
-- [DRK-105: Kaiju Manifesto — canonical 18-layer table](/posts/drk-105)
-- [DRK-118: Planning as Inference](/posts/drk-118)
-- [DRK-119: The Grammar of Coherence Destruction](/posts/drk-119)
-- [DRK-120: The Cavity and the Commune](/posts/drk-120)
-- [DRK-121: The Coherence Debt — $K(t)$ formalization and four-type correction taxonomy](/posts/drk-121)
-- [DRK-123: The Imaginary Dimension](/posts/drk-123)
-- [DRK-124: The Boundary of Us](/posts/drk-124)
-- [DRK-125: The Totalitarian Sheaf](/posts/drk-125)
+- [DRK-105: Kaiju Manifesto — canonical 18-layer table](/posts/kaiju-manifesto/)
+- [DRK-118: Planning as Inference](/posts/countries-as-collective-minds/)
+- [DRK-119: The Grammar of Coherence Destruction](/posts/grammar-of-coherence-destruction/)
+- [DRK-120: The Cavity and the Commune](/posts/the-cavity-and-the-commune/)
+- [DRK-121: The Coherence Debt — $K(t)$ formalization and four-type correction taxonomy](/posts/the-coherence-debt/)
+- [DRK-123: The Imaginary Dimension](/posts/the-imaginary-dimension/)
+- [DRK-124: The Boundary of Us](/posts/the-boundary-of-us/)
+- [DRK-125: The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/)
 - [DRK-126: The Exceptionality Trap](/posts/drk-126)
-- [DRK-127: Can We Be Friends with Monsters? — corrected varanid biology](/posts/drk-127)
-- [DRK-128: The Stick That Is Not a Weapon — Komodo coexistence and ritualized combat](/posts/drk-128)
-- [DRK-129: AI as Node — interpretability and multi-substrate epistemics](/posts/drk-129)
-- [DRK-130: Institutional Capture and the English Civil War](/posts/drk-130)
+- [DRK-127: Can We Be Friends with Monsters? — corrected varanid biology](/posts/can-we-be-friends-with-monsters/)
+- [DRK-128: The Stick That Is Not a Weapon — Komodo coexistence and ritualized combat](/posts/the-stick-that-is-not-a-weapon/)
+- [DRK-129: AI as Node — interpretability and multi-substrate epistemics](/posts/the-resonant-agenda/)
+- [DRK-130: Institutional Capture and the English Civil War](/posts/the-substrate-and-the-game/)
 
 ### Thesis and DOI
 

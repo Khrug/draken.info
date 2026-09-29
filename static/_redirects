@@ -1,0 +1,4 @@
+# Cloudflare redirects (copied to dist/_redirects by build.js)
+# Slug typo fixed in the 2026-09 site audit (A3.1)
+/posts/the-invsriant/  /posts/the-invariant/  301
+/posts/the-invsriant   /posts/the-invariant/  301

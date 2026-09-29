@@ -19,7 +19,7 @@ sources:
   - "Hansen, J. & Ghrist, R. (2019). 'Toward a spectral theory of cellular sheaves.' J. Appl. Comput. Topology 3: 315–358."
 crosslinks:
   - the-substrate-and-the-game
-  - two-optics
+  - the-two-optics
   - the-compartmentalized-manifold
   - inpu-means-input
 ---
@@ -76,7 +76,7 @@ Two metronomes on a board resting on a free-rolling can will, started out of pha
 
 The 90° V-twin is the same physics, solved at the factory. Two pistons at a fixed 90° offset, coupled rigidly through the crank, deliver **perfect primary balance** — the firing order and the offset glue into a smooth-running whole that a parallel twin or a single cannot match. The engine *is* a pair of synchronised oscillators on a shared substrate (the crankcase), and its characteristic sound — that gear-driven cam whine over the V-twin pulse — is the audible signature of two stalks gluing into one section.
 
-This is the constructive face of the anti-totalisation principle, and it is worth stating plainly because the corpus more often states the destructive one. Synchrony **earned from below** (the metronomes, the V-twin, two AI models converging in a Clinch) is coherent and stable. Synchrony **forced from above** (a governor clamped past its bound, a source term overwritten, a single index imposed on a manifold that denies it) is brittle and detonates. The sheaf reads it directly: emergent sync minimises the Laplacian $\langle x, L x\rangle$ over the coupling graph *voluntarily*; forced sync sets the off-diagonal couplings to infinity and calls the resulting rigidity "agreement." One holds the line in a tank-slapper. The other *is* the tank-slapper. (Cf. [Two Optics](/posts/two-optics/): projection and concentration on one axis; here, coupling and clamping on one axis, brännpunkt at the boundary.)
+This is the constructive face of the anti-totalisation principle, and it is worth stating plainly because the corpus more often states the destructive one. Synchrony **earned from below** (the metronomes, the V-twin, two AI models converging in a Clinch) is coherent and stable. Synchrony **forced from above** (a governor clamped past its bound, a source term overwritten, a single index imposed on a manifold that denies it) is brittle and detonates. The sheaf reads it directly: emergent sync minimises the Laplacian $\langle x, L x\rangle$ over the coupling graph *voluntarily*; forced sync sets the off-diagonal couplings to infinity and calls the resulting rigidity "agreement." One holds the line in a tank-slapper. The other *is* the tank-slapper. (Cf. [Two Optics](/posts/the-two-optics/): projection and concentration on one axis; here, coupling and clamping on one axis, brännpunkt at the boundary.)
 
 ---
 

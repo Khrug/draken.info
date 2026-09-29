@@ -533,6 +533,41 @@ function postJsonLd(p) {
   return JSON.stringify({"@context":"https://schema.org","@type":"ScholarlyArticle","headline":p.title,"datePublished":new Date(p.date).toISOString(),"author":{"@type":"Organization","name":p.author||"Khrug Engineering"},"publisher":{"@type":"Organization","name":"Draken 2045 Initiative","url":"https://draken.info"},"description":p.excerpt||'',"url":`https://draken.info/posts/${p.slug}/`});
 }
 
+// Renders one post to dist/posts/<urlPath>/index.html. `notice` (HTML) is shown above the body.
+function writePostPage(p, urlPath, baseTpl, postTpl, notice = '') {
+  const dir = path.join(DIST_DIR, 'posts', urlPath);
+  fs.mkdirSync(dir, { recursive: true });
+  const url = `https://draken.info/posts/${urlPath}/`;
+  const pc = render(postTpl, {
+    title: p.title, tag: (p.tags&&p.tags[0])||'technical',
+    tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
+    drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
+    layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
+    body: notice + p.content, layer_count: (p.layers||[]).length, ko_count: '—',
+    post_url: url,
+  });
+  fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
+    title: `${p.title} — Draken 2045`, description: p.description||p.excerpt||'',
+    content: pc, og_type: 'article', og_url: url,
+    og_image: 'https://draken.info/images/og-v2.png',
+    jsonld: `<script type="application/ld+json">${postJsonLd(p)}</script>`,
+  }));
+}
+
+// ── Superseded versions: posts/v1/<date>-<slug>.md → /posts/v1/<slug>/ (not listed in feed/sitemap) ──
+function buildArchivedVersions(baseTpl, postTpl) {
+  const vdir = path.join(POSTS_DIR, 'v1');
+  if (!fs.existsSync(vdir)) return;
+  for (const file of fs.readdirSync(vdir).filter(f => /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f))) {
+    const { data, content } = matter(fs.readFileSync(path.join(vdir, file), 'utf-8'));
+    const slug = file.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
+    const current = data.superseded_by || `/posts/${slug}/`;
+    const notice = `<div class="version-notice">Archived version (${data.version || 'v1'}). This text has been superseded — read the <a href="${current}">current version</a>.</div>\n`;
+    writePostPage({ ...data, slug: `v1/${slug}`, content: parseMathSafe(content) }, `v1/${slug}`, baseTpl, postTpl, notice);
+    console.log(`  ✓ posts/v1/${slug}/ (archived)`);
+  }
+}
+
 function copyDirSync(src, dest) {
   if (!fs.existsSync(src)) return;
   fs.mkdirSync(dest, { recursive: true });
@@ -585,24 +620,10 @@ function build() {
   const postsDir = path.join(DIST_DIR, 'posts');
   fs.mkdirSync(postsDir, { recursive: true });
   for (const p of posts) {
-    const dir = path.join(postsDir, p.slug);
-    fs.mkdirSync(dir, { recursive: true });
-    const pc = render(postTpl, {
-      title: p.title, tag: (p.tags&&p.tags[0])||'technical',
-      tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
-      drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
-      layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
-      body: p.content, layer_count: (p.layers||[]).length, ko_count: '—',
-      post_url: `https://draken.info/posts/${p.slug}/`,
-    });
-    fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
-      title: `${p.title} — Draken 2045`, description: p.excerpt||'',
-      content: pc, og_type: 'article', og_url: `https://draken.info/posts/${p.slug}/`,
-      og_image: 'https://draken.info/images/og-v2.png',
-      jsonld: `<script type="application/ld+json">${postJsonLd(p)}</script>`,
-    }));
+    writePostPage(p, p.slug, baseTpl, postTpl);
     console.log(`  ✓ posts/${p.slug}/`);
   }
+  buildArchivedVersions(baseTpl, postTpl);
 
   // ── Thesis + Sheaf Analyzer + Slask + Orakel + Drakonomikon ──
   buildThesisPage(baseTpl);
@@ -618,6 +639,8 @@ function build() {
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
+  const redirects = path.join(STATIC_DIR, '_redirects');
+  if (fs.existsSync(redirects)) fs.copyFileSync(redirects, path.join(DIST_DIR, '_redirects'));
   // Vendor JS (three + 3d-force-graph) for same-origin loading by analyzer.
   // Sourced from node_modules (installed via npm); not committed to repo.
   const vendorDir = path.join(DIST_DIR, 'vendor');

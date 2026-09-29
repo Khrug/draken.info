@@ -1309,3 +1309,7 @@ textarea.form-input {
   color: var(--accent) !important;
   border-color: var(--accent) !important;
 }
+
+/* Archived post versions (posts/v1/) */
+.version-notice { border: 1px solid var(--gold); border-radius: 6px; padding: 12px 16px; margin-bottom: 24px; color: var(--text-dim); font-size: 0.95em; }
+.version-notice a { color: var(--gold); }
