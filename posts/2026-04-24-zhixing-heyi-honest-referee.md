@@ -1,4 +1,4 @@
-﻿---
+---
 title: "知行合一: When Automation Removes the Only Honest Referee"
 drk: DRK-131
 date: 2026-04-24

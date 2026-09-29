@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Wrestling with God: Perlocutionary Force and the Cohomology of the Honest Encounter"
 drk: DRK-142
 date: 2026-05-11

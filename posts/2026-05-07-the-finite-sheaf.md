@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Finite Sheaf: Draken as Applied Ultrafinitism"
 drk: DRK-141
 date: 2026-05-07

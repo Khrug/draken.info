@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Braided Substrate: Berry Curvature, Tensor Networks, and Why Topology Builds Draken"
 drk: DRK-143
 date: 2026-05-14

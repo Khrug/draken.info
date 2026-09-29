@@ -1,4 +1,4 @@
-﻿---
+---
 drk: DRK-145
 title: "The Operational Question in Positive Alignment"
 subtitle: "A response to Laukkonen et al. (2026) from a sheaf-ethological perspective"

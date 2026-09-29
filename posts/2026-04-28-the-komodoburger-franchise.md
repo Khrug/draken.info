@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Komodoburger Franchise: Why the Apex Niche Is Force-Protected by Its Own Occupant — and What Dragonclaw Inherits From This"
 drk: DRK-136
 date: 2026-04-28

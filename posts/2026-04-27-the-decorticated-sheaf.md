@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Decorticated Sheaf: Nasimi, Cellular Automata, and the Skin That Was Already a Voice"
 drk: DRK-135
 date: 2026-04-27

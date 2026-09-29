@@ -6,6 +6,9 @@ tags: [theory]
 layers: [L01, L02, L05, L07, L08, L13, L15, L17]
 excerpt: "Physicists at Virginia Tech and Caltech have located the quantum origin of gravity's pliability in a resource called 'magic' — the non-stabilizer complexity introduced by non-Clifford gates in holographic error-correcting codes. This post reads that result through the Draken lens: magic is the technical name for the H¹-obstruction that makes space-time approximate, makes encoding imperfect, and makes the restriction map between matter and geometry non-trivially interacting. The word the physicists chose is not accidental. The framework is grateful."
 coherence: 0.89
+status: published
+author: Khrug Engineering
+license: CC BY-SA 4.0
 ---
 
 [← Back to Feed](https://draken.info/)

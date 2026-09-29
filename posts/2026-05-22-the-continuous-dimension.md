@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Continuous Dimension: Dimensional Regularization, Renormalization Flow, and the Wick Rotation at L01"
 subtitle: "Why matter lives in 4 minus epsilon and only visits 4"
 drk: DRK-149

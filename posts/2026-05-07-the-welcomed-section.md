@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Welcomed Section: *Taxamhet*, *Tacksamhet*, and the Mathematics of Letting Another's Coherence In"
 drk: DRK-139
 date: 2026-05-07

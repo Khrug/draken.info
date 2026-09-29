@@ -1,4 +1,4 @@
-﻿---
+---
 drk: DRK-146
 title: "Representational Drift as Sheaf-Theoretic Coherence"
 subtitle: "Notes on Kwon (Nature 2026) and the empirical landscape of neural population stability"

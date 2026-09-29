@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Resonant Agenda"
 drk: DRK-129
 date: 2026-04-03

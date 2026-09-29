@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Survivable Glitch: Lacan's Middle Period, the Simulator, the Haveriutredning, and Why I Named the Framework Draken"
 drk: DRK-138
 date: 2026-04-29

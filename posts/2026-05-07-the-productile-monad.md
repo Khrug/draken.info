@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Productile Monad: On *Repmånad*, the Reptile, and the Form That Persists by Iterating Itself"
 drk: DRK-140
 date: 2026-05-07

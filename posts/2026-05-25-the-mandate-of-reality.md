@@ -17,6 +17,7 @@ sources:
   - "Roininen, K. (2026). [DRK-142 *Wrestling with God: Perlocutionary Force and the Cohomology of the Honest Encounter*](https://draken.info/posts/wrestling-with-god/)."
   - "Roininen, K. (2026). [DRK-130 *The Substrate and the Game*](https://draken.info/posts/the-substrate-and-the-game/)."
   - "Roininen, K. (2026). [DRK-123 *The Imaginary Dimension*](https://draken.info/posts/the-imaginary-dimension/)."
+status: published
 ---
 
 ## I. The Caption on the Screen

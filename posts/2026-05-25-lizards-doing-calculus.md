@@ -20,6 +20,7 @@ sources:
   - "Roininen, K. (2026). [DRK-124 *The Boundary of Us*](https://draken.info/posts/the-boundary-of-us/)."
   - "Roininen, K. (2026). [DRK-123 *The Imaginary Dimension*](https://draken.info/posts/the-imaginary-dimension/)."
   - "Roininen, K. (2026). [DRK-121 *The Coherence Debt*](https://draken.info/posts/the-coherence-debt/)."
+status: published
 ---
 
 ## I. The Absurd Thesis

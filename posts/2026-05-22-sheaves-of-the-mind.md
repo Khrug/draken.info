@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Sheaves of the Mind, Sheaves of Life"
 subtitle: "Synthesising the Draken framework through G. Nagarjuna's cognitive science of science"
 drk: DRK-147

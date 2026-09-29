@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Protocol and the Predator: On Asymmetric Power Without Extraction"
 drk: DRK-133
 date: 2026-04-26

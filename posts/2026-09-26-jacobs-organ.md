@@ -1,6 +1,6 @@
 ---
 title: "Jacob's Organ"
-drk: 180
+drk: DRK-180
 date: 2026-09-26
 tags: [disgust, politics, authoritarianism, vomeronasal, chemosensation, purity, kabbalah, kelipot, sitra-achra, sin, absolution, carrier-cargo, varanids]
 layers: [L03, L05, L06, L08, L12, L13, L16]

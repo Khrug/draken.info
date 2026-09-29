@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Wings, Tools, Weapons"
 subtitle: "What the OTC includes as me — and where calibration must catch up"
 drk: DRK-148

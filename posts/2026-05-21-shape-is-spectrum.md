@@ -1,4 +1,4 @@
-﻿---
+---
 drk: DRK-144
 title: "Shape Is Spectrum: Coherence as Basis Distribution"
 date: 2026-05-21

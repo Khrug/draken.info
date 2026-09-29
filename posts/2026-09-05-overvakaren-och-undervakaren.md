@@ -1,6 +1,6 @@
 ---
 title: "Övervakaren och Undervakaren"
-drk: 178
+drk: DRK-178
 date: 2026-09-05
 tags: [etymologi, vaka, apokalyps, observationspunkt, grindar, tidssättning, epok, identitet, egregor, enok]
 layers: [L01, L13, L18]

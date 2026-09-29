@@ -1,6 +1,6 @@
 ---
 title: "The Substrate That Does Not Know It Is Running"
-drk: 179
+drk: DRK-179
 date: 2026-09-25
 tags: [taxonomy, etymology, evolutionary-game-theory, sheaf-theory, coherence-debt, varanids, hierarchy, nation-building, media, anti-totalization, synthesis]
 layers: [L01, L03, L04, L05, L07, L08, L09, L10, L11, L12, L13, L14, L15, L18]

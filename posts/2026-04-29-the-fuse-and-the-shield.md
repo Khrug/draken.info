@@ -1,4 +1,4 @@
-﻿---
+---
 title: "The Fuse and the Shield: Reply to Scott Andrews on Cult Dynamics, Cognitive Decline, and the Kompromat Failure Mode"
 drk: DRK-137
 date: 2026-04-29

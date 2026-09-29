@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Reasonance: The Oldest Search and the Deepest Layer"
 drk: DRK-116
 date: 2026-03-10
