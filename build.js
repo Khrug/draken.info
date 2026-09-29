@@ -21,6 +21,11 @@ const renderer = {
   code(code, lang) {
     if (lang === 'eq' || lang === 'equation') return `<div class="eq-block">${esc(code)}</div>`;
     return `<pre><code class="language-${lang || ''}">${esc(code)}</code></pre>`;
+  },
+  // GitHub-style heading ids so in-post tables of contents (#section-anchor links) resolve
+  heading(text, level, raw) {
+    const id = raw.toLowerCase().replace(/<[^>]+>/g, '').replace(/[^\p{L}\p{N}\s-]/gu, '').trim().replace(/\s+/g, '-');
+    return `<h${level} id="${id}">${text}</h${level}>\n`;
   }
 };
 marked.use({ renderer });
@@ -28,8 +33,9 @@ marked.use({ renderer });
 function esc(s) { return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
 
 function cleanDist() {
-  if (fs.existsSync(DIST_DIR)) fs.rmSync(DIST_DIR, { recursive: true });
+  // Empty dist/ rather than deleting it: on Windows a preview server holding dist/ open blocks rmdir
   fs.mkdirSync(DIST_DIR, { recursive: true });
+  for (const e of fs.readdirSync(DIST_DIR)) fs.rmSync(path.join(DIST_DIR, e), { recursive: true, force: true });
 }
 
 // ── Math protection: hide $$...$$ and $...$ from marked, restore after ──
@@ -219,6 +225,32 @@ function buildCorpusJson(posts) {
   fs.mkdirSync(dataDir, { recursive: true });
   fs.writeFileSync(path.join(dataDir, 'corpus.json'), JSON.stringify(out));
   console.log(`  ✓ data/corpus.json (${items.length} posts, ${(JSON.stringify(out).length/1024).toFixed(1)}kb)`);
+}
+
+// ── SEARCH INDEX — compact per-post record for the top-bar search (static/search.js) ──
+const SEARCH_STOP = new Set(('the and for are but not you all any can had her was one our out has his how its may new now see two who did get him let say she too use that with have this will your from they know want been good much some time very when come here just like long make many more only over such take than them well were what into also each most even must upon which their there these those would could should about after being where while other through between because within without under again itself does done here'
+  + ' och att det som den har inte ett men var jag sig kan man när eller ska hade hur mot där vid efter dem utan sin alla detta denna dessa vara blir också bara').split(' '));
+function buildSearchIndex(posts) {
+  const plain = s => String(s || '').replace(/[*_`]/g, '');
+  const items = posts.map(p => {
+    let t = (p.rawContent || '')
+      .replace(/```[\s\S]*?```/g, ' ').replace(/\$\$[\s\S]*?\$\$/g, ' ').replace(/\$[^$\n]+\$/g, ' ')
+      .replace(/!\[[^\]]*\]\([^)]*\)/g, ' ').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/https?:\/\/\S+/g, ' ')
+      .toLowerCase();
+    const terms = [...new Set(t.match(/[\p{L}\p{N}][\p{L}\p{N}'-]{2,}/gu) || [])]
+      .map(w => w.replace(/^'+|'+$/g, '')).filter(w => w.length > 2 && w.length < 32 && !SEARCH_STOP.has(w));
+    return {
+      s: p.slug, d: p.drk || '', t: plain(p.title), e: plain(p.excerpt || p.description || ''),
+      dt: p.date ? new Date(p.date).toISOString().slice(0, 10) : '',
+      l: Array.isArray(p.layers) ? p.layers : [], g: p.tags || [], w: terms.join(' '),
+    };
+  });
+  const dataDir = path.join(DIST_DIR, 'data');
+  fs.mkdirSync(dataDir, { recursive: true });
+  const json = JSON.stringify({ generated: new Date().toISOString(), posts: items });
+  fs.writeFileSync(path.join(dataDir, 'search-index.json'), json);
+  fs.copyFileSync(path.join(STATIC_DIR, 'search.js'), path.join(DIST_DIR, 'search.js'));
+  console.log(`  ✓ data/search-index.json (${items.length} posts, ${(json.length / 1024).toFixed(1)}kb) + search.js`);
 }
 
 // ── SHEAF ANALYZER PAGE (topological narrative diagnostic) ──
@@ -647,6 +679,7 @@ function build() {
   buildDrakonomikonPage(baseTpl);
   buildDigestPages(baseTpl);
   buildCorpusJson(posts);
+  buildSearchIndex(posts);
   buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
 
   // ── Static assets ──
@@ -674,6 +707,14 @@ function build() {
   }
   console.log('  ✓ static assets + vendor (' + vendorOk + '/2 libs)');
 
+  fs.writeFileSync(path.join(DIST_DIR, '404.html'), render(baseTpl, {
+    title: 'Not found — Draken 2045', description: 'This page does not exist.',
+    content: `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
+<article><header class="article-header"><span class="pub-tag tag-technical">404</span><h1>No section here</h1></header>
+<div class="article-body"><p>This address does not glue to anything in the corpus. The post may have moved or been renumbered.</p>
+<p>Use the search box at the top of the page (press <kbd>/</kbd>) to look for it by title, keyword, DRK number or layer, or browse the <a href="/">feed</a> and the <a href="/digest/">digest</a>.</p></div></article></div>`,
+    og_type: 'website', og_url: 'https://draken.info/404.html', og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  }));
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
   fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://draken.info/sitemap.xml\n');
   console.log('  ✓ sitemap + robots\n  Build complete → dist/');

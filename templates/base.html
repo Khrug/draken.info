@@ -47,6 +47,11 @@
       <span class="logo-text">DRAKEN<span class="logo-tld">.info</span></span>
       <span class="pulse-dot"></span>
     </a>
+    <div class="site-search" role="search">
+      <input id="site-search-input" type="search" placeholder="Search posts…  /" autocomplete="off" spellcheck="false"
+             aria-label="Search posts by keyword, DRK number or layer" aria-controls="site-search-results" aria-expanded="false">
+      <div id="site-search-results" class="ss-panel" role="listbox" hidden></div>
+    </div>
     <nav>
       <a href="/" id="nav-feed">Feed</a>
       <a href="/thesis/" id="nav-thesis">Thesis</a>
@@ -108,5 +113,6 @@
     if (path.startsWith('/digest')) document.getElementById('nav-digest')?.classList.add('active');
     if (path.startsWith('/map')) document.getElementById('nav-map')?.classList.add('active');
   </script>
+  <script src="/search.js" defer></script>
 </body>
 </html>

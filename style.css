@@ -1319,3 +1319,57 @@ textarea.form-input {
 .corpus-map { gap: 1px !important; overflow: hidden !important; }
 .corpus-bar { min-width: 0 !important; }
 .corpus-bar-label { display: none !important; }
+
+/* ═══ SITE SEARCH (top bar) ═══ */
+.site-search { position: relative; flex: 1 1 260px; max-width: 360px; margin: 0 16px; }
+.site-search input {
+  width: 100%; box-sizing: border-box; height: 32px; padding: 0 12px;
+  background: var(--bg-surface); color: var(--text-bright);
+  border: 1px solid var(--border); border-radius: 6px;
+  font-family: var(--mono); font-size: 12px; outline: none; transition: border-color 0.2s;
+}
+.site-search input::placeholder { color: var(--text-dim); }
+.site-search input:focus { border-color: var(--accent-dim); }
+.ss-panel {
+  position: absolute; top: 40px; left: 0; width: min(560px, calc(100vw - 32px)); max-height: 70vh; overflow-y: auto;
+  background: var(--bg-card); border: 1px solid var(--border-hover); border-radius: 8px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5); z-index: 1100;
+}
+.ss-item { display: block; padding: 10px 14px; border-bottom: 1px solid var(--border); text-decoration: none; }
+.ss-item:hover, .ss-item.active { background: var(--bg-card-hover); }
+.ss-meta { display: block; font-family: var(--mono); font-size: 10px; color: var(--text-dim); letter-spacing: 0.5px; }
+.ss-title { display: block; color: var(--text-bright); font-size: 14px; margin: 2px 0; }
+.ss-item.active .ss-title { color: var(--accent); }
+.ss-snippet { display: block; color: var(--text); font-size: 12px; line-height: 1.45; }
+.ss-panel mark { background: var(--accent-glow); color: var(--accent); border-radius: 2px; padding: 0 1px; }
+.ss-empty, .ss-foot { padding: 10px 14px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); }
+@media (max-width: 900px) {
+  .site-search { margin: 0 8px; flex-basis: 160px; }
+  .ss-panel { position: fixed; top: 52px; left: 16px; right: 16px; width: auto; }
+}
+/* Phones: logo + search on the first row, nav scrolls sideways on the second */
+@media (max-width: 700px) {
+  .topbar { height: auto; flex-wrap: wrap; padding: 8px 16px 0; row-gap: 6px; }
+  .site-search { order: 2; flex: 1 1 0; min-width: 0; max-width: none; margin: 0 0 0 12px; }
+  .topbar nav { order: 3; flex: 0 0 100%; overflow-x: auto; scrollbar-width: none; padding-bottom: 6px; }
+  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav a { white-space: nowrap; flex: 0 0 auto; padding: 5px 10px; }
+  .axiom-ticker { margin-top: 92px; }
+  .ss-panel { top: 50px; }
+}
+
+/* Wide display equations scroll inside their own box instead of widening the page on phones */
+mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+.article-body pre { max-width: 100%; overflow-x: auto; }
+@media (max-width: 700px) { .article-body table { display: block; max-width: 100%; overflow-x: auto; } }
+
+/* Phones: grid columns may shrink below their content width */
+.main > * { min-width: 0; }
+@media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); padding: 24px 16px; } }
+.pub-title, .pub-excerpt { overflow-wrap: anywhere; }
+mjx-container:not([display="true"]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
+.article-body svg:not(mjx-container svg) { max-width: 100%; height: auto; }
+mjx-container[display="true"][width="full"] { min-width: 0 !important; }
+.layer-articles { flex-wrap: wrap; flex: 1 1 auto; min-width: 0; justify-content: flex-end; }
+.layer-row { min-width: 0; }
+.article-body a, .article-body code { overflow-wrap: anywhere; }
