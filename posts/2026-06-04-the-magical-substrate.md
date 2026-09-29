@@ -9,6 +9,7 @@ coherence: 0.89
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Physicists at Virginia Tech and Caltech have located the quantum origin of gravity's pliability in a resource called 'magic' — the non-stabilizer complexity…"
 ---
 
 [← Back to Feed](https://draken.info/)

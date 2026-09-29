@@ -20,6 +20,7 @@ sources:
   - "DRK-142, Wrestling with God: Perlocutionary Force and the Cohomology of the Honest Encounter"
   - "DRK-125, The Totalitarian Sheaf"
   - "DRK-144, Shape Is Spectrum: Coherence as Basis Distribution"
+description: "Laukkonen et al. give positive alignment the right conceptual vocabulary — negative attractors, repellers, satisficing region, positive attractors."
 ---
 
 # The Operational Question in Positive Alignment

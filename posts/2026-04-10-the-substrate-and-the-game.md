@@ -9,6 +9,7 @@ excerpt: "Two water monitors lock into a full-body grapple in the middle of a bu
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Two water monitors lock into a full-body grapple in the middle of a busy Mumbai road."
 ---
 
 *Internal cross-references: [The Resonant Agenda](https://draken.info/posts/the-resonant-agenda/) (DRK-129), [Can We Be Friends with Monsters?](https://draken.info/posts/can-we-be-friends-with-monsters/) (DRK-127), [The Stick That Is Not a Weapon](https://draken.info/posts/the-stick-that-is-not-a-weapon/) (DRK-128), [The Curious Machine](https://draken.info/posts/the-curious-machine/) (DRK-115), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Imaginary Dimension](https://draken.info/posts/the-imaginary-dimension/) (DRK-123)*

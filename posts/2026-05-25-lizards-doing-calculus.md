@@ -21,6 +21,7 @@ sources:
   - "Roininen, K. (2026). [DRK-123 *The Imaginary Dimension*](https://draken.info/posts/the-imaginary-dimension/)."
   - "Roininen, K. (2026). [DRK-121 *The Coherence Debt*](https://draken.info/posts/the-coherence-debt/)."
 status: published
+description: "Lizards doing calculus sounds absurd."
 ---
 
 ## I. The Absurd Thesis

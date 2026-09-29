@@ -9,6 +9,7 @@ excerpt: "A six-decade structural analysis of civilizational psychosis — from 
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "A six-decade structural analysis of civilizational psychosis — from the Fairness Doctrine to algorithmic radicalization — through the Draken diagnostic…"
 ---
 
 ## I. The Diagnostic Frame

@@ -15,6 +15,7 @@ sources:
   - "https://ojs.library.ubc.ca/index.php/newproposals/article/view/182504"
   - "https://doi.org/10.1111/rego.12612"
   - "https://doi.org/10.1111/gove.12907"
+description: "Marx's 1844 diagnosis of religion as 'the heart of a heartless world' is not metaphor but structural analysis: religious experience is compensatory…"
 ---
 
 # The Cavity and the Commune

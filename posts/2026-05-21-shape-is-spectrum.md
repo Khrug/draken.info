@@ -16,6 +16,7 @@ sources:
   - "DRK-123, The Imaginary Dimension"
   - "Dumitrescu et al., 'Dynamical topological phase realized in a trapped-ion quantum simulator,' arXiv:2107.09676 (2021)"
   - "Hansen & Ghrist, 'Toward a Spectral Theory of Cellular Sheaves,' Journal of Applied and Computational Topology 3 (2019), 315–358"
+description: "Every closed shape is a sum of sines."
 ---
 
 # Shape Is Spectrum: Coherence as Basis Distribution

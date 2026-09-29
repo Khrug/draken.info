@@ -10,6 +10,7 @@ excerpt: "Dimensional regularization computes QFT in d = 4 − ε complex dimens
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Dimensional regularization computes QFT in d = 4 − ε complex dimensions and takes ε → 0 only after subtracting counterterms — structurally identical to the…"
 ---
 A reader asked on 2026-05-22 what was going on with Feynman calculating in four-minus-epsilon dimensions — *not even an integer number*. The corrective is partly historical (the procedure is not Feynman's; it is 't Hooft and Veltman 1972, independently Bollini and Giambiagi 1972, and it earned the 1999 Nobel Prize for making non-abelian gauge theories renormalizable in practice) and partly structural. The structural part is what motivates this post. The continuous-dimension trick that makes the Standard Model computable is the same sheaf operator that DRK-123 located in varanid combat at L08 — the projection of an imaginary, exploratory, calculation-bearing dimension onto the substrate where measurement actually lives. The varanids implement it at L08 with body chemistry and posture. Quantum field theory implements it at L01 with a complex deformation parameter. The framework predicts that this should be the same operator; on examination, it is.
 

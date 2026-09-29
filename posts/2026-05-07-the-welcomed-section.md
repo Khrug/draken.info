@@ -22,6 +22,7 @@ sources:
   - "Algoe, S. B., Haidt, J., & Gable, S. L. (2008). Beyond reciprocity: Gratitude and relationships in everyday life. *Emotion*, 8(3), 425–429."
   - "Algan, Y., & Cahuc, P. (2014). Trust, growth, and well-being: New evidence and policy implications. In *Handbook of Economic Growth* (Vol. 2A, pp. 49–120). Elsevier."
   - "Spence, M. (1973). Job market signaling. *Quarterly Journal of Economics*, 87(3), 355–374."
+description: "Two Swedish neologisms — one accidental, one corrective — name the two operations that bracket every act of coherent reception."
 ---
 
 ## 0. Abstract

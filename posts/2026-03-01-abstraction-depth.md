@@ -9,6 +9,7 @@ excerpt: "From the clinch phase to the commodity form: a 130-million-year histor
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "From the clinch phase to the commodity form: a 130-million-year history of honest signaling, and how we abolished it."
 ---
 
 ## I. A Life Measured in Grapples

@@ -13,6 +13,7 @@ sources:
   - "https://www.currentconservation.org/living-in-harmony-with-dragons/"
   - "https://www.discoverwildlife.com/people/how-the-ata-modo-live-alongside-komodo-dragons"
   - "https://www.bio-conferences.org/articles/bioconf/full_html/2020/03/bioconf_isif2019_00021/bioconf_isif2019_00021.html"
+description: "On Komodo Island, park rangers carry Y-shaped sticks."
 ---
 
 *Internal cross-references: [Can We Be Friends with Monsters?](https://draken.info/posts/can-we-be-friends-with-monsters/) (DRK-127), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Imaginary Dimension](https://draken.info/posts/the-imaginary-dimension/) (DRK-123)*

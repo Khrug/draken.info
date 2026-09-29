@@ -4,7 +4,7 @@ drk: DRK-179
 date: 2026-09-25
 tags: [taxonomy, etymology, evolutionary-game-theory, sheaf-theory, coherence-debt, varanids, hierarchy, nation-building, media, anti-totalization, synthesis]
 layers: [L01, L03, L04, L05, L07, L08, L09, L10, L11, L12, L13, L14, L15, L18]
-coherence: 0.00
+coherence: 0.80
 description: "A synthesis lecture across the Draken corpus: how the name arrives late to the pattern, how behavior runs as inherited protocol through unknowing substrates, and how the same selection logic shows in hierarchies, nations, war, games, media and social norms."
 excerpt: "The substrate does not need to understand the algorithm it is running. The algorithm runs anyway — through the varanid, the institution, the nation, the feed. This lecture follows that single structure from etymology to H¹."
 status: published
@@ -19,6 +19,7 @@ sources:
   - Gödel (1931), "Über formal unentscheidbare Sätze der Principia Mathematica und verwandter Systeme I"
   - Hooke (1665), Micrographia
   - Geoffrey of Monmouth (c. 1136), Historia Regum Britanniae
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29) (was placeholder 0.0)"
 ---
 
 *A synthesis lecture. Nineteen sections in six parts, drawn from the corpus DRK-115 through DRK-178 and the seven years of varanid ethology beneath it. Nothing here is new to the corpus; what is new is the single line drawn through it.*

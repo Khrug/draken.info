@@ -22,6 +22,7 @@ sources:
   - "Stoudenmire, E. M., Schwab, D. J. (2016). Supervised learning with tensor networks. NeurIPS."
   - "Lin, H., Tegmark, M., Rolnick, D. (2017). Why does deep and cheap learning work so well? J. Stat. Phys. 168, 1223–1247."
   - "Frankle, J., Carbin, M. (2019). The lottery ticket hypothesis: finding sparse, trainable neural networks. ICLR."
+description: "Berry curvature, world-line transport, tensor-network contractions, and Chern-Simons knot invariants are four faces of one mathematical object — the modular…"
 ---
 
 A reader asked a single short question on 2026-05-14: *Is Berry curvature related to tracing a world line through a tensor network, using knot theory?*

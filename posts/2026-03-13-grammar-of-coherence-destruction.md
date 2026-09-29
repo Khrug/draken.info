@@ -15,6 +15,7 @@ sources:
   - "https://doi.org/10.1177/20966083251330657"
   - "https://theintercept.com/2014/02/24/jtrig-manipulation/"
   - "https://tec.fsi.stanford.edu/docs/aleksandr-dugins-foundations-geopolitics"
+description: "Seven doctrinal traditions — from Sun Tzu through CIA psyops, Dugin, China's Three Warfares, JTRIG, Gerasimov, and AI-mediated unrestricted warfare …"
 ---
 
 *Seven doctrinal traditions, separated by millennia, geography, and ideology, independently converge on the same operational primitive: the deliberate degradation of a target population's capacity to maintain coherent relationships between perception, belief, and action. The Draken framework provides the scale-free mathematics — Ψ, sheaf restriction maps, the manufactured void — to formalize what military doctrine has known since the fifth century BCE but never had the language to express across scales. This post maps the convergence, illustrates it with operational examples, and identifies the constraint that separates governance from predation.*

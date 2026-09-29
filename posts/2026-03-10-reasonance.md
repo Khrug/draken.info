@@ -9,6 +9,7 @@ excerpt: "Every civilisation has told itself that meaning lives above — in hea
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Every civilisation has told itself that meaning lives above — in heaven, in abstraction, in the divine."
 ---
 
 *This article proposes — as a structural hypothesis, not as theological claim — that the human instinct for meaning-making is a cognitive expression of a real physical phenomenon: the multi-scale coherence of living systems. It traces how that instinct was institutionalized, weaponized, and ultimately separated from the substrate it was trying to contact. It argues that the path back runs downward through the layers of self-organization, not upward toward abstraction. And it introduces a word for the state where reason and resonance become the same signal.*

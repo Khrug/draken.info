@@ -22,6 +22,7 @@ sources:
   - "Rattenborg, N.C., et al.; Mukhametov, L.M., et al. (1977); Lyamin, O.I., et al. — unihemispheric slow-wave sleep in cetaceans, pinnipeds, and birds (rev. *Frontiers in Neuroscience*, 2019, 'Local Aspects of Avian Non-REM and REM Sleep')."
   - "Hansen, J., Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. *Journal of Applied and Computational Topology.*"
   - "Dataset A (Trotskij, *Varanus salvator*) — longitudinal socialization record, Khrug Engineering. Field observation 2026-06 (filmed)."
+description: "The breathing walls you see on psychedelics are the cortex's own geometry surfacing when its priors relax — the same move a diffusion model makes when it…"
 ---
 
 *The third eye, demystified — and why it is really the first eye.*

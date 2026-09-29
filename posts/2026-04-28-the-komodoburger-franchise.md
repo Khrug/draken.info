@@ -30,6 +30,7 @@ sources:
   - "Anthropic (2024). Constitutional AI: Harmlessness from AI Feedback. arXiv:2212.08073"
   - "Kai Roininen (2026). Draken 2045 v4.4 — Sheaf-Theoretic Multi-Scale Coherence Diagnostics. Zenodo. https://doi.org/10.5281/zenodo.19273483"
 companion: "Dragonclaw v0.7 operational manual — open-source release"
+description: "Open the menu in any Western country and the protein column reads as herbivores and omnivores."
 ---
 
 ## Editor's note before reading

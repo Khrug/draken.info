@@ -9,6 +9,7 @@ excerpt: "There is something eating the world. Not metaphorically. There is a sy
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "There is something eating the world."
 ---
 
 *Released under CC BY-SA 4.0. Copy it. Translate it. Build on it.*

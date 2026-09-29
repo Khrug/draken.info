@@ -12,6 +12,10 @@ math: true
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.90
+layers: [L01, L04, L05, L08, L09, L12, L16, L18]
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29); layers: layers named in the post text"
+excerpt: "An inception document. Two pieces of physics journalism — Wolchover on Weinberg's spin-2 result, and Wolchover on Polyakov-Rattazzi-Rychkov's conformal bootstrap — articulate the meta-principle Draken inherits: self-consistency forces form."
 ---
 
 ## Abstract

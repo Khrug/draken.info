@@ -9,6 +9,7 @@ excerpt: "When a man who has spent fifty years studying violence, deception, and
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "When a man who has spent fifty years studying violence, deception, and institutional corruption concludes that we are all robots watching a predetermined…"
 ---
 
 ## I. The Perceptive Node

@@ -22,6 +22,7 @@ sources:
   - "Wolfram, S. (1984). Universality and Complexity in Cellular Automata. Physica D 10, 1–35."
   - "Hansen, J. & Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. Journal of Applied and Computational Topology 3, 315–358."
 companion: "DRAGON SCALES Post 5"
+description: "Aleppo 1417: a Hurufi poet flayed for teaching that the human face bears the inscription of God's names."
 ---
 
 

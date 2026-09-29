@@ -9,6 +9,7 @@ excerpt: "Monitor lizards are the closest living relatives of the dragon archety
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Monitor lizards are the closest living relatives of the dragon archetype — obligate carnivores with serrated teeth, venom-laced saliva, and an evolutionary…"
 ---
 
 *Internal cross-references: [The Imaginary Dimension](/posts/the-imaginary-dimension/) (DRK-123), [The Boundary of Us](/posts/the-boundary-of-us/) (DRK-124), [The Exceptionality Trap](/posts/the-exceptionality-trap/) (DRK-126), [The Kaiju Manifesto](/posts/kaiju-manifesto/) (DRK-105)*

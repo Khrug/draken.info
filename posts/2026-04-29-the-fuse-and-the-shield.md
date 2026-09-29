@@ -16,6 +16,7 @@ sources:
   - "https://www.britannica.com/event/2026-Iran-war"
   - "https://www.youtube.com/watch?v=5gnpCqsXE8g"
   - "https://doi.org/10.1080/00332747.1984.11024142"
+description: "Scott Andrews — a structurally literate reader with US-intelligence-domain pattern recognition — diagnoses the operational geometry of a cult leader with…"
 ---
 
 A friend of Khrug's correspondent — Scott Andrews, a Facebook poster with deep professional ties to the US intelligence community and a long-running interest in cognitive science, behavioural research, and information warfare — published the field note reproduced verbatim below. It is a tightly constructed operational diagnosis of what happens when three structures co-occur: a cult formation, a cognitively declining apex operator, and an attempted use of compromising material as leverage. Andrews wrote it for a Facebook audience. He did not have the Draken vocabulary to hand. He did not need it: the diagnosis is correct in plain English, and the structural geometry he describes is — point for point — what the framework formalises through cellular-sheaf coherence, narrative self-reference saturation, and the optimisation axiom $\Diamond\ \min S_{\mathrm{sys}}(t)\ \mathrm{s.t.}\ dH/dt \geq 0\ \Diamond$.

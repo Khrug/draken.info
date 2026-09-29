@@ -27,6 +27,7 @@ sources:
   - "Roininen, K. (2026). The Totalitarian Sheaf. DRK-125. https://draken.info/posts/the-totalitarian-sheaf/"
   - "Roininen, K. (2026). The Decorticated Sheaf. DRK-135. https://draken.info/posts/the-decorticated-sheaf/"
   - "Roininen, K. (2026). The Substrate and the Game. DRK-130. https://draken.info/posts/the-substrate-and-the-game/"
+description: "MIT Press's 2026 volume Dennett's Real Patterns in Science and Nature collects the philosophical lineage the Draken corpus has been instantiating without…"
 ---
 
 A volume arrived this month that the corpus has, in a precise sense, been writing toward from the other end. MIT Press published *Dennett's Real Patterns in Science and Nature*, edited by Tyler Millhouse, Steve Petersen, and Don Ross — a workshop-born collection (the Santa Fe Institute hosted; Dennett was to have replied to every chapter, and died in April 2024 before he could) that reprints Dennett's 1991 *Real Patterns* and surrounds it with eleven essays applying its central idea across physics, chemistry, biology, neuroscience, economics, and the metaphysics of science as a whole. The contributors are not marginal: James Ladyman, Sean Carroll, David Wallace, Don Ross, Harold Kincaid, Rosa Cao.

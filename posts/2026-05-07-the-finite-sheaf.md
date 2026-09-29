@@ -29,6 +29,7 @@ sources:
   - "Roininen, K. (2026). DRK-140: The Productile Monad. https://draken.info/posts/the-productile-monad/"
   - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
   - "Roininen, K. (2026). The Sheaf Analyzer. https://draken.info/sheaf-analyzer/"
+description: "Quanta's April 2026 ultrafinitism feature names a missing piece: the philosophy has rejected infinity but lacks the apparatus to compute coherence on what…"
 ---
 
 ## 0. Abstract

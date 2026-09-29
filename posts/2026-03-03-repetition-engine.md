@@ -8,6 +8,9 @@ excerpt: "Why do we repeat what harms us? Deleuze and Guattari's three syntheses
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.90
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29)"
+description: "Why do we repeat what harms us?"
 ---
 
 *A Draken response to the video ["Repetition: Modern Madness and the Conquest of the Future"](https://www.youtube.com/@deleuzephilosophy) by Deleuze Philosophy. This article traces the philosophical history of repetition from Plato through Nietzsche to Deleuze and Guattari, and maps the three syntheses of desire from* Anti-Oedipus *onto the Draken layer architecture. It proposes — as hypothesis, not established fact — that the structure of "bad repetition" is the same dynamic the Draken framework diagnoses as rising Ψ.*

@@ -9,6 +9,10 @@ excerpt: "Josiah's reform is the paradigm case of coherence bought by amputation
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.85
+layers: [L10, L12, L13, L15, L16, L17]
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29); layers: editorial reading of the post against the layer definitions"
+description: "Josiah's reform is the paradigm case of coherence bought by amputation rather than gluing."
 ---
 
 # The Burnt Section

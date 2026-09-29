@@ -18,6 +18,7 @@ sources:
   - "https://theaviationgeekclub.com/impressive-video-shows-swedish-air-force-j-35-draken-performing-the-cobra-maneuver/"
   - "https://www.volvocars.com/intl/safety/safety-standard/"
   - "https://news.cision.com/koenigsegg/r/koenigsegg-takes-its-expansion-to-the-next-level,c3499229"
+description: "Žižek's rehabilitation of middle-period Lacan — the Hegelian move where the failure of the system is the truth of the system — names the same diagnostic…"
 ---
 
 A reader can arrive at *The Fuse and the Shield* (DRK-137) from the political diagnosis side and conclude the framework is about cult dynamics, succession protocols, and the kompromat failure mode. That reader would not be wrong, but they would have arrived through one door of a building with several. This post opens a different door. It begins where the *Doctorates of the Absurd* podcast on Lacan and Žižek leaves its readers — at the line *the failure of the system is the truth of the system* — and traces the same diagnostic stance through the engineering traditions that taught it to the author long before he had the philosophical vocabulary for it. The two arrivals converge. The convergence is the post.

@@ -22,6 +22,7 @@ sources:
   - "Hansen, J., Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. *Journal of Applied and Computational Topology.* (H⁰, H¹, restriction maps, sheaf Laplacian.)"
   - "Smolin, L. (2018). *The causal theory of views.* (Views as a presheaf ontology — used here for the shared-future / co-authorship formalism.)"
   - "Dataset A (Trotskij, *Varanus salvator*) — longitudinal socialization record, Khrug Engineering. Predecessor monitor Lenïn (2000–2017) retained as longitudinal anchor."
+description: "Pendragon means chief dragon — and the one who holds the pen on the source term."
 ---
 
 *Who gets to write the source term — and the discipline of signing it.*

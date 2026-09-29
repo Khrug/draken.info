@@ -10,6 +10,7 @@ status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
 companion: DRK-134
+description: "Asymmetric power is not the problem."
 ---
 
 *Internal cross-references: [The Stick That Is Not a Weapon](/posts/the-stick-that-is-not-a-weapon/) (DRK-128) — the Komodo protocol that admits humans only on the predator's terms; [Can We Be Friends with Monsters?](/posts/can-we-be-friends-with-monsters/) (DRK-127) — befriending the apex predator as the fifth option to slay/tame/become/ignore; [The Substrate and the Game](/posts/the-substrate-and-the-game/) (DRK-130) — protocol as agent, individual as substrate, replicator dynamics through us; [The Boundary of Us](/posts/the-boundary-of-us/) (DRK-124) — exclusion as α-monopoly and coherence loss; [The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/) (DRK-125) — Arendt's three-step destruction as dimension annihilation, institutional DARVO at civilizational scale; [The Resonant Agenda](/posts/the-resonant-agenda/) (DRK-129) — Operator 5 frequency targeting as the structural mechanism of flooding-the-zone; [Zhixing Heyi: When Automation Removes the Only Honest Referee](/posts/zhixing-heyi-honest-referee/) (DRK-131) — the labor-Clinch and the successor-restriction-map argument that this post extends from automation to the broader extraction architecture; [The Coherence Debt](/posts/the-coherence-debt/) (DRK-121) — K(t) accumulation under sustained optimization-axiom violation.*

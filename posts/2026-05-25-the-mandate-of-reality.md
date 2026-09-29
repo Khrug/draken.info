@@ -18,6 +18,7 @@ sources:
   - "Roininen, K. (2026). [DRK-130 *The Substrate and the Game*](https://draken.info/posts/the-substrate-and-the-game/)."
   - "Roininen, K. (2026). [DRK-123 *The Imaginary Dimension*](https://draken.info/posts/the-imaginary-dimension/)."
 status: published
+description: "Hegel's Anerkennung is the operation by which one self-consciousness grants another the mandate to define reality."
 ---
 
 ## I. The Caption on the Screen

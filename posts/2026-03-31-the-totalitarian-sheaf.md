@@ -24,6 +24,7 @@ sources:
   - "https://www.cnn.com/2026/03/27/business/iran-war-russia-ukraine-impact-intl"
   - "https://en.wikipedia.org/wiki/Russia_in_the_2026_Iran_war"
   - "https://openlibrary.org/works/OL766888W"
+description: "A sheaf-theoretic formalisation of Arendt's Origins of Totalitarianism: her diagnostic categories — loneliness vs. isolation, ideology as degenerate…"
 ---
 
 *This article formalizes Hannah Arendt's* Origins of Totalitarianism *(1951/1973) as a sheaf-theoretic diagnostic, maps it onto the Draken architecture, and applies the resulting apparatus to real-time events: the 2026 Iran war as a forced clinch with the petrodollar substrate, Russia's strategic parasitism on coherence collapse, and the logicality of ideological self-destruction. Textual analysis draws on forensic extraction from the full 574-page Harcourt Brace Jovanovich 1973 edition. The structural claim: a system executing NRx-accelerationist logicality is grappling with its own skeleton, and the varanid protocol identifies the specific violation — the optimization axiom is running in reverse.*

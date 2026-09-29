@@ -11,6 +11,7 @@ author: Khrug Engineering
 license: CC BY-SA 4.0
 sources:
   - "https://draken.info"
+description: "Nio kärnbegrepp från Draken 2045-ramverket förklarade på svenska med vardagsexempel — för studenter i datavetenskap, kognitionsvetenskap och alla som vill…"
 ---
 
 ## Vad är Draken?

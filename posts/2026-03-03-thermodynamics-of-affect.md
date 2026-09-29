@@ -8,6 +8,9 @@ excerpt: "Deleuze's three levels of knowledge — signs, concepts, essences — 
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.90
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29)"
+description: "Deleuze's three levels of knowledge — signs, concepts, essences — are not human inventions."
 ---
 
 *A Draken response to the video ["Affects and Lived Experience"](https://www.youtube.com/@deleuzephilosophy) by Deleuze Philosophy. The analysis that follows maps the Spinoza-Deleuze framework of the three levels of knowledge onto the Draken 18-layer ontological architecture. It proposes — as a hypothesis to be tested, not as established fact — that the structure of the three levels recurs at physical scales far below consciousness, and that this recurrence is not coincidental but indicative of shared organizational dynamics.*

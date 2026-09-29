@@ -33,6 +33,7 @@ sources:
   - "Roininen, K. (2026). DRK-142: Wrestling with God. https://draken.info/posts/wrestling-with-god/"
   - "Roininen, K. (2026). DRK-148: Wings, Tools, Weapons. https://draken.info/posts/wings-tools-weapons/"
   - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
+description: "A keeper-of-secrets is a node whose restriction maps are gated against the natural diffusion gradient."
 ---
 
 # The Generalizard: Keeper-Function, Mandate, and the Imperial Dragon

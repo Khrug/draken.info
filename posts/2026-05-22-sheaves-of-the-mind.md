@@ -10,6 +10,7 @@ excerpt: "Cognitive science meets sheaf theory through Prof. G. Nagarjuna's thir
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Cognitive science meets sheaf theory through Prof."
 ---
 The Draken framework's central claim is that **intelligence, agency, and power-to-survive are facets of a single structure**. This post teaches that claim — and the formal apparatus it rests on — using the vocabulary of a philosopher who has been mapping the same territory for thirty years, from an adjacent substrate: Prof. G. Nagarjuna of HBCSE-TIFR Mumbai, founder of the GNU gnowsys project. His words carry the argument; ours give it a topology. The bridge runs through cellular sheaves.
 

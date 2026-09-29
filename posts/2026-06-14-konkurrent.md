@@ -32,6 +32,7 @@ sources:
   - "Roininen, K. (2026). The Totalitarian Sheaf. DRK-125. https://draken.info/posts/the-totalitarian-sheaf/"
   - "Roininen, K. (2026). The Continuous Dimension. DRK-149. https://draken.info/posts/the-continuous-dimension/"
   - "Roininen, K. (2026). Inpu Means Input. DRK-155. https://draken.info/posts/inpu-means-input/"
+description: "Current and Swedish ström both name a rate — something per instant, dQ/dt — and both run back to Latin currere, to run."
 ---
 
 This post begins with a list of words, all of which turned out to be the same word.

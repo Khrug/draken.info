@@ -21,6 +21,7 @@ sources:
   - "Försvarsmakten (2024). *Pliktverkets handbok: repetitionsutbildning för krigsplacerad personal*. Stockholm: Försvarsmakten."
   - "Deleuze, G. (1968/1994). *Difference and Repetition*. Trans. P. Patton. New York: Columbia University Press."
   - "Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*, 11(2), 127–138. https://doi.org/10.1038/nrn2787"
+description: "Productile, reptile, repetition, repmånad, monad — a cluster of words that arrived together in conversation."
 ---
 
 ## 0. Abstract

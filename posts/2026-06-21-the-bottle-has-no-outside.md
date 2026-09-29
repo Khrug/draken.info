@@ -9,6 +9,10 @@ excerpt: "A diptych meme sets 'abundance' against 'extraction' as if they were t
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.85
+layers: [L08, L10, L11, L14]
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29); layers: layers named in the post text"
+description: "A diptych meme sets 'abundance' against 'extraction' as if they were two faces of one object that cannot both be true."
 ---
 
 # The Bottle Has No Outside

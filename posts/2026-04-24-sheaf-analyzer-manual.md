@@ -13,6 +13,7 @@ sources:
   - "https://draken.info/sheaf-analyzer/"
   - "https://draken.info/thesis/"
   - "https://doi.org/10.1007/s10958-019-04315-9"
+description: "A self-contained, browser-only tool that applies the Draken framework's core constructs — cellular sheaves, restriction maps, sheaf convergence Γ, narrative…"
 ---
 
 *Internal cross-references: [Drakens Ordlista](https://draken.info/posts/drakens-ordlista/) (DRK-117), [The Manufactured Void](https://draken.info/posts/manufactured-void/) (DRK-110), [The Totalitarian Sheaf](https://draken.info/posts/the-totalitarian-sheaf/) (DRK-125), [The Coherence Debt](https://draken.info/posts/the-coherence-debt/) (DRK-121), [The Grammar of Coherence Destruction](https://draken.info/posts/grammar-of-coherence-destruction/) (DRK-119).*

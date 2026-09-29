@@ -21,6 +21,7 @@ sources:
   - "https://ancientegyptonline.co.uk/anubis/"
   - "https://en.wikipedia.org/wiki/The_Moon_(tarot_card)"
   - "https://crowley-thoth.com/symbolism/moon-18/"
+description: "The oldest death-god in the Egyptian record is not a ruler but an operator."
 ---
 
 ## 0. Why a death-god, and why now

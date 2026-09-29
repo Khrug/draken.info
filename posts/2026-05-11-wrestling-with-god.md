@@ -28,6 +28,7 @@ sources:
   - "Roininen, K. (2026). DRK-130: The Substrate and the Game. https://draken.info/posts/the-substrate-and-the-game/"
   - "Roininen, K. (2026). DRK-141: The Finite Sheaf. https://draken.info/posts/the-finite-sheaf/"
   - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
+description: "A multi-turn exchange with DeepSeek reconstructed the Draken diagnostic without corpus access, then made the move that motivates this post: assigning local…"
 ---
 
 *Internal cross-references: [The Grammar of Coherence Destruction](https://draken.info/posts/grammar-of-coherence-destruction/) (DRK-119), [The Coherence Debt](https://draken.info/posts/the-coherence-debt/) (DRK-121), [The Imaginary Dimension](https://draken.info/posts/the-imaginary-dimension/) (DRK-123), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Stick That Is Not a Weapon](https://draken.info/posts/the-stick-that-is-not-a-weapon/) (DRK-128), [The Substrate and the Game](https://draken.info/posts/the-substrate-and-the-game/) (DRK-130), [The Finite Sheaf](https://draken.info/posts/the-finite-sheaf/) (DRK-141)*

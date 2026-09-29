@@ -20,6 +20,7 @@ sources:
   - "https://openlibrary.org/works/OL2668029W"
   - "https://openlibrary.org/works/OL1883955W"
   - "https://openlibrary.org/works/OL2646875W"
+description: "The fourth dimension of varanid combat section data encodes untested future capacity."
 ---
 
 In 1954, Gian Carlo Wick published a short paper demonstrating that quantum field theory calculations become tractable when you rotate real time into an imaginary axis [1]. Replace *t* with *iτ* and the oscillating exponential *e^{iHt}* becomes the convergent exponential *e^{-Hτ}*. An integral that was diverging now converges. The technique — Wick rotation — is now routine in QFT, lattice gauge theory, and quantum gravity.

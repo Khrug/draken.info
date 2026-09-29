@@ -9,6 +9,7 @@ excerpt: "The most consequential act any system performs is drawing the boundary
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "The most consequential act any system performs is drawing the boundary around 'us.' This paper traces how the varanid combat protocol's clinch mechanism — a…"
 ---
 
 ## 0. Abstract

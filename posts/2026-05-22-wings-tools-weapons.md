@@ -10,6 +10,7 @@ excerpt: "Xiong et al. (Cell Reports 2026): twenty-five participants flew with v
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Xiong et al."
 ---
 What the OTC includes as "me" — and where calibration must catch up
 

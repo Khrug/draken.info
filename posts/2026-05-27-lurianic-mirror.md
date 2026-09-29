@@ -18,6 +18,7 @@ sources:
   - "https://en.wikipedia.org/wiki/Qliphoth"
   - "https://en.wikipedia.org/wiki/Tikkun_olam"
   - "https://en.wiktionary.org/wiki/%CE%B4%CF%81%CE%AC%CE%BA%CF%89%CE%BD"
+description: "A structural mapping between Draken 2045 and Lurianic Kabbalah."
 ---
 
 ## 0. Why this mapping, and why now

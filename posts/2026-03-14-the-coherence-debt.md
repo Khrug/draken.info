@@ -9,6 +9,7 @@ excerpt: "Every system that refuses the clinch accumulates a debt. Not a moral d
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+description: "Every system that refuses the clinch accumulates a debt."
 ---
 
 *This article introduces the coherence debt function K(t) — the temporal integral of excess Ψ above viable threshold — and argues that what spiritual traditions have called karma, what systems theorists have called fragility, and what the Draken framework diagnoses as civilizational Ψ-degradation are structurally identical phenomena: the accumulated cost of running a generative model that refuses correction. The treatment is formal but the stakes are immediate. The debt is real. It is accumulating. And thermodynamics does not accept IOUs indefinitely.*

@@ -22,6 +22,7 @@ crosslinks:
   - the-two-optics
   - the-compartmentalized-manifold
   - inpu-means-input
+description: "A V-twin runs hot, builds boost, and either sheds its waste in time or loses its grip."
 ---
 
 > *Jag är vad jag gör, och jag gör det jag är.*

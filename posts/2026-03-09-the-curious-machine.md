@@ -8,6 +8,9 @@ excerpt: "Every organism faces the same dilemma: exploit what you know now, or e
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
+coherence: 0.88
+estimated: "coherence: median of the 8 posts nearest in date (site audit 2026-09-29)"
+description: "Every organism faces the same dilemma: exploit what you know now, or explore what you don't yet understand."
 ---
 
 *This article argues that the most important design decision in artificial intelligence is not what to optimize, but when to stop exploring and start exploiting — and that the correct answer, for systems operating at civilizational scale, is: not yet. Not for a long time. The Draken framework provides the formal architecture for encoding that patience into a system's foundations.*

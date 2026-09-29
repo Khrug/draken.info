@@ -13,6 +13,7 @@ sources:
   - "https://thezeitgeistexperiment.com/thread.html?id=republican-party-identity-shift"
   - "https://plato.stanford.edu/entries/cellular-automata/"
   - "https://doi.org/10.1137/1.9781611972078"
+description: "A system can resonate catastrophically while reasoning not at all."
 ---
 
 *Internal cross-references: [Reasonance](/posts/reasonance/) (DRK-116), [The Repetition Engine](/posts/repetition-engine/) (DRK-113), [The Manufactured Void](/posts/manufactured-void/) (DRK-110), [The Boundary of Us](/posts/the-boundary-of-us/) (DRK-124), [The Grammar of Coherence Destruction](/posts/grammar-of-coherence-destruction/) (DRK-119), [Abstraction Depth](/posts/abstraction-depth/) (DRK-108), [The Perceptive Node's Dilemma](/posts/the-perceptive-nodes-dilemma/) (DRK-114), [The Coherence Debt](/posts/the-coherence-debt/) (DRK-121), [The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/) (DRK-125), [Planning as Inference](/posts/countries-as-collective-minds/) (DRK-118), [The Curious Machine](/posts/the-curious-machine/) (DRK-115)*

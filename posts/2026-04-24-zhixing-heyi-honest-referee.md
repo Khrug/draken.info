@@ -12,6 +12,7 @@ status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
 revision_note: "v2 incorporates critical feedback from Moonshot/Kimi's review of v1 (24 Apr 2026). Major changes: (1) stratified the restriction-map formalism to distinguish capital–labour Clinch collapse from successor maps, (2) added primary Chinese-language source citations from 马克思主义研究 (CASS) and 求是学刊, (3) refined the Wang Yangming section to distinguish constitutive from testing sheaves, (4) replaced polemical framing of the American régime with formal sheaf-failure analysis and added a steelmanned alternative reading, (5) distinguished UBI-as-pacification from UBI-plus-Clinch emancipation, (6) tied the successor-Clinch claim to specific 2026 EU DSA enforcement proceedings as an empirical test. v1 is preserved at /posts/v1/ for the record."
+description: "Labour was not only the cage — it was also the capital-labour restriction map that forced Display-phase claims into contact with material reality."
 ---
 
 *Cross-references: [The Substrate and the Game](https://draken.info/posts/the-substrate-and-the-game/) (DRK-130), [The Totalitarian Sheaf](https://draken.info/posts/the-totalitarian-sheaf/) (DRK-125), [The Boundary of Us](https://draken.info/posts/the-boundary-of-us/) (DRK-124), [The Coherence Debt](https://draken.info/posts/the-coherence-debt/) (DRK-121), [The Stick That Is Not a Weapon](https://draken.info/posts/the-stick-that-is-not-a-weapon/) (DRK-128).*

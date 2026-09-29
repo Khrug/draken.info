@@ -15,6 +15,7 @@ sources:
   - "https://www.federalreservehistory.org/essays/humphrey-hawkins-act"
   - "https://www.in-formality.com/wiki/index.php?title=Pripiski_(USSR)"
   - "https://doi.org/10.1016/j.jce.2010.09.001"
+description: "In 1976, a Soviet-American Nobel laureate and a Minnesota senator sat in a conservative think tank and discussed whether America should learn to plan."
 ---
 
 ## 0. The Panel
