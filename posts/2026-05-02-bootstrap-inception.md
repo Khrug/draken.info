@@ -253,8 +253,8 @@ The framework has not yet computed the first such plot. But it now knows what ki
 - DRK-126: The Exceptionality Trap
 - [DRK-127: Can We Be Friends with Monsters? — corrected varanid biology](/posts/can-we-be-friends-with-monsters/)
 - [DRK-128: The Stick That Is Not a Weapon — Komodo coexistence and ritualized combat](/posts/the-stick-that-is-not-a-weapon/)
-- [DRK-129: AI as Node — interpretability and multi-substrate epistemics](/posts/the-resonant-agenda/)
-- [DRK-130: Institutional Capture and the English Civil War](/posts/the-substrate-and-the-game/)
+- [DRK-129: The Resonant Agenda](/posts/the-resonant-agenda/)
+- [DRK-130: The Substrate and the Game](/posts/the-substrate-and-the-game/)
 
 ### Thesis and DOI
 

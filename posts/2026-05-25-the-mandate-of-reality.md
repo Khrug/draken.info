@@ -7,7 +7,7 @@ layers: [L05, L08, L09, L10, L13, L15, L17]
 coherence: 0.88
 excerpt: "Hegel's *Anerkennung* is the operation by which one self-consciousness grants another the mandate to define reality. The formal correlate is the bidirectionality of the restriction maps that make a presheaf into a sheaf. Truth, delusion, and ignorance correspond to three distinct cohomological situations: vanishing H¹ via genuine coboundary, asserted H¹-vanishing via suppression, and an uncovered base space. The master-slave dialectic is the canonical failure mode of mandate-seizure; the varanid clinch is the 130-Myr-old protocol that makes mandate-seizure mechanically impossible by projecting out the bluff dimension."
 author: Kai Roininen (Khrug)
-license: CC-BY-4.0
+license: CC BY-SA 4.0
 sources:
   - "Hegel, G.W.F. (1807). *Phänomenologie des Geistes*. §§166–230 (Selbstbewußtsein; Herrschaft und Knechtschaft)."
   - "Hansen, J. & Ghrist, R. (2019). Toward a Spectral Theory of Cellular Sheaves. *Journal of Applied and Computational Topology* 3, 315–358."

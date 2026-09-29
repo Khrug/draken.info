@@ -7,7 +7,7 @@ layers: [L05, L06, L07, L10, L13, L17, L18]
 coherence: 0.87
 excerpt: "Lizards doing calculus sounds absurd. The thesis of this post is that it is correct, and that the absurdity comes from a misunderstanding of where the calculus lives. Differentiation, integration, and limit operations are not cognitive achievements of any individual lizard. They are operations the varanid lineage executes — within-contest in Display→Clinch dynamics (DRK-123), at the clutch level in the Verhulst-Pearl logistic equation made flesh, and at the biospheric scale in the ouroboros topology of phylogenetic sheaf with energy-flow transition maps. The varanid does not know calculus. The varanid IS calculus, calibrated by ~130 Myr of substrate-level solution to the optimization axiom. Humans wrote the equation. The lizards have been the equation since before the K-Pg extinction. The K(t) discrepancy between writing and being is what is currently coming due."
 author: Kai Roininen (Khrug)
-license: CC-BY-4.0
+license: CC BY-SA 4.0
 sources:
   - "Seidler, L.E., Westendorff, S., & Nieder, A. (2026). Sensorimotor transformation of number in the primate parietal cortex. *Nature Communications* 17, 4227. DOI: 10.1038/s41467-026-73037-9."
   - "Verhulst, P.-F. (1838). Notice sur la loi que la population suit dans son accroissement. *Correspondance mathématique et physique* 10, 113–121."

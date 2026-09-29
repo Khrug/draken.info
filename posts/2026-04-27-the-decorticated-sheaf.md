@@ -221,4 +221,4 @@ Skin is not a decoration. It was never a decoration. It is the surface at which 
 - Hansen, J., & Ghrist, R. (2019). *Toward a spectral theory of cellular sheaves.* **Journal of Applied and Computational Topology** 3, 315–358.
 - Draken 2045 framework: draken.info; Zenodo DOI 10.5281/zenodo.19273483.
 
-Cross-refs in this corpus: DRK-119 (Grammar of Coherence Destruction), DRK-121 (Coherence Debt), DRK-123 (Imaginary Dimension), DRK-124 (Boundary of Us), DRK-125 (Totalitarian Sheaf), DRAGON SCALES Posts 1–6 (in particular Post 5: The Protocol Scales). Forthcoming: DRK-129 (Anthropic interpretability and AI functional emotions), DRK-130 (English Civil War and institutional capture).
+Cross-refs in this corpus: DRK-119 (Grammar of Coherence Destruction), DRK-121 (Coherence Debt), DRK-123 (Imaginary Dimension), DRK-124 (Boundary of Us), DRK-125 (Totalitarian Sheaf), DRAGON SCALES Posts 1–6 (in particular Post 5: The Protocol Scales). See also: DRK-129 (The Resonant Agenda), DRK-130 (The Substrate and the Game).
