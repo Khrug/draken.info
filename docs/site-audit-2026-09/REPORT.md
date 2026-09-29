@@ -108,3 +108,35 @@ You delegated the numbering scheme. The rule used: **the post the rest of the co
     - The same two posts call DRK-130 "Institutional Capture and the English Civil War". The post is *The Substrate and the Game*.
     - DRK-186 Konkurrent refers to "DRK-159 Retrocurrere". DRK-159 is *The Tiger and the Y-Stick*.
 11. **License**: should DRK-151/152 be `CC BY-SA 4.0` like the rest?
+
+---
+
+## Round 2: Khrug's answers applied (2026-09-29)
+
+| Q | Answer | Commit | What was done |
+|---|---|---|---|
+| 1 | Burnt | `40d17ad` | DRK-158 title and H1 → "The Burnt Section"; DRK-187's two references updated. |
+| 2 | Estimate | `324a5ff` | See method below. Each estimated post has an `estimated:` frontmatter note. |
+| 3 | Go with proposals | `324a5ff` | 52 descriptions applied as proposed. DRK-185 excerpt = first two sentences of its description (the first alone is "An inception document."). |
+| 4 | Remove dead links | `b24e23a` | 7 links unlinked, text kept. DRK-154's `[DRK-105]` and DRK-173's `[DRK-131]` could instead point at those posts if wanted. |
+| 5 | Update titles | `c0b5fa5` | DRK-129/130 real titles in DRK-185 and DRK-135 (DRK-135's "Forthcoming" → "See also", since both already existed). DRK-179 "The Draken Invariant" → "The Invariant". Konkurrent's planned "DRK-159 *Retrocurrere*" was never published and DRK-159 is an unrelated post, so it now reads "*Retrocurrere* (not yet published)". |
+| 6 | Match, best for free sharing | `c0b5fa5` | **CC BY-SA 4.0** for all posts (DRK-151/152 changed). It lets anyone copy, adapt and use the work commercially with attribution, and keeps derivatives equally free (same licence as Wikipedia). It was already on 77 posts and every page footer, so switching all posts to CC BY would have been a relicensing, not a fix. |
+
+### Estimation method (Q2)
+- **Sheaf Analyzer Γ was tested and rejected.** Over the 72 posts with hand-set coherence it correlates at r = 0.056, i.e. not at all. Its layer picks (51% precision) and TF-IDF nearest-neighbour votes (55–57%) both score below a naive "most common layers" baseline (60.5%).
+- **Coherence = median of the 8 posts nearest in date.** Hand-set scores drift over time (about 0.9 in spring, about 0.78 in September). Leave-one-out error: 0.024 for this method vs 0.033 for a single corpus median.
+- **Layers = the layers the post names in its own text.** On the 45 known posts that name layers, this method has 84% precision and 79% recall. DRK-158 names none, so its layers are an editorial reading against the layer definitions.
+
+| Post | Coherence | Layers |
+|---|---|---|
+| DRK-112 The Thermodynamics of Affect | 0.90 | (unchanged) |
+| DRK-113 The Repetition Engine | 0.90 | (unchanged) |
+| DRK-115 The Curious Machine | 0.88 | (unchanged) |
+| DRK-158 The Burnt Section | 0.85 | L10 L12 L13 L15 L16 L17 (editorial) |
+| DRK-179 The Substrate That Does Not Know It Is Running | 0.80 (was 0.0) | (unchanged) |
+| DRK-185 The Bootstrap Inception | 0.90 | L01 L04 L05 L08 L09 L12 L16 L18 |
+| DRK-187 The Bottle Has No Outside | 0.85 | L08 L10 L11 L14 |
+
+Still open: A2.9 (confirm DRK-178's values), slug/title drift (question 9, no change made), and the stale digest copy in `static/slask/`.
+
+**State after round 2:** `npm run validate` 0 errors, 0 warnings. `check-links` 2,157 internal links, 0 broken. `validate-known-issues.json` is empty. Nothing pushed.
