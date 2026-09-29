@@ -1313,3 +1313,9 @@ textarea.form-input {
 /* Archived post versions (posts/v1/) */
 .version-notice { border: 1px solid var(--gold); border-radius: 6px; padding: 12px 16px; margin-bottom: 24px; color: var(--text-dim); font-size: 0.95em; }
 .version-notice a { color: var(--gold); }
+.digest-index { margin-top: 24px; }
+
+/* Sidebar coherence chart now shows every post (system.json is derived from posts/ at build time) */
+.corpus-map { gap: 1px !important; overflow: hidden !important; }
+.corpus-bar { min-width: 0 !important; }
+.corpus-bar-label { display: none !important; }

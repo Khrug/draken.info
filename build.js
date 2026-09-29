@@ -525,6 +525,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
+    `<url><loc>${b}/digest/</loc><priority>0.7</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -588,6 +589,12 @@ function build() {
   const posts = readPosts();
   const sys = readSystemData();
   sys.pub_count = posts.length;
+  // Publication list is derived from posts/ so the sidebar chart and layer grid never go stale
+  sys.publications = posts.slice().sort((a, b) => new Date(a.date) - new Date(b.date)).map(p => ({
+    drk: p.drk || '', title: p.title, type: (p.tags && p.tags[0]) || 'technical',
+    layers: Array.isArray(p.layers) ? p.layers : [], coherence: p.coherence || 0,
+    date: new Date(p.date).toISOString().split('T')[0], slug: p.slug,
+  }));
 
   console.log(`  Posts: ${posts.length} | Phase: ${sys.phase} | Γ: ${sys.global_coherence}`);
 
@@ -631,12 +638,15 @@ function build() {
   buildSlaskPage(baseTpl);
   buildCorpusMapPage({ baseTpl, render, distDir: DIST_DIR, staticDir: STATIC_DIR });
   buildDrakonomikonPage(baseTpl);
-  buildDigestPages();
+  buildDigestPages(baseTpl);
   buildCorpusJson(posts);
   buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
 
   // ── Static assets ──
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
+  fs.writeFileSync(path.join(DIST_DIR, 'data', 'system.json'), JSON.stringify(sys, null, 2));
+  const staleBak = path.join(DIST_DIR, 'data', 'system.json.v44bak');
+  if (fs.existsSync(staleBak)) fs.rmSync(staleBak);
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
   const redirects = path.join(STATIC_DIR, '_redirects');
@@ -709,14 +719,37 @@ function buildDrakonomikonPage(baseTpl) {
 }
 
 // ── DIGEST pages (self-contained standalone HTML, one dir per issue) ──
-function buildDigestPages() {
+function buildDigestPages(baseTpl) {
   const src = path.join(__dirname, 'digest');
   const dst = path.join(DIST_DIR, 'digest');
   if (!fs.existsSync(src)) { console.log('  · digest/ source not present, skipping'); return; }
   copyDirSync(src, dst);
-  let count = 0;
+  // Issue folders are named q<N>-<YYYY>; newest first
+  const issues = [];
   for (const e of fs.readdirSync(src, { withFileTypes: true })) {
-    if (e.isDirectory() && fs.existsSync(path.join(src, e.name, 'index.html'))) count++;
+    const f = path.join(src, e.name, 'index.html');
+    if (!e.isDirectory() || !fs.existsSync(f)) continue;
+    const html = fs.readFileSync(f, 'utf-8');
+    const title = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || e.name).split(' · ')[0];
+    const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
+    const m = e.name.match(/^q(\d)-(\d{4})$/);
+    issues.push({ dir: e.name, title, desc, key: m ? `${m[2]}-${m[1]}` : e.name, label: m ? `Q${m[1]} ${m[2]}` : e.name });
   }
-  console.log(`  ✓ digest/ (${count} issue${count !== 1 ? 's' : ''})`);
+  issues.sort((a, b) => b.key.localeCompare(a.key));
+  const cards = issues.map(i => `<a href="/digest/${i.dir}/" class="pub-card digest-feed-card">
+      <div class="pub-meta"><span class="pub-tag pub-tag-digest">DIGEST</span><span class="pub-drk pub-drk-digest">${i.label}</span></div>
+      <h2 class="pub-title pub-title-digest">${i.title}</h2>
+      <p class="pub-excerpt">${i.desc}</p>
+      <div class="pub-footer"><span class="digest-read-more">Read digest &rarr;</span></div></a>`).join('\n');
+  const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
+<header class="article-header"><span class="pub-tag pub-tag-digest">DIGEST</span><h1>The Dragon Digest</h1>
+<p class="feedback-desc">A quarterly field report: world events read through the Draken framework's diagnostic instruments, with predictions tested against the record.</p></header>
+<div class="digest-index">${cards}</div></div>`;
+  fs.writeFileSync(path.join(dst, 'index.html'), render(baseTpl, {
+    title: 'The Dragon Digest — Draken 2045',
+    description: 'Quarterly sheaf-theoretic field reports from the Draken 2045 Initiative.',
+    content, og_type: 'website', og_url: 'https://draken.info/digest/',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  }));
+  console.log(`  ✓ digest/ (index + ${issues.length} issue${issues.length !== 1 ? 's' : ''})`);
 }
