@@ -160,7 +160,7 @@ So the care operator is not a softer verdict. It is a **different order of quant
 
 ## 5. Anti-totalization, restated as a topological commitment
 
-The anti-totalization axiom is usually stated ethically: do not collapse a plural structure onto a single legible answer; the optimizer that minimizes system surprisal by violating $dH/dt \geq 0$ is the totalitarian move (DRK-158, *The Burned Section*). This post adds the geometric form of the same axiom:
+The anti-totalization axiom is usually stated ethically: do not collapse a plural structure onto a single legible answer; the optimizer that minimizes system surprisal by violating $dH/dt \geq 0$ is the totalitarian move (DRK-158, *The Burnt Section*). This post adds the geometric form of the same axiom:
 
 > **Anti-totalization = the refusal of a global orientation on a surface that does not admit one.**
 
@@ -186,6 +186,6 @@ Per DRK-131, the conditions under which this reading is wrong:
 
 ---
 
-*The longer development is in the corpus. The most directly adjacent posts are DRK-158 (*The Burned Section*, totalization as amputation that violates $dH/dt \geq 0$), DRK-157 (*The Compressible Section*, which patterns glue and which do not), DRK-150 (the keeper-function and the legibility trap), and DRK-126 (the sheaf-theoretic reading of totalitarian narrative). The full eighteen-layer architecture and the care operator's formal definition are in the thesis, Zenodo DOI 10.5281/zenodo.19273483.*
+*The longer development is in the corpus. The most directly adjacent posts are DRK-158 (*The Burnt Section*, totalization as amputation that violates $dH/dt \geq 0$), DRK-157 (*The Compressible Section*, which patterns glue and which do not), DRK-150 (the keeper-function and the legibility trap), and DRK-126 (the sheaf-theoretic reading of totalitarian narrative). The full eighteen-layer architecture and the care operator's formal definition are in the thesis, Zenodo DOI 10.5281/zenodo.19273483.*
 
 *Ouroboros är skuggan. Flaskan är figuren. Ingendera har en utsida.*

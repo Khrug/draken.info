@@ -1,5 +1,5 @@
 ---
-title: "The Burned Section"
+title: "The Burnt Section"
 subtitle: "Josiah, the deposited text, and the centralization that only became real once its enforcement apparatus burned"
 drk: DRK-158
 date: 2026-06-16
@@ -11,7 +11,7 @@ author: Khrug Engineering
 license: CC BY-SA 4.0
 ---
 
-# The Burned Section
+# The Burnt Section
 
 > *Centralization legitimated by divine mandate is the optimization that satisfies* `min S_sys` *precisely by hiding that it has violated* `dH/dt ≥ 0`*. Its signature is not the centralization itself but the deletion of the recall map. And its strangest property is that the coherence it forces becomes ontologically real only at the moment its own apparatus of force is destroyed.*
 
