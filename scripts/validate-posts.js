@@ -25,7 +25,7 @@ const KNOWN_FILE = path.join(__dirname, 'validate-known-issues.json');
 const REQUIRED = ['title', 'date', 'excerpt', 'status', 'author', 'license'];
 const STATUSES = ['published', 'draft'];
 const LAYER_RE = /^L(0[1-9]|1[0-8])$/;
-const MOJIBAKE_RE = /Ã|â€|Â[\u0080-¿ -ÿ]|ðŸ/;
+const MOJIBAKE_RE = /\u00c3|\u00e2\u20ac|\u00c2[\u00a0-\u00bf]|\u00f0\u0178/;
 const C1_RE = /[\u0080-\u009f]/;
 const FILE_RE = /^(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/;
 
@@ -35,8 +35,8 @@ function isoDate(d) {
   return m ? m[1] : null;
 }
 
-function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE } = {}) {
-  const errors = [], warnings = [], drafts = [];
+function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE, verbose = false } = {}) {
+  const errors = [], warnings = [], drafts = [], noDescription = [];
   let known = {};
   if (knownFile && fs.existsSync(knownFile)) known = JSON.parse(fs.readFileSync(knownFile, 'utf-8')).issues || {};
   const usedKnown = new Set();
@@ -55,7 +55,7 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE } = {}) {
     if (raw.charCodeAt(0) === 0xFEFF) errors.push(`${file}: starts with a UTF-8 BOM`);
     if (raw.includes('\r')) errors.push(`${file}: CRLF/CR line endings (use LF)`);
     if (C1_RE.test(raw)) errors.push(`${file}: contains C1 control characters (U+0080–U+009F)`);
-    if (MOJIBAKE_RE.test(raw)) errors.push(`${file}: contains mojibake (e.g. "Ã", "â€") — re-save as UTF-8`);
+    if (MOJIBAKE_RE.test(raw)) errors.push(`${file}: contains mojibake (e.g. "\u00c3", "\u00e2\u20ac") — re-save as UTF-8`);
 
     let data;
     try { data = matter(raw.replace(/^﻿/, '')).data; }
@@ -83,7 +83,7 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE } = {}) {
     if (data.coherence === undefined) problem(file, 'missing-coherence', 'missing "coherence"');
     else if (typeof data.coherence !== 'number' || !(data.coherence > 0 && data.coherence <= 1))
       problem(file, 'coherence-range', `coherence must be a number in (0, 1] (got ${JSON.stringify(data.coherence)})`);
-    if (!data.description) warnings.push(`${file}: no "description" (meta description falls back to excerpt)`);
+    if (!data.description) noDescription.push(file);
   }
 
   // Cross-post checks
@@ -116,6 +116,9 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE } = {}) {
 
   for (const [file, rules] of Object.entries(known))
     for (const r of rules) if (!usedKnown.has(`${file}#${r}`)) warnings.push(`known-issues entry ${file}#${r} no longer applies — remove it`);
+  if (noDescription.length) warnings.push(verbose
+    ? `no "description" (meta description falls back to excerpt): ${noDescription.join(', ')}`
+    : `${noDescription.length} posts have no "description" (meta description falls back to excerpt; --verbose lists them)`);
   for (const f of drafts) warnings.push(`${f}: status draft — listed here, not built`);
 
   return { errors, warnings, count: files.length };
@@ -135,6 +138,8 @@ module.exports = { validate, report };
 if (require.main === module) {
   const args = process.argv.slice(2);
   const dirArg = args.find(a => !a.startsWith('--'));
-  const res = validate(dirArg ? { postsDir: path.resolve(dirArg), knownFile: args.includes('--no-known') ? null : KNOWN_FILE } : {});
+  const opts = { verbose: args.includes('--verbose') };
+  if (dirArg) Object.assign(opts, { postsDir: path.resolve(dirArg), knownFile: args.includes('--no-known') ? null : KNOWN_FILE });
+  const res = validate(opts);
   process.exit(report(res) ? 0 : 1);
 }
