@@ -1,0 +1,13 @@
+{
+  "note": "Cluster names for the Corpus Map. A cluster takes the name of the first seed post it contains; clusters with no seed are labelled by their top terms. Clusters are recomputed on every build, so check names after large additions.",
+  "clusters": [
+    { "seed": "the-held-mouth", "name": "Myth, mouth and etymology" },
+    { "seed": "manufactured-void", "name": "Power, narrative and the manufactured void" },
+    { "seed": "the-substrate-and-the-game", "name": "Varanids, evolution and the substrate" },
+    { "seed": "the-finite-sheaf", "name": "Physics, finitude and real patterns" },
+    { "seed": "the-one-way-gauge", "name": "Synchrony, holonomy and abduction" },
+    { "seed": "the-generalizard", "name": "Mandate, keeper and the glued self" },
+    { "seed": "the-compartmentalized-manifold", "name": "Engineering, secrecy and the cut" },
+    { "seed": "shape-is-spectrum", "name": "Spectrum, drift and alignment" }
+  ]
+}

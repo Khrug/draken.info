@@ -1275,6 +1275,23 @@ textarea.form-input {
   color: var(--gold) !important;
   border-color: var(--gold) !important;
 }
+/* Corpus Map nav button (blue) */
+.nav-map-btn {
+  color: var(--blue) !important;
+  border: 1px solid rgba(96,165,250,0.35) !important;
+  padding: 4px 12px !important;
+  border-radius: 4px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  background: transparent !important;
+  transition: all 0.2s !important;
+  font-family: var(--mono) !important;
+}
+.nav-map-btn:hover, .nav-map-btn.active {
+  background: rgba(96,165,250,0.10) !important;
+  color: var(--blue) !important;
+  border-color: var(--blue) !important;
+}
 /* Analyzer nav button */
 .nav-analyzer-btn {
   color: var(--accent) !important;

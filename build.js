@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { marked } = require('marked');
+const { buildCorpusMap, buildCorpusMapPage } = require('./scripts/corpus-map');
 
 const POSTS_DIR = path.join(__dirname, 'posts');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
@@ -523,7 +524,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
-    `<url><loc>${b}/orakel/</loc><priority>0.7</priority></url>\n` +
+    `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -607,10 +608,11 @@ function build() {
   buildThesisPage(baseTpl);
   buildSheafAnalyzerPage(baseTpl);
   buildSlaskPage(baseTpl);
-  buildOrakelPage(baseTpl);
+  buildCorpusMapPage({ baseTpl, render, distDir: DIST_DIR, staticDir: STATIC_DIR });
   buildDrakonomikonPage(baseTpl);
   buildDigestPages();
   buildCorpusJson(posts);
+  buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
 
   // â”€â”€ Static assets â”€â”€
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
