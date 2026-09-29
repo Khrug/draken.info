@@ -1,7 +1,7 @@
 ---
 title: "The Damper and the Wastegate"
 subtitle: "A control-theoretic reading of waste, boost, and the cold-blooded line"
-drk: DRK-166
+drk: DRK-188
 date: 2026-06-23
 tags: [control-theory, thermodynamics, lean, anti-totalisation, varanid, embodiment]
 layers: [L04, L09, L13]

@@ -1,7 +1,7 @@
 ---
 title: "The Bootstrap Inception"
 subtitle: "Why two Quanta articles forced the inception of Draken"
-drk: DRK-132
+drk: DRK-185
 date: 2026-05-02
 slug: "bootstrap-inception"
 description: "An inception document. Two pieces of physics journalism — Wolchover on Weinberg's spin-2 result, and Wolchover on Polyakov-Rattazzi-Rychkov's conformal bootstrap — articulate the meta-principle Draken inherits: self-consistency forces form. This post reads them as the framework's structural prior, maps their content onto the 18-layer manifold, and is honest about what has not yet been computed."
@@ -195,7 +195,7 @@ What remains to be done, concretely:
 
 5. **Numerical implementation.** The bootstrap exclusion-plot algorithm is implementable in standard semidefinite-programming packages (SDPB, MOSEK). Adapting it to behavioural-correlation polytopes requires a master student or a RISE/Chalmers TDA collaborator. The compute is tractable; the personnel pipeline is the constraint.
 
-6. **Falsification on the higher bands.** The kayfabe extension (Goldman's framework × Draken; the WWE 2K substrate-independence test) is suggestive but not yet a published quantitative result. The DRK-132-adjacent "Cohomology of Ethics-Washing" piece queued for publication after this one is meant to extend the kink-saturation prediction to L13–L16 institutional structures.
+6. **Falsification on the higher bands.** The kayfabe extension (Goldman's framework × Draken; the WWE 2K substrate-independence test) is suggestive but not yet a published quantitative result. The DRK-185-adjacent "Cohomology of Ethics-Washing" piece queued for publication after this one is meant to extend the kink-saturation prediction to L13–L16 institutional structures.
 
 7. **Distinguishing structural inheritance from formal isomorphism.** The framework currently *uses* sheaf cohomology and *invokes* the bootstrap-polytope conjecture. It has not yet *proven* that the right sheaf-cohomological setup at L05–L08 reduces to a bootstrap-style optimization in any rigorous sense. This is the central theoretical gap. It is also the place where Jakob Hansen at Penn would be the natural collaborator.
 

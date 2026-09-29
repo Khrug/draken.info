@@ -96,6 +96,6 @@ Coherence is set at 0.87, honestly reflecting that the rangeomorph–bioelectric
 
 *Filed under:* L02 (Molecular/Genetic), L03 (Cellular), L05 (Tissue/Morphogenetic), L06–L07 (Organismal), L09, L11–L12 (Protocol/Invariant), L17 (Deep-Time).
 *Operators:* Γ (coherence ratio), H¹ (gluing obstruction), ρ (restriction map), V̇_exo (care/variety operator, latent).
-*Cross-references:* DRK-123 (The Imaginary Dimension — restriction maps and dimensional projection), DRK-163 (The Two Optics), DRK-165 (The Pendragon Source — etymology and laundering), DRK-166 (The Carrier and the Cargo — content-blind carrier vs. representational cargo).
+*Cross-references:* DRK-123 (The Imaginary Dimension — restriction maps and dimensional projection), DRK-163 (The Two Optics), DRK-165 (The Pendragon Source — etymology and laundering), DRK-189 (The Carrier and the Cargo — content-blind carrier vs. representational cargo).
 
 *Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*

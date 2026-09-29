@@ -1,6 +1,6 @@
 ---
 title: "The Carrier and the Cargo: Phase Synchrony, Representational Content, and the Cohomology of a Shared Belief"
-drk: DRK-166
+drk: DRK-189
 date: 2026-06-24
 tags: [theory, analysis, synthesis, protocol]
 layers: [L02, L05, L06, L07, L09, L10, L11, L13]
@@ -114,7 +114,7 @@ is the *vector-stalk generalisation* of $r$. So Varlet & Grootswagers' theorem i
 
 The sharpest consequence is ethical, and it is where the opening fake returns. A group can drive $r \to 1$ around a *false* cargo. Maximal carrier, perfect lock, and the meme is wrong. $\Gamma$ high, $H^1$ zero, soundness zero. **Coherence measures whether the group agrees, never whether it is right.** This is the precise neural instance of the coherence-versus-soundness distinction: $\Gamma$ (and its scalar shadow $r$) tracks internal consistency; truth-tracking requires an *exogenous* check the synchrony observable cannot supply. EEG instruments the coherence; only ground-truth instruments the soundness. A hyperscanning study that reports high inter-brain synchrony as evidence the shared belief is *correct* has committed exactly the error of mistaking $\Gamma$ for validation — the field is, quietly, a standing case study in it.
 
-In the source-term language of **Konkurrent** (DRK-158): a belief is owned when the holder is its source $S$ (auto-nomos, self-sourcing). A *meme* is a cargo whose source term has been **laundered** — adopted with the provenance stripped, the carrier opened by phase-lock and the $S$ silently exchanged for someone else's. That is the mechanism **The Pendragon Source** (DRK-165) names historically: Geoffrey of Monmouth as a phase-locked carrier delivering a laundered $S$. The "phantom class" fake sits at the synthetic pole of the four-pole taxonomy — fabricated cargo, fabricated index — and its tell was that it invented an *impossible carrier* (sync without channel) to smuggle a cargo that needs no channel because it is fiction. The honest phenomenon is the opposite: real channel, gated transfer, retained $S$ — or laundered $S$, which is the whole problem.
+In the source-term language of **Konkurrent** (DRK-186): a belief is owned when the holder is its source $S$ (auto-nomos, self-sourcing). A *meme* is a cargo whose source term has been **laundered** — adopted with the provenance stripped, the carrier opened by phase-lock and the $S$ silently exchanged for someone else's. That is the mechanism **The Pendragon Source** (DRK-165) names historically: Geoffrey of Monmouth as a phase-locked carrier delivering a laundered $S$. The "phantom class" fake sits at the synthetic pole of the four-pole taxonomy — fabricated cargo, fabricated index — and its tell was that it invented an *impossible carrier* (sync without channel) to smuggle a cargo that needs no channel because it is fiction. The honest phenomenon is the opposite: real channel, gated transfer, retained $S$ — or laundered $S$, which is the whole problem.
 
 ## 8. Experimental protocol
 

@@ -23,7 +23,7 @@ Asymmetric power is not the problem. Extractive use of asymmetric power is the p
 
 What humans have built, in the institutional formations of the last few centuries, is a class of asymmetric configurations that do not honor any protocol older than themselves. They optimize locally — for the firm, for the diocese, for the security service, for the political party — at the expense of the systems that contain them. The Draken framework calls this the violation of the optimization axiom: ◆ min S_sys(t) s.t. dH/dt ≥ 0, where the substructure has captured the optimization function and inverted its sign with respect to the manifold. In ordinary language: the institution is eating the conditions of its own viability and calling the meal success.
 
-This post is the first of two. It establishes the structural distinction. The companion post (DRK-132) will be the personal testimony from inside a configuration where the distinction held — where asymmetry was honored rather than weaponized, where being subordinated was a gift exchanged rather than a position imposed. That post requires this one to be read first. The vocabulary has to be set before the testimony can be received.
+This post is the first of two. It establishes the structural distinction. The companion post (DRK-134) will be the personal testimony from inside a configuration where the distinction held — where asymmetry was honored rather than weaponized, where being subordinated was a gift exchanged rather than a position imposed. That post requires this one to be read first. The vocabulary has to be set before the testimony can be received.
 
 ## I. Two Asymmetries
 
@@ -171,7 +171,7 @@ What the framework gives the silos is a shared vocabulary for measurement-failur
 
 The wager may fail. It is a wager, not a result. The framework is also not a politics: it does not tell the reader what to do once the diagnosis is made. Some who accept the diagnosis will conclude that revolution is the only remaining option. Some will conclude that the institutions can be reformed through institutional courage, prosocial elite restraint, and the kind of slow patient coalition-building that the historical record shows has occasionally worked. Some will conclude that withdrawal — building parallel structures rather than fighting the existing ones — is the most plausible path. The framework does not adjudicate between these. It only insists that whatever the chosen response, it should be calibrated to the actual configuration rather than to a misdiagnosis of it.
 
-The companion post (DRK-132) is the testimony from inside one configuration where the structure held — where asymmetric power was honored rather than weaponized, where being substrate was a gift exchanged rather than a position imposed. That testimony is what the framework's vocabulary is for. The varanid protocol is not a metaphor. It is a credentialed working example of the structure the framework predicts is necessary, and the testimony is the report from a human nervous system that learned, slowly and with the help of one particular animal, what it feels like when the structure operates correctly. Without that report, the vocabulary developed in this post is notation. With it, the notation has a referent.
+The companion post (DRK-134) is the testimony from inside one configuration where the structure held — where asymmetric power was honored rather than weaponized, where being substrate was a gift exchanged rather than a position imposed. That testimony is what the framework's vocabulary is for. The varanid protocol is not a metaphor. It is a credentialed working example of the structure the framework predicts is necessary, and the testimony is the report from a human nervous system that learned, slowly and with the help of one particular animal, what it feels like when the structure operates correctly. Without that report, the vocabulary developed in this post is notation. With it, the notation has a referent.
 
 The varanids have invited us to wrestle. They know how, and we do not. We could learn.
 
@@ -225,4 +225,4 @@ Weiss, M. (2011). *Techniques of Pleasure: BDSM and the Circuits of Sexuality*. 
 
 ---
 
-*DRK-131 · draken.info · companion to DRK-132 (forthcoming)*
+*DRK-133 · draken.info · companion to DRK-134 (forthcoming)*

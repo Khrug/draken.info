@@ -1,6 +1,6 @@
 ---
 title: "Konkurrent: Currere, the Continuity Equation, and the Verb That Runs From Algorithm to Autonomy"
-drk: DRK-158
+drk: DRK-186
 date: 2026-06-14
 tags: [theory, analysis, synthesis, philosophy]
 layers: [L01, L05, L06, L07, L11, L13, L14, L15, L17]
