@@ -1359,7 +1359,7 @@ textarea.form-input {
 }
 
 /* Wide display equations scroll inside their own box instead of widening the page on phones */
-mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: auto; overflow-y: hidden; scrollbar-width: thin; }
 .article-body pre { max-width: 100%; overflow-x: auto; }
 @media (max-width: 700px) { .article-body table { display: block; max-width: 100%; overflow-x: auto; } }
 
@@ -1367,7 +1367,12 @@ mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: aut
 .main > * { min-width: 0; }
 @media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); padding: 24px 16px; } }
 .pub-title, .pub-excerpt { overflow-wrap: anywhere; }
-mjx-container:not([display="true"]) { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
+/* Inline math: MathJax's own inline layout (no scroll box, correct baseline).
+   Phones only: an over-long inline formula may scroll sideways, with no visible bar. */
+@media (max-width: 700px) {
+  mjx-container:not([display="true"]) { display: inline-block; vertical-align: baseline; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 0.2em 0; scrollbar-width: none; }
+  mjx-container:not([display="true"])::-webkit-scrollbar { display: none; }
+}
 .article-body svg:not(mjx-container svg) { max-width: 100%; height: auto; }
 mjx-container[display="true"][width="full"] { min-width: 0 !important; }
 .layer-articles { flex-wrap: wrap; flex: 1 1 auto; min-width: 0; justify-content: flex-end; }
