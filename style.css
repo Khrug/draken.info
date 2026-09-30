@@ -1367,11 +1367,12 @@ mjx-container[display="true"] { display: block; max-width: 100%; overflow-x: aut
 .main > * { min-width: 0; }
 @media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); padding: 24px 16px; } }
 .pub-title, .pub-excerpt { overflow-wrap: anywhere; }
-/* Inline math: MathJax's own inline layout (no scroll box, correct baseline).
-   Phones only: an over-long inline formula may scroll sideways, with no visible bar. */
+/* Inline math keeps MathJax's own inline layout and baseline on every screen.
+   Phones: a paragraph holding an over-long formula scrolls sideways as a whole (no visible bar),
+   so no formula becomes its own scroll box, which would lift it off the baseline. */
 @media (max-width: 700px) {
-  mjx-container:not([display="true"]) { display: inline-block; vertical-align: baseline; max-width: 100%; overflow-x: auto; overflow-y: hidden; padding: 0.2em 0; scrollbar-width: none; }
-  mjx-container:not([display="true"])::-webkit-scrollbar { display: none; }
+  .article-body p { overflow-x: auto; scrollbar-width: none; }
+  .article-body p::-webkit-scrollbar { display: none; }
 }
 .article-body svg:not(mjx-container svg) { max-width: 100%; height: auto; }
 mjx-container[display="true"][width="full"] { min-width: 0 !important; }
