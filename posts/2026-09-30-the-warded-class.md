@@ -215,5 +215,27 @@ This post is wrong, in whole or part, if:
 
 (e) **Silent-drift claim.** A system in the "silent drift" regime is shown to accumulate hidden damage no faster than a well-sounded one under matched noise. Then soundness is not the operative variable and the table in §8 loses its third row.
 
+## References
+
+- Bravyi, S., Poulin, D. & Terhal, B. (2010). Tradeoffs for reliable quantum information storage in 2D systems. *Physical Review Letters* 104, 050503. [arXiv:0909.5200](https://arxiv.org/abs/0909.5200)
+- Breuckmann, N. P. & Eberhardt, J. N. (2021). Quantum low-density parity-check codes. *PRX Quantum* 2, 040101. [doi:10.1103/PRXQuantum.2.040101](https://doi.org/10.1103/PRXQuantum.2.040101)
+- Calderbank, A. R. & Shor, P. W. (1996). Good quantum error-correcting codes exist. *Physical Review A* 54, 1098–1106. [doi:10.1103/PhysRevA.54.1098](https://doi.org/10.1103/PhysRevA.54.1098)
+- Chen, Y., Huang, M. M.-Y., Liu, Y. & Tang, E.-C. (2026). Cubical sheaf complexes with constant expansion with applications to asymptotically good qLTCs. Preprint. [arXiv:2609.28028](https://arxiv.org/abs/2609.28028)
+- Dennis, E., Kitaev, A., Landahl, A. & Preskill, J. (2002). Topological quantum memory. *Journal of Mathematical Physics* 43, 4452–4505. [arXiv:quant-ph/0110143](https://arxiv.org/abs/quant-ph/0110143)
+- Dinur, I., Evra, S., Livne, R., Lubotzky, A. & Mozes, S. (2022). Locally testable codes with constant rate, distance, and locality. *Proceedings of STOC 2022*. [arXiv:2111.04808](https://arxiv.org/abs/2111.04808)
+- Dinur, I., Lin, T.-C. & Vidick, T. (2024). Expansion of higher-dimensional cubical complexes with application to quantum locally testable codes. *Proceedings of FOCS 2024*. [arXiv:2402.07476](https://arxiv.org/abs/2402.07476)
+- Gay, W. & Jeronimo, F. G. (2026). Asymptotically good quantum locally testable codes. Preprint. [arXiv:2609.20780](https://arxiv.org/abs/2609.20780)
+- Google Quantum AI and Collaborators (2025). Quantum error correction below the surface code threshold. *Nature* 638, 920–926. [arXiv:2408.13687](https://arxiv.org/abs/2408.13687)
+- Gromov, M. (2010). Singularities, expanders and topology of maps. Part 2: From combinatorics to topology via algebraic isoperimetry. *Geometric and Functional Analysis* 20, 416–526.
+- Hansen, J. & Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. *Journal of Applied and Computational Topology* 3, 315–358. [doi:10.1007/s41468-019-00038-7](https://doi.org/10.1007/s41468-019-00038-7)
+- Kitaev, A. Yu. (2003). Fault-tolerant quantum computation by anyons. *Annals of Physics* 303, 2–30. [arXiv:quant-ph/9707021](https://arxiv.org/abs/quant-ph/9707021)
+- Leverrier, A. & Zémor, G. (2022). Quantum Tanner codes. *Proceedings of FOCS 2022*. [arXiv:2202.13641](https://arxiv.org/abs/2202.13641)
+- Lin, T.-C. (2024). Transversal non-Clifford gates for quantum LDPC codes on sheaves. Preprint. [arXiv:2410.14631](https://arxiv.org/abs/2410.14631)
+- Linial, N. & Meshulam, R. (2006). Homological connectivity of random 2-complexes. *Combinatorica* 26, 475–487.
+- Online Etymology Dictionary. Entries *ward* (n.) and *syndrome* (n.). [etymonline.com](https://www.etymonline.com)
+- Panteleev, P. & Kalachev, G. (2022). Asymptotically good quantum and locally testable classical LDPC codes. *Proceedings of STOC 2022*, 375–388. [doi:10.1145/3519935.3520017](https://doi.org/10.1145/3519935.3520017)
+- Panteleev, P. & Kalachev, G. (2024). Maximally extendable sheaf codes. Preprint. [arXiv:2403.03651](https://arxiv.org/abs/2403.03651)
+- Steane, A. (1996). Multiple-particle interference and quantum error correction. *Proceedings of the Royal Society A* 452, 2551. [doi:10.1098/rspa.1996.0136](https://doi.org/10.1098/rspa.1996.0136)
+
 ---
 *Operators: $\varkappa\in H^1$, $b_1$, $d$ (systole/cosystole), $\rho$ (soundness), $\delta$, $\Gamma$, $K(t)$ · Crosslinks: [The Invariant](/posts/the-invariant/) (DRK-175) · [The Totalitarian Sheaf](/posts/the-totalitarian-sheaf/) (DRK-125) · [The Coherence Debt](/posts/the-coherence-debt/) (DRK-121) · [Övervakaren och Undervakaren](/posts/overvakaren-och-undervakaren/) (DRK-178) · [The Sheaf Analyzer](/posts/sheaf-analyzer-manual/) (DRK-132) · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483*
