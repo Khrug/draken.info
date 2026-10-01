@@ -750,6 +750,34 @@
       "status": "approved",
       "map_concept": "keeper",
       "note": "The four conditions (persistence, gated restrictions, authority bound to keeper, loss function) follow in §2 of the defining post."
+    },
+    {
+      "id": "sigma-sync",
+      "name": "σ(t) — synchronicity density",
+      "aliases": [
+        "synchronicity density",
+        "σ(t)"
+      ],
+      "definition": "**Synchronicity density** $\\sigma(t)$ is the fraction of salient events at time $t$ that the observer reads as addressed to the self **[D]**.",
+      "defined_in": {
+        "drk": "DRK-177",
+        "slug": "the-common-base",
+        "section": "§8"
+      },
+      "layers": [
+        "L05",
+        "L06",
+        "L07",
+        "L09",
+        "L12",
+        "L15"
+      ],
+      "depends_on": [
+        "psi"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed"
     }
   ],
   "approval": {
