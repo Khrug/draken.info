@@ -83,7 +83,7 @@ function readPosts() {
 }
 
 function readSystemData() {
-  const defaults = { ko_count: 0, ko_embedded: 0, global_coherence: 0, pub_count: 0, active_layers: '0/18', phase: 'GENESIS', publications: [], layer_status: {} };
+  const defaults = { pub_count: 0, active_layers: '0/18', phase: 'GENESIS', publications: [], layer_status: {} };
   if (fs.existsSync(DATA_FILE)) { try { return { ...defaults, ...JSON.parse(fs.readFileSync(DATA_FILE, 'utf-8')) }; } catch(e) {} }
   return defaults;
 }
@@ -143,18 +143,21 @@ function buildEnhancedLayerGrid(sys) {
   return h;
 }
 
-function buildActivityFeed() {
-  const f = path.join(STATIC_DIR, 'data', 'activity.json');
-  let items = [];
-  if (fs.existsSync(f)) { try { items = JSON.parse(fs.readFileSync(f, 'utf-8')); } catch(e) {} }
-  if (!items.length) items = [
-    { detail: 'draken.info v2 deployed', time: new Date().toISOString(), status: 'green' },
-    { detail: 'Thesis page published', time: new Date().toISOString(), status: 'green' },
-    { detail: 'Sheaf Analyzer launched', time: new Date().toISOString(), status: 'green' },
-    { detail: '247 KOs embedded in Pinecone', time: new Date().toISOString(), status: 'green' },
-    { detail: 'Multi-model peer review complete', time: new Date().toISOString(), status: 'gold' },
-  ];
-  return items.slice(0, 8).map(i => `<div class="activity-item"><span class="dot dot-${i.status||'gray'}"></span>${i.detail}<span class="activity-time">— ${timeAgo(i.time)}</span></div>`).join('\n');
+// Activity feed: the most recent publications, derived from posts/ (no hand-kept log)
+function buildActivityFeed(posts) {
+  return posts.slice(0, 8).map(p => `<div class="activity-item"><span class="dot dot-green"></span>${p.drk || ''} published — <a href="/posts/${p.slug}/">${String(p.title || p.slug).split(':')[0]}</a><span class="activity-time">— ${fmtDate(p.date)}</span></div>`).join('\n');
+}
+
+// Corpus statistics computed from posts/ at every build
+function computeCorpusStats(posts) {
+  let words = 0;
+  const sources = new Set(), layers = new Set();
+  for (const p of posts) {
+    words += String(p.rawContent || '').split(/\s+/).filter(Boolean).length;
+    for (const src of (Array.isArray(p.sources) ? p.sources : [])) sources.add(String(src).trim().toLowerCase());
+    for (const l of (Array.isArray(p.layers) ? p.layers : [])) layers.add(String(l));
+  }
+  return { total_words: words, total_sources_cited: sources.size, active_layers: layers.size };
 }
 
 // ── THESIS PAGE ──
@@ -168,7 +171,7 @@ function buildThesisPage(baseTpl) {
 <h1>The Draken 2045 Framework — Research Monograph v4.5</h1>
 <div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, Göteborg</span><span>All 18 Layers</span></div></header>
 <div class="article-body thesis-body">${body}</div></article>
-<div class="reader-feedback"><h3 class="feedback-title">â—‰ Peer Review Feedback</h3>
+<div class="reader-feedback"><h3 class="feedback-title">◉ Peer Review Feedback</h3>
 <p class="feedback-desc">Reviewed by Claude, ChatGPT, Kimi, Grok, DeepSeek, and Gemini. See monograph for details.</p>
 <form class="feedback-form" action="https://formsubmit.co/khrrug@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="[THESIS] Peer Review"><input type="hidden" name="_captcha" value="true"><input type="hidden" name="_next" value="https://draken.info/thesis/?feedback=sent"><input type="text" name="_honey" style="display:none">
@@ -635,7 +638,14 @@ function build() {
     date: new Date(p.date).toISOString().split('T')[0], slug: p.slug,
   }));
 
-  console.log(`  Posts: ${posts.length} | Phase: ${sys.phase} | Γ: ${sys.global_coherence}`);
+  const stats = computeCorpusStats(posts);
+  sys.active_layers = `${stats.active_layers}/18`;
+  // The map is built first so its citation-link count can feed the front page
+  const map = buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
+  sys.corpus_stats = { total_words: stats.total_words, total_sources_cited: stats.total_sources_cited, citation_links: map.edges.filter(e => e.link).length };
+  sys.last_updated = new Date().toISOString();
+
+  console.log(`  Posts: ${posts.length} | Phase: ${sys.phase} | words: ${stats.total_words} | unique sources: ${stats.total_sources_cited}`);
 
   const baseTpl = loadTemplate('base.html');
   const indexTpl = loadTemplate('index.html');
@@ -644,14 +654,14 @@ function build() {
   // ── Index page ──
   const indexContent = render(indexTpl, {
     cards: buildCards(posts),
-    ko_count: sys.ko_count,
-    ko_embedded: sys.ko_embedded || sys.ko_count,
-    global_coherence: (sys.global_coherence || 0).toFixed(3),
     pub_count: sys.pub_count,
     active_layers: sys.active_layers,
     phase: sys.phase,
     layer_grid_enhanced: buildEnhancedLayerGrid(sys),
-    activity_feed: buildActivityFeed(),
+    stat_words: sys.corpus_stats.total_words.toLocaleString('en-US'),
+    stat_sources: sys.corpus_stats.total_sources_cited,
+    stat_links: sys.corpus_stats.citation_links,
+    activity_feed: buildActivityFeed(posts),
   });
 
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), render(baseTpl, {
@@ -680,7 +690,6 @@ function build() {
   buildDigestPages(baseTpl);
   buildCorpusJson(posts);
   buildSearchIndex(posts);
-  buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
 
   // ── Static assets ──
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));

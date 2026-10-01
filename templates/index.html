@@ -8,18 +8,6 @@
 <!-- ═══ SIGNAL BAR ═══ -->
 <div class="signal-bar">
   <div class="signal-item">
-    <span class="signal-value" id="ko-count">{{ko_count}}</span>
-    <span class="signal-label">Knowledge Objects</span>
-  </div>
-  <div class="signal-item">
-    <span class="signal-value" id="ko-embedded">{{ko_embedded}}</span>
-    <span class="signal-label">Embeddings Complete</span>
-  </div>
-  <div class="signal-item">
-    <span class="signal-value">{{global_coherence}}</span>
-    <span class="signal-label">Sheaf Coherence Γ</span>
-  </div>
-  <div class="signal-item">
     <span class="signal-value">{{pub_count}}</span>
     <span class="signal-label">Publications</span>
   </div>
@@ -83,34 +71,17 @@
       </div>
       <div class="corpus-stats">
         <div class="corpus-stat">
-          <span class="corpus-stat-val" id="stat-words">—</span>
+          <span class="corpus-stat-val" id="stat-words">{{stat_words}}</span>
           <span class="corpus-stat-label">words</span>
         </div>
         <div class="corpus-stat">
-          <span class="corpus-stat-val" id="stat-sources">—</span>
+          <span class="corpus-stat-val" id="stat-sources">{{stat_sources}}</span>
           <span class="corpus-stat-label">sources cited</span>
         </div>
         <div class="corpus-stat">
-          <span class="corpus-stat-val" id="stat-crosslinks">—</span>
-          <span class="corpus-stat-label">cross-layer links</span>
+          <span class="corpus-stat-val" id="stat-crosslinks">{{stat_links}}</span>
+          <span class="corpus-stat-label">citation links</span>
         </div>
-      </div>
-    </div>
-
-    <!-- System Coherence -->
-    <div class="sidebar-card">
-      <div class="sidebar-title">◉ System Coherence</div>
-      <div class="meter-wrap">
-        <div class="meter-ring">
-          <div class="meter-value">{{global_coherence}}</div>
-          <div class="meter-label">Global Sheaf Γ</div>
-        </div>
-      </div>
-      <div class="ko-status">
-        <div class="ko-bar-wrap">
-          <div class="ko-bar" id="ko-bar" style="width:100%"></div>
-        </div>
-        <div class="ko-bar-label"><span id="ko-bar-count">{{ko_embedded}}</span>/{{ko_count}} KOs fully embedded in Pinecone</div>
       </div>
     </div>
 
@@ -205,20 +176,6 @@
       if (!resp.ok) return;
       const data = await resp.json();
 
-      // Update signal bar
-      const koEl = document.getElementById('ko-count');
-      if (koEl && data.ko_count !== undefined) koEl.textContent = data.ko_count;
-      const embEl = document.getElementById('ko-embedded');
-      if (embEl && data.ko_embedded !== undefined) embEl.textContent = data.ko_embedded;
-
-      // Update corpus stats
-      if (data.corpus_stats) {
-        const s = data.corpus_stats;
-        document.getElementById('stat-words').textContent = s.total_words?.toLocaleString() || '—';
-        document.getElementById('stat-sources').textContent = s.total_sources_cited || '—';
-        document.getElementById('stat-crosslinks').textContent = s.cross_layer_links || '—';
-      }
-
       // Build corpus coherence map (mini bar chart of per-article coherence)
       if (data.publications) {
         const mapEl = document.getElementById('corpus-map');
@@ -233,15 +190,6 @@
             </div>`;
           }).join('');
         }
-      }
-
-      // Update KO embedding bar
-      if (data.ko_count && data.ko_embedded !== undefined) {
-        const pct = Math.min(100, (data.ko_embedded / data.ko_count) * 100);
-        const bar = document.getElementById('ko-bar');
-        if (bar) bar.style.width = pct + '%';
-        const cnt = document.getElementById('ko-bar-count');
-        if (cnt) cnt.textContent = data.ko_embedded;
       }
 
     } catch(e) { /* silent fail */ }
