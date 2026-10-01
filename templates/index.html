@@ -7,6 +7,15 @@
 
 <!-- ═══ SIGNAL BAR ═══ -->
 <div class="signal-bar">
+  <a class="signal-item signal-link" href="/ko/" title="{{ko_title}}">
+    <span class="signal-value">{{ko_counted}}</span>
+    <span class="signal-label">Knowledge Objects</span>
+    <span class="signal-sub">{{ko_sub}}</span>
+  </a>
+  <a class="signal-item signal-link" href="#watertightness" title="Structural soundness of the corpus ({{w_version}}, {{w_status}}). Not Γ.">
+    <span class="signal-value">{{w_value}}</span>
+    <span class="signal-label">Watertightness W</span>
+  </a>
   <div class="signal-item">
     <span class="signal-value">{{pub_count}}</span>
     <span class="signal-label">Publications</span>
@@ -65,7 +74,7 @@
 
     <!-- Corpus Coherence Map -->
     <div class="sidebar-card">
-      <div class="sidebar-title">◉ Corpus Coherence Map</div>
+      <div class="sidebar-title">◉ Corpus Watertightness Map</div>
       <div class="corpus-map" id="corpus-map">
         <!-- Populated by JS from system.json -->
       </div>
@@ -83,6 +92,23 @@
           <span class="corpus-stat-label">citation links</span>
         </div>
       </div>
+    </div>
+
+    <!-- Watertightness W (replaces the frozen Γ 0.891) -->
+    <div class="sidebar-card" id="watertightness">
+      <div class="sidebar-title">◉ Watertightness W</div>
+      <div class="meter-wrap">
+        <div class="meter-ring">
+          <div class="meter-value">{{w_value}}</div>
+          <div class="meter-label">{{w_version}}</div>
+        </div>
+      </div>
+      <p class="sidebar-desc">Structural soundness of the corpus: are terms defined, posts connected, references resolving, claims referenced and posts falsifiable? It does not measure whether the arguments are true, and it is not Γ. Any component at zero makes W zero. Status: {{w_status}}.</p>
+      <div class="w-components">
+        {{w_components}}
+      </div>
+      <p class="w-note">{{w_projection}}</p>
+      <p class="w-note"><a href="/data/watertightness.json">Formula, components and every leak</a> · <a href="/ko/">KO registry</a></p>
     </div>
 
     <!-- Layer Status with Article Connections -->
@@ -181,10 +207,10 @@
         const mapEl = document.getElementById('corpus-map');
         if (mapEl) {
           mapEl.innerHTML = data.publications.map(p => {
-            const c = p.coherence || 0;
-            const color = c > 0.9 ? 'var(--accent)' : c > 0.85 ? 'var(--gold)' : 'var(--red, #e94560)';
-            const height = Math.max(8, c * 48);
-            return `<div class="corpus-bar-wrap" title="${p.drk}: ${p.title} — Γ ${c}">
+            const c = p.w || 0;
+            const color = c >= 0.85 ? 'var(--accent)' : c >= 0.6 ? 'var(--gold)' : 'var(--red, #e94560)';
+            const height = Math.max(4, c * 48);
+            return `<div class="corpus-bar-wrap" title="${p.drk}: ${p.title} — W ${c.toFixed(3)}">
               <div class="corpus-bar" style="height:${height}px;background:${color}"></div>
               <div class="corpus-bar-label">${p.drk.replace('DRK-','')}</div>
             </div>`;

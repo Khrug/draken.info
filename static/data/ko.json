@@ -1,0 +1,465 @@
+{
+  "version": 1,
+  "note": "KnowledgeObject registry v3. Maintained by hand. Every definition is quoted verbatim from the defining post (the build checks this). Only entries with status \"approved\" count. layers: to be set by Khrug; the build reports the layers of the posts that use each KO.",
+  "kos": [
+    {
+      "id": "gamma",
+      "name": "Γ — sheaf convergence",
+      "aliases": [
+        "Γ",
+        "\\Gamma",
+        "Gamma",
+        "sheaf convergence",
+        "sheaf coherence",
+        "kärvskonvergens"
+      ],
+      "definition": "The sheaf convergence measure **Γ** (gamma) tracks the inverse: how well local sections glue into a globally consistent picture.",
+      "defined_in": {
+        "drk": "DRK-105",
+        "slug": "kaiju-manifesto",
+        "section": "The 18-Layer Architecture"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [
+        "psi"
+      ],
+      "status": "proposed",
+      "map_concept": "gamma"
+    },
+    {
+      "id": "psi",
+      "name": "Ψ — narrative self-reference ratio",
+      "aliases": [
+        "Ψ",
+        "\\Psi",
+        "Psi",
+        "narrative self-reference ratio",
+        "narrative self-reference",
+        "psykosmetrik"
+      ],
+      "definition": "**Ψ** (psi) is the *psychosis metric* — the ratio of narrative self-reference to reality-contact.",
+      "defined_in": {
+        "drk": "DRK-105",
+        "slug": "kaiju-manifesto",
+        "section": "The 18-Layer Architecture"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [
+        "gamma"
+      ],
+      "status": "proposed",
+      "map_concept": "psi",
+      "note": "Introduced as \"psychosis metric\"; that label is retired in thesis v4.4. Current reading: \"In the Draken framework, Ψ is the Narrative Self-Reference Ratio\" (The Substrate and the Game, DRK-130)."
+    },
+    {
+      "id": "kt",
+      "name": "K(t) — coherence debt",
+      "aliases": [
+        "K(t)",
+        "coherence debt",
+        "koherensskuld"
+      ],
+      "definition": "*This article introduces the coherence debt function K(t) — the temporal integral of excess Ψ above viable threshold — and argues that what spiritual traditions have called karma, what systems theorists have called fragility, and what the Draken framework diagnoses as civilizational Ψ-degradation are structurally identical phenomena: the accumulated cost of running a generative model that refuses correction.",
+      "defined_in": {
+        "drk": "DRK-121",
+        "slug": "the-coherence-debt",
+        "section": null
+      },
+      "layers": [],
+      "depends_on": [
+        "psi"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "formula": "**K(t) = ∫₀ᵗ [Ψ(τ) − Ψ_viable] · w(τ) dτ**",
+      "map_concept": "kt"
+    },
+    {
+      "id": "kappa",
+      "name": "ϰ — Draken invariant",
+      "aliases": [
+        "ϰ",
+        "\\varkappa",
+        "Draken invariant",
+        "invariant of Draken"
+      ],
+      "definition": "*The invariant* is cohomological: discrete, preserved under the sheaf analogue of ambient isotopy.",
+      "defined_in": {
+        "drk": "DRK-175",
+        "slug": "the-invariant",
+        "section": "§4 — The invariant of Draken."
+      },
+      "layers": [],
+      "depends_on": [
+        "h1"
+      ],
+      "refines": [],
+      "tension_with": [
+        "gamma"
+      ],
+      "status": "proposed",
+      "formula": "$$\\varkappa(\\mathcal F):=[\\omega]\\in H^1(X,\\mathcal F),\\qquad b_1(\\mathcal F):=\\dim H^1(X,\\mathcal F).$$",
+      "map_concept": "kappa"
+    },
+    {
+      "id": "rho",
+      "name": "ρ — restriction map",
+      "aliases": [
+        "ρ",
+        "restriction map",
+        "restriction morphism",
+        "restriktionsavbildning"
+      ],
+      "definition": "I kärv-teori beskriver restriktionsavbildningen ρ_U,V : F(U) → F(V) hur information över ett stort område (U) begränsas till ett mindre delområde (V ⊆ U).",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Restriktionsavbildning (Restriction Map)"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "rho"
+    },
+    {
+      "id": "h1",
+      "name": "H¹ — cohomological obstruction",
+      "aliases": [
+        "H¹",
+        "H^1",
+        "cohomological obstruction",
+        "obstruction class",
+        "kohomologisk obstruktion"
+      ],
+      "definition": "Tekniskt: ett icke-trivialt element i H¹(X, F) — den första kohomologigruppen av kärven F över rummet X.",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Kohomologisk obstruktion"
+      },
+      "layers": [],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "h1"
+    },
+    {
+      "id": "care",
+      "name": "Care operator V̇_exo = 0",
+      "aliases": [
+        "care operator",
+        "V̇_exo",
+        "\\dot{V}_{exo}",
+        "\\dot{\\mathcal V}_{exo}",
+        "omsorgsoperatorn"
+      ],
+      "definition": "The care operator is the condition $\\dot{\\mathcal V}_{exo}=0$: the non-destruction of exogenous variety — the commitment not to annihilate the otherness of the thing you are bound to.",
+      "defined_in": {
+        "drk": "DRK-162",
+        "slug": "the-bridge-and-the-burn",
+        "section": "Frankenstein: assembly without the seam"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "care"
+    },
+    {
+      "id": "theta",
+      "name": "Θ — trophic debt",
+      "aliases": [
+        "Θ(t)",
+        "\\Theta(t)",
+        "trophic debt",
+        "trofisk skuld"
+      ],
+      "definition": "Define trophic debt as the accumulated *violation* of care:",
+      "defined_in": {
+        "drk": "DRK-176",
+        "slug": "the-ouroboros-debt",
+        "section": "§4 — Trophic debt: the bill for closing the loop"
+      },
+      "layers": [],
+      "depends_on": [
+        "care"
+      ],
+      "refines": [
+        "kt"
+      ],
+      "tension_with": [],
+      "status": "proposed",
+      "formula": "$$\\boxed{\\;\\Theta(t) \\;=\\; \\int_0^t \\max\\!\\big(0,\\, -\\,\\dot V_{\\text{exo}}(s)\\big)\\, ds\\;}, \\qquad \\dot\\Theta \\ge 0.$$"
+    },
+    {
+      "id": "optimization-axiom",
+      "name": "Optimization axiom",
+      "aliases": [
+        "optimization axiom",
+        "optimeringsaxiomet",
+        "min S_sys"
+      ],
+      "definition": "\"Minska oordningen i systemet — men inte genom att förenkla bort komplexiteten.\"",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Optimeringsaxiomet"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "formula": "◆ min S_sys(t) s.t. dH/dt ≥ 0 ◆"
+    },
+    {
+      "id": "manufactured-void",
+      "name": "Manufactured void",
+      "aliases": [
+        "manufactured void",
+        "tillverkad tomhet",
+        "narrative void engineering"
+      ],
+      "definition": "\"När maktstrukturer medvetet skapar informationshål för att styra vilka berättelser som kan bildas.\"",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Tillverkad Tomhet (Manufactured Void / DRK-110)"
+      },
+      "layers": [],
+      "depends_on": [
+        "h1"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "note": "The Ordlista attributes the concept to The Manufactured Void (DRK-110); no single defining sentence was found in DRK-110 itself."
+    },
+    {
+      "id": "cavity-ai",
+      "name": "Cavity_AI — cavity resonator",
+      "aliases": [
+        "Cavity_AI",
+        "kavitetsresonator",
+        "cavity resonator"
+      ],
+      "definition": "\"En strukturerande tomhet som formar allt som passerar genom den.\"",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Cavity_AI — Kavitetsresonatorn"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "note": "First used in The Curious Machine (DRK-115) with a different gloss (\"complexity measure\")."
+    },
+    {
+      "id": "inversion-filter",
+      "name": "Inversion filter (V.7)",
+      "aliases": [
+        "Inversion Filter",
+        "inversionsfilter",
+        "V.7"
+      ],
+      "definition": "Det viktigaste diagnostiska verktyget: om en struktur hävdar att den erbjuder global koherens men kräver informationsundertryckning vid sina gränser, är den en tillverkad tomhet — inte en genuin gräns.",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "V-axiomen — Drakens värdeaxiom"
+      },
+      "layers": [],
+      "depends_on": [
+        "manufactured-void"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "note": "The Kaiju Manifesto (DRK-105) gives an operational form: accept(m) ⇔ cos_sim(m, C_draken) > cos_sim(m, C_parasitic) + ε."
+    },
+    {
+      "id": "abstraction-depth",
+      "name": "α — abstraction depth",
+      "aliases": [
+        "abstraction depth",
+        "abstraktionsdjup"
+      ],
+      "definition": "We define *abstraction depth* as the number of representational layers between a claim to power and the capacity that underlies it:",
+      "defined_in": {
+        "drk": "DRK-108",
+        "slug": "abstraction-depth",
+        "section": "II. The Primate Who Learned to Abstract"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "formula": "**α = number of representational layers between signal and substance**"
+    },
+    {
+      "id": "clinch",
+      "name": "Clinch",
+      "aliases": [
+        "clinch",
+        "klinch"
+      ],
+      "definition": "Horn, Gauldie, and King (1994) described five distinct phases: *Display*, where the animals inflate their bodies laterally, maximizing apparent size; *Encompassing*, where they circle each other, assessing geometry; *Clinch*, where they rear up on hind legs and lock forelimbs in bipedal wrestling; *Catch*, where one animal attempts to topple the other using what researchers have described as judo-like throws; and *Subpressive*, where the victor mounts the defeated animal in a dominance display.",
+      "defined_in": {
+        "drk": "DRK-108",
+        "slug": "abstraction-depth",
+        "section": "I. A Life Measured in Grapples"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "clinch"
+    },
+    {
+      "id": "kayfabe",
+      "name": "Kayfabe",
+      "aliases": [
+        "kayfabe",
+        "kayfabe trap"
+      ],
+      "definition": "When the framework's diagnostic output flags Ψ → 1 with restriction maps collapsing — kayfabe, in the working vocabulary — what it has detected is a configuration that has become locally coherent at the cost of severing its accountability to the larger system.",
+      "defined_in": {
+        "drk": "DRK-133",
+        "slug": "asymmetric-power",
+        "section": "I. Two Asymmetries"
+      },
+      "layers": [],
+      "depends_on": [
+        "psi",
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "kayfabe"
+    },
+    {
+      "id": "survivable-glitch",
+      "name": "Survivable glitch",
+      "aliases": [
+        "survivable glitch",
+        "∇_s",
+        "\\nabla_s"
+      ],
+      "definition": "A failure mode whose information content survives the failure event, gets fed back into the design layer, and improves the protocol for the next iteration.",
+      "defined_in": {
+        "drk": "DRK-138",
+        "slug": "the-survivable-glitch",
+        "section": "III. The Survivable Glitch: Where Engineering Anticipated Philosophy"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed"
+    },
+    {
+      "id": "source-laundering",
+      "name": "Source laundering",
+      "aliases": [
+        "laundering operator",
+        "source laundering",
+        "laundering",
+        "laundered",
+        "launder"
+      ],
+      "definition": "It is a **substitution at the stalk** — he replaces $\\mathcal{F}_s = $ *\"leader of warriors\"* with a forged value $\\mathcal{F}_s' = $ *\"head of the dragon (because: comet),\"* and then forces every downstream section to glue to the forgery:",
+      "defined_in": {
+        "drk": "DRK-165",
+        "slug": "the-pendragon-source",
+        "section": "II. The laundered name (Geoffrey's pen)"
+      },
+      "layers": [],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed",
+      "map_concept": "launder"
+    },
+    {
+      "id": "carrier",
+      "name": "Carrier",
+      "aliases": [
+        "carrier",
+        "bärare"
+      ],
+      "definition": "The first is **coordination**: the degree to which the group's neural activity is temporally aligned, phase-locked, beating together.",
+      "defined_in": {
+        "drk": "DRK-189",
+        "slug": "the-carrier-and-the-cargo",
+        "section": "1. Two layers, never to be conflated"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [
+        "cargo"
+      ],
+      "status": "proposed",
+      "map_concept": "carrier"
+    },
+    {
+      "id": "cargo",
+      "name": "Cargo",
+      "aliases": [
+        "cargo"
+      ],
+      "definition": "The second is **representational alignment**: the degree to which the group now holds the *same* belief, the same vector in some semantic space.",
+      "defined_in": {
+        "drk": "DRK-189",
+        "slug": "the-carrier-and-the-cargo",
+        "section": "1. Two layers, never to be conflated"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [
+        "carrier"
+      ],
+      "status": "proposed",
+      "map_concept": "carrier"
+    },
+    {
+      "id": "chaxu-geju",
+      "name": "Chaxu geju (差序格局)",
+      "aliases": [
+        "chaxu geju",
+        "差序格局",
+        "differentiell associationsmod"
+      ],
+      "definition": "Fei Xiaotongs begrepp från 1947: kinesisk social struktur organiseras som koncentriska ringar runt individen — familj närmast, sedan släkt, sedan grannar, sedan samhälle — med moralisk förpliktelse som avtar med avstånd.",
+      "defined_in": {
+        "drk": "DRK-117",
+        "slug": "drakens-ordlista",
+        "section": "Chaxu geju (差序格局) — Differentiell associationsmod"
+      },
+      "layers": [],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "proposed"
+    }
+  ]
+}

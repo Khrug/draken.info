@@ -1379,3 +1379,40 @@ mjx-container[display="true"][width="full"] { min-width: 0 !important; }
 .layer-articles { flex-wrap: wrap; flex: 1 1 auto; min-width: 0; justify-content: flex-end; }
 .layer-row { min-width: 0; }
 .article-body a, .article-body code { overflow-wrap: anywhere; }
+
+/* ═══ KNOWLEDGE OBJECTS + WATERTIGHTNESS W ═══ */
+.signal-link { text-decoration: none; }
+.signal-link:hover .signal-label { opacity: 1; text-decoration: underline; }
+.signal-sub { opacity: 0.55; font-size: 11px; }
+.w-components { display: grid; gap: 6px; margin: 10px 0; font-family: var(--mono); font-size: 11px; }
+.w-row { display: grid; grid-template-columns: 22px 1fr 44px; gap: 6px; align-items: center; color: var(--text-dim); }
+.w-row .w-key { color: var(--text); }
+.w-row .w-val { text-align: right; color: var(--accent); }
+.w-row.leak .w-val { color: var(--red, #e94560); }
+.w-row .w-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-row .w-track { grid-column: 2 / 4; height: 3px; background: var(--border); border-radius: 2px; overflow: hidden; }
+.w-row .w-fill { height: 100%; background: var(--accent); }
+.w-row.mid .w-fill { background: var(--gold); }
+.w-row.leak .w-fill { background: var(--red, #e94560); }
+.w-row .w-count { grid-column: 2 / 4; font-size: 10px; opacity: 0.7; }
+.w-note { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; }
+.w-note a, .article-w a { color: var(--accent); }
+.coherence-bar .w-tag { font-family: var(--mono); font-size: 10px; opacity: 0.6; }
+.article-w { margin-top: 12px; padding: 12px 16px; border: 1px solid var(--border); border-radius: 6px; font-family: var(--mono); font-size: 11px; color: var(--text-dim); display: grid; gap: 8px; }
+.article-w-row { display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: baseline; line-height: 1.5; }
+.article-w-head { color: var(--text); min-width: 96px; }
+.article-w-foot { font-size: 10px; opacity: 0.8; }
+.ok { color: var(--accent); } .bad { color: var(--red, #e94560); }
+.ko-chip { color: var(--accent); text-decoration: none; }
+.ko-chip.proposed { color: var(--text-dim); border-bottom: 1px dotted var(--text-dim); }
+/* KO registry page */
+.ko-summary { font-family: var(--mono); font-size: 12px; color: var(--text-dim); line-height: 1.7; margin: 12px 0 24px; }
+.ko-entry { border: 1px solid var(--border); border-radius: 6px; padding: 14px 16px; margin: 12px 0; background: var(--bg-card); }
+.ko-entry h3 { margin: 0 0 6px; font-size: 18px; }
+.ko-entry .ko-meta { font-family: var(--mono); font-size: 11px; color: var(--text-dim); line-height: 1.6; }
+.ko-entry blockquote { margin: 8px 0; padding-left: 12px; border-left: 2px solid var(--accent); }
+.ko-status { font-family: var(--mono); font-size: 10px; padding: 1px 6px; border-radius: 3px; border: 1px solid var(--border); margin-left: 6px; vertical-align: middle; }
+.ko-status.approved { color: var(--accent); border-color: var(--accent); }
+.ko-status.proposed { color: var(--gold); border-color: var(--gold); }
+.ko-status.candidate { color: var(--text-dim); }
+@media (max-width: 600px) { .article-w-head { min-width: 0; width: 100%; } }

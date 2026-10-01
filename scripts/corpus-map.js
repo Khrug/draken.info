@@ -220,7 +220,21 @@ function trimExcerpt(s) {
   return s.slice(0, 410).replace(/\s+\S*$/, '').replace(/[,;:]$/, '') + '…';
 }
 
-function buildCorpusMap(posts, distDir, staticDir) {
+// Heavily used terms for watertightness c2: the fixed formal-operator concepts ('op' lane)
+// that occur (at their usual threshold) in at least `minPosts` posts. Independent of the KO
+// registry, so approving KOs never moves the denominator.
+function heavyTerms(posts, minPosts = 5) {
+  const out = [];
+  for (const [id, label, kind, rx, min] of CONCEPTS) {
+    if (kind !== 'op') continue;
+    const re = new RegExp(rx, /[ΓΨϰρ]|V̇/.test(rx) ? 'gu' : 'giu');
+    const n = posts.filter(p => (String(p.rawContent || '').match(re) || []).length >= min).length;
+    if (n >= minPosts) out.push({ id, label, n });
+  }
+  return out;
+}
+
+function buildCorpusMap(posts, distDir, staticDir, opts = {}) {
   const P = posts.slice().sort((a, b) => (isoDate(a.date) + drkKey(a.drk)).localeCompare(isoDate(b.date) + drkKey(b.drk)));
   const idx = new Map(P.map((p, i) => [p.slug, i]));
   const vecs = tfidf(P.map(p => p.rawContent || ''));
@@ -283,12 +297,20 @@ function buildCorpusMap(posts, distDir, staticDir) {
     terms: topTerms(vecs[i], 8), cites: [...cites[i]].map(j => P[j].slug).sort(), comm: comm[i],
   }));
 
-  const concepts = [], clinks = [];
-  for (const [id, label, kind, rx, min] of CONCEPTS) {
+  // Concept lanes: once the KO registry has approved entries they replace the fixed 'op' lane;
+  // themes and domains stay fixed. Each spec is {id, label, kind, count(text) -> n, min}.
+  const fixed = CONCEPTS.map(([id, label, kind, rx, min]) => {
     const re = new RegExp(rx, /[ΓΨϰρ]|V̇/.test(rx) ? 'gu' : 'giu');
+    return { id, label, kind, min, count: t => (t.match(re) || []).length };
+  });
+  const specs = opts.opConcepts && opts.opConcepts.length
+    ? [...opts.opConcepts, ...fixed.filter(c => c.kind !== 'op')]
+    : fixed;
+  const concepts = [], clinks = [];
+  for (const { id, label, kind, min, count } of specs) {
     const mem = [];
     outPosts.forEach((p, i) => {
-      const c = (String(P[i].rawContent || '').match(re) || []).length;
+      const c = count(String(P[i].rawContent || ''));
       if (c >= min) mem.push({ p: p.id, c: 'c:' + id, n: c, d: Math.round(c / Math.max(p.words, 1) * 100000) / 100, date: p.date });
     });
     if (mem.length < 2) continue;
@@ -324,4 +346,4 @@ function buildCorpusMapPage(opts) {
   console.log('  ✓ map/');
 }
 
-module.exports = { buildCorpusMap, buildCorpusMapPage };
+module.exports = { buildCorpusMap, buildCorpusMapPage, heavyTerms };

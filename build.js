@@ -7,7 +7,9 @@ const fs = require('fs');
 const path = require('path');
 const matter = require('gray-matter');
 const { marked } = require('marked');
-const { buildCorpusMap, buildCorpusMapPage } = require('./scripts/corpus-map');
+const { buildCorpusMap, buildCorpusMapPage, heavyTerms } = require('./scripts/corpus-map');
+const KO = require('./scripts/ko');
+const WT = require('./scripts/watertightness');
 const { validate: validatePosts, report: reportValidation } = require('./scripts/validate-posts');
 
 const POSTS_DIR = path.join(__dirname, 'posts');
@@ -111,18 +113,102 @@ function timeAgo(d) {
   return Math.floor(h/24)+'d ago';
 }
 
-function buildCards(posts) {
+function buildCards(posts, w) {
   return posts.map(p => {
     const tag = (p.tags && p.tags[0]) || 'technical';
     const layers = (p.layers || []).map(l => `<span class="layer-badge">${l}</span>`).join('');
-    const c = p.coherence || 0;
+    const pw = (w && w.perPost[p.slug]) || { W: null, detail: {} };
+    const c = pw.W == null ? 0 : pw.W;
+    const d = pw.detail || {};
+    const tip = `W ${c.toFixed(3)} · references ${d.refs || '–'} · claims referenced ${d.claims || '–'} · falsification ${d.falsification ? 'yes' : 'no'} · connected ${d.connected ? 'yes' : 'no'}`;
     return `<a href="/posts/${p.slug}/" class="pub-card" data-tags="${(p.tags||[]).join(' ')}">
       <div class="pub-meta"><span class="pub-tag ${tagClass(tag)}">${tag}</span><span class="pub-drk">${p.drk||''}</span><span class="pub-date">${fmtDate(p.date)}</span></div>
       <h2 class="pub-title">${p.title}</h2>
       <p class="pub-excerpt">${p.excerpt||''}</p>
       <div class="pub-footer"><div class="pub-layers">${layers}</div>
-      <div class="coherence-bar"><div class="coherence-track"><div class="coherence-fill ${c>=0.85?'':'mid'}" style="width:${Math.round(c*100)}%"></div></div><span>${c.toFixed(2)}</span></div></div></a>`;
+      <div class="coherence-bar" title="${tip}"><span class="w-tag">W</span><div class="coherence-track"><div class="coherence-fill ${c>=0.85?'':'mid'}" style="width:${Math.round(c*100)}%"></div></div><span>${c.toFixed(2)}</span></div></div></a>`;
   }).join('\n');
+}
+
+const fmtW = v => (v == null ? 'n/a' : v.toFixed(3));
+const SUB = { c1: 'c₁', c2: 'c₂', c3: 'c₃', c4: 'c₄', c5: 'c₅', c6: 'c₆', c7: 'c₇' };
+
+function wComponentsHtml(w) {
+  return Object.entries(w.components).map(([k, c]) => {
+    const v = c.value;
+    const cls = v == null ? '' : v === 0 ? 'leak' : v < 0.85 ? 'mid' : '';
+    const count = w.counts[k] || (v == null ? 'no approved KOs yet' : '');
+    return `<div class="w-row ${cls}" title="${c.label}${c.weight > 1 ? ' (weight ' + c.weight + ')' : ''}"><span class="w-key">${SUB[k]}</span><span class="w-name">${c.label}${c.weight > 1 ? ' ×' + c.weight : ''}</span><span class="w-val">${v == null ? 'n/a' : v.toFixed(2)}</span>`
+      + `<span></span><span class="w-track"><span class="w-fill" style="display:block;width:${Math.round((v || 0) * 100)}%"></span></span>`
+      + (count ? `<span></span><span class="w-count">${count}</span>` : '') + '</div>';
+  }).join('\n');
+}
+
+function wBreakdownHtml(pw) {
+  if (!pw) return '<span>not computed</span>';
+  const d = pw.detail, c = pw.components;
+  const mark = b => (b ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>');
+  return [
+    `<span>c₁ references resolve ${d.refs}${c.c1 == null ? ' (n/a)' : ''}</span>`,
+    `<span>c₅ falsification ${mark(d.falsification)}</span>`,
+    `<span>c₆ connected ${mark(d.connected)}</span>`,
+    `<span>c₇ claims referenced ${d.claims}${c.c7 == null ? ' (n/a)' : ''}</span>`,
+  ].join('');
+}
+
+function koListHtml(ids, ko) {
+  if (!ids || !ids.length) return '<span>none from the registry</span>';
+  const byId = new Map(ko.kos.map(k => [k.id, k]));
+  return ids.map(id => byId.get(id)).map(k => `<a class="ko-chip ${k.status === 'approved' ? '' : 'proposed'}" href="/ko/#${k.id}" title="${k.status}">${k.name.split(' — ')[0]}</a>`).join(' · ');
+}
+
+// ── KO REGISTRY PAGE ──
+function inlineMd(s) { const { text, store } = protectMath(String(s || '')); return restoreMath(marked.parseInline(text), store); }
+
+function buildKOPage(baseTpl, ko, posts) {
+  const bySlug = new Map(posts.map(p => [p.slug, p]));
+  const s = ko.summary;
+  const link = slug => { const p = bySlug.get(slug); return p ? `<a href="/posts/${slug}/">${String(p.title).split(':')[0]}</a> (${p.drk})` : slug; };
+  const entries = ko.kos.map(k => {
+    const u = k.usage || {};
+    const status = `<span class="ko-status ${k.status}">${k.status}</span>` + (k.candidate ? '<span class="ko-status candidate">candidate: not reused</span>' : '') + (u.definition_verified ? '' : '<span class="ko-status candidate">definition not verified</span>');
+    const rel = ['depends_on', 'refines', 'tension_with'].filter(r => (k[r] || []).length).map(r => `${r.replace('_', ' ')}: ${k[r].map(x => `<a href="#${x}">${x}</a>`).join(', ')}`).join(' · ');
+    const layers = Object.entries(u.layers_in_use || {}).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([l, n]) => `${l} (${n})`).join(', ');
+    return `<div class="ko-entry" id="${k.id}"><h3>${k.name}${status}</h3>
+<blockquote>${inlineMd(k.definition)}</blockquote>${k.formula ? `<div class="ko-meta">Formula: ${inlineMd(k.formula)}</div>` : ''}
+<div class="ko-meta">Defined in ${link(k.defined_in.slug)}${k.defined_in.section ? `, ${k.defined_in.section}` : ''} · aliases: ${(k.aliases || []).map(a => `<code>${esc(String(a))}</code>`).join(' ')}</div>
+<div class="ko-meta">Used in ${u.posts} posts, ${u.reused_in} beyond the defining post${u.first_use ? ` · first use ${link(u.first_use.slug)}` : ''}${layers ? ` · layers in use: ${layers}` : ''}${(k.layers || []).length ? ` · layers: ${k.layers.join(', ')}` : ' · layers: not yet set'}</div>
+${rel ? `<div class="ko-meta">${rel}</div>` : ''}${k.note ? `<div class="ko-meta">Note: ${inlineMd(k.note)}</div>` : ''}</div>`;
+  }).join('\n');
+  const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
+<header class="article-header"><span class="pub-tag tag-technical">registry</span><h1>Knowledge Objects</h1>
+<p class="feedback-desc">A Knowledge Object (KO) is a term the corpus defines and then uses. It counts only when it has a name and aliases, one defining sentence quoted from the post that introduced it, the layers it applies to, its relations to other KOs, reuse in at least one other post, and Khrug's approval. Usage is recomputed from the corpus at every build.</p></header>
+<div class="ko-summary">${s.counted} counted · ${s.approved} approved · ${s.proposed} proposed · ${s.total} in the registry<br>
+Candidates (not yet reused): ${s.candidates.length ? s.candidates.join(', ') : 'none'}<br>
+Gaps (heavily used terms with no registry entry): ${s.gaps.length ? s.gaps.map(g => `${g.label} [${g.posts} posts]`).join(', ') : 'none'}${s.problems.length ? `<br>Problems: ${s.problems.join('; ')}` : ''}<br>
+Machine-readable: <a href="/data/ko.json">/data/ko.json</a></div>
+${entries}</div>`;
+  const dir = path.join(DIST_DIR, 'ko');
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
+    title: 'Knowledge Objects — Draken 2045', description: 'Registry of the terms the Draken corpus defines and reuses, with quoted definitions and computed usage.',
+    content, og_type: 'website', og_url: 'https://draken.info/ko/', og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+  }));
+  console.log('  ✓ ko/');
+}
+
+// ── DRK INDEX: every DRK number with slug, title, date, status, plus the next free number ──
+function buildDrkIndex(posts) {
+  const all = [];
+  for (const f of fs.readdirSync(POSTS_DIR).filter(f => /^\d{4}-\d{2}-\d{2}-.+\.md$/.test(f))) {
+    const { data } = matter(fs.readFileSync(path.join(POSTS_DIR, f), 'utf-8'));
+    all.push({ drk: data.drk || '', slug: f.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, ''), title: data.title || '', date: (f.match(/^\d{4}-\d{2}-\d{2}/) || [''])[0], status: data.status || 'published' });
+  }
+  all.sort((a, b) => a.drk.localeCompare(b.drk));
+  const RESERVED = ['DRK-134']; // reserved by DRK-133 as companion; never reuse
+  const max = Math.max(...all.map(e => parseInt(String(e.drk).replace(/\D/g, ''), 10)).filter(n => !isNaN(n)), ...RESERVED.map(r => parseInt(r.slice(4), 10)));
+  let next = max + 1;
+  return { generated: new Date().toISOString(), next_free: `DRK-${String(next).padStart(3, '0')}`, rule: 'next_free = highest DRK number in posts/ + 1; DRK-134 stays reserved (companion to DRK-133)', reserved: RESERVED, posts: all };
 }
 
 function buildEnhancedLayerGrid(sys) {
@@ -562,6 +648,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
     `<url><loc>${b}/digest/</loc><priority>0.7</priority></url>\n` +
+    `<url><loc>${b}/ko/</loc><priority>0.6</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
@@ -571,7 +658,7 @@ function postJsonLd(p) {
 }
 
 // Renders one post to dist/posts/<urlPath>/index.html. `notice` (HTML) is shown above the body.
-function writePostPage(p, urlPath, baseTpl, postTpl, notice = '') {
+function writePostPage(p, urlPath, baseTpl, postTpl, notice = '', ctx = {}) {
   const dir = path.join(DIST_DIR, 'posts', urlPath);
   fs.mkdirSync(dir, { recursive: true });
   const url = `https://draken.info/posts/${urlPath}/`;
@@ -580,8 +667,14 @@ function writePostPage(p, urlPath, baseTpl, postTpl, notice = '') {
     tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
     drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
     layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
-    body: notice + p.content, layer_count: (p.layers||[]).length, ko_count: '—',
+    body: notice + p.content, layer_count: (p.layers||[]).length,
     post_url: url,
+    w_value: ctx.w && ctx.w.perPost[p.slug] ? fmtW(ctx.w.perPost[p.slug].W) : 'n/a',
+    w_version: ctx.w ? ctx.w.version : 'W v1',
+    w_status: ctx.w ? ctx.w.status : 'not computed for archived versions',
+    w_breakdown: ctx.w ? wBreakdownHtml(ctx.w.perPost[p.slug]) : '<span>not computed for archived versions</span>',
+    ko_used_count: ctx.ko ? (ctx.ko.perPost.get(p.slug) || []).length : '—',
+    ko_used_list: ctx.ko ? koListHtml(ctx.ko.perPost.get(p.slug), ctx.ko) : '<span>—</span>',
   });
   fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
     title: `${p.title} — Draken 2045`, description: p.description||p.excerpt||'',
@@ -603,6 +696,12 @@ function buildArchivedVersions(baseTpl, postTpl) {
     writePostPage({ ...data, slug: `v1/${slug}`, content: parseMathSafe(content) }, `v1/${slug}`, baseTpl, postTpl, notice);
     console.log(`  ✓ posts/v1/${slug}/ (archived)`);
   }
+}
+
+function archivedSlugs() {
+  const vdir = path.join(POSTS_DIR, 'v1');
+  if (!fs.existsSync(vdir)) return new Set();
+  return new Set(fs.readdirSync(vdir).map(f => (f.match(/^\d{4}-\d{2}-\d{2}-(.+)\.md$/) || [])[1]).filter(Boolean).map(s => `v1/${s}`));
 }
 
 function copyDirSync(src, dest) {
@@ -640,8 +739,15 @@ function build() {
 
   const stats = computeCorpusStats(posts);
   sys.active_layers = `${stats.active_layers}/18`;
-  // The map is built first so its citation-link count can feed the front page
-  const map = buildCorpusMap(posts, DIST_DIR, STATIC_DIR);
+  // KO registry and the map come first: the front page, the posts and W all read from them.
+  const heavy = heavyTerms(posts);
+  const ko = KO.computeKO(posts, STATIC_DIR, heavy);
+  const map = buildCorpusMap(posts, DIST_DIR, STATIC_DIR, { opConcepts: KO.mapConceptsFromRegistry(ko) });
+  const w = WT.computeW(posts, map, ko, heavy, archivedSlugs());
+  sys.ko = { counted: ko.summary.counted, approved: ko.summary.approved, proposed: ko.summary.proposed, total: ko.summary.total };
+  sys.watertightness = { version: w.version, status: w.status, W: w.W, W_if_proposed_approved: w.W_if_proposed_approved,
+    components: Object.fromEntries(Object.entries(w.components).map(([k, v]) => [k, v.value])) };
+  for (const pub of sys.publications) pub.w = (w.perPost[pub.slug] || {}).W;
   sys.corpus_stats = { total_words: stats.total_words, total_sources_cited: stats.total_sources_cited, citation_links: map.edges.filter(e => e.link).length };
   sys.last_updated = new Date().toISOString();
 
@@ -653,7 +759,15 @@ function build() {
 
   // ── Index page ──
   const indexContent = render(indexTpl, {
-    cards: buildCards(posts),
+    cards: buildCards(posts, w),
+    ko_counted: ko.summary.counted,
+    ko_sub: ko.summary.approved ? `${ko.summary.proposed} proposed` : `${ko.summary.proposed} proposed, awaiting approval`,
+    ko_title: 'Approved KOs used beyond their defining post. Proposed entries do not count.',
+    w_value: fmtW(w.W),
+    w_version: w.version,
+    w_status: w.status,
+    w_components: wComponentsHtml(w),
+    w_projection: `If the ${ko.summary.proposed} proposed KOs were approved as they stand: W = ${fmtW(w.W_if_proposed_approved)}.`,
     pub_count: sys.pub_count,
     active_layers: sys.active_layers,
     phase: sys.phase,
@@ -676,7 +790,7 @@ function build() {
   const postsDir = path.join(DIST_DIR, 'posts');
   fs.mkdirSync(postsDir, { recursive: true });
   for (const p of posts) {
-    writePostPage(p, p.slug, baseTpl, postTpl);
+    writePostPage(p, p.slug, baseTpl, postTpl, '', { w, ko });
     console.log(`  ✓ posts/${p.slug}/`);
   }
   buildArchivedVersions(baseTpl, postTpl);
@@ -688,12 +802,21 @@ function build() {
   buildCorpusMapPage({ baseTpl, render, distDir: DIST_DIR, staticDir: STATIC_DIR });
   buildDrakonomikonPage(baseTpl);
   buildDigestPages(baseTpl);
+  buildKOPage(baseTpl, ko, posts);
   buildCorpusJson(posts);
   buildSearchIndex(posts);
 
   // ── Static assets ──
   copyDirSync(path.join(STATIC_DIR, 'data'), path.join(DIST_DIR, 'data'));
   fs.writeFileSync(path.join(DIST_DIR, 'data', 'system.json'), JSON.stringify(sys, null, 2));
+  // Computed data (written after the static copy so the hand-kept registry does not overwrite it)
+  KO.writeKO(ko, DIST_DIR); KO.report(ko);
+  WT.writeW(w, DIST_DIR); WT.report(w);
+  const drkIndex = buildDrkIndex(posts);
+  fs.writeFileSync(path.join(DIST_DIR, 'data', 'drk-index.json'), JSON.stringify(drkIndex, null, 2));
+  console.log(`  ✓ data/drk-index.json (${drkIndex.posts.length} entries, next free ${drkIndex.next_free})`);
+  const std = path.join(__dirname, 'docs', 'POST_STANDARD.md');
+  if (fs.existsSync(std)) { fs.copyFileSync(std, path.join(DIST_DIR, 'data', 'post-standard.md')); console.log('  ✓ data/post-standard.md'); }
   const staleBak = path.join(DIST_DIR, 'data', 'system.json.v44bak');
   if (fs.existsSync(staleBak)) fs.rmSync(staleBak);
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
