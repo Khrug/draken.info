@@ -6,9 +6,16 @@ Static site for the Draken corpus: numbered DRK posts by Khrug Engineering, buil
 
 - `posts/YYYY-MM-DD-slug.md`: published posts. Only `.md` files directly in `posts/` are built; `posts/v1/` holds old versions.
 - `templates/`: HTML page templates (`base.html`, `index.html`, `post.html`).
-- `scripts/`: `validate-posts.js` (runs first in the build), `check-links.js`, `corpus-map.js`.
+- `scripts/`: `validate-posts.js` (runs first in the build), `check-links.js`, `corpus-map.js`, `ko.js` (KO registry checks and usage), `watertightness.js` (W v1).
 - `static/`: assets and data (`static/data/`).
-- `docs/`: project documents, including `POST_STANDARD.md`. Not published.
+- `static/data/ko.json`: the KnowledgeObject registry, kept by hand. Definitions are quoted verbatim from posts; only Khrug sets `status: "approved"`.
+- `docs/`: project documents, including `POST_STANDARD.md`, `KO-W-DECISIONS.md` and `w-c7-tuning-sample.md`. Not published (POST_STANDARD.md is copied to `/data/post-standard.md`).
+
+## Computed data (every build)
+
+`/data/drk-index.json` (next free DRK number), `/data/ko.json` (registry + usage), `/data/watertightness.json` (W, components, leaks), `/data/corpus-map.json`, `/data/post-standard.md`. Front-page numbers come only from these; never hard-code a statistic.
+
+W is not Γ and must never be labelled Γ. Changing W's patterns, thresholds or weights after seeing results is a new version (W v2), documented like a DRK post.
 - `dist/`: build output. Never edit by hand.
 
 ## Commands
