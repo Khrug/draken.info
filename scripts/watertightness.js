@@ -28,7 +28,7 @@ const fs = require('fs');
 const path = require('path');
 
 const VERSION = 'W v1';
-const C7_TUNED = false; // set true (and freeze the patterns below) after the tuning sample is marked
+const C7_TUNED = true; // tuned against docs/w-c7-tuning-sample.md (2026-10-01); patterns below are frozen for W v1
 const WEIGHTS = { c1: 1, c2: 1, c3: 1, c4: 1, c5: 1, c6: 1, c7: 3 };
 const LABELS = {
   c1: 'Reference integrity', c2: 'Definition coverage', c3: 'KO closure', c4: 'KO reuse',
@@ -43,8 +43,9 @@ const CITE_PATTERNS = [
   /\([^()]*\p{Lu}[\p{L}'’-]+[^()]*,?\s(?:1[5-9]|20)\d{2}[a-z]?\b[^()]*\)/u,          // (Author Year), (Author & Author 1996; ...)
   /\p{Lu}[\p{L}'’-]+(?:\s(?:&|and|och)\s\p{Lu}[\p{L}'’-]+)?(?:\set al\.?)?\s\((?:1[5-9]|20)\d{2}[a-z]?\)/u, // Author (Year)
   /\bet al\b/i,
-  /\bdoi\b|\b10\.\d{4,9}\//i,
-  /\barXiv\b/i,
+  /\p{Lu}[\p{L}'’-]+(?:\s(?:&|and|och)\s\p{Lu}[\p{L}'’-]+)?['’]s?\s(?:1[5-9]|20)\d{2}\b/u,       // Author's 2008 / Author and Author's 2008
+  /doi\.org|\bdoi:\s?10\.|\b10\.\d{4,9}\//i,                                       // DOI (not the bare word)
+  /\barXiv:\s?\d|arxiv\.org/i,                                                 // arXiv id or URL
   /\]\(https?:\/\//,                                                             // external Markdown link
 ];
 const LEDGER_EXEMPT = /\*\*\[(?:D|M)(?:\/[A-Z])?\]\*\*|\*\*\[[A-Z]\/(?:D|M)\]\*\*/; // [D]/[M] claims need no external source (post standard §6)
@@ -80,7 +81,10 @@ function paragraphs(raw) {
 }
 
 function stripForClaim(p) {
-  return p.replace(/\$[^$\n]+\$/g, ' ')
+  return p.replace(/^\s*\d+[.)]\s/gm, ' ')                       // list numbering
+    .replace(/[→=≈<>≤≥]\s?-?\d+(?:[.,]\d+)?/g, ' ')              // formula values (Ψ → 1)
+    .replace(/\b\d+(?:[.,]\d+)?-(?=\p{L})/gu, ' ')                // number-word compounds (18-layer)
+    .replace(/\$[^$\n]+\$/g, ' ')
     .replace(/\bDRK-\d{3}[a-z]?\b/gi, ' ').replace(/\bL(?:0[1-9]|1[0-8])\b/g, ' ')
     .replace(/§\s?\d+(?:\.\d+)*/g, ' ').replace(/\[[^\]]*\]\([^)]*\)/g, m => m.replace(/\]\([^)]*\)$/, ']'))
     .replace(/\b(?:Figure|Fig\.|Table|Figur|Tabell)\s?\d+/gi, ' ').replace(/\bV\.\d\b/g, ' ').replace(/\b[A-Z]\d\b/g, ' ');
@@ -191,7 +195,7 @@ function computeW(posts, map, ko, heavy, archived = new Set()) {
       if (!c.claim) return;
       pc++; if (c.referenced) pr++;
       else leaks.c7.push({ post: p.slug, paragraph: k + 1, text: para.slice(0, 160).replace(/\s+/g, ' ') });
-      sample.push({ post: p.slug, drk: p.drk, paragraph: k + 1, referenced: c.referenced, exempt: !!c.exempt, text: para });
+      sample.push({ post: p.slug, slug: p.slug, drk: p.drk, paragraph: k + 1, referenced: c.referenced, exempt: !!c.exempt, text: para });
     });
     claimsAll += pc; claimsRef += pr;
 

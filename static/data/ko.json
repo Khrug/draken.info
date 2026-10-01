@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "KnowledgeObject registry v3. Maintained by hand. Every definition is quoted verbatim from the defining post (the build checks this). Only entries with status \"approved\" count. layers: to be set by Khrug; the build reports the layers of the posts that use each KO.",
+  "note": "KnowledgeObject registry v3. Maintained by hand. Every definition is quoted verbatim from the defining post (the build checks this). Only approved entries count, and only once reused beyond the defining post. Initial approval 2026-10-01 under Khrug's delegation; layers taken from the defining post's frontmatter, to be narrowed by hand where the term applies more narrowly.",
   "kos": [
     {
       "id": "gamma",
@@ -19,13 +19,24 @@
         "slug": "kaiju-manifesto",
         "section": "The 18-Layer Architecture"
       },
-      "layers": [],
+      "layers": [
+        "L04",
+        "L06",
+        "L08",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L18"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [
         "psi"
       ],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "gamma"
     },
     {
@@ -45,13 +56,24 @@
         "slug": "kaiju-manifesto",
         "section": "The 18-Layer Architecture"
       },
-      "layers": [],
+      "layers": [
+        "L04",
+        "L06",
+        "L08",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L18"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [
         "gamma"
       ],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "psi",
       "note": "Introduced as \"psychosis metric\"; that label is retired in thesis v4.4. Current reading: \"In the Draken framework, Ψ is the Narrative Self-Reference Ratio\" (The Substrate and the Game, DRK-130)."
     },
@@ -69,13 +91,26 @@
         "slug": "the-coherence-debt",
         "section": null
       },
-      "layers": [],
+      "layers": [
+        "L01",
+        "L04",
+        "L06",
+        "L07",
+        "L09",
+        "L10",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L17",
+        "L18"
+      ],
       "depends_on": [
         "psi"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "formula": "**K(t) = ∫₀ᵗ [Ψ(τ) − Ψ_viable] · w(τ) dτ**",
       "map_concept": "kt"
     },
@@ -94,7 +129,11 @@
         "slug": "the-invariant",
         "section": "§4 — The invariant of Draken."
       },
-      "layers": [],
+      "layers": [
+        "L01",
+        "L13",
+        "L18"
+      ],
       "depends_on": [
         "h1"
       ],
@@ -102,7 +141,7 @@
       "tension_with": [
         "gamma"
       ],
-      "status": "proposed",
+      "status": "approved",
       "formula": "$$\\varkappa(\\mathcal F):=[\\omega]\\in H^1(X,\\mathcal F),\\qquad b_1(\\mathcal F):=\\dim H^1(X,\\mathcal F).$$",
       "map_concept": "kappa"
     },
@@ -121,11 +160,18 @@
         "slug": "drakens-ordlista",
         "section": "Restriktionsavbildning (Restriction Map)"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "rho"
     },
     {
@@ -144,13 +190,20 @@
         "slug": "drakens-ordlista",
         "section": "Kohomologisk obstruktion"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [
         "rho"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "h1"
     },
     {
@@ -169,11 +222,17 @@
         "slug": "the-bridge-and-the-burn",
         "section": "Frankenstein: assembly without the seam"
       },
-      "layers": [],
+      "layers": [
+        "L06",
+        "L11",
+        "L13",
+        "L16",
+        "L18"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "care"
     },
     {
@@ -191,7 +250,12 @@
         "slug": "the-ouroboros-debt",
         "section": "§4 — Trophic debt: the bill for closing the loop"
       },
-      "layers": [],
+      "layers": [
+        "L02",
+        "L06",
+        "L07",
+        "L18"
+      ],
       "depends_on": [
         "care"
       ],
@@ -199,7 +263,7 @@
         "kt"
       ],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "formula": "$$\\boxed{\\;\\Theta(t) \\;=\\; \\int_0^t \\max\\!\\big(0,\\, -\\,\\dot V_{\\text{exo}}(s)\\big)\\, ds\\;}, \\qquad \\dot\\Theta \\ge 0.$$"
     },
     {
@@ -216,11 +280,18 @@
         "slug": "drakens-ordlista",
         "section": "Optimeringsaxiomet"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "formula": "◆ min S_sys(t) s.t. dH/dt ≥ 0 ◆"
     },
     {
@@ -237,13 +308,20 @@
         "slug": "drakens-ordlista",
         "section": "Tillverkad Tomhet (Manufactured Void / DRK-110)"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [
         "h1"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "note": "The Ordlista attributes the concept to The Manufactured Void (DRK-110); no single defining sentence was found in DRK-110 itself."
     },
     {
@@ -260,11 +338,18 @@
         "slug": "drakens-ordlista",
         "section": "Cavity_AI — Kavitetsresonatorn"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "note": "First used in The Curious Machine (DRK-115) with a different gloss (\"complexity measure\")."
     },
     {
@@ -281,13 +366,20 @@
         "slug": "drakens-ordlista",
         "section": "V-axiomen — Drakens värdeaxiom"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [
         "manufactured-void"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "note": "The Kaiju Manifesto (DRK-105) gives an operational form: accept(m) ⇔ cos_sim(m, C_draken) > cos_sim(m, C_parasitic) + ε."
     },
     {
@@ -303,11 +395,21 @@
         "slug": "abstraction-depth",
         "section": "II. The Primate Who Learned to Abstract"
       },
-      "layers": [],
+      "layers": [
+        "L04",
+        "L06",
+        "L08",
+        "L10",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L18"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "formula": "**α = number of representational layers between signal and substance**"
     },
     {
@@ -323,11 +425,21 @@
         "slug": "abstraction-depth",
         "section": "I. A Life Measured in Grapples"
       },
-      "layers": [],
+      "layers": [
+        "L04",
+        "L06",
+        "L08",
+        "L10",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L18"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "clinch"
     },
     {
@@ -343,14 +455,22 @@
         "slug": "asymmetric-power",
         "section": "I. Two Asymmetries"
       },
-      "layers": [],
+      "layers": [
+        "L07",
+        "L08",
+        "L10",
+        "L11",
+        "L13",
+        "L16",
+        "L17"
+      ],
       "depends_on": [
         "psi",
         "rho"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "kayfabe"
     },
     {
@@ -367,11 +487,20 @@
         "slug": "the-survivable-glitch",
         "section": "III. The Survivable Glitch: Where Engineering Anticipated Philosophy"
       },
-      "layers": [],
+      "layers": [
+        "L05",
+        "L06",
+        "L07",
+        "L09",
+        "L11",
+        "L13",
+        "L15",
+        "L17"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed"
+      "status": "approved"
     },
     {
       "id": "source-laundering",
@@ -389,13 +518,17 @@
         "slug": "the-pendragon-source",
         "section": "II. The laundered name (Geoffrey's pen)"
       },
-      "layers": [],
+      "layers": [
+        "L01",
+        "L09",
+        "L18"
+      ],
       "depends_on": [
         "rho"
       ],
       "refines": [],
       "tension_with": [],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "launder"
     },
     {
@@ -411,13 +544,22 @@
         "slug": "the-carrier-and-the-cargo",
         "section": "1. Two layers, never to be conflated"
       },
-      "layers": [],
+      "layers": [
+        "L02",
+        "L05",
+        "L06",
+        "L07",
+        "L09",
+        "L10",
+        "L11",
+        "L13"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [
         "cargo"
       ],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "carrier"
     },
     {
@@ -432,13 +574,22 @@
         "slug": "the-carrier-and-the-cargo",
         "section": "1. Two layers, never to be conflated"
       },
-      "layers": [],
+      "layers": [
+        "L02",
+        "L05",
+        "L06",
+        "L07",
+        "L09",
+        "L10",
+        "L11",
+        "L13"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [
         "carrier"
       ],
-      "status": "proposed",
+      "status": "approved",
       "map_concept": "carrier"
     },
     {
@@ -455,11 +606,154 @@
         "slug": "drakens-ordlista",
         "section": "Chaxu geju (差序格局) — Differentiell associationsmod"
       },
-      "layers": [],
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L12",
+        "L15",
+        "L17"
+      ],
       "depends_on": [],
       "refines": [],
       "tension_with": [],
-      "status": "proposed"
+      "status": "approved"
+    },
+    {
+      "id": "sheaf-laplacian",
+      "name": "Sheaf Laplacian",
+      "aliases": [
+        "sheaf Laplacian",
+        "\\Delta_{\\mathcal{F}}",
+        "L_F",
+        "L_{\\mathcal{F}}",
+        "kärv-Laplacian"
+      ],
+      "definition": "The sheaf Laplacian is $\\Delta_{\\mathcal{F}} = \\delta^T \\delta$, where $\\delta$ is the coboundary operator measuring disagreement on edges.",
+      "defined_in": {
+        "drk": "DRK-145",
+        "slug": "positive-alignment-operational",
+        "section": "1. Sheaf-theoretic machinery for cross-scale coherence"
+      },
+      "layers": [
+        "L04",
+        "L06",
+        "L09",
+        "L15",
+        "L16"
+      ],
+      "depends_on": [
+        "global-section"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "map_concept": "laplacian",
+      "note": "External term (Hansen & Ghrist 2019), adopted by the corpus."
+    },
+    {
+      "id": "global-section",
+      "name": "Global section",
+      "aliases": [
+        "global section",
+        "global sections",
+        "globala sektioner",
+        "global sektion"
+      ],
+      "definition": "A *global section* is an assignment $\\{x_v \\in \\mathcal{F}(v)\\}_{v \\in V}$ such that $\\rho_{u \\to e}(x_u) = \\rho_{v \\to e}(x_v)$ for every edge $e = (u,v) \\in E$.",
+      "defined_in": {
+        "drk": "DRK-145",
+        "slug": "positive-alignment-operational",
+        "section": "1. Sheaf-theoretic machinery for cross-scale coherence"
+      },
+      "layers": [
+        "L04",
+        "L06",
+        "L09",
+        "L15",
+        "L16"
+      ],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "map_concept": "gluing",
+      "note": "Standard sheaf-theory term; the corpus also uses \"glue/gluing\" for the same condition."
+    },
+    {
+      "id": "drk131-protocol",
+      "name": "DRK-131 falsification protocol",
+      "aliases": [
+        "DRK-131 protocol",
+        "DRK-131 publishing protocol",
+        "falsification protocol",
+        "Falsification (DRK-131)",
+        "Falsifiering (DRK-131)"
+      ],
+      "definition": "The DRK-131 protocol exists precisely to discipline this risk: no fabricated citations, verified paraphrases, explicit falsification subsection, three-questions review.",
+      "defined_in": {
+        "drk": "DRK-143",
+        "slug": "the-braided-substrate",
+        "section": "7. Falsification"
+      },
+      "layers": [
+        "L01",
+        "L05",
+        "L06",
+        "L08",
+        "L09",
+        "L17"
+      ],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "map_concept": "falsif",
+      "note": "The protocol is named after DRK-131; this is the first sentence in the corpus that states its content."
+    },
+    {
+      "id": "keeper-function",
+      "name": "Keeper-function",
+      "aliases": [
+        "keeper-function",
+        "keeper function",
+        "keeper-of-secrets",
+        "Generalizard"
+      ],
+      "definition": "Four conditions are required of any node to instantiate this keeper-function:",
+      "defined_in": {
+        "drk": "DRK-150",
+        "slug": "the-generalizard",
+        "section": "2. The Four Structural Conditions for Keeping"
+      },
+      "layers": [
+        "L05",
+        "L06",
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L13",
+        "L14",
+        "L15",
+        "L17",
+        "L18"
+      ],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "map_concept": "keeper",
+      "note": "The four conditions (persistence, gated restrictions, authority bound to keeper, loss function) follow in §2 of the defining post."
     }
-  ]
+  ],
+  "approval": {
+    "date": "2026-10-01",
+    "by": "Khrug (delegated to Claude: approve every entry whose quoted definition verifies)"
+  }
 }

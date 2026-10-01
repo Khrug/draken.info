@@ -1,43 +1,34 @@
-# KO registry and Watertightness W — open decisions for Khrug
+# KO registry and Watertightness W — decisions (resolved 2026-10-01)
 
-Branch `feat/standard-ko-w`, 2026-10-01. Nothing here changes the live site until the branch is merged.
+Khrug delegated these decisions to Claude on 2026-10-01 ("solve the questions in the most logical, pragmatic and straightforward way"). Each can be reopened; any change to W's patterns, weights or thresholds is W v2.
 
-## 1. Approve the KO registry (`static/data/ko.json`)
+## 1. KO registry
 
-20 entries, all `proposed`. Each definition is quoted verbatim from its defining post; the build refuses to treat an entry as defined if the quote no longer matches. For each entry: set `status: "approved"`, fill `layers`, check the relations. Review the rendered list at `/ko/` after a local build.
+- **All 24 entries approved**: every one whose quoted definition verifies verbatim at build. Initial `layers` = the defining post's frontmatter layers; narrow by hand where the term applies more narrowly.
+- **Four gaps closed** with sentences found in the corpus: sheaf Laplacian (DRK-145), global section (DRK-145), DRK-131 falsification protocol (DRK-143), keeper-function (DRK-150).
+- **Ψ** keeps DRK-105 as defining post (first introduction); the entry's note records that "psychosis metric" is retired and points to DRK-130's "Narrative Self-Reference Ratio".
+- **Ordlista (DRK-117)** accepted as defining post for terms it defines in one sentence.
+- **Θ (trophic debt)** stays a candidate until a second post uses it (aliases narrowed to Θ(t), \Theta(t), "trophic debt" to avoid matching asymptotic notation).
+- **Remaining gap: anti-totalization principle** (35 posts). No one-sentence definition exists in the published corpus (it is defined in the Codex). Close it by stating it in one sentence in the next post that uses it and adding the entry.
 
-Specific points:
-- **Ψ** is defined in DRK-105 as the "psychosis metric", a label retired in thesis v4.4. The note points to DRK-130's "Narrative Self-Reference Ratio". Keep DRK-105 as defining post, or move it to DRK-130?
-- **Γ, Ψ, ρ, H¹** match symbols, so usage counts include generic mathematical uses (e.g. ρ as density). Narrow the aliases if that matters.
-- **Θ (trophic debt)** is used only in its defining post (DRK-176), so it is a *candidate*, not a KO, until a later post uses it.
-- **Manufactured void, Cavity_AI, inversion filter, optimization axiom, ρ, H¹, chaxu geju** are defined in Drakens Ordlista (DRK-117), not in the post that introduced them. Fine as the defining post?
+## 2. W v1 method (confirmed as built)
 
-## 2. Gaps: heavily used terms with no defining sentence found
+1. c₆ uses citation links only (semantic edges connect every post by construction).
+2. c₅ counts every post, including those before DRK-131: the corpus is judged as it stands.
+3. Per-post W = (c₇³·c₁·c₅·c₆)^(1/6); c₂–c₄ are corpus-level.
+4. Components with an empty denominator are n/a and dropped.
+5. c₇: [D]/[M]-tagged paragraphs satisfied; internal /posts/ links are not references; figure captions skipped.
 
-Write a one-sentence definition (in a new post, or point to an existing sentence) for:
-- Global section / gluing (53 posts)
-- Anti-totalization principle (35)
-- Sheaf Laplacian (32) — external term (Hansen & Ghrist 2019); a KO may simply cite it
-- Falsification / DRK-131 protocol (23)
-- Keeper-function (8)
+## 3. c₇ tuning
 
-Until these exist, c₂ cannot reach 1.
+Sample marked (docs/w-c7-tuning-sample.md): 14/20 agreed. Fixes: ignore number-word compounds, formula values after →/=/≈, list numbering; accept possessive author-year ("Author's 2008"); DOI and arXiv require an identifier. Patterns frozen, `C7_TUNED = true`, W v1 final.
 
-## 3. Mark the c₇ tuning sample
+## 4. Other
 
-`docs/w-c7-tuning-sample.md`, 20 paragraphs. Current c₇ ≈ 0.40 (matches the 2026-09-29 baseline).
+- Post pages now label the frontmatter value "Coherence (author-scored)"; it is no longer shown as Γ.
+- c₁ leaks (bare DRK-099, 102, 103, 122, 126, 134 in old posts) are accepted: old posts are not rewritten; the leaks stay visible in /data/watertightness.json.
+- Next free number: DRK-192 (from /data/drk-index.json).
 
-## 4. Method choices made in W v1 (confirm or change before freezing)
+## Not yet built (from the 2026-09-29 plan)
 
-1. **c₆ uses citation links only.** The map's semantic edges connect every post by construction.
-2. **c₅ counts every post**, including the 45 written before DRK-131 existed.
-3. **Per-post W** = (c₇³·c₁·c₅·c₆)^(1/6); c₂–c₄ are corpus-level. A post without a falsification block scores 0.
-4. **Components with an empty denominator are n/a and dropped** (exponent renormalised), e.g. c₃/c₄ while no KO is approved.
-5. **c₇:** paragraphs tagged **[D]** or **[M]** count as satisfied (post standard §6); internal `/posts/` links do not count as a reference; figure captions are skipped.
-
-## 5. Other
-
-- Post pages still label the author-set frontmatter value "Sheaf Coherence Γ". Relabel to "Coherence (author-scored)"?
-- c₁ leaks: bare mentions of DRK-099, 102, 103, 122, 126 and DRK-134 (reserved) match no published post. Edit the posts, or accept.
-- "Cross-layer links" (static 74) is replaced by the computed citation-link count (436). Words and sources were also frozen before this branch, not dynamic.
-- Next free number per `/data/drk-index.json`: DRK-192.
+Phase 4 rule enforcement in the validator, Phase 5 Cloudflare skip-the-bad-post behaviour, Phase 6 new-post/check/publish scripts and desktop shortcut, Phase 7 route tests.
