@@ -2,23 +2,28 @@
  * scripts/watertightness.js — structural soundness score W for the corpus (W v1)
  *
  * W is NOT Γ and must never be labelled as Γ. It measures whether things are defined,
- * connected, referenced and falsifiable — not whether the arguments are true.
+ * connected and referenced — the internal logic and factual grounding of the corpus, not
+ * whether the arguments are true.
  *
  * Components, each a ratio in [0, 1]:
  *   c1 reference integrity   internal /posts/ links and DRK citations resolving to exactly one published post
  *   c2 definition coverage   heavily used terms that have an approved KO
  *   c3 KO closure            approved KOs whose relations point only to approved KOs, with no depends_on cycle
  *   c4 reuse                 approved KOs used beyond their defining post
- *   c5 falsifiability        posts with a falsification block (DRK-131)
+ *   (c5 falsifiability was removed in W v2; the number is not reused)
  *   c6 connectivity          posts in the largest connected component of the citation graph
  *   c7 references behind claims (load-bearing, weight 3)
  *
- *   W = (c7^3 · c1 · c2 · c3 · c4 · c5 · c6)^(1/9)        weighted geometric mean
+ *   W = (c7^3 · c1 · c2 · c3 · c4 · c6)^(1/8)        weighted geometric mean
  *
  * A component at zero makes W zero: a leak cannot be averaged away. A component with an empty
  * denominator is "n/a" and is dropped (the exponent is renormalised); this is reported.
  *
- * Per post, only the post-level components apply: W_post = (c7^3 · c1 · c5 · c6)^(1/6).
+ * Per post, only the post-level components apply: W_post = (c7^3 · c1 · c6)^(1/5).
+ *
+ * History: W v1 (2026-10-01) also contained c5 = posts with a falsification block. Removed in
+ * W v2 (2026-10-01) at Khrug's decision: W measures internal logic and factualness only; the
+ * post standard's falsification section is no longer scored.
  *
  * Changing thresholds or patterns after seeing results requires a new version (W v2),
  * documented like a DRK post. Until Khrug has marked the c7 tuning sample, W is provisional.
@@ -27,12 +32,12 @@
 const fs = require('fs');
 const path = require('path');
 
-const VERSION = 'W v1';
-const C7_TUNED = true; // tuned against docs/w-c7-tuning-sample.md (2026-10-01); patterns below are frozen for W v1
-const WEIGHTS = { c1: 1, c2: 1, c3: 1, c4: 1, c5: 1, c6: 1, c7: 3 };
+const VERSION = 'W v2';
+const C7_TUNED = true; // tuned against docs/w-c7-tuning-sample.md (2026-10-01); patterns frozen since W v1, unchanged in W v2
+const WEIGHTS = { c1: 1, c2: 1, c3: 1, c4: 1, c6: 1, c7: 3 };
 const LABELS = {
   c1: 'Reference integrity', c2: 'Definition coverage', c3: 'KO closure', c4: 'KO reuse',
-  c5: 'Falsifiability', c6: 'Connectivity', c7: 'References behind claims',
+  c6: 'Connectivity', c7: 'References behind claims',
 };
 
 // ── c7 patterns (W v1, untuned) ──
@@ -163,9 +168,9 @@ function computeW(posts, map, ko, heavy, archived = new Set()) {
   const biggest = [...compSize.entries()].sort((a, b) => b[1] - a[1])[0];
   const inLargest = slug => ix.has(slug) && find(ix.get(slug)) === biggest[0];
 
-  const leaks = { c1: [], c5: [], c6: [], c7: [] };
+  const leaks = { c1: [], c6: [], c7: [] };
   const perPost = {};
-  let refsOk = 0, refsAll = 0, claimsAll = 0, claimsRef = 0, falsif = 0, connected = 0;
+  let refsOk = 0, refsAll = 0, claimsAll = 0, claimsRef = 0, connected = 0;
   const sample = [];
 
   for (const p of posts) {
@@ -181,9 +186,7 @@ function computeW(posts, map, ko, heavy, archived = new Set()) {
       if (good) ok++; else leaks.c1.push({ post: p.slug, ref: kind === 'slug' ? `/posts/${v}/` : v, reason: kind === 'slug' ? 'no such post' : (drkCount.get(v) ? 'DRK number used by several posts' : 'no post has this DRK number') });
     }
     refsOk += ok; refsAll += targets.size;
-    // c5
-    const f = hasFalsification(raw);
-    if (f) falsif++; else leaks.c5.push({ post: p.slug });
+    const f = hasFalsification(raw); // informational only since W v2
     // c6
     const conn = inLargest(p.slug);
     if (conn) connected++; else leaks.c6.push({ post: p.slug });
@@ -199,7 +202,7 @@ function computeW(posts, map, ko, heavy, archived = new Set()) {
     });
     claimsAll += pc; claimsRef += pr;
 
-    const comp = { c1: ratio(ok, targets.size), c5: f ? 1 : 0, c6: conn ? 1 : 0, c7: ratio(pr, pc) };
+    const comp = { c1: ratio(ok, targets.size), c6: conn ? 1 : 0, c7: ratio(pr, pc) };
     const g = geo(comp);
     perPost[p.slug] = {
       W: r3(g.W), components: Object.fromEntries(Object.entries(comp).map(([k, v]) => [k, r3(v)])), na: g.na,
@@ -221,22 +224,22 @@ function computeW(posts, map, ko, heavy, archived = new Set()) {
   const strictKO = koPart(ko.kos.filter(k => k.status === 'approved' && k.usage && k.usage.definition_verified));
   const projKO = koPart(ko.kos.filter(k => k.usage && k.usage.definition_verified));
 
-  const base = { c1: ratio(refsOk, refsAll), c5: ratio(falsif, posts.length), c6: ratio(connected, posts.length), c7: ratio(claimsRef, claimsAll) };
-  const strict = { c1: base.c1, c2: strictKO.c2, c3: strictKO.c3, c4: strictKO.c4, c5: base.c5, c6: base.c6, c7: base.c7 };
+  const base = { c1: ratio(refsOk, refsAll), c6: ratio(connected, posts.length), c7: ratio(claimsRef, claimsAll) };
+  const strict = { c1: base.c1, c2: strictKO.c2, c3: strictKO.c3, c4: strictKO.c4, c6: base.c6, c7: base.c7 };
   const projected = { ...strict, c2: projKO.c2, c3: projKO.c3, c4: projKO.c4 };
   const gs = geo(strict), gp = geo(projected);
 
   return {
     version: VERSION,
     status: C7_TUNED ? 'final' : 'provisional: c7 patterns not yet tuned',
-    formula: 'W = (c7^3 · c1 · c2 · c3 · c4 · c5 · c6)^(1/9); W_post = (c7^3 · c1 · c5 · c6)^(1/6); n/a components dropped',
+    formula: 'W = (c7^3 · c1 · c2 · c3 · c4 · c6)^(1/8); W_post = (c7^3 · c1 · c6)^(1/5); n/a components dropped',
     W: r3(gs.W),
     na: gs.na,
     W_if_proposed_approved: r3(gp.W),
     components: Object.fromEntries(Object.entries(strict).map(([k, v]) => [k, { label: LABELS[k], value: r3(v), weight: WEIGHTS[k] }])),
     projected_components: { c2: r3(projected.c2), c3: r3(projected.c3), c4: r3(projected.c4) },
     counts: {
-      c1: `${refsOk}/${refsAll} references resolve`, c5: `${falsif}/${posts.length} posts`, c6: `${connected}/${posts.length} posts (largest of ${compSize.size} components)`,
+      c1: `${refsOk}/${refsAll} references resolve`, c6: `${connected}/${posts.length} posts (largest of ${compSize.size} components)`,
       c7: `${claimsRef}/${claimsAll} claim paragraphs`, c2: `${strictKO.detail.covered.length}/${heavy.length} heavily used terms`,
     },
     leaks: { ...leaks, c2: strictKO.detail.uncovered, c3: strictKO.detail.open, c4: strictKO.detail.not_reused, projected: projKO.detail },

@@ -120,7 +120,7 @@ function buildCards(posts, w) {
     const pw = (w && w.perPost[p.slug]) || { W: null, detail: {} };
     const c = pw.W == null ? 0 : pw.W;
     const d = pw.detail || {};
-    const tip = `W ${c.toFixed(3)} · references ${d.refs || '–'} · claims referenced ${d.claims || '–'} · falsification ${d.falsification ? 'yes' : 'no'} · connected ${d.connected ? 'yes' : 'no'}`;
+    const tip = `W ${c.toFixed(3)} · references ${d.refs || '–'} · claims referenced ${d.claims || '–'} · connected ${d.connected ? 'yes' : 'no'}`;
     return `<a href="/posts/${p.slug}/" class="pub-card" data-tags="${(p.tags||[]).join(' ')}">
       <div class="pub-meta"><span class="pub-tag ${tagClass(tag)}">${tag}</span><span class="pub-drk">${p.drk||''}</span><span class="pub-date">${fmtDate(p.date)}</span></div>
       <h2 class="pub-title">${p.title}</h2>
@@ -150,7 +150,6 @@ function wBreakdownHtml(pw) {
   const mark = b => (b ? '<span class="ok">✓</span>' : '<span class="bad">✗</span>');
   return [
     `<span>c₁ references resolve ${d.refs}${c.c1 == null ? ' (n/a)' : ''}</span>`,
-    `<span>c₅ falsification ${mark(d.falsification)}</span>`,
     `<span>c₆ connected ${mark(d.connected)}</span>`,
     `<span>c₇ claims referenced ${d.claims}${c.c7 == null ? ' (n/a)' : ''}</span>`,
   ].join('');
@@ -767,7 +766,7 @@ function build() {
     w_version: w.version,
     w_status: w.status,
     w_components: wComponentsHtml(w),
-    w_projection: ko.summary.proposed ? `If the ${ko.summary.proposed} proposed KOs were approved as they stand: W = ${fmtW(w.W_if_proposed_approved)}.` : `Largest leaks: c₅ (posts without a falsification block) and c₇ (claim paragraphs without a reference).`,
+    w_projection: ko.summary.proposed ? `If the ${ko.summary.proposed} proposed KOs were approved as they stand: W = ${fmtW(w.W_if_proposed_approved)}.` : `Largest leak: c₇ (claim paragraphs without a reference).`,
     pub_count: sys.pub_count,
     active_layers: sys.active_layers,
     phase: sys.phase,

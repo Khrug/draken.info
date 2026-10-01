@@ -11,10 +11,10 @@ Khrug delegated these decisions to Claude on 2026-10-01 ("solve the questions in
 - **Θ (trophic debt)** stays a candidate until a second post uses it (aliases narrowed to Θ(t), \Theta(t), "trophic debt" to avoid matching asymptotic notation).
 - **Remaining gap: anti-totalization principle** (35 posts). No one-sentence definition exists in the published corpus (it is defined in the Codex). Close it by stating it in one sentence in the next post that uses it and adding the entry.
 
-## 2. W v1 method (confirmed as built)
+## 2. W method (confirmed as built; current version W v2)
 
 1. c₆ uses citation links only (semantic edges connect every post by construction).
-2. c₅ counts every post, including those before DRK-131: the corpus is judged as it stands.
+2. ~~c₅ counts every post~~ — superseded: c₅ removed in W v2 (see docs/W-VERSIONS.md).
 3. Per-post W = (c₇³·c₁·c₅·c₆)^(1/6); c₂–c₄ are corpus-level.
 4. Components with an empty denominator are n/a and dropped.
 5. c₇: [D]/[M]-tagged paragraphs satisfied; internal /posts/ links are not references; figure captions skipped.
