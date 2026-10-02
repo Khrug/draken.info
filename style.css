@@ -1244,37 +1244,6 @@ textarea.form-input {
   overflow: hidden !important;
   max-width: 100% !important;
 }
-/* Digest feed card */
-.digest-feed-card {
-  border-color: var(--gold-dim) !important;
-  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(201,168,76,0.04) 100%) !important;
-}
-.digest-feed-card:hover {
-  border-color: var(--gold) !important;
-  background: linear-gradient(135deg, var(--bg-card-hover) 0%, rgba(201,168,76,0.08) 100%) !important;
-}
-.pub-tag-digest { background: rgba(201,168,76,0.15) !important; color: var(--gold) !important; }
-.pub-drk-digest { color: var(--gold) !important; }
-.pub-title-digest { color: var(--gold) !important; }
-.layer-badge-digest { color: var(--gold) !important; border-color: var(--gold-dim) !important; }
-.digest-read-more { font-family: var(--mono); font-size: 11px; color: var(--gold); }
-/* Digest nav button */
-.nav-digest-btn {
-  color: var(--gold) !important;
-  border: 1px solid var(--gold-dim) !important;
-  padding: 4px 12px !important;
-  border-radius: 4px !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  background: transparent !important;
-  transition: all 0.2s !important;
-  font-family: var(--mono) !important;
-}
-.nav-digest-btn:hover, .nav-digest-btn.active {
-  background: rgba(201,168,76,0.12) !important;
-  color: var(--gold) !important;
-  border-color: var(--gold) !important;
-}
 /* Corpus Map nav button (blue) */
 .nav-map-btn {
   color: var(--blue) !important;
@@ -1313,7 +1282,6 @@ textarea.form-input {
 /* Archived post versions (posts/v1/) */
 .version-notice { border: 1px solid var(--gold); border-radius: 6px; padding: 12px 16px; margin-bottom: 24px; color: var(--text-dim); font-size: 0.95em; }
 .version-notice a { color: var(--gold); }
-.digest-index { margin-top: 24px; }
 
 /* Sidebar coherence chart now shows every post (system.json is derived from posts/ at build time) */
 .corpus-map { gap: 1px !important; overflow: hidden !important; }

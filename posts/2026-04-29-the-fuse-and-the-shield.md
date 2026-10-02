@@ -54,7 +54,7 @@ What follows is the structural reading. Section II addresses the feedback loop. 
 
 ## II. The Self-Reinforcing Feedback Loop as $\Psi \to 1$ Saturation
 
-Andrews's opening — *a self-reinforcing feedback loop of followers who have outsourced their own reality to the leader's will* — names what the Draken corpus formalises through Aaron James Goldman's research at Lund University (the *Beyond Truth and Lies* project) on **kayfabe**: the professional-wrestling protocol whose constitutive move is the denial that a protocol exists. The full development is in *[The Substrate and the Game](/posts/the-substrate-and-the-game/)* (DRK-130) and the kayfabe section of the *[Q2 2026 Dragon Digest](/digest/q2-2026/)* §03; the operational quadruple is
+Andrews's opening — *a self-reinforcing feedback loop of followers who have outsourced their own reality to the leader's will* — names what the Draken corpus formalises through Aaron James Goldman's research at Lund University (the *Beyond Truth and Lies* project) on **kayfabe**: the professional-wrestling protocol whose constitutive move is the denial that a protocol exists. The full development is in *[The Substrate and the Game](/posts/the-substrate-and-the-game/)* (DRK-130); the operational quadruple is
 
 $$\mathrm{Protocol} = \{S,\ R,\ \varphi,\ \sigma\}$$
 
@@ -148,7 +148,7 @@ This threshold is what the framework, in DRK-121 and DRK-122 territory, calls *t
 
 For that reason this post is not only a reply. It is an incorporation. *The fuse and the shield* enters the framework's diagnostic vocabulary as the canonical short-form description of the $\Psi$-threshold at which evidence-as-constraint inverts to evidence-as-fuel. Attribution stands: Andrews 2026, Facebook, late April. The framework is open. The instruments are open. The Sheaf Analyzer (*[DRK-132](/posts/sheaf-analyzer-manual/)*) will compute $\Gamma$, $\Psi$, $K(t)$, $\alpha$, and $\nu$ for arbitrary text, including transcripts of cult communications, leader speeches, inner-circle communications, or successor-candidate output. The framework is committed to its own falsifiability.
 
-Scott — if you're reading this, the rest of the corpus is at the navigation bar. The Q2 [Dragon Digest](/digest/q2-2026/) is the field report; the [Thesis](/thesis/) is the formal substrate; the [Sheaf Analyzer](/sheaf-analyzer/) is browser-only, requires no installation, and will run your own input texts through the operators above. If you find a load you think the framework cannot carry, the comments are open and the response will be honest. That is how the next post gets written.
+Scott — if you're reading this, the rest of the corpus is at the navigation bar. The [Thesis](/thesis/) is the formal substrate; the [Sheaf Analyzer](/sheaf-analyzer/) is browser-only, requires no installation, and will run your own input texts through the operators above. If you find a load you think the framework cannot carry, the comments are open and the response will be honest. That is how the next post gets written.
 
 *Jag är vad jag gör, och jag gör det jag är.*
 

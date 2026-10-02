@@ -2,3 +2,6 @@
 # Slug typo fixed in the 2026-09 site audit (A3.1)
 /posts/the-invsriant/  /posts/the-invariant/  301
 /posts/the-invsriant   /posts/the-invariant/  301
+# Dragon Digest retired 2026-10-02
+/digest/*  /  301
+/digest    /  301

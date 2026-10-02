@@ -101,7 +101,7 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE, verbose = fals
     : new Set();
   const linkRe = /\]\((?:https?:\/\/(?:www\.)?draken\.info)?\/posts\/([a-z0-9/-]+?)\/?(?:#[^)]*)?\)/g;
   // Links to our own domain outside the known top-level routes (e.g. draken.info/<slug> without /posts/)
-  const ROUTES = ['posts', 'thesis', 'sheaf-analyzer', 'digest', 'map', 'slask', 'drakonomikon', 'data', 'images', 'orakel'];
+  const ROUTES = ['posts', 'thesis', 'sheaf-analyzer', 'map', 'slask', 'drakonomikon', 'data', 'images', 'orakel'];
   const siteRe = /\]\((?:https?:\/\/(?:www\.)?draken\.info)?\/([a-z0-9-]+)[^)\s]*\)/g;
   for (const p of posts) {
     let m;

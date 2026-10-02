@@ -646,7 +646,6 @@ function genSitemap(posts) {
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
-    `<url><loc>${b}/digest/</loc><priority>0.7</priority></url>\n` +
     `<url><loc>${b}/ko/</loc><priority>0.6</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
@@ -800,7 +799,6 @@ function build() {
   buildSlaskPage(baseTpl);
   buildCorpusMapPage({ baseTpl, render, distDir: DIST_DIR, staticDir: STATIC_DIR });
   buildDrakonomikonPage(baseTpl);
-  buildDigestPages(baseTpl);
   buildKOPage(baseTpl, ko, posts);
   buildCorpusJson(posts);
   buildSearchIndex(posts);
@@ -843,7 +841,7 @@ function build() {
     content: `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
 <article><header class="article-header"><span class="pub-tag tag-technical">404</span><h1>No section here</h1></header>
 <div class="article-body"><p>This address does not glue to anything in the corpus. The post may have moved or been renumbered.</p>
-<p>Use the search box at the top of the page (press <kbd>/</kbd>) to look for it by title, keyword, DRK number or layer, or browse the <a href="/">feed</a> and the <a href="/digest/">digest</a>.</p></div></article></div>`,
+<p>Use the search box at the top of the page (press <kbd>/</kbd>) to look for it by title, keyword, DRK number or layer, or browse the <a href="/">feed</a>.</p></div></article></div>`,
     og_type: 'website', og_url: 'https://draken.info/404.html', og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   }));
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
@@ -895,40 +893,4 @@ function buildDrakonomikonPage(baseTpl) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   console.log('  ✓ drakonomikon/');
-}
-
-// ── DIGEST pages (self-contained standalone HTML, one dir per issue) ──
-function buildDigestPages(baseTpl) {
-  const src = path.join(__dirname, 'digest');
-  const dst = path.join(DIST_DIR, 'digest');
-  if (!fs.existsSync(src)) { console.log('  · digest/ source not present, skipping'); return; }
-  copyDirSync(src, dst);
-  // Issue folders are named q<N>-<YYYY>; newest first
-  const issues = [];
-  for (const e of fs.readdirSync(src, { withFileTypes: true })) {
-    const f = path.join(src, e.name, 'index.html');
-    if (!e.isDirectory() || !fs.existsSync(f)) continue;
-    const html = fs.readFileSync(f, 'utf-8');
-    const title = ((html.match(/<title>([^<]*)<\/title>/) || [])[1] || e.name).split(' · ')[0];
-    const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1] || '';
-    const m = e.name.match(/^q(\d)-(\d{4})$/);
-    issues.push({ dir: e.name, title, desc, key: m ? `${m[2]}-${m[1]}` : e.name, label: m ? `Q${m[1]} ${m[2]}` : e.name });
-  }
-  issues.sort((a, b) => b.key.localeCompare(a.key));
-  const cards = issues.map(i => `<a href="/digest/${i.dir}/" class="pub-card digest-feed-card">
-      <div class="pub-meta"><span class="pub-tag pub-tag-digest">DIGEST</span><span class="pub-drk pub-drk-digest">${i.label}</span></div>
-      <h2 class="pub-title pub-title-digest">${i.title}</h2>
-      <p class="pub-excerpt">${i.desc}</p>
-      <div class="pub-footer"><span class="digest-read-more">Read digest &rarr;</span></div></a>`).join('\n');
-  const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
-<header class="article-header"><span class="pub-tag pub-tag-digest">DIGEST</span><h1>The Dragon Digest</h1>
-<p class="feedback-desc">A quarterly field report: world events read through the Draken framework's diagnostic instruments, with predictions tested against the record.</p></header>
-<div class="digest-index">${cards}</div></div>`;
-  fs.writeFileSync(path.join(dst, 'index.html'), render(baseTpl, {
-    title: 'The Dragon Digest — Draken 2045',
-    description: 'Quarterly sheaf-theoretic field reports from the Draken 2045 Initiative.',
-    content, og_type: 'website', og_url: 'https://draken.info/digest/',
-    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
-  }));
-  console.log(`  ✓ digest/ (index + ${issues.length} issue${issues.length !== 1 ? 's' : ''})`);
 }
