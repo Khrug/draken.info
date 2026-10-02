@@ -8,7 +8,7 @@ Static site for the Draken corpus: numbered DRK posts by Khrug Engineering, buil
 - `templates/`: HTML page templates (`base.html`, `index.html`, `post.html`).
 - `scripts/`: `validate-posts.js` (runs first in the build), `check-links.js`, `corpus-map.js`, `ko.js` (KO registry checks and usage), `watertightness.js` (W v1).
 - `static/`: assets and data (`static/data/`).
-- `static/data/ko.json`: the KnowledgeObject registry, kept by hand. Definitions are quoted verbatim from posts; only Khrug sets `status: "approved"`.
+- `static/data/ko.json`: the KnowledgeObject registry, kept by hand. Definitions are quoted verbatim from posts; by Khrug's standing default (2026-10-02) every entry whose quoted definition verifies is entered as `status: "approved"`. Khrug can revoke any entry.
 - `docs/`: project documents, including `POST_STANDARD.md`, `KO-W-DECISIONS.md` and `w-c7-tuning-sample.md`. Not published (POST_STANDARD.md is copied to `/data/post-standard.md`).
 
 ## Computed data (every build)

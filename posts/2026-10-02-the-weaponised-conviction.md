@@ -127,7 +127,7 @@ The anti-totalisation principle of the [Totalitarian Sheaf](/posts/the-totalitar
 4. Biggs (2012) is cited without page numbers; the Palach and Bouazizi cases are textbook history.
 5. Lankford (2013) and the 2010 Tunisian case's causal role in the uprisings are contested or simplified and are tagged accordingly.
 6. The helpline details (Mind Självmordslinjen 90101, 112, findahelpline.com) should be checked before each republication.
-7. New term **gate capture** (§1) to be added to `static/data/ko.json` as `proposed`, with the §1 definition as its verbatim defining sentence.
+7. New term **gate capture** (§1) added to `static/data/ko.json` and approved on 2026-10-02 under Khrug's standing default, with the §1 definition as its verbatim defining sentence.
 
 ---
 

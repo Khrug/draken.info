@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "note": "KnowledgeObject registry v3. Maintained by hand. Every definition is quoted verbatim from the defining post (the build checks this). Only approved entries count, and only once reused beyond the defining post. Initial approval 2026-10-01 under Khrug's delegation; layers taken from the defining post's frontmatter, to be narrowed by hand where the term applies more narrowly.",
+  "note": "KnowledgeObject registry v3. Maintained by hand. Every definition is quoted verbatim from the defining post (the build checks this). Only approved entries count, and only once reused beyond the defining post. Initial approval 2026-10-01 under Khrug's delegation; since 2026-10-02 every new entry whose quoted definition verifies is approved by default (Khrug's standing instruction); layers taken from the defining post's frontmatter, to be narrowed by hand where the term applies more narrowly.",
   "kos": [
     {
       "id": "gamma",
@@ -778,10 +778,202 @@
       "refines": [],
       "tension_with": [],
       "status": "approved"
+    },
+    {
+      "id": "warded-invariant",
+      "name": "𝔚 — warded invariant",
+      "aliases": [
+        "warded invariant"
+      ],
+      "definition": "$$\\mathfrak W(\\mathcal F) := \\big(\\, b_1,\\ \\ d,\\ \\ \\rho \\,\\big)$$",
+      "defined_in": {
+        "drk": "DRK-190",
+        "slug": "the-warded-class",
+        "section": "§8 Proposal: the warded invariant"
+      },
+      "layers": [
+        "L01",
+        "L10",
+        "L15"
+      ],
+      "depends_on": [
+        "h1",
+        "kappa"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "note": "Triple of rank, systole/cosystole and soundness. The ρ here is coding-theoretic soundness, not the restriction map of the rho KO."
+    },
+    {
+      "id": "egregore",
+      "name": "Egregore",
+      "aliases": [
+        "egregore",
+        "egregores",
+        "egregor"
+      ],
+      "definition": "The Draken reading is that an egregore is a well-glued section whose stability no longer depends on any single stalk **[D]**.",
+      "defined_in": {
+        "drk": "DRK-191",
+        "slug": "the-compressed-will",
+        "section": "§7 Egregores: sections that outlive their stalks"
+      },
+      "layers": [
+        "L09",
+        "L10",
+        "L11",
+        "L12",
+        "L14"
+      ],
+      "depends_on": [
+        "global-section",
+        "stalk"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "stalk",
+      "name": "Stalk",
+      "aliases": [
+        "stalk",
+        "stalks"
+      ],
+      "definition": "The **stalk** of $\\mathcal F$ at a point $x \\in X$ is the direct limit\n\n$$\\mathcal F_x \\;=\\; \\varinjlim_{U \\ni x} \\mathcal F(U),$$\n\ntaken over all open neighbourhoods of $x$.",
+      "defined_in": {
+        "drk": "DRK-192",
+        "slug": "the-stal-king",
+        "section": "§2 Formal sketch: the stalk as limit of a pursuit (analogy, not derivation)"
+      },
+      "layers": [
+        "L07",
+        "L08",
+        "L09",
+        "L11",
+        "L12",
+        "L13"
+      ],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved",
+      "note": "Standard sheaf-theory term (Hartshorne 1977); the corpus also uses 'stalk' loosely for a local site or node."
+    },
+    {
+      "id": "stalking",
+      "name": "Stalking",
+      "aliases": [
+        "stalking"
+      ],
+      "definition": "**Stalking** (proposed corpus term): a pursuit that refines a nested family of neighbourhoods around a target while keeping its own estimates restriction-compatible and keeping its own contribution to the target's observations at zero **[D]**.",
+      "defined_in": {
+        "drk": "DRK-192",
+        "slug": "the-stal-king",
+        "section": "§2 Formal sketch: the stalk as limit of a pursuit (analogy, not derivation)"
+      },
+      "layers": [
+        "L07",
+        "L08",
+        "L09",
+        "L11",
+        "L12",
+        "L13"
+      ],
+      "depends_on": [
+        "stalk",
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "earth-engine",
+      "name": "Earth engine",
+      "aliases": [
+        "earth engine"
+      ],
+      "definition": "**The earth engine** (proposed corpus term): the reading of the Earth system as a cascade of heat engines fired by the Sun, in which each stage compresses usable form from the stage above, burns it through a gate, and fails in one of a small number of engine fault modes **[D]**.",
+      "defined_in": {
+        "drk": "DRK-193",
+        "slug": "the-earth-engine",
+        "section": "§3 Formal sketch: stocks, gates and debts (analogy, not derivation)"
+      },
+      "layers": [
+        "L08",
+        "L09",
+        "L12",
+        "L13",
+        "L14",
+        "L17",
+        "L18"
+      ],
+      "depends_on": [
+        "kt"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "conviction-gate",
+      "name": "Conviction gate",
+      "aliases": [
+        "conviction gate",
+        "conviction gates"
+      ],
+      "definition": "The **conviction gate** (proposed corpus term) is this inequality: the point where a belief is allowed to command action, governed by certainty, by the value attached to the act, and by the threshold that others and one's own norms impose **[D]**.",
+      "defined_in": {
+        "drk": "DRK-194",
+        "slug": "the-conviction-gate",
+        "section": "§2 Formal sketch: precision and the gate (analogy, not derivation)"
+      },
+      "layers": [
+        "L08",
+        "L09",
+        "L10",
+        "L11",
+        "L14"
+      ],
+      "depends_on": [],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "gate-capture",
+      "name": "Gate capture",
+      "aliases": [
+        "gate capture",
+        "captured gate"
+      ],
+      "definition": "**Gate capture** (proposed corpus term): the condition in which the value of acting, the threshold for action, or the certainty of the belief is set by an agent other than the believer, so that the believer's gate opens on someone else's terms **[D]**.",
+      "defined_in": {
+        "drk": "DRK-195",
+        "slug": "the-weaponised-conviction",
+        "section": "§1 Gate capture"
+      },
+      "layers": [
+        "L09",
+        "L11",
+        "L12",
+        "L13",
+        "L14"
+      ],
+      "depends_on": [
+        "conviction-gate"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
     }
   ],
   "approval": {
-    "date": "2026-10-01",
-    "by": "Khrug (delegated to Claude: approve every entry whose quoted definition verifies)"
+    "date": "2026-10-02",
+    "by": "Khrug (standing default since 2026-10-02: every entry whose quoted definition verifies is approved)"
   }
 }

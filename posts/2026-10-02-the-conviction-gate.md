@@ -130,7 +130,7 @@ The difference between meaning-making and the flip lies in the gate, not in the 
 2. Books (Jaspers 1913, Hoffer 1951, Festinger et al. 1956, DSM-5) are cited from their standard editions; page numbers and the exact DSM-5 wording were not checked for this post, and the DSM-5 definition is paraphrased.
 3. The Jeanne d'Arc facts are textbook chronology; the trial records were not consulted directly, only through the review by D'Orsi & Tinuper.
 4. Hubris syndrome is a proposal, not a recognised diagnosis, and is tagged [H].
-5. New term **conviction gate** (§2) to be added to `static/data/ko.json` as `proposed`, with the §2 definition as its verbatim defining sentence.
+5. New term **conviction gate** (§2) added to `static/data/ko.json` and approved on 2026-10-02 under Khrug's standing default, with the §2 definition as its verbatim defining sentence.
 
 ---
 

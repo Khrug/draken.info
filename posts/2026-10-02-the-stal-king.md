@@ -177,7 +177,7 @@ The Stalker inverts every case in §3 **[D]**. He is not the predator; the Zone 
 4. The Beholder's antimagic rule (central eye suppressing its own eye rays) is cited to the 2014 *Monster Manual* without a page check; whether the 1975 text already included the self-cancellation was not verified. The post describes the creature in words only.
 5. Chase (2002) is cited for gastropod tentacle eyes in general; the specific passage was not checked. The *S.T.A.L.K.E.R.* bolt mechanic is stated from general knowledge of the game and tagged [S].
 6. Left out for lack of a verifiable source: the story that the first sniper units recruited Highland deer-stalkers and gamekeepers, and the claim that the sheaf-theoretic term *stalk* was chosen for the agrarian image of a sheaf of grain.
-7. New term **stalking** (§2) to be added to `static/data/ko.json` as `proposed`, with the §2 definition as its verbatim defining sentence.
+7. New term **stalking** (§2) added to `static/data/ko.json` and approved on 2026-10-02 under Khrug's standing default, with the §2 definition as its verbatim defining sentence.
 
 ---
 

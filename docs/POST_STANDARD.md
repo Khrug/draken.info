@@ -107,7 +107,7 @@ Rules:
 
 **New terms**
 
-- Define in one sentence at first use, in bold. Add to `static/data/ko.json` as `proposed`.
+- Define in one sentence at first use, in bold. Add to `static/data/ko.json` with the verbatim defining sentence; by Khrug's standing default (2026-10-02) an entry whose definition verifies is entered as `approved`.
 
 **Math**
 

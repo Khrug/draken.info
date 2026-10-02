@@ -214,7 +214,7 @@ Anti-totalisation applies with full force. The engine is a classification device
 3. Figures stated without a fixed source: the solar photosphere near 5800 K, the AMOC's role in northward heat transport, and the limp-home mode of engine management are given as textbook facts. Lindeman's 10% figure is the conventional summary of his trophic-efficiency results, not a single number from the paper.
 4. Whether the stage deficit $D_k$ is an instance of the corpus's $\Theta$ or only shares its form is left open (§3, [H]).
 5. Etymologies are from the Online Etymology Dictionary entries named in References; SAOB and Hellquist were not consulted for *utbränd*.
-6. New term **earth engine** (§3) to be added to `static/data/ko.json` as `proposed`, with the §3 definition as its verbatim defining sentence.
+6. New term **earth engine** (§3) added to `static/data/ko.json` and approved on 2026-10-02 under Khrug's standing default, with the §3 definition as its verbatim defining sentence.
 
 ---
 
