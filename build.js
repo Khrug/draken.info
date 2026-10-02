@@ -81,8 +81,20 @@ function readPosts() {
     if (data.status && data.status !== 'published') return null;
     const slug = file.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
     return { ...data, slug, filename: file, content: parseMathSafe(content), rawContent: content };
-  }).filter(Boolean).sort((a, b) => new Date(b.date) - new Date(a.date));
+  }).filter(Boolean).sort(byDrkDesc);
 }
+
+// DRK number as an integer (NaN if missing)
+function drkNum(p) { return parseInt(String((p && p.drk) || '').replace(/\D/g, ''), 10); }
+// Feed order: highest DRK number first; posts without a number last, newest first
+function byDrkDesc(a, b) {
+  const x = drkNum(a), y = drkNum(b);
+  if (isNaN(x) !== isNaN(y)) return isNaN(x) ? 1 : -1;
+  if (!isNaN(x) && x !== y) return y - x;
+  return new Date(b.date) - new Date(a.date);
+}
+// ISO date (YYYY-MM-DD): unambiguous for readers and for machines
+function isoDate(d) { if (!d) return ''; const t = new Date(d); return isNaN(t) ? '' : t.toISOString().split('T')[0]; }
 
 function readSystemData() {
   const defaults = { pub_count: 0, active_layers: '0/18', phase: 'GENESIS', publications: [], layer_status: {} };
@@ -121,8 +133,9 @@ function buildCards(posts, w) {
     const c = pw.W == null ? 0 : pw.W;
     const d = pw.detail || {};
     const tip = `W ${c.toFixed(3)} · references ${d.refs || '–'} · claims referenced ${d.claims || '–'} · connected ${d.connected ? 'yes' : 'no'}`;
-    return `<a href="/posts/${p.slug}/" class="pub-card" data-tags="${(p.tags||[]).join(' ')}">
-      <div class="pub-meta"><span class="pub-tag ${tagClass(tag)}">${tag}</span><span class="pub-drk">${p.drk||''}</span><span class="pub-date">${fmtDate(p.date)}</span></div>
+    const iso = isoDate(p.date);
+    return `<a href="/posts/${p.slug}/" class="pub-card" data-tags="${(p.tags||[]).join(' ')}" data-drk="${p.drk||''}" data-date="${iso}">
+      <div class="pub-meta"><span class="pub-drk">${p.drk||''}</span><span class="pub-sep">·</span><time class="pub-date" datetime="${iso}">${iso}</time><span class="pub-tag ${tagClass(tag)}">${tag}</span></div>
       <h2 class="pub-title">${p.title}</h2>
       <p class="pub-excerpt">${p.excerpt||''}</p>
       <div class="pub-footer"><div class="pub-layers">${layers}</div>
@@ -230,7 +243,7 @@ function buildEnhancedLayerGrid(sys) {
 
 // Activity feed: the most recent publications, derived from posts/ (no hand-kept log)
 function buildActivityFeed(posts) {
-  return posts.slice(0, 8).map(p => `<div class="activity-item"><span class="dot dot-green"></span>${p.drk || ''} published — <a href="/posts/${p.slug}/">${String(p.title || p.slug).split(':')[0]}</a><span class="activity-time">— ${fmtDate(p.date)}</span></div>`).join('\n');
+  return posts.slice(0, 8).map(p => `<div class="activity-item"><span class="dot dot-green"></span>${p.drk || ''} published — <a href="/posts/${p.slug}/">${String(p.title || p.slug).split(':')[0]}</a><span class="activity-time">— ${isoDate(p.date)}</span></div>`).join('\n');
 }
 
 // Corpus statistics computed from posts/ at every build
@@ -651,8 +664,16 @@ function genSitemap(posts) {
     '\n</urlset>';
 }
 
+// Machine-readable DRK number and dates in <head> (article:* is the Open Graph article namespace)
+function postHeadMeta(p) {
+  const m = [`<meta property="article:published_time" content="${isoDate(p.date)}">`];
+  if (p.revised) m.push(`<meta property="article:modified_time" content="${isoDate(p.revised)}">`);
+  if (p.drk) m.push(`<meta name="drk" content="${p.drk}">`);
+  return m.join('\n  ') + '\n  ';
+}
+
 function postJsonLd(p) {
-  return JSON.stringify({"@context":"https://schema.org","@type":"ScholarlyArticle","headline":p.title,"datePublished":new Date(p.date).toISOString(),"author":{"@type":"Organization","name":p.author||"Khrug Engineering"},"publisher":{"@type":"Organization","name":"Draken 2045 Initiative","url":"https://draken.info"},"description":p.excerpt||'',"url":`https://draken.info/posts/${p.slug}/`});
+  return JSON.stringify({"@context":"https://schema.org","@type":"ScholarlyArticle","headline":p.title,"identifier":p.drk||undefined,"datePublished":isoDate(p.date),"dateModified":isoDate(p.revised||p.date),"isPartOf":{"@type":"Periodical","name":"Draken 2045 — DRK series","url":"https://draken.info/"},"author":{"@type":"Organization","name":p.author||"Khrug Engineering"},"publisher":{"@type":"Organization","name":"Draken 2045 Initiative","url":"https://draken.info"},"description":p.excerpt||'',"url":`https://draken.info/posts/${p.slug}/`});
 }
 
 // Renders one post to dist/posts/<urlPath>/index.html. `notice` (HTML) is shown above the body.
@@ -663,7 +684,9 @@ function writePostPage(p, urlPath, baseTpl, postTpl, notice = '', ctx = {}) {
   const pc = render(postTpl, {
     title: p.title, tag: (p.tags&&p.tags[0])||'technical',
     tagClass: tagClass((p.tags&&p.tags[0])||'technical'),
-    drk: p.drk||'', date: fmtDate(p.date), author: p.author||'Khrug Engineering',
+    drk: p.drk||'', date: fmtDate(p.date), date_iso: isoDate(p.date),
+    revised: p.revised ? ` <span class="article-sep">·</span> Revised <time datetime="${isoDate(p.revised)}">${isoDate(p.revised)}</time>` : '',
+    author: p.author||'Khrug Engineering',
     layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
     body: notice + p.content, layer_count: (p.layers||[]).length,
     post_url: url,
@@ -675,10 +698,10 @@ function writePostPage(p, urlPath, baseTpl, postTpl, notice = '', ctx = {}) {
     ko_used_list: ctx.ko ? koListHtml(ctx.ko.perPost.get(p.slug), ctx.ko) : '<span>—</span>',
   });
   fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
-    title: `${p.title} — Draken 2045`, description: p.description||p.excerpt||'',
+    title: `${p.drk ? p.drk + ' · ' : ''}${p.title} — Draken 2045`, description: p.description||p.excerpt||'',
     content: pc, og_type: 'article', og_url: url,
     og_image: 'https://draken.info/images/og-v2.png',
-    jsonld: `<script type="application/ld+json">${postJsonLd(p)}</script>`,
+    jsonld: postHeadMeta(p) + `<script type="application/ld+json">${postJsonLd(p)}</script>`,
   }));
 }
 
