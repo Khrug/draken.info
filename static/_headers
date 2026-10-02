@@ -5,3 +5,27 @@
   Content-Type: application/atom+xml; charset=utf-8
 /posts/*/index.md
   Content-Type: text/markdown; charset=utf-8
+# HTML pages: declare UTF-8 in the header, not only in <meta>, so crawlers never mis-decode å, ä, ö, —
+/
+  Content-Type: text/html; charset=utf-8
+/posts/:slug/
+  Content-Type: text/html; charset=utf-8
+/posts/v1/:slug/
+  Content-Type: text/html; charset=utf-8
+/thesis/
+  Content-Type: text/html; charset=utf-8
+/ko/
+  Content-Type: text/html; charset=utf-8
+/map/
+  Content-Type: text/html; charset=utf-8
+/sheaf-analyzer/
+  Content-Type: text/html; charset=utf-8
+/drakonomikon/
+  Content-Type: text/html; charset=utf-8
+/orakel/
+  Content-Type: text/html; charset=utf-8
+/slask/
+  Content-Type: text/html; charset=utf-8
+  X-Robots-Tag: noindex
+/posts/*/index.md
+  X-Robots-Tag: noindex

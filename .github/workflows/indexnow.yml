@@ -1,0 +1,31 @@
+# Tell Bing (and the other IndexNow engines) which pages changed, after Cloudflare Pages has deployed.
+# The key is public by design: it is served at https://draken.info/<key>.txt (static/<key>.txt).
+name: IndexNow
+on:
+  push:
+    branches: [main]
+    paths: ['posts/**', 'templates/**', 'static/**', 'build.js']
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Wait for the Cloudflare Pages deploy
+        run: sleep 180
+      - name: Submit changed URLs
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          KEY=$(ls static | grep -E '^[0-9a-f]{32}\.txt$' | head -1 | sed 's/\.txt$//')
+          if git cat-file -e "$BEFORE" 2>/dev/null; then RANGE="$BEFORE $AFTER"; else RANGE="$AFTER~1 $AFTER"; fi
+          URLS=$(git diff --name-only --diff-filter=AM $RANGE -- 'posts/*.md' \
+                 | sed -E 's#^posts/[0-9]{4}-[0-9]{2}-[0-9]{2}-(.+)\.md$#https://draken.info/posts/\1/#')
+          URLS=$(printf '%s\n' "https://draken.info/" "https://draken.info/llms.txt" $URLS | sort -u)
+          JSON=$(printf '%s\n' $URLS | jq -R . | jq -s --arg key "$KEY" \
+                 '{host:"draken.info", key:$key, keyLocation:("https://draken.info/"+$key+".txt"), urlList:.}')
+          echo "$JSON"
+          curl -sS -o /dev/null -w "IndexNow HTTP %{http_code}\n" -X POST https://api.indexnow.org/indexnow \
+               -H 'Content-Type: application/json; charset=utf-8' -d "$JSON"
