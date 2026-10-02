@@ -2,7 +2,7 @@
 title: "知行合一: When Automation Removes the Only Honest Referee"
 drk: DRK-131
 date: 2026-04-24
-revised: 2026-04-24
+revised: 2026-10-02
 version: v2
 tags: [theory, analysis, political-economy, philosophy]
 layers: [L07, L09, L10, L11, L12, L13, L14, L16, L17, L18]
@@ -11,7 +11,7 @@ excerpt: "Labour was not only the cage — it was also the capital-labour restri
 status: published
 author: Khrug Engineering
 license: CC BY-SA 4.0
-revision_note: "v2 incorporates critical feedback from Moonshot/Kimi's review of v1 (24 Apr 2026). Major changes: (1) stratified the restriction-map formalism to distinguish capital–labour Clinch collapse from successor maps, (2) added primary Chinese-language source citations from 马克思主义研究 (CASS) and 求是学刊, (3) refined the Wang Yangming section to distinguish constitutive from testing sheaves, (4) replaced polemical framing of the American régime with formal sheaf-failure analysis and added a steelmanned alternative reading, (5) distinguished UBI-as-pacification from UBI-plus-Clinch emancipation, (6) tied the successor-Clinch claim to specific 2026 EU DSA enforcement proceedings as an empirical test. v1 is preserved at /posts/v1/ for the record."
+revision_note: "v2 incorporates critical feedback from Moonshot/Kimi's review of v1 (24 Apr 2026). Major changes: (1) stratified the restriction-map formalism to distinguish capital–labour Clinch collapse from successor maps, (2) added primary Chinese-language source citations from 马克思主义研究 (CASS) and 求是学刊, (3) refined the Wang Yangming section to distinguish constitutive from testing sheaves, (4) replaced polemical framing of the American régime with formal sheaf-failure analysis and added a steelmanned alternative reading, (5) distinguished UBI-as-pacification from UBI-plus-Clinch emancipation, (6) tied the successor-Clinch claim to specific 2026 EU DSA enforcement proceedings as an empirical test. v1 is preserved at /posts/v1/ for the record. Revised 2026-10-02: the closing reference to the Q3 2026 Dragon Digest, retired that day, now points to the prediction's permanent record in DRK-179."
 description: "Labour was not only the cage — it was also the capital-labour restriction map that forced Display-phase claims into contact with material reality."
 ---
 
@@ -182,7 +182,7 @@ The observable data points at the time of writing (24 April 2026):
 
 The claim committed to by this post, in falsifiable form: if DSA enforcement continues through Q3 2026 and produces enforceable behavioural modification of VLOPs at the mandated-feature level, then a state-imposed attention-economy restriction map $\rho^{\text{attention}}_{L13 \to L11}$ has begun to materialise, and the argument of this post has empirical support. If DSA enforcement stalls, is overturned, or is rendered inoperative by retaliatory action from other jurisdictions (U.S. diplomatic pressure, extraterritorial U.S. legislation, diplomatic-visa retaliation against EU enforcement officials, all of which are active threats as of April 2026), then the attention Clinch remains private and voluntary, and the window of uncorrected $K(t)$ accumulation extends.
 
-The Q3 2026 Dragon Digest will include this as a forward prediction for closed-loop assessment.
+This claim was entered in the Q3 2026 Forward Ledger as P-Q3-06 (a DSA risk-assessment proceeding on attention-economy or mental-harm grounds by 30 September 2026). The Dragon Digest that first carried the ledger was retired on 2026-10-02; the six predictions are kept verbatim, with their falsification criteria, in [The Substrate That Does Not Know It Is Running](/posts/the-substrate-that-does-not-know/) (DRK-179), and their grading will be published as a DRK post.
 
 **The final line.** The Dragon Way is not a programme. It is the discipline of iterated 合一. Knowledge and action, claim and Clinch, Display and Resolution. The sheaf either glues at each layer boundary, or it does not. Where it glues, both nodes survive. Where it fails, both nodes die. There is no third option.
 
