@@ -283,7 +283,7 @@ function buildThesisPage(baseTpl) {
 
   const html = render(baseTpl, {
     title: 'The Draken 2045 Framework — Research Monograph',
-    description: 'Topological Coherence Theory for Multi-Scale Systems Analysis.',
+    description: 'The Draken thesis: a sheaf-theoretic coherence theory for multi-scale systems, with the 18-layer ontology, sheaf convergence Γ and coherence debt K(t).',
     content, og_type: 'article', og_url: 'https://draken.info/thesis/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   });
@@ -643,7 +643,7 @@ function buildSlaskPage(baseTpl) {
     title: 'Slask — Draken File Dump',
     description: 'Quick-share file repository for the Draken 2045 Initiative.',
     content, og_type: 'website', og_url: 'https://draken.info/slask/',
-    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: NOINDEX,
   });
 
   fs.writeFileSync(path.join(slaskDist, 'index.html'), html);
@@ -743,16 +743,65 @@ function genSitemap(posts) {
     '\n</urlset>';
 }
 
-// Machine-readable DRK number and dates in <head> (article:* is the Open Graph article namespace)
+// ── Search-engine metadata ──
+const AUTHOR = { "@type": "Person", "name": "Kai Khrug Roininen", "alternateName": ["Khrug", "Kai Roininen"], "url": "https://draken.info/",
+  "sameAs": ["https://orcid.org/0009-0003-8049-7167", "https://github.com/Khrug"] };
+const PUBLISHER = { "@type": "Organization", "name": "Khrug Engineering", "url": "https://draken.info/",
+  "logo": { "@type": "ImageObject", "url": "https://draken.info/images/og-v2.png" } };
+const NOINDEX = '<meta name="robots" content="noindex, follow">\n  ';
+const attr = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+// Plain text for meta tags: strip Markdown emphasis, links, code and HTML
+function plainText(s) {
+  return String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
+    .replace(/[*_`]/g, '').replace(/\s+/g, ' ').trim();
+}
+// Meta description: the post's own description if it is 70–160 characters, else the longer of
+// description/excerpt, cut at a word boundary to fit the ~160 characters search engines display
+function metaDescription(p) {
+  const c = [p.description, p.excerpt].map(plainText).filter(Boolean);
+  const fit = c.find(x => x.length >= 70 && x.length <= 160);
+  if (fit) return fit;
+  let d = c.sort((a, b) => b.length - a.length)[0] || '';
+  if (d.length > 160) { d = d.slice(0, 157); d = d.slice(0, d.lastIndexOf(' ')).replace(/[,;:—–-]$/, '') + '…'; }
+  return d;
+}
+function pageTitle(p) { return `${plainText(p.title)}${p.drk ? ' — ' + p.drk : ''} · Draken`; }
+
+function homeJsonLd() {
+  return JSON.stringify({ "@context": "https://schema.org", "@graph": [
+    { "@type": "WebSite", "@id": "https://draken.info/#website", "name": "Draken", "alternateName": "Draken 2045", "url": "https://draken.info/",
+      "description": "Sheaf-theoretic coherence framework published as numbered DRK research posts.", "inLanguage": "en", "publisher": PUBLISHER, "author": AUTHOR,
+      "license": "https://creativecommons.org/licenses/by-sa/4.0/" },
+    { "@type": "CreativeWorkSeries", "name": "Draken DRK series", "url": "https://draken.info/", "author": AUTHOR, "publisher": PUBLISHER,
+      "sameAs": "https://doi.org/10.5281/zenodo.19273483" },
+    AUTHOR,
+  ]});
+}
+
+// Machine-readable DRK number and dates in <head> (article:* is the Open Graph article namespace;
+// citation_* are the Highwire Press tags that Google Scholar reads)
 function postHeadMeta(p) {
   const m = [`<meta property="article:published_time" content="${isoDate(p.date)}">`];
   if (p.revised) m.push(`<meta property="article:modified_time" content="${isoDate(p.revised)}">`);
   if (p.drk) m.push(`<meta name="drk" content="${p.drk}">`);
+  for (const t of (p.tags || [])) m.push(`<meta property="article:tag" content="${attr(t)}">`);
+  m.push(`<meta name="citation_title" content="${attr(plainText(p.title))}">`,
+    '<meta name="citation_author" content="Roininen, Kai Khrug">',
+    `<meta name="citation_publication_date" content="${isoDate(p.date).replace(/-/g, '/')}">`,
+    '<meta name="citation_publisher" content="Khrug Engineering">',
+    `<meta name="citation_abstract_html_url" content="https://draken.info/posts/${p.slug}/">`);
+  if (p.drk) m.push(`<meta name="citation_technical_report_number" content="${p.drk}">`);
   return m.join('\n  ') + '\n  ';
 }
 
+function breadcrumbJsonLd(p) {
+  return `<script type="application/ld+json">${JSON.stringify({ "@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Draken", "item": "https://draken.info/" },
+    { "@type": "ListItem", "position": 2, "name": `${p.drk ? p.drk + ' · ' : ''}${plainText(p.title)}`, "item": `https://draken.info/posts/${p.slug}/` }] })}</script>`;
+}
+
 function postJsonLd(p) {
-  return JSON.stringify({"@context":"https://schema.org","@type":"ScholarlyArticle","headline":p.title,"identifier":p.drk||undefined,"datePublished":isoDate(p.date),"dateModified":isoDate(p.revised||p.date),"isPartOf":{"@type":"Periodical","name":"Draken 2045 — DRK series","url":"https://draken.info/"},"author":{"@type":"Organization","name":p.author||"Khrug Engineering"},"publisher":{"@type":"Organization","name":"Draken 2045 Initiative","url":"https://draken.info"},"description":p.excerpt||'',"url":`https://draken.info/posts/${p.slug}/`});
+  return JSON.stringify({"@context":"https://schema.org","@type":"ScholarlyArticle","headline":p.title,"identifier":p.drk||undefined,"datePublished":isoDate(p.date),"dateModified":isoDate(p.revised||p.date),"isPartOf":{"@type":"CreativeWorkSeries","name":"Draken DRK series","url":"https://draken.info/"},"keywords":(p.tags||[]).join(', ')||undefined,"inLanguage":"en","license":"https://creativecommons.org/licenses/by-sa/4.0/","image":"https://draken.info/images/og-v2.png","mainEntityOfPage":`https://draken.info/posts/${p.slug}/`,"wordCount":String(p.rawContent||'').split(/\s+/).filter(Boolean).length||undefined,"author":AUTHOR,"publisher":PUBLISHER,"description":metaDescription(p),"url":`https://draken.info/posts/${p.slug}/`});
 }
 
 // Renders one post to dist/posts/<urlPath>/index.html. `notice` (HTML) is shown above the body.
@@ -767,7 +816,8 @@ function writePostPage(p, urlPath, baseTpl, postTpl, notice = '', ctx = {}) {
     revised: p.revised ? ` <span class="article-sep">·</span> Revised <time datetime="${isoDate(p.revised)}">${isoDate(p.revised)}</time>` : '',
     author: p.author||'Khrug Engineering',
     layers: (p.layers||[]).join(' · '), coherence: (p.coherence||0).toFixed(2),
-    body: notice + p.content, layer_count: (p.layers||[]).length,
+    // one <h1> per page: headings inside the post body start at <h2>
+    body: notice + String(p.content || '').replace(/<h1(\s|>)/g, '<h2$1').replace(/<\/h1>/g, '</h2>'), layer_count: (p.layers||[]).length,
     post_url: url,
     w_value: ctx.w && ctx.w.perPost[p.slug] ? fmtW(ctx.w.perPost[p.slug].W) : 'n/a',
     w_version: ctx.w ? ctx.w.version : 'W v1',
@@ -777,10 +827,10 @@ function writePostPage(p, urlPath, baseTpl, postTpl, notice = '', ctx = {}) {
     ko_used_list: ctx.ko ? koListHtml(ctx.ko.perPost.get(p.slug), ctx.ko) : '<span>—</span>',
   });
   fs.writeFileSync(path.join(dir, 'index.html'), render(baseTpl, {
-    title: `${p.drk ? p.drk + ' · ' : ''}${p.title} — Draken 2045`, description: p.description||p.excerpt||'',
+    title: attr(pageTitle(p)), description: attr(metaDescription(p)),
     content: pc, og_type: 'article', og_url: url,
     og_image: 'https://draken.info/images/og-v2.png',
-    jsonld: postHeadMeta(p) + `<script type="application/ld+json">${postJsonLd(p)}</script>`,
+    jsonld: (ctx.archived ? NOINDEX : '') + postHeadMeta(p) + `<script type="application/ld+json">${postJsonLd(p)}</script>` + breadcrumbJsonLd(p),
   }));
 }
 
@@ -793,7 +843,7 @@ function buildArchivedVersions(baseTpl, postTpl) {
     const slug = file.replace(/^\d{4}-\d{2}-\d{2}-/, '').replace(/\.md$/, '');
     const current = data.superseded_by || `/posts/${slug}/`;
     const notice = `<div class="version-notice">Archived version (${data.version || 'v1'}). This text has been superseded — read the <a href="${current}">current version</a>.</div>\n`;
-    writePostPage({ ...data, slug: `v1/${slug}`, content: parseMathSafe(content) }, `v1/${slug}`, baseTpl, postTpl, notice);
+    writePostPage({ ...data, slug: `v1/${slug}`, content: parseMathSafe(content) }, `v1/${slug}`, baseTpl, postTpl, notice, { archived: true });
     console.log(`  ✓ posts/v1/${slug}/ (archived)`);
   }
 }
@@ -879,10 +929,10 @@ function build() {
   });
 
   fs.writeFileSync(path.join(DIST_DIR, 'index.html'), render(baseTpl, {
-    title: 'Draken 2045 — Topological Knowledge Architecture',
-    description: 'Research framework for structured knowledge assembly grounded in sheaf-theoretic topology.',
+    title: 'Draken: Sheaf-Theoretic Coherence Framework and DRK Posts',
+    description: 'Draken is a sheaf-theoretic coherence framework by Khrug Engineering: numbered DRK research posts on sheaf cohomology, coherence debt, cognition and AI.',
     content: indexContent, og_type: 'website', og_url: 'https://draken.info/',
-    og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+    og_image: 'https://draken.info/images/og-v2.png', jsonld: `<script type="application/ld+json">${homeJsonLd()}</script>`,
   }));
   console.log('  ✓ index.html');
 
@@ -926,6 +976,8 @@ function build() {
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
   const redirects = path.join(STATIC_DIR, '_redirects');
   if (fs.existsSync(redirects)) fs.copyFileSync(redirects, path.join(DIST_DIR, '_redirects'));
+  // IndexNow key file (Bing, Yandex, Seznam, Naver): static/<32 hex>.txt is served at the site root
+  for (const f of fs.readdirSync(STATIC_DIR).filter(f => /^[0-9a-f]{32}\.txt$/.test(f))) fs.copyFileSync(path.join(STATIC_DIR, f), path.join(DIST_DIR, f));
   const headers = path.join(STATIC_DIR, '_headers');
   if (fs.existsSync(headers)) fs.copyFileSync(headers, path.join(DIST_DIR, '_headers'));
   // Vendor JS (three + 3d-force-graph) for same-origin loading by analyzer.
@@ -950,7 +1002,7 @@ function build() {
 <article><header class="article-header"><span class="pub-tag tag-technical">404</span><h1>No section here</h1></header>
 <div class="article-body"><p>This address does not glue to anything in the corpus. The post may have moved or been renumbered.</p>
 <p>Use the search box at the top of the page (press <kbd>/</kbd>) to look for it by title, keyword, DRK number or layer, or browse the <a href="/">feed</a>.</p></div></article></div>`,
-    og_type: 'website', og_url: 'https://draken.info/404.html', og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+    og_type: 'website', og_url: 'https://draken.info/404.html', og_image: 'https://draken.info/images/og-v2.png', jsonld: NOINDEX,
   }));
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
   fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\n\n# Index for language models: https://draken.info/llms.txt\n# Atom feed of all DRK posts: https://draken.info/feed.xml\nSitemap: https://draken.info/sitemap.xml\n');

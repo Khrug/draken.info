@@ -35,6 +35,13 @@ Every new or revised post must follow `docs/POST_STANDARD.md`. Read it in full b
 - Next DRK number: highest `drk:` in `posts/` plus one. Never reuse DRK-134.
 - Never invent content: no made-up sources, DOIs, definitions, DRK numbers, layers or coherence values. Anything that cannot be verified goes on a list for Khrug.
 
+## Search and discovery
+
+- Post `<title>`: post title, then ` — DRK-NNN · Draken`. Meta description: the post's `description` if 70–160 characters, otherwise the longer of description/excerpt cut to ~157 (`metaDescription()` in build.js). Write `description` within 70–160 characters so it is used as is.
+- Each post carries JSON-LD (ScholarlyArticle + BreadcrumbList; author Kai Khrug Roininen with ORCID), `article:*` tags and Google Scholar `citation_*` tags. The front page carries WebSite/Person JSON-LD.
+- Not indexed: `/slask/`, `/404.html`, `/posts/v1/*`, `/posts/*/index.md`.
+- IndexNow: `static/<key>.txt` is the public key; `.github/workflows/indexnow.yml` submits changed post URLs to Bing after each push to main.
+
 ## Ground rules
 
 - Files are UTF-8 without BOM, LF line endings.
