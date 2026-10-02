@@ -220,7 +220,8 @@ function buildDrkIndex(posts) {
   const RESERVED = ['DRK-134']; // reserved by DRK-133 as companion; never reuse
   const max = Math.max(...all.map(e => parseInt(String(e.drk).replace(/\D/g, ''), 10)).filter(n => !isNaN(n)), ...RESERVED.map(r => parseInt(r.slice(4), 10)));
   let next = max + 1;
-  return { generated: new Date().toISOString(), next_free: `DRK-${String(next).padStart(3, '0')}`, rule: 'next_free = highest DRK number in posts/ + 1; DRK-134 stays reserved (companion to DRK-133)', reserved: RESERVED, posts: all };
+  const latest = all.filter(e => e.status === 'published').slice().sort((a, b) => (parseInt(b.drk.replace(/\D/g, ''), 10) || 0) - (parseInt(a.drk.replace(/\D/g, ''), 10) || 0)).slice(0, 10).map(e => ({ ...e, url: `https://draken.info/posts/${e.slug}/` }));
+  return { generated: new Date().toISOString(), next_free: `DRK-${String(next).padStart(3, '0')}`, latest, latest_note: 'the 10 highest DRK numbers, newest first; posts[] is in ascending DRK order', rule: 'next_free = highest DRK number in posts/ + 1; DRK-134 stays reserved (companion to DRK-133)', reserved: RESERVED, posts: all };
 }
 
 function buildEnhancedLayerGrid(sys) {
@@ -651,6 +652,84 @@ function buildSlaskPage(baseTpl) {
   console.log('  ✓ slask/ (dynamic, ' + fileCount + ' static files)');
 }
 
+// ── LLM / machine discovery: llms.txt, Atom feed, Markdown source next to each post ──
+const SITE = 'https://draken.info';
+const xmlEsc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const oneLine = s => String(s == null ? '' : s).replace(/\s+/g, ' ').trim();
+
+function genLlmsTxt(posts, drkIndex) {
+  const latest = posts[0];
+  const lines = [
+    '# Draken 2045 — draken.info',
+    '',
+    '> Draken is a sheaf-theoretic coherence framework published by Khrug Engineering (Kai Roininen, Göteborg) as numbered DRK posts. Each post has a DRK number and a publication date (YYYY-MM-DD). Higher DRK numbers are newer. Licence CC BY-SA 4.0; ORCID 0009-0003-8049-7167; DOI 10.5281/zenodo.19273483.',
+    '',
+    `Latest post: ${latest.drk} · ${isoDate(latest.date)} · ${oneLine(latest.title)} — ${SITE}/posts/${latest.slug}/`,
+    `Posts: ${posts.length}. Next free DRK number: ${drkIndex.next_free}. Generated: ${isoDate(new Date())}.`,
+    'Every post is also available as Markdown source with YAML frontmatter at /posts/<slug>/index.md.',
+    '',
+    '## Machine-readable data',
+    '',
+    `- [DRK index](${SITE}/data/drk-index.json): every DRK number with slug, title and date; the latest posts; the next free number`,
+    `- [Atom feed](${SITE}/feed.xml): all posts, highest DRK number first`,
+    `- [Knowledge Object registry](${SITE}/data/ko.json): terms the corpus defines and reuses, with verbatim definitions`,
+    `- [Corpus map](${SITE}/data/corpus-map.json): posts, citations, clusters and concepts`,
+    `- [Watertightness](${SITE}/data/watertightness.json): the corpus measure W, its components and leaks`,
+    `- [Post standard](${SITE}/data/post-standard.md): how DRK posts are written, including the claim tags [E]/[S]/[H]/[D]/[M]`,
+    `- [Sitemap](${SITE}/sitemap.xml)`,
+    '',
+    '## Posts (by DRK number, newest first)',
+    '',
+    ...posts.map(p => `- [${p.drk} · ${isoDate(p.date)} · ${oneLine(p.title)}](${SITE}/posts/${p.slug}/index.md): ${oneLine(p.excerpt || p.description || '')}`),
+    '',
+    '## Optional',
+    '',
+    `- [Thesis](${SITE}/thesis/): the Draken thesis, including the 18 layer definitions`,
+    `- [Knowledge Objects](${SITE}/ko/): human-readable registry`,
+    '',
+  ];
+  return lines.join('\n');
+}
+
+function genAtomFeed(posts) {
+  const updated = posts.reduce((m, p) => { const d = isoDate(p.revised || p.date); return d > m ? d : m; }, '');
+  const entries = posts.map(p => {
+    const url = `${SITE}/posts/${p.slug}/`;
+    return `  <entry>
+    <title>${xmlEsc(`${p.drk ? p.drk + ' · ' : ''}${oneLine(p.title)}`)}</title>
+    <id>${url}</id>
+    <link href="${url}"/>
+    <link rel="alternate" type="text/markdown" href="${url}index.md"/>
+    <published>${isoDate(p.date)}T00:00:00Z</published>
+    <updated>${isoDate(p.revised || p.date)}T00:00:00Z</updated>
+    <summary>${xmlEsc(oneLine(p.excerpt || p.description || ''))}</summary>
+${(p.tags || []).map(t => `    <category term="${xmlEsc(t)}"/>`).join('\n')}
+  </entry>`;
+  }).join('\n');
+  return `<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Draken 2045 — DRK posts</title>
+  <subtitle>Numbered DRK posts, highest DRK number first.</subtitle>
+  <id>${SITE}/</id>
+  <link href="${SITE}/"/>
+  <link rel="self" href="${SITE}/feed.xml"/>
+  <updated>${updated}T00:00:00Z</updated>
+  <author><name>Khrug Engineering</name></author>
+  <rights>CC BY-SA 4.0</rights>
+${entries}
+</feed>
+`;
+}
+
+function writeMarkdownSources(posts) {
+  for (const p of posts) {
+    const dir = path.join(DIST_DIR, 'posts', p.slug);
+    fs.mkdirSync(dir, { recursive: true });
+    fs.copyFileSync(path.join(POSTS_DIR, p.filename), path.join(dir, 'index.md'));
+  }
+  console.log(`  ✓ posts/<slug>/index.md (${posts.length} Markdown sources)`);
+}
+
 // ── Sitemap ──
 function genSitemap(posts) {
   const b = 'https://draken.info';
@@ -660,7 +739,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
     `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
     `<url><loc>${b}/ko/</loc><priority>0.6</priority></url>\n` +
-    posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${new Date(p.date).toISOString().split('T')[0]}</lastmod><priority>0.8</priority></url>`).join('\n') +
+    posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${isoDate(p.revised || p.date)}</lastmod><priority>0.8</priority></url>`).join('\n') +
     '\n</urlset>';
 }
 
@@ -835,6 +914,10 @@ function build() {
   const drkIndex = buildDrkIndex(posts);
   fs.writeFileSync(path.join(DIST_DIR, 'data', 'drk-index.json'), JSON.stringify(drkIndex, null, 2));
   console.log(`  ✓ data/drk-index.json (${drkIndex.posts.length} entries, next free ${drkIndex.next_free})`);
+  fs.writeFileSync(path.join(DIST_DIR, 'llms.txt'), genLlmsTxt(posts, drkIndex));
+  fs.writeFileSync(path.join(DIST_DIR, 'feed.xml'), genAtomFeed(posts));
+  writeMarkdownSources(posts);
+  console.log('  ✓ llms.txt + feed.xml');
   const std = path.join(__dirname, 'docs', 'POST_STANDARD.md');
   if (fs.existsSync(std)) { fs.copyFileSync(std, path.join(DIST_DIR, 'data', 'post-standard.md')); console.log('  ✓ data/post-standard.md'); }
   const staleBak = path.join(DIST_DIR, 'data', 'system.json.v44bak');
@@ -843,6 +926,8 @@ function build() {
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
   const redirects = path.join(STATIC_DIR, '_redirects');
   if (fs.existsSync(redirects)) fs.copyFileSync(redirects, path.join(DIST_DIR, '_redirects'));
+  const headers = path.join(STATIC_DIR, '_headers');
+  if (fs.existsSync(headers)) fs.copyFileSync(headers, path.join(DIST_DIR, '_headers'));
   // Vendor JS (three + 3d-force-graph) for same-origin loading by analyzer.
   // Sourced from node_modules (installed via npm); not committed to repo.
   const vendorDir = path.join(DIST_DIR, 'vendor');
@@ -868,7 +953,7 @@ function build() {
     og_type: 'website', og_url: 'https://draken.info/404.html', og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   }));
   fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), genSitemap(posts));
-  fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\nSitemap: https://draken.info/sitemap.xml\n');
+  fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), 'User-agent: *\nAllow: /\n\n# Index for language models: https://draken.info/llms.txt\n# Atom feed of all DRK posts: https://draken.info/feed.xml\nSitemap: https://draken.info/sitemap.xml\n');
   console.log('  ✓ sitemap + robots\n  Build complete → dist/');
 }
 

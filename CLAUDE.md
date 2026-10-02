@@ -13,7 +13,7 @@ Static site for the Draken corpus: numbered DRK posts by Khrug Engineering, buil
 
 ## Computed data (every build)
 
-`/data/drk-index.json` (next free DRK number), `/data/ko.json` (registry + usage), `/data/watertightness.json` (W, components, leaks), `/data/corpus-map.json`, `/data/post-standard.md`. Front-page numbers come only from these; never hard-code a statistic.
+`/data/drk-index.json` (next free DRK number, latest 10), `/llms.txt` and `/feed.xml` (all posts, highest DRK first), `/posts/<slug>/index.md` (Markdown source), `/data/ko.json` (registry + usage), `/data/watertightness.json` (W, components, leaks), `/data/corpus-map.json`, `/data/post-standard.md`. Front-page numbers come only from these; never hard-code a statistic.
 
 W is not Γ and must never be labelled Γ. It measures internal logic and factual grounding (definitions, references, connectivity, referenced claims), not form. Current version W v2; history in `docs/W-VERSIONS.md`. Changing W's components, patterns, thresholds or weights after seeing results is a new version, recorded there.
 - `dist/`: build output. Never edit by hand.
