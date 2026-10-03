@@ -4,7 +4,7 @@ drk: DRK-196
 date: 2026-10-02
 tags: [etymology, paronomasia, range, weapons, human-evolution, predation, throwing, distance, drones, krampus]
 layers: [L08, L09, L11, L12, L13]
-coherence: 0.75
+coherence: 0.76
 description: "Range is a ring around a point. Animals kill at zero range with claws and teeth; humans, short of both, built the only lethal reach measured in metres."
 excerpt: "Range is a ring around a point. Animals kill at zero range with fangs, claws and armour; the naked human, short of all three, became the only animal that kills reliably from tens of metres away."
 status: published
