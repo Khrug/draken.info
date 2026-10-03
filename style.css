@@ -1390,8 +1390,10 @@ mjx-container[display="true"][width="full"] { min-width: 0 !important; }
 @media (max-width: 600px) { .article-w-head { min-width: 0; width: 100%; } }
 
 /* === BACKGROUND VIDEO (front page only; markup in templates/index.html) === */
-/* Portrait source (720x1280) on a near-black field: contain on wide screens so the
-   dragon is never cropped, cover on tall screens. Cards keep their opaque backgrounds. */
+/* Portrait source (720x1280, 9:16) shown stretched one third wider, as 3:4.
+   Wide screens: full viewport width, centred vertically (top and bottom crop).
+   Tall screens (narrower than 3:4): full viewport height, centred horizontally.
+   Cards keep their opaque backgrounds. */
 .bg-video {
   position: fixed; inset: 0;
   z-index: -1;
@@ -1400,14 +1402,25 @@ mjx-container[display="true"][width="full"] { min-width: 0 !important; }
   background: var(--bg);
 }
 .bg-video video {
-  width: 100%; height: 100%;
-  object-fit: contain;
+  position: absolute;
+  left: 0; top: 50%;
+  width: 100%; height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: fill;
+  transform: translateY(-50%);
   opacity: 0.5;
 }
 @media (max-aspect-ratio: 3/4) {
-  .bg-video video { object-fit: cover; }
+  .bg-video video {
+    left: 50%; top: 0;
+    width: auto; height: 100%;
+    transform: translateX(-50%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .bg-video video { display: none; }
-  .bg-video { background: var(--bg) url('/images/bg-dragon.jpg') center / contain no-repeat; opacity: 0.5; }
+  .bg-video { background: var(--bg) url('/images/bg-dragon.jpg') center / 100vw 133.333vw no-repeat; opacity: 0.5; }
+}
+@media (prefers-reduced-motion: reduce) and (max-aspect-ratio: 3/4) {
+  .bg-video { background-size: 75vh 100vh; }
 }
