@@ -140,4 +140,4 @@ The textual readings in §4–§6 are interpretive mappings, not empirical claim
 
 ---
 
-*Operators: ρ (restriction morphism: ρ_VN, ρ_ins, ρ_olf, ρ_oral), K(t) (coherence debt), Ψ (narrative self-reference), V̇_exo = 0 (care operator), H¹ (obstruction). Crosslinks: DRK-154 (Lurianic Kabbalah), DRK-155 "Inpu Means Input", DRK-158 "The Burnt Section", DRK-165 "The Pendragon Source", The Dragon Scales series (The Clinch). Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0.*
+*Operators: ρ (restriction morphism: ρ_VN, ρ_ins, ρ_olf, ρ_oral), K(t) (coherence debt), Ψ (narrative self-reference), V̇_exo = 0 (care operator), H¹ (obstruction). Crosslinks: DRK-154 (Lurianic Kabbalah), DRK-155 "Inpu Means Input", DRK-158 "The Burnt Section", DRK-165 "The Pendragon Source", The Dragon Scales series (The Clinch). Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0.*

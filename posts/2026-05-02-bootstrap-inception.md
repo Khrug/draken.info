@@ -258,7 +258,7 @@ The framework has not yet computed the first such plot. But it now knows what ki
 
 ### Thesis and DOI
 
-- Roininen, K. ("Khrug"). *The Draken 2045 Framework*, v4.4. Open access. Zenodo DOI: [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483). ORCID: [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167).
+- Roininen, K. ("Khrug"). *The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems*. Open access. Zenodo DOI: [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197). ORCID: [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167).
 
 ---
 

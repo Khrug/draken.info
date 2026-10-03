@@ -27,7 +27,7 @@ sources:
   - "Friston, K. (2010). The free-energy principle: a unified brain theory? *Nature Reviews Neuroscience*, 11(2), 127–138."
   - "Roininen, K. (2026). DRK-139: The Welcomed Section. https://draken.info/posts/the-welcomed-section/"
   - "Roininen, K. (2026). DRK-140: The Productile Monad. https://draken.info/posts/the-productile-monad/"
-  - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
+  - "Roininen, K. (2026). The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems. Zenodo. https://doi.org/10.5281/zenodo.23121197"
   - "Roininen, K. (2026). The Sheaf Analyzer. https://draken.info/sheaf-analyzer/"
 description: "Quanta's April 2026 ultrafinitism feature names a missing piece: the philosophy has rejected infinity but lacks the apparatus to compute coherence on what…"
 ---

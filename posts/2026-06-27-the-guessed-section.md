@@ -121,4 +121,4 @@ Three arrows, one consequence relation, read forward, outward, and backward. Ded
 
 ---
 
-**Khrug Engineering** · ORCID [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · thesis DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · CC BY-SA 4.0
+**Khrug Engineering** · ORCID [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · thesis DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0

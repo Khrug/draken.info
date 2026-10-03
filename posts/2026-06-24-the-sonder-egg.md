@@ -233,4 +233,4 @@ Sonder is the egg cracking outward into a world of other kings. Care is keeping 
 
 *Filed under L07, L09, L11, L13, L15. Operators invoked: H¹, Γ, Ψ, $\dot{\mathcal V}_{\text{exo}}$, restriction map ρ. Cross-references: DRK-125, DRK-150, DRK-152, DRK-154, DRK-158, DRK-165; consolidates the topology line DRK-TOPO-001 / 002 / 003.*
 
-*Khrug Engineering · ORCID [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · CC BY-SA 4.0*
+*Khrug Engineering · ORCID [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*

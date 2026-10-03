@@ -32,7 +32,7 @@ sources:
   - "Roininen, K. (2026). DRK-130: The Substrate and the Game. https://draken.info/posts/the-substrate-and-the-game/"
   - "Roininen, K. (2026). DRK-142: Wrestling with God. https://draken.info/posts/wrestling-with-god/"
   - "Roininen, K. (2026). DRK-148: Wings, Tools, Weapons. https://draken.info/posts/wings-tools-weapons/"
-  - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
+  - "Roininen, K. (2026). The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems. Zenodo. https://doi.org/10.5281/zenodo.23121197"
 description: "A keeper-of-secrets is a node whose restriction maps are gated against the natural diffusion gradient."
 ---
 

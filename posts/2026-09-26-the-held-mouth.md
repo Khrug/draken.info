@@ -312,4 +312,4 @@ It does **not** claim:
 
 *Filed under: mythology · etymology · binding · Operators: $\dot{\mathcal V}_{\text{exo}}$, K(t), ϰ ∈ H¹, Ψ · Cross-references: DRK-125 (The Totalitarian Sheaf), DRK-131 (protocol), DRK-165 (The Pendragon Source), DRK-175 (the invariant), DRK-181 (The Countable Mouth), TOPO-003 v2.*
 
-*Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

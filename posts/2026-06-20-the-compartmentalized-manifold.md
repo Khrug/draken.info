@@ -92,4 +92,4 @@ Any one returning the null result prunes the corresponding claim. That is the pr
 
 *Filed under L16 (Institutional Morphology) primary, with cross-restrictions to L06 (Embodied Cognition), L11 (Economic Cognition), L13 (Political Structure), L14 (Economic Topology), and L17 (Civilizational Memory). Operators invoked: $\rho_{D\to Cl}$ (restriction map), $[\omega]\in H^1$ (obstruction class), $K(t)$ (coherence debt), $\dot{\mathcal V}_{exo}=0$ (care operator), $x_{Cl}$ (clinch node), $\nabla_s$ (survivable glitch). Companion to [DRK-138, The Survivable Glitch](https://draken.info/posts/the-survivable-glitch/). Anchored to F10, Saab, Koenigsegg, and the F-35 program, in that order.*
 
-*Khrug Engineering · ORCID 0009-0003-8049-7167 · Draken 2045 Initiative · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · Licensed CC BY-SA 4.0*
+*Khrug Engineering · ORCID 0009-0003-8049-7167 · Draken 2045 Initiative · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · Licensed CC BY-SA 4.0*

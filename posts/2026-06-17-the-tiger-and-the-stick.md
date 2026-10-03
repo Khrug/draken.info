@@ -103,4 +103,4 @@ Honor to the Tiger — who bound the form in one life, fish and saltwater and an
 ---
 
 *Kai Roininen · Khrug Engineering · ORCID 0009-0003-8049-7167*
-*Draken 2045 Initiative · DOI 10.5281/zenodo.19273483 · CC BY 4.0*
+*Draken 2045 Initiative · DOI 10.5281/zenodo.23121197 · CC BY 4.0*

@@ -80,4 +80,4 @@ The personal anchor (the author's service as *eldledningsman*) is biographical a
 
 *Filed under L18 (Planetary Cognition) primary, with cross-restrictions to L09 (Group Cognition), L12 (National Narrative), L13 (Political Structure), and L17 (Civilizational Memory). Operators invoked: $\Psi$ (narrative self-reference ratio), $\dot{\mathcal V}_{exo}$ (exogenous variety tracking), $\nabla_s$ (survivable glitch). Companion to [DRK-138, The Survivable Glitch](https://draken.info/posts/the-survivable-glitch/) and [DRK-161, The Compartmentalized Manifold](https://draken.info/posts/the-compartmentalized-manifold/). Anchored to Chicxulub, the Kristianstad Basin, and the luftvärn, in that order.*
 
-*Khrug Engineering · ORCID 0009-0003-8049-7167 · Draken 2045 Initiative · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · Licensed CC BY-SA 4.0*
+*Khrug Engineering · ORCID 0009-0003-8049-7167 · Draken 2045 Initiative · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · Licensed CC BY-SA 4.0*

@@ -92,4 +92,4 @@ The borrowing is real. Where in the tissue it happens, and whether "mirror" was 
 
 *Jag är vad jag gör, och jag gör det jag är.*
 
-*— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · CC BY-SA 4.0*
+*— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*

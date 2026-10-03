@@ -162,4 +162,4 @@ When the stranger holds the stick, it is just wood.
 - Project Multatuli (2023). [Native People of Komodo Fight Back against Tourism Expansion](https://projectmultatuli.org/en/native-people-of-komodo-fight-back-against-tourism-expansion/).
 - [Wildlife Safety and Ranger Guidelines — How Rangers Manage Komodo Dragons](https://com-indonesia.com/komodo-dragon-safety-guidelines/). COM Indonesia (2026).
 - Fry, B. G., et al. (2006). Early evolution of the venom system in lizards and snakes. *Nature*, 439(7076), 584–588.
-- Roininen, K. (2026). [Draken 2045: A Sheaf-Theoretic Framework for Multi-Scale Coherence Diagnostics (v4.4)](https://doi.org/10.5281/zenodo.19273483). Zenodo.
+- Roininen, K. (2026). [The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems](https://doi.org/10.5281/zenodo.23121197). Zenodo.

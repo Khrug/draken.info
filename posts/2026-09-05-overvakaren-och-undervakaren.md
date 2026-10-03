@@ -132,4 +132,4 @@ Denna post faller om något av följande visas:
 
 *Operatorer: ρ (restriktionsmorfism), ϰ ∈ H¹ (obstruktionsklass), Γ (kärvkoherens), K(t) (koherensskuld).
 Korslänkar: DRK-155 (Inpu som intagsmorfism), DRK-158 (den brända sektionen), DRK-165 (källtvätt), DRK-170 (abduktion som H¹-strid), DRK-176 (ouroborosskuld).
-ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0 · Khrug Engineering*
+ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0 · Khrug Engineering*

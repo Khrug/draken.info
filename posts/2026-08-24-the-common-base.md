@@ -239,4 +239,4 @@ The falsification protocol is that of [知行合一: When Automation Removes the
 
 *Operators: ρ (restriction), H¹ (dream cocycle, excluded section), K(t) (coherence debt), Ψ (narrative self-reference), σ (synchronicity density, introduced) · Crosslinks: [The Coherence Debt](/posts/the-coherence-debt/) (DRK-121) · [知行合一: When Automation Removes the Only Honest Referee](/posts/zhixing-heyi-honest-referee/) (DRK-131) · [The Burnt Section](/posts/the-burnt-section/) (DRK-158) · [The Two Optics](/posts/the-two-optics/) (DRK-163) · [The Pendragon Source](/posts/the-pendragon-source/) (DRK-165) · [The Guessed Section](/posts/the-guessed-section/) (DRK-170) · [Ouroboros Debt](/posts/the-ouroboros-debt/) (DRK-176) · [The Carrier and the Cargo](/posts/the-carrier-and-the-cargo/) (DRK-189)*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

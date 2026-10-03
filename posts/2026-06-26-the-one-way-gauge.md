@@ -259,4 +259,4 @@ synchronization surface, came back around and almost closed.
 **Operators:** $H^1$ (the synchronization obstruction) · $K(t)$ (the chosen now) · the restriction morphism (label → boolean, against a calibrated zero)
 **Cross-references:** the Anubis / restriction-morphism sequence (the feather as defined zero) · the carrier/cargo taxonomy and Kuramoto-synchrony posts · [The Sonder Egg](/posts/the-sonder-egg/) (DRK-166) · the open Flygare Kinne correspondence on coherence vs. soundness and the endogenous measurement problem
 
-ORCID: 0009-0003-8049-7167 · DOI: 10.5281/zenodo.19273483 (Draken thesis umbrella) · CC BY-SA 4.0
+ORCID: 0009-0003-8049-7167 · DOI: 10.5281/zenodo.23121197 (Draken thesis v5.0) · CC BY-SA 4.0

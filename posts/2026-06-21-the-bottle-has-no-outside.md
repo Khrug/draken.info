@@ -190,6 +190,6 @@ Per DRK-131, the conditions under which this reading is wrong:
 
 ---
 
-*The longer development is in the corpus. The most directly adjacent posts are DRK-158 (*The Burnt Section*, totalization as amputation that violates $dH/dt \geq 0$), DRK-157 (*The Compressible Section*, which patterns glue and which do not), DRK-150 (the keeper-function and the legibility trap), and DRK-126 (the sheaf-theoretic reading of totalitarian narrative). The full eighteen-layer architecture and the care operator's formal definition are in the thesis, Zenodo DOI 10.5281/zenodo.19273483.*
+*The longer development is in the corpus. The most directly adjacent posts are DRK-158 (*The Burnt Section*, totalization as amputation that violates $dH/dt \geq 0$), DRK-157 (*The Compressible Section*, which patterns glue and which do not), DRK-150 (the keeper-function and the legibility trap), and DRK-126 (the sheaf-theoretic reading of totalitarian narrative). The full eighteen-layer architecture and the care operator's formal definition are in the thesis, Zenodo DOI 10.5281/zenodo.23121197.*
 
 *Ouroboros är skuggan. Flaskan är figuren. Ingendera har en utsida.*

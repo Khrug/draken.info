@@ -214,4 +214,4 @@ The Stalker inverts every case in §3 **[D]**. He is not the predator; the Zone 
 
 *Kungen som stal gick aldrig på muren.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

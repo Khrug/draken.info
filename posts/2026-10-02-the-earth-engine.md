@@ -254,4 +254,4 @@ Anti-totalisation applies with full force. The engine is a classification device
 
 *Det är grinden som brister, sällan bränslet.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

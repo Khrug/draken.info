@@ -219,6 +219,6 @@ Skin is not a decoration. It was never a decoration. It is the surface at which 
 - Hess, M. C. (on Nasimi's execution and the post-mortem-display question). See discussion in the Wikipedia entry on Imadaddin Nasimi for citation routes.
 - al-Halabi, A. ibn I. *Tarih-i Heleb* (the rare contemporary chronicle naming the secular-rather-than-juridical origin of the execution order).
 - Hansen, J., & Ghrist, R. (2019). *Toward a spectral theory of cellular sheaves.* **Journal of Applied and Computational Topology** 3, 315–358.
-- Draken 2045 framework: draken.info; Zenodo DOI 10.5281/zenodo.19273483.
+- Draken 2045 framework: draken.info; Zenodo DOI 10.5281/zenodo.23121197.
 
 Cross-refs in this corpus: DRK-119 (Grammar of Coherence Destruction), DRK-121 (Coherence Debt), DRK-123 (Imaginary Dimension), DRK-124 (Boundary of Us), DRK-125 (Totalitarian Sheaf), DRAGON SCALES Posts 1–6 (in particular Post 5: The Protocol Scales). See also: DRK-129 (The Resonant Agenda), DRK-130 (The Substrate and the Game).

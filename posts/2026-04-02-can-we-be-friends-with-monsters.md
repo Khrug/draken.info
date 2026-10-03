@@ -172,4 +172,4 @@ We might learn something from that.
 - Uyeda, J. C., et al. (2015). Comparative analysis of body size evolution in monitor lizards. *Evolution*, 69(2), 353–362.
 - Tsellarius, A. Y., & Tsellarius, E. Y. (1997). Behavior of *Varanus griseus* during encounters with conspecifics. *Asiatic Herpetological Research*, 7, 108–130.
 - Hansen, J., & Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. *Journal of Applied and Computational Topology*, 3(4), 315–358.
-- Roininen, K. (2026). Draken 2045: A Sheaf-Theoretic Framework for Multi-Scale Coherence Diagnostics (v4.4). Zenodo. doi:10.5281/zenodo.19273483
+- Roininen, K. (2026). The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems. Zenodo. doi:10.5281/zenodo.23121197

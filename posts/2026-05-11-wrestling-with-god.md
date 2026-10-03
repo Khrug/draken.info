@@ -27,7 +27,7 @@ sources:
   - "Roininen, K. (2026). DRK-128: The Stick That Is Not a Weapon. https://draken.info/posts/the-stick-that-is-not-a-weapon/"
   - "Roininen, K. (2026). DRK-130: The Substrate and the Game. https://draken.info/posts/the-substrate-and-the-game/"
   - "Roininen, K. (2026). DRK-141: The Finite Sheaf. https://draken.info/posts/the-finite-sheaf/"
-  - "Roininen, K. (2026). Draken 2045 Thesis (v4.4). https://draken.info/thesis/"
+  - "Roininen, K. (2026). The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems. Zenodo. https://doi.org/10.5281/zenodo.23121197"
 description: "A multi-turn exchange with DeepSeek reconstructed the Draken diagnostic without corpus access, then made the move that motivates this post: assigning local…"
 ---
 

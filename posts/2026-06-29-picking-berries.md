@@ -93,4 +93,4 @@ The geometric phase is real. Its application to myth is, for now, a coherent sec
 
 *Jag är vad jag gör, och jag gör det jag är.*
 
-*— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · CC BY-SA 4.0*
+*— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*

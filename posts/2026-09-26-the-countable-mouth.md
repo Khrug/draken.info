@@ -328,4 +328,4 @@ So the capstone lands where TOPO-003 v2 did, with one addition. Care is $\dot{\m
 
 *Filed under: capstone · topology line (TOPO-001/002/003) · Operators: Γ, Ψ, K(t), ϰ ∈ H¹, ρ, $\dot{\mathcal V}_{\text{exo}} = 0$ · Cross-references: DRK-125 (The Totalitarian Sheaf), DRK-131 (protocol), DRK-154 (Tzimtzum), DRK-165 (The Pendragon Source), DRK-166 (The Sonder Egg), DRK-175 (the invariant), DRK-179 (The Substrate That Does Not Know It Is Running).*
 
-*Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

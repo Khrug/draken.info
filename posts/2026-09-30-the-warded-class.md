@@ -290,4 +290,4 @@ The instrument is buildable. [The Sheaf Analyzer](/posts/sheaf-analyzer-manual/)
 
 *Det som skyddas är det som inte kan nås lokalt.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

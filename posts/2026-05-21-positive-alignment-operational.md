@@ -139,6 +139,6 @@ The Laukkonen paper opens institutional space for substrate-pluralist alignment 
 
 The framework is not complete. It is, I think, interesting — though where it isn't, I would rather hear directly than not.
 
-The longer development of these ideas is in the corpus at draken.info. The most directly relevant adjacent posts are DRK-142 (perlocutionary cohomology of the honest encounter), DRK-125 (sheaf-theoretic analysis of totalitarian narrative), and DRK-144 (Fourier identity and coherence as basis distribution). The thesis (Zenodo DOI 10.5281/zenodo.19273483) gives the full eighteen-layer architecture if any of this turns out to be worth pursuing further.
+The longer development of these ideas is in the corpus at draken.info. The most directly relevant adjacent posts are DRK-142 (perlocutionary cohomology of the honest encounter), DRK-125 (sheaf-theoretic analysis of totalitarian narrative), and DRK-144 (Fourier identity and coherence as basis distribution). The thesis (Zenodo DOI 10.5281/zenodo.23121197) gives the full eighteen-layer architecture if any of this turns out to be worth pursuing further.
 
 *Jag är vad jag gör, och jag gör det jag är.* The framework is built of what it does. What it does, now, is offer a candidate operational filling for an honest gap in an important paper.

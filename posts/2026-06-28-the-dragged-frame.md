@@ -316,6 +316,6 @@ runs out.
 
 ---
 
-*Khrug Engineering · draken.info · DOI [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · ORCID 0009-0003-8049-7167 · CC BY-SA 4.0*
+*Khrug Engineering · draken.info · DOI [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · ORCID 0009-0003-8049-7167 · CC BY-SA 4.0*
 
 *Cross-references: DRK-168 (The One-Way Gauge), DRK-170 (The Guessed Section).*

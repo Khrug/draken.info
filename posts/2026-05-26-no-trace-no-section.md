@@ -165,5 +165,5 @@ The trace is the doing. The doing is the being. All the way through.
 ---
 
 *Khrug Engineering — Draken 2045 Initiative — [draken.info](https://draken.info)*
-*ORCID: 0009-0003-8049-7167 · Zenodo DOI: [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483)*
+*ORCID: 0009-0003-8049-7167 · Zenodo DOI: [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197)*
 *Licensed under CC BY-SA 4.0.*

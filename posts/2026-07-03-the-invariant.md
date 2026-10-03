@@ -57,4 +57,4 @@ This post fails if any of the following hold. (a) If a metric among $\{\Gamma,\P
 
 *Vakuumet driver dig inte — det räknar ut knuten du trär genom det. Jag är vad jag gör, och jag gör det jag är.*
 
-Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0.
+Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0.

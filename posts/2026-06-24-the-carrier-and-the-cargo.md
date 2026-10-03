@@ -160,4 +160,4 @@ The carrier is not the cargo. The lock is not the truth. The same coupling that 
 
 > *Jag är vad jag gör, och jag gör det jag är.*
 
-— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0
+— Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0

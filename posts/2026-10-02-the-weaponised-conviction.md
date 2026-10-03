@@ -154,4 +154,4 @@ The anti-totalisation principle of the [Totalitarian Sheaf](/posts/the-totalitar
 
 *Grinden tillhör den som går igenom den.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

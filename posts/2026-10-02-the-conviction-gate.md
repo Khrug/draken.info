@@ -152,4 +152,4 @@ The difference between meaning-making and the flip lies in the gate, not in the 
 
 *Övertygelsen är en grind, inte en sanning.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*

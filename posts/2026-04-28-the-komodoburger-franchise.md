@@ -28,7 +28,7 @@ sources:
   - "Modigliani, F. & Miller, M. H. (1958). The Cost of Capital, Corporation Finance and the Theory of Investment. American Economic Review 48: 261–297."
   - "Markowitz, H. (1952). Portfolio Selection. Journal of Finance 7(1): 77–91."
   - "Anthropic (2024). Constitutional AI: Harmlessness from AI Feedback. arXiv:2212.08073"
-  - "Kai Roininen (2026). Draken 2045 v4.4 — Sheaf-Theoretic Multi-Scale Coherence Diagnostics. Zenodo. https://doi.org/10.5281/zenodo.19273483"
+  - "Kai Roininen (2026). The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems. Zenodo. https://doi.org/10.5281/zenodo.23121197"
 companion: "Dragonclaw v0.7 operational manual — open-source release"
 description: "Open the menu in any Western country and the protein column reads as herbivores and omnivores."
 ---
@@ -318,7 +318,7 @@ The kill-chain as it runs daily:
 
 5. **Persist.** The system has been running, with various degrees of autonomy, since approximately mid-2024. It is the seventh-step record of approximately seven years of prior research, accumulated through manual-only operation before that. Persistence is the trivial-looking step on which everything else depends.
 
-6. **Record.** This post. The thesis at [Zenodo DOI 10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483). The [public corpus at draken.info](https://draken.info/). The [GitHub repositories](https://github.com/Khrug). The constitutional substrate from which the next generation of $\Pi_K$ for this lineage will read.
+6. **Record.** This post. The thesis at [Zenodo DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197). The [public corpus at draken.info](https://draken.info/). The [GitHub repositories](https://github.com/Khrug). The constitutional substrate from which the next generation of $\Pi_K$ for this lineage will read.
 
 7. **Defend.** The protocol is force-protected by being open-source from inception, by being mathematically explicit, and by being cross-checked by multiple independent AI systems. There is no proprietary moat. The defense is precisely that there is no defense to capture — any actor attempting to monopolize the protocol immediately encounters its public availability. *The armor is universal access.* This is the deliberate mirror of the Komodo's biological armor: as the dragon's defense is intrinsic to its body, Dragonclaw's defense is intrinsic to its publication.
 
@@ -352,7 +352,7 @@ It is *not* an autonomous agent in the sense the AI-safety literature uses that 
 
 It scales, in principle, indefinitely. The same equation stack that runs the operator's household runs Khrug Engineering, runs the Draken publication pipeline, and would run an arbitrary operational domain plugged into the same substrate. The substrate is agnostic to the kind of work being managed. What it is *not* agnostic to is the optimization axiom: any operational domain plugged into Dragonclaw is required to satisfy (3.1). Domains that violate the axiom are flagged as such, and the system refuses to optimize for them. This is the architectural equivalent of constitutional preemption: there are some objectives the substrate will not pursue regardless of operator instruction, because pursuing them would constitute a $\Psi$-amplifying loop the system is designed to detect and refuse.
 
-The next planned upgrades, in priority order: (i) the Sheaf Ethology pilot computation per [§9.8 of the thesis v4.4](https://doi.org/10.5281/zenodo.19273483), validating the $\Gamma = 0.928$ Sequential Assessment Game model on the per-dyad data still pending from Frýdlová's Charles University Prague archive; (ii) full integration of the OpenClaw cron-autonomy layer with the Telegram operator-communication channel (DRK-102); (iii) the Runway Gen-4.5 video-generation backend for the publication pipeline (DRK-103); (iv) the Pinecone vector-store expansion from $4.4 \times 10^4$ to $\sim 10^6$ vectors with full corpus indexing.
+The next planned upgrades, in priority order: (i) the Sheaf Ethology pilot computation per [§20.1 of the thesis v5.0](https://doi.org/10.5281/zenodo.23121197), validating the $\Gamma = 0.928$ Sequential Assessment Game model on the per-dyad data still pending from Frýdlová's Charles University Prague archive; (ii) full integration of the OpenClaw cron-autonomy layer with the Telegram operator-communication channel (DRK-102); (iii) the Runway Gen-4.5 video-generation backend for the publication pipeline (DRK-103); (iv) the Pinecone vector-store expansion from $4.4 \times 10^4$ to $\sim 10^6$ vectors with full corpus indexing.
 
 ---
 
@@ -380,7 +380,7 @@ What the framework refuses is *capture* — the scenario in which $\Pi_K$ contin
 
 The framework binds its own author. The optimization axiom (3.1), the coherence-debt formula (3.6), the kill-chain protocol (2.1), and the halt-signal architecture (§IX) apply to Khrug Engineering, to the author personally, to this post, and to every future post in the corpus. The framework is not above its own constraints. Any drift in the corpus toward $\Psi \uparrow$, toward $\alpha \uparrow$ without reality-grounding, toward $\nu \uparrow$ in the surrounding readership — any such drift is itself a violation of the framework's own terms, and the framework is committed to detecting and correcting it. The peer-review architecture across six independent AI systems is the operational mechanism by which this commitment is maintained. The final reviewer is the reader.
 
-The corpus is published under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The code substrate is, where it exists, published under permissive open-source licenses on the [author's GitHub](https://github.com/Khrug). The thesis is at [Zenodo DOI 10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483). The site is at [draken.info](https://draken.info). The author's ORCID is [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167).
+The corpus is published under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/). The code substrate is, where it exists, published under permissive open-source licenses on the [author's GitHub](https://github.com/Khrug). The thesis is at [Zenodo DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197). The site is at [draken.info](https://draken.info). The author's ORCID is [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167).
 
 The dragons scale. Dragonclaw scales. The optimization axiom (3.1), satisfied honestly across the 18-layer manifold, is what makes scaling possible without collapse. The Y-stick (§IX) is what makes scaling possible without runaway. These are the two clauses of the constitution. Everything else is implementation detail.
 

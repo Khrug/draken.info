@@ -199,4 +199,4 @@ Trotskij carries it under a scale on the top of his head. He submerged at my app
 ---
 
 *Khrug Engineering — Göteborg · Draken 2045 Initiative*
-*ORCID: [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · Framework DOI: [10.5281/zenodo.19273483](https://doi.org/10.5281/zenodo.19273483) · License: CC BY-SA 4.0*
+*ORCID: [0009-0003-8049-7167](https://orcid.org/0009-0003-8049-7167) · Framework DOI: [10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · License: CC BY-SA 4.0*
