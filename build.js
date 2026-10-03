@@ -267,11 +267,17 @@ function buildThesisPage(baseTpl) {
 
   const content = `<div class="article-wrap"><a href="/" class="back-link">← Back to Feed</a>
 <article><header class="article-header"><span class="pub-tag tag-theory">monograph</span>
-<h1>The Draken 2045 Framework — Research Monograph v4.5</h1>
-<div class="article-meta"><span>Kai Roininen (Khrug)</span><span>March 2026</span><span>Khrug Engineering, Göteborg</span><span>All 18 Layers</span></div></header>
+<h1>The Draken Framework v5.0 — A Hodge-Theoretic Coherence Theory for Multi-Scale Systems</h1>
+<div class="article-meta"><span>Kai Roininen (Khrug)</span><span>October 2026</span><span>Khrug Engineering, Göteborg</span><span>CC BY-SA 4.0</span></div>
+<div class="thesis-downloads">
+<a href="/thesis/draken-thesis-v5-0.pdf" download>⬇ PDF</a>
+<a href="/thesis/draken-thesis-v5-0.docx" download>⬇ DOCX</a>
+<a href="/thesis/draken-thesis-v5-0-source.zip" download>⬇ Source &amp; script</a>
+<a href="https://doi.org/10.5281/zenodo.19273482" target="_blank" rel="noopener">Zenodo · all versions ↗</a>
+</div></header>
 <div class="article-body thesis-body">${body}</div></article>
 <div class="reader-feedback"><h3 class="feedback-title">◉ Peer Review Feedback</h3>
-<p class="feedback-desc">Reviewed by Claude, ChatGPT, Kimi, Grok, DeepSeek, and Gemini. See monograph for details.</p>
+<p class="feedback-desc">v5.0 was revised after external reviews (Grok, DeepSeek). Further review is welcome.</p>
 <form class="feedback-form" action="https://formsubmit.co/khrrug@gmail.com" method="POST">
 <input type="hidden" name="_subject" value="[THESIS] Peer Review"><input type="hidden" name="_captcha" value="true"><input type="hidden" name="_next" value="https://draken.info/thesis/?feedback=sent"><input type="text" name="_honey" style="display:none">
 <div class="form-row form-row-half"><input type="text" name="name" placeholder="Name" class="form-input"><input type="email" name="email" placeholder="Email" class="form-input"></div>
@@ -282,14 +288,17 @@ function buildThesisPage(baseTpl) {
 <a href="/" class="back-link">← Feed</a><a href="/sheaf-analyzer/" class="back-link" style="color:var(--accent)">◆ Sheaf Analyzer →</a></div></div>`;
 
   const html = render(baseTpl, {
-    title: 'The Draken 2045 Framework — Research Monograph',
-    description: 'The Draken thesis: a sheaf-theoretic coherence theory for multi-scale systems, with the 18-layer ontology, sheaf convergence Γ and coherence debt K(t).',
+    title: 'The Draken Framework v5.0 — Research Monograph',
+    description: 'The Draken thesis v5.0: a Hodge-theoretic coherence theory for multi-scale systems — resolvent coherence, the invariant ϰ, and the anti-totalisation theorem. Read in page or download PDF/DOCX.',
     content, og_type: 'article', og_url: 'https://draken.info/thesis/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   });
   const dir = path.join(DIST_DIR, 'thesis');
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
+  // downloadable thesis files (PDF, DOCX, source) live in static/thesis/
+  const tsrc = path.join(STATIC_DIR, 'thesis');
+  if (fs.existsSync(tsrc)) copyDirSync(tsrc, dir);
   console.log('  ✓ thesis/');
 }
 
