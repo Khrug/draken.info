@@ -1388,3 +1388,26 @@ mjx-container[display="true"][width="full"] { min-width: 0 !important; }
 .ko-status.proposed { color: var(--gold); border-color: var(--gold); }
 .ko-status.candidate { color: var(--text-dim); }
 @media (max-width: 600px) { .article-w-head { min-width: 0; width: 100%; } }
+
+/* === BACKGROUND VIDEO (front page only; markup in templates/index.html) === */
+/* Portrait source (720x1280) on a near-black field: contain on wide screens so the
+   dragon is never cropped, cover on tall screens. Cards keep their opaque backgrounds. */
+.bg-video {
+  position: fixed; inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--bg);
+}
+.bg-video video {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  opacity: 0.5;
+}
+@media (max-aspect-ratio: 3/4) {
+  .bg-video video { object-fit: cover; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bg-video video { display: none; }
+  .bg-video { background: var(--bg) url('/images/bg-dragon.jpg') center / contain no-repeat; opacity: 0.5; }
+}
