@@ -671,7 +671,7 @@ function genLlmsTxt(posts, drkIndex) {
   const lines = [
     '# Draken 2045 — draken.info',
     '',
-    '> Draken is a sheaf-theoretic coherence framework published by Khrug Engineering (Kai Roininen, Göteborg) as numbered DRK posts. Each post has a DRK number and a publication date (YYYY-MM-DD). Higher DRK numbers are newer. Licence CC BY-SA 4.0; ORCID 0009-0003-8049-7167; DOI 10.5281/zenodo.19273483.',
+    '> Draken is a sheaf-theoretic coherence framework published by Khrug Engineering (Kai Roininen, Göteborg) as numbered DRK posts. Each post has a DRK number and a publication date (YYYY-MM-DD). Higher DRK numbers are newer. Licence CC BY-SA 4.0; ORCID 0009-0003-8049-7167; DOI 10.5281/zenodo.23121197.',
     '',
     `Latest post: ${latest.drk} · ${isoDate(latest.date)} · ${oneLine(latest.title)} — ${SITE}/posts/${latest.slug}/`,
     `Posts: ${posts.length}. Next free DRK number: ${drkIndex.next_free}. Generated: ${isoDate(new Date())}.`,
@@ -782,7 +782,7 @@ function homeJsonLd() {
       "description": "Sheaf-theoretic coherence framework published as numbered DRK research posts.", "inLanguage": "en", "publisher": PUBLISHER, "author": AUTHOR,
       "license": "https://creativecommons.org/licenses/by-sa/4.0/" },
     { "@type": "CreativeWorkSeries", "name": "Draken DRK series", "url": "https://draken.info/", "author": AUTHOR, "publisher": PUBLISHER,
-      "sameAs": "https://doi.org/10.5281/zenodo.19273483" },
+      "sameAs": "https://doi.org/10.5281/zenodo.23121197" },
     AUTHOR,
   ]});
 }

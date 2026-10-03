@@ -172,7 +172,7 @@ After References, exactly:
 
 *<optional one-line Swedish closing>*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
 ```
 
 The crosslink list matches the posts linked in the body, no more and no fewer.
@@ -269,5 +269,5 @@ Claim with citation (Author Year) **[E]**. Reading of it, linking [Title](/posts
 
 *Svensk slutrad.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.19273483 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
 ```

@@ -13,7 +13,7 @@ Sheaf theory + Active Inference + 18-layer ontology = a formal diagnostic for in
 
 Published & citable:
 📄 https://www.researchgate.net/publication/403232272
-🔗 https://zenodo.org/records/19273483
+🔗 https://zenodo.org/records/23121197
 🌐 https://draken.info/thesis/
 
 CC BY-SA 4.0 | Open access | DOI registered
@@ -34,7 +34,7 @@ Soviet pripiski = falsified restriction maps. The math is the same.
 
 @karlfriston @Plinz
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #FreeEnergyPrinciple #ActiveInference #SheafTheory
 
@@ -52,7 +52,7 @@ Declining Γ = decoherence even when snapshots show compliance.
 
 @FOIresearch
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #AIGovernance #DefenceResearch #TopologicalDataAnalysis
 
@@ -84,7 +84,7 @@ The Draken Framework extends this: from flat graphs → hierarchical multi-scale
 
 Five derived metrics. Worked examples. Falsifiable predictions.
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #TopologicalDataAnalysis #SheafTheory #ComplexSystems
 
@@ -100,7 +100,7 @@ Sheaf theory makes this precise: the L14→L04 restriction map is SEVERED. The e
 
 That's not a metaphor. It's a computable diagnostic with a DOI.
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #EcologicalEconomics #Degrowth #SystemsThinking #Sustainability
 
@@ -134,7 +134,7 @@ Seven doctrinal traditions of information warfare. Each targeting a different la
 
 The Draken Framework classifies them by where they sever the restriction map.
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #InfoOps #OSINT #CognitiveWarfare #Geopolitics
 
@@ -168,7 +168,7 @@ No university. No grant. Just Claude, Gemini, six AI reviewers, and 14 technical
 
 It's on Zenodo with a DOI now. The clinch awaits.
 
-https://zenodo.org/records/19273483
+https://zenodo.org/records/23121197
 
 #IndieResearch #OpenScience #SheafTheory #ActiveInference
 
