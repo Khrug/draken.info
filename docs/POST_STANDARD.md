@@ -24,7 +24,7 @@ Fields in this order. All are required except where noted.
 | `drk` | `DRK-NNN`, unused. |
 | `date` | `YYYY-MM-DD`, identical to the filename date. |
 | `tags` | YAML list, 3–10 entries, lowercase kebab-case. |
-| `layers` | YAML list of `L01`–`L18`, using the thesis v4.4 definitions. Never a bare string. |
+| `layers` | YAML list of `L01`–`L18`, using the thesis v5.0 definitions (§2.6; the layer table is unchanged from v4.4). Never a bare string. |
 | `coherence` | Two decimals in (0, 1], proposed at intake and confirmed by Khrug. |
 | `description` | One sentence, **max 160 characters**. Used for search, link previews and meta tags. |
 | `excerpt` | **Max 220 characters**, one line, quoted. See §2.1. |
