@@ -970,6 +970,57 @@
       "refines": [],
       "tension_with": [],
       "status": "approved"
+    },
+    {
+      "id": "masked-face",
+      "name": "Masked face",
+      "aliases": [
+        "masked face",
+        "masked faces"
+      ],
+      "definition": "**A masked face** is a face declared over a loop of relations whose interior is not independently measured, so that the obstruction the loop carries is charged to the face by declaration rather than by evidence **[D]**.",
+      "defined_in": {
+        "drk": "DRK-198",
+        "slug": "the-face-the-mask-and-the-hole",
+        "section": "§3 The masked face"
+      },
+      "layers": [
+        "L07",
+        "L08",
+        "L12"
+      ],
+      "depends_on": [
+        "h1"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "honest-bait",
+      "name": "Honest bait",
+      "aliases": [
+        "honest bait"
+      ],
+      "definition": "**Honest bait** is a lure whose visible content is genuine, so that every anchor the observer can apply returns true, while the attachment that matters lies in the kernel of the observer's observation map **[D]**.",
+      "defined_in": {
+        "drk": "DRK-198",
+        "slug": "the-face-the-mask-and-the-hole",
+        "section": "§4.2 Honest bait"
+      },
+      "layers": [
+        "L06",
+        "L08",
+        "L12"
+      ],
+      "depends_on": [
+        "global-section"
+      ],
+      "refines": [],
+      "tension_with": [
+        "masked-face"
+      ],
+      "status": "approved"
     }
   ],
   "approval": {
