@@ -1021,6 +1021,55 @@
         "masked-face"
       ],
       "status": "approved"
+    },
+    {
+      "id": "betenskap",
+      "name": "Betenskap",
+      "aliases": [
+        "betenskap"
+      ],
+      "definition": "**Betenskap** is the knowledge that arises in and through the bite: the embodied decision to take something into oneself, made with the mouth rather than with thought, about what is food, what is bait and what is to be left **[D]**",
+      "defined_in": {
+        "drk": "DRK-199",
+        "slug": "betenskap",
+        "section": "§2 Betenskap"
+      },
+      "layers": [
+        "L08",
+        "L09"
+      ],
+      "depends_on": [
+        "conviction-gate"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "hyperliminal",
+      "name": "Hyperliminal cut",
+      "aliases": [
+        "hyperliminal",
+        "hyperliminal cut",
+        "hyperliminal term",
+        "hyperliminal node"
+      ],
+      "definition": "**A hyperliminal cut** divides concept space at a connecting node, a point where several concepts are joined, such that the same node is independently attested across languages and across periods and the one cut therefore separates the concepts correctly in all of them **[D]**",
+      "defined_in": {
+        "drk": "DRK-199",
+        "slug": "betenskap",
+        "section": "§5 Hyperliminal"
+      },
+      "layers": [
+        "L11",
+        "L14"
+      ],
+      "depends_on": [
+        "rho"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
     }
   ],
   "approval": {
