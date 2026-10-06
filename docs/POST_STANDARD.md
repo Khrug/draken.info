@@ -126,19 +126,20 @@ Rules:
 ```markdown
 **F1: Short name.** What §X claims or predicts. **Refuted** if <observable result>.
 
-**F2: …**
+**F2: Short name.** What §Y claims or predicts. **Refuted** if <observable result>.
 
-**Fk: Scope limit.** What the post does not claim, and which sections survive if F1–F(k−1) fail.
+**F3: Scope limit.** What the post does not claim, and which sections survive if F1–F2 fail.
 ```
 
-- At least two falsifiers plus the scope limit.
-- Each points to the section it tests and names an observation, not an opinion.
+- Exactly three points: two falsifiers and the scope limit; each is one sentence.
+- Each falsifier names the section it tests and an observable that would refute it, not an opinion.
 
 **`## §N+1 Provenance and leaks`**, numbered list:
 
-- Who supplied what: Khrug's prompt or source notes; Claude-authored or other-model-authored parts; Clinch review status.
-- Anything not verified against the primary source (editions, translations, paraphrases, unreviewed preprints).
-- Corrections made in the open.
+- Exactly three items, each a single sentence.
+- Item 1: authorship (Khrug's contributions; Claude-authored or other-model-authored parts; Clinch review status).
+- Item 2: unverified sources (editions, translations, paraphrases, abstracts-only reads, unreviewed preprints).
+- Item 3: field evidence quality and any corrections made in the open.
 
 ## 8. References
 
@@ -187,8 +188,8 @@ The crosslink list matches the posts linked in the body, no more and no fewer.
 - [ ] Every substantive claim tagged; every **[M]** removable without breaking the argument
 - [ ] Every in-text citation ↔ one References entry; `sources` = References
 - [ ] Every DRK mention is a working `/posts/` link; footer crosslinks match the body
-- [ ] Falsification has at least two falsifiers plus a scope limit
-- [ ] Provenance lists authorship and anything unverified
+- [ ] Falsification has exactly three single-sentence points: two falsifiers and a scope limit
+- [ ] Provenance has exactly three single-sentence items: authorship, unverified sources, field evidence / corrections
 - [ ] `npm run validate` passes with 0 errors
 
 ---
@@ -244,18 +245,19 @@ Claim with citation (Author Year) **[E]**. Reading of it, linking [Title](/posts
 
 ## §N Falsification (DRK-131)
 
-**F1: Name.** What §X claims. **Refuted** if <observation>.
+**F1: Name.** §X's claim is **Refuted** if <one observable>.
 
-**F2: Name.** What §Y predicts. **Refuted** if <observation>.
+**F2: Name.** §Y's prediction is **Refuted** if <one observable>.
 
-**F3: Scope limit.** What is not claimed; what survives if F1–F2 fail.
+**F3: Scope limit.** If F1–F2 fail, <what survives>; <what does not>.
 
 ---
 
 ## §N+1 Provenance and leaks
 
-1. Authorship: …
-2. Unverified: …
+1. <Authorship: Khrug's contributions; model and date of Claude draft; Clinch status.>
+2. <Unverified: editions, translations, abstracts-only reads, unreviewed preprints.>
+3. <Field evidence quality; corrections made in the open.>
 
 ---
 

@@ -164,26 +164,19 @@ The rule applies to the corpus. A Draken post that cuts at a hyperliminal node c
 
 ## §9 Falsification (DRK-131)
 
-**F1: Separable acts.** §3 claims the gate, judgment and jaw are separable in monitors. **Refuted** if controlled feeding trials show no measurable chemosensory or probing phase that varies with the food item before the strike, so that test and bite cannot be told apart.
+**F1: Separable acts.** §3's gate-judgment-jaw model is **Refuted** if controlled feeding trials show no pre-strike chemosensory probe phase that varies with food-item identity.
 
-**F2: Selection at joints.** §4 and §8 predict that monitors offered layered foods remove whole layers at their interfaces more often than chance. **Refuted** if, in repeated trials with layered dishes, bite boundaries are distributed independently of the layer interfaces.
+**F2: Cut vertex.** §7's claim that *bite* is a cut vertex joining splitting and feeding senses is **Refuted** if an attested edge connects those senses without passing through biting in either the Germanic or Latin branch.
 
-**F3: Non-vacuous test.** §5 claims the hyperliminal test excludes sound-only joints. **Refuted** if the procedure in §6, applied by an independent reader, certifies as hyperliminal a node whose only link in some language is phonetic.
-
-**F4: The worked node.** §7 claims *bite* is a cut vertex in the Germanic and Latin sense graphs. **Refuted** if an attested edge connects the splitting and feeding senses without passing through the biting sense, in either branch.
-
-**F5: Scope limit.** The post does not claim that etymology causes behaviour, that the black-dragon clip characterises that animal or its species, or that every node a reader finds interesting is hyperliminal. If F1 and F2 fail, the definitions in §2 and §5 stand as definitions; only the ethological reading falls.
+**F3: Scope limit.** If F1 and F2 fail, the formal definitions of betenskap (§2) and the hyperliminal cut (§5) stand; only the ethological and etymological readings fall.
 
 ---
 
 ## §10 Provenance and leaks
 
-1. Authorship: the term *betenskap*, its Swedish definition, the three-act reading and the request to define *hyperliminal* as a dissection of concept space at its connecting points are Khrug's. The English text, the formal sketch and the selection of sources are Claude's draft (Claude Opus 5.5, 2026-10-06). Clinch review: not yet performed.
-2. Source of the word: Khrug heard *betenskap* in a comedy programme he could not identify; a web search on 2026-10-06 found no attestation. The source is recorded as unidentified.
-3. Correction in the open: an earlier post on nested habitats, published and withdrawn on 2026-09-30, described hyperliminality partly as cutting across landscapes and borders. That reading is retracted: a hyperliminal cut is made only in concept space (§5.1).
-4. Field cases: Operation Potatocrust is Khrug's recollection, undated. The black-dragon clip was seen as a screenshot of a social-media reel; the account is not cited and the species attribution is from the caption and appearance. The Dataset C observations are single, uninstrumented field notes.
-5. Unverified: the meanings of the individual SAOB *bete* entries were not read; only their existence and count were checked (§7.1). The *Phaedrus* passage is paraphrased from the standard reading, with no edition fixed. The first-edition publisher of van Gennep (1909) is from bibliographic records, not an inspected copy. The 1994 and 1996 Kaufman papers and Cooper (1989) were verified by DOI; their findings are paraphrased from titles and abstracts, not from full text.
-6. Hellquist's *Svensk etymologisk ordbok* was considered for *bita* and *bete* but not consulted, and is not cited.
+1. The term *betenskap*, its Swedish definition and the hyperliminal concept are Khrug's; the English text, formal sketch and source selection are Claude's draft (Opus 5.5, 2026-10-06); Clinch review not yet performed.
+2. Cooper (1989) and Kaufman et al. (1994, 1996) were verified by DOI but paraphrased from abstracts; the SAOB *bete* entries were checked for existence only, not read for meaning; the *Phaedrus* passage has no edition fixed.
+3. Operation Potatocrust and the Dataset C corvid notes are Khrug's undated recollections; the black-dragon clip is a social-media screenshot with uncited account; an earlier post on nested habitats (published and withdrawn 2026-09-30) described hyperliminality as cutting across landscapes — that reading is retracted; a hyperliminal cut is made only in concept space (§5.1).
 
 ---
 
