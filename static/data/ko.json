@@ -1070,6 +1070,31 @@
       "refines": [],
       "tension_with": [],
       "status": "approved"
+    },
+    {
+      "id": "mgn",
+      "name": "Minsta gemensamma nämnare (MGN)",
+      "aliases": [
+        "MGN",
+        "minsta gemensamma nämnare",
+        "minsta gemensamma nämnarna"
+      ],
+      "definition": "**A minsta gemensamma nämnare** (MGN) is a concept joint that several unrelated language families reach independently, so that it is shared without having been transmitted **[D]**",
+      "defined_in": {
+        "drk": "DRK-200",
+        "slug": "roots",
+        "section": "§4 The half that is archetypal"
+      },
+      "layers": [
+        "L11",
+        "L14"
+      ],
+      "depends_on": [
+        "hyperliminal"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
     }
   ],
   "approval": {
