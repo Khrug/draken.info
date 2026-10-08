@@ -254,4 +254,4 @@ Khrug supplied the word chain and the thesis that ranged lethal weapons are an a
 
 *Ju längre bort, desto lättare grind.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · [Thesis v5.0, DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*

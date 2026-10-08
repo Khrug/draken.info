@@ -6,8 +6,9 @@
  *
  * Errors (fail): malformed drk / layers / coherence, missing required fields, date not
  * matching the filename, multi-line excerpt, bad filename/slug, duplicate slug, BOM, CRLF,
- * C1 control characters, mojibake.
- * Warnings: duplicate DRK numbers, missing description, internal /posts/<slug>/ links that do
+ * C1 control characters, mojibake, and (DRK-190 onward) a footer that does not link the
+ * thesis v5.0 record exactly as docs/POST_STANDARD.md §9 gives it.
+ * Warnings: an older thesis DOI outside References (DRK-190 onward), duplicate DRK numbers, missing description, internal /posts/<slug>/ links that do
  * not resolve, drafts (listed but not built).
  *
  * scripts/validate-known-issues.json lists content gaps waiting on an editorial decision
@@ -28,6 +29,13 @@ const LAYER_RE = /^L(0[1-9]|1[0-8])$/;
 const MOJIBAKE_RE = /\u00c3|\u00e2\u20ac|\u00c2[\u00a0-\u00bf]|\u00f0\u0178/;
 const C1_RE = /[\u0080-\u009f]/;
 const FILE_RE = /^(\d{4}-\d{2}-\d{2})-([a-z0-9]+(?:-[a-z0-9]+)*)\.md$/;
+
+// Post standard §9: every post from DRK-190 onward ends with this line, which links thesis v5.0.
+const STANDARD_FROM = 190;
+const THESIS_DOI = '10.5281/zenodo.23121197';
+const FOOTER = `*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · [Thesis v5.0, DOI ${THESIS_DOI}](https://doi.org/${THESIS_DOI}) · CC BY-SA 4.0*`;
+// Older thesis records (v4.4, the all-versions concept DOI, earlier version records).
+const OLD_THESIS_RE = /10\.5281\/zenodo\.(19292500|19273482|19273483|19420098)\b/;
 
 function isoDate(d) {
   if (d instanceof Date && !isNaN(d)) return d.toISOString().slice(0, 10);
@@ -84,6 +92,19 @@ function validate({ postsDir = POSTS_DIR, knownFile = KNOWN_FILE, verbose = fals
     else if (typeof data.coherence !== 'number' || !(data.coherence > 0 && data.coherence <= 1))
       problem(file, 'coherence-range', `coherence must be a number in (0, 1] (got ${JSON.stringify(data.coherence)})`);
     if (!data.description) noDescription.push(file);
+
+    const num = typeof data.drk === 'string' ? Number(data.drk.slice(4)) : 0;
+    if (num >= STANDARD_FROM) {
+      const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+      if (lines[lines.length - 1] !== FOOTER)
+        problem(file, 'footer-thesis', `last line must be the standard footer linking thesis v5.0 (${THESIS_DOI}); see docs/POST_STANDARD.md §9`);
+      // Text outside References: the body before it, and the footer block after its closing rule.
+      const body = raw.split(/\n---\s*\n/).slice(1).join('\n---\n');
+      const [pre, refs = ''] = body.split(/^## References\s*$/m);
+      const close = refs.search(/^---\s*$/m);
+      const old = (pre + (close >= 0 ? refs.slice(close) : '')).match(OLD_THESIS_RE);
+      if (old) warnings.push(`${file}: cites an older thesis record (${old[0]}) outside References; the corpus thesis is v5.0 (${THESIS_DOI})`);
+    }
   }
 
   // Cross-post checks

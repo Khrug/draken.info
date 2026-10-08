@@ -1,8 +1,10 @@
-# Draken post standard — v1
+# Draken post standard — v1.2
 
 Every new DRK post follows this file. Attach it (or point to it) at the start of every post session. It replaces modelling a new post on an earlier one.
 
 Scope: new posts from DRK-190 onward. Older posts are not rewritten to it.
+
+v1.2 (2026-10-08): the footer links the thesis v5.0 record, and `npm run validate` enforces the footer for DRK-190 onward.
 
 Derived 2026-09-30 from all 80 posts in `posts/`. Where the corpus disagreed, the choice below follows the most recent reference-grade posts: [The Countable Mouth](/posts/the-countable-mouth/) (DRK-181), [The Held Mouth](/posts/the-held-mouth/) (DRK-182) and [The Bite](/posts/the-bite/) (DRK-184).
 
@@ -24,7 +26,7 @@ Fields in this order. All are required except where noted.
 | `drk` | `DRK-NNN`, unused. |
 | `date` | `YYYY-MM-DD`, identical to the filename date. |
 | `tags` | YAML list, 3–10 entries, lowercase kebab-case. |
-| `layers` | YAML list of `L01`–`L18`, using the thesis v5.0 definitions (§2.6; the layer table is unchanged from v4.4). Never a bare string. |
+| `layers` | YAML list of `L01`–`L18`, using the [thesis v5.0](/thesis/) definitions (§2.6; the layer table is unchanged from v4.4). Never a bare string. |
 | `coherence` | Two decimals in (0, 1], proposed at intake and confirmed by Khrug. |
 | `description` | One sentence, **max 160 characters**. Used for search, link previews and meta tags. |
 | `excerpt` | **Max 220 characters**, one line, quoted. See §2.1. |
@@ -173,10 +175,14 @@ After References, exactly:
 
 *<optional one-line Swedish closing>*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · [Thesis v5.0, DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*
 ```
 
 The crosslink list matches the posts linked in the body, no more and no fewer.
+
+The last line names the framework the post belongs to, and it always links the thesis **v5.0** record, *The Draken Framework v5.0: A Hodge-Theoretic Coherence Theory for Multi-Scale Systems*, DOI `10.5281/zenodo.23121197`. Copy it exactly. The older thesis DOIs belong only in References, when a post discusses that version: v4.4 is `10.5281/zenodo.19292500`, and `10.5281/zenodo.19273482` resolves to all versions, not to v5.0.
+
+`npm run validate` fails a post from DRK-190 onward whose last line differs from the one above, and warns when such a post cites an older thesis DOI outside References.
 
 ## 10. Pre-publish checklist
 
@@ -190,6 +196,7 @@ The crosslink list matches the posts linked in the body, no more and no fewer.
 - [ ] Every DRK mention is a working `/posts/` link; footer crosslinks match the body
 - [ ] Falsification has exactly three single-sentence points: two falsifiers and a scope limit
 - [ ] Provenance has exactly three single-sentence items: authorship, unverified sources, field evidence / corrections
+- [ ] Footer is the exact v5.0 line from §9 (thesis link, DOI 10.5281/zenodo.23121197)
 - [ ] `npm run validate` passes with 0 errors
 
 ---
@@ -271,5 +278,5 @@ Claim with citation (Author Year) **[E]**. Reading of it, linking [Title](/posts
 
 *Svensk slutrad.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · [Thesis v5.0, DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*
 ```

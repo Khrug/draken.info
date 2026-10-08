@@ -317,4 +317,4 @@ The mask in its oldest Nordic form, *grimma*, the halter, belongs here as well. 
 
 *Ett nät är mest hål, och det är därför det fångar.*
 
-*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · DOI 10.5281/zenodo.23121197 · CC BY-SA 4.0*
+*Khrug Engineering · Göteborg · ORCID 0009-0003-8049-7167 · [Thesis v5.0, DOI 10.5281/zenodo.23121197](https://doi.org/10.5281/zenodo.23121197) · CC BY-SA 4.0*
