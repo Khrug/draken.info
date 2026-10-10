@@ -63,8 +63,8 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       var citeLike = line.length < 220 && (/\(\s*(?:[A-Za-zåäö]{3,9}\.?\s+)?(?:\d{1,2}\s+)?(?:1[5-9]|20)\d{2}[a-z]?\s*\)\.?\s*$/.test(line) || /^\s*[-*•]?\s*[A-ZÅÄÖ][^.!?]{1,80}\(\s*(?:1[5-9]|20)\d{2}[a-z]?\s*\)/.test(line) || /\b\d+\s*[,:]\s*\d+\s*[–-]\s*\d+\.?\s*$/.test(line) || /^\s*[—–]\s/.test(line));
       var nonclaim = inRefs || citeLike || /^\s*</.test(line) || CITE_LINE.test(line) || /\$\$|\\(frac|left|right|sum|int|begin|end|mathbb|mathrm|operatorname)\b|^\s*\\/.test(line) || /^\s*[\w\s·()-]{2,32}:\s*[\d\[(]/.test(line) && line.length < 140 || /^\s*\|/.test(line);
       if (/^\s*(\|?\s*:?-{3,}|---+\s*$|\*\*\*+\s*$)/.test(line)) continue;
-      // split line into sentences; keep offsets
-      var re = /[^.!?…]+(?:[.!?…]+(?=\s|$)|$)/g, m, isHeading = /^\s*#{1,6}\s/.test(line);
+      // split line into sentences; keep offsets. Dots inside a token (3.5, example.com, e.g) do not end a sentence.
+      var re = /(?:[^.!?…]|[.!?…]+(?=[^\s.!?…]))+(?:[.!?…]+(?=\s|$)|$)/g, m, isHeading = /^\s*#{1,6}\s/.test(line);
       var chunks = [];
       // protect abbreviations / decimals by merging chunks that end in a known abbreviation or a digit-dot-digit
       while ((m = re.exec(line)) !== null) { if (!m[0].trim()) { if (re.lastIndex === m.index) re.lastIndex++; continue; } chunks.push({ s: m.index, e: m.index + m[0].length }); }
@@ -77,7 +77,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       merged.forEach(function (c) {
         var raw = line.slice(c.s, c.e), lead = raw.length - raw.replace(/^\s+/, '').length;
         var t = raw.trim(); if (t.replace(/[#>*_\-|`\s]/g, '').length < 3) return;
-        units.push({ id: 'u' + units.length, text: t, start: baseOffset + ls + c.s + lead, end: baseOffset + ls + c.s + lead + t.length, para: para, line: li, source: sourceTag || null, heading: isHeading || headingLike, nonclaim: nonclaim });
+        units.push({ id: 'u' + units.length, text: t, start: baseOffset + ls + c.s + lead, end: baseOffset + ls + c.s + lead + t.length, para: para, line: li, source: sourceTag || null, heading: isHeading || headingLike, nonclaim: nonclaim, refs: inRefs || undefined });
       });
     }
     return units;
@@ -447,7 +447,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       psi: psi, ordinal: ordReport, hodge: hodgeReport, timeline: timeline,
       profile: prof, accounts: accounts, perSource: perSource, topic: topic,
       counts: { units: units.length, claims: claims.length, proposition: props.length, numeric: numerics.length, date: dated.length, order: orders.length, relation: relations.length, comparisons: edges.length, obstructions: obstructions.length, contradictions: obstructions.filter(function (o) { return o.class === 'contradiction'; }).length },
-      supportEdges: supEdges, sources: sources.map(function (s) { return s.tag; })
+      supportEdges: supEdges, sources: sources.map(function (s) { return s.tag; }), text: fullText
     };
   };
 
