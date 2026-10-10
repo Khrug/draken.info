@@ -394,6 +394,20 @@ function buildSheafAnalyzerPage(baseTpl) {
     fs.writeFileSync(path.join(v1dir, 'index.html'), v1html.replace('<head>', '<head><meta name="robots" content="noindex">'));
     console.log('  ✓ sheaf-analyzer/v1/');
   }
+  // manual and technical specification
+  const mp = path.join(STATIC_DIR, 'pages', 'sheaf-analyzer-manual.html');
+  if (fs.existsSync(mp)) {
+    const mhtml = render(baseTpl, {
+      title: 'How the Sheaf Analyzer works — manual and technical specification · Draken',
+      description: 'Manual and specification of Sheaf Analyzer v2: segmentation, typed claims, sheaf and temporal-network consistency layers, Ψ, argument maps, review tools and validation.',
+      content: fs.readFileSync(mp, 'utf-8'), og_type: 'article', og_url: 'https://draken.info/sheaf-analyzer/manual/',
+      og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+    });
+    const mdir = path.join(dir, 'manual');
+    fs.mkdirSync(mdir, { recursive: true });
+    fs.writeFileSync(path.join(mdir, 'index.html'), mhtml);
+    console.log('  ✓ sheaf-analyzer/manual/');
+  }
 }
 
 // ── SLASK PAGE (dynamic GitHub-powered file dump) ──
@@ -760,6 +774,7 @@ function genSitemap(posts) {
     `<url><loc>${b}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>\n` +
     `<url><loc>${b}/thesis/</loc><priority>0.9</priority></url>\n` +
     `<url><loc>${b}/sheaf-analyzer/</loc><priority>0.8</priority></url>\n` +
+    `<url><loc>${b}/sheaf-analyzer/manual/</loc><priority>0.6</priority></url>\n` +
     `<url><loc>${b}/map/</loc><priority>0.7</priority></url>\n` +
     `<url><loc>${b}/ko/</loc><priority>0.6</priority></url>\n` +
     posts.map(p => `<url><loc>${b}/posts/${p.slug}/</loc><lastmod>${isoDate(p.revised || p.date)}</lastmod><priority>0.8</priority></url>`).join('\n') +
@@ -996,6 +1011,7 @@ function build() {
   const staleBak = path.join(DIST_DIR, 'data', 'system.json.v44bak');
   if (fs.existsSync(staleBak)) fs.rmSync(staleBak);
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
+  if (fs.existsSync(path.join(STATIC_DIR, 'vendor'))) copyDirSync(path.join(STATIC_DIR, 'vendor'), path.join(DIST_DIR, 'vendor'));   // third-party libraries, self-hosted (pdf.js for the analyzer)
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
   const redirects = path.join(STATIC_DIR, '_redirects');
   if (fs.existsSync(redirects)) fs.copyFileSync(redirects, path.join(DIST_DIR, '_redirects'));
