@@ -1095,6 +1095,55 @@
       "refines": [],
       "tension_with": [],
       "status": "approved"
+    },
+    {
+      "id": "cascade-horizon",
+      "name": "Cascade horizon",
+      "aliases": [
+        "cascade horizon",
+        "kaskadhorisont"
+      ],
+      "definition": "**The cascade horizon** is the depth of secondary loss beyond which an interaction network has not been measured, so that consequences past it are learned only by the removal that causes them **[D]**",
+      "defined_in": {
+        "drk": "DRK-201",
+        "slug": "the-unmapped-cascade",
+        "section": "§4.2 Why the map cannot keep up"
+      },
+      "layers": [
+        "L18"
+      ],
+      "depends_on": [
+        "theta"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
+    },
+    {
+      "id": "accounting-excision",
+      "name": "Accounting excision",
+      "aliases": [
+        "accounting excision",
+        "bokföringsexcision"
+      ],
+      "definition": "**Accounting excision** is the removal of a relation from the record by which a harm is counted, while the relation itself continues to act in the world **[D]**",
+      "defined_in": {
+        "drk": "DRK-201",
+        "slug": "the-unmapped-cascade",
+        "section": "§7.2 The excision of an edge from the accounting"
+      },
+      "layers": [
+        "L10",
+        "L13",
+        "L18"
+      ],
+      "depends_on": [
+        "manufactured-void",
+        "inversion-filter"
+      ],
+      "refines": [],
+      "tension_with": [],
+      "status": "approved"
     }
   ],
   "approval": {
