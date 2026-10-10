@@ -1,6 +1,6 @@
 // Fixture checks for engine-rhetoric.js and engine-review.js (detectors fire on constructed cases).
 const fs = require('fs'), path = require('path');
-global.SA2 = require('./engine-math.js'); const SA2 = global.SA2; ['engine-text', 'engine-insights', 'engine-sentiment', 'engine-rhetoric', 'engine-stats', 'engine-review', 'samples'].forEach(f => require('./' + f + '.js'));
+global.SA2 = require('./engine-math.js'); const SA2 = global.SA2; ['engine-text', 'engine-insights', 'engine-sentiment', 'engine-rhetoric', 'engine-stats', 'engine-review', 'engine-argument', 'samples'].forEach(f => require('./' + f + '.js'));
 SA2.vader.setLexicon(JSON.parse(fs.readFileSync(path.join(__dirname, '../../static/data/vader-lexicon.json'), 'utf8')));
 let fail = 0; const ok = (c, m) => { if (!c) { fail++; console.log('FAIL', m); } };
 const FX = `Everyone knows the regime is lying to us. Experts say the new policy will inevitably lead to total collapse. You're either with us or against us.
@@ -22,7 +22,14 @@ const P = run(SA2.SAMPLES.paper.text);
 ok(P.paper.paperness >= 5, 'paperness'); ok(P.paper.statcheck.some(s => s.status !== 'consistent'), 'statcheck flags t-test');
 ok(P.paper.grim.some(g => g.status === 'inconsistent'), 'GRIM'); ok(P.paper.causal.length >= 1, 'causal language in survey');
 ok(P.factcheck.arithmetic.filter(a => a.status === 'mismatch').length === 2, 'arithmetic mismatches');
-ok(/causes higher exam scores/.test(P.rhetoric.fishbone.head.text), 'thesis selection');
+ok(/causes higher exam scores/.test(P.arguments.maps[0].head.text), 'thesis selection');
+// argument maps: two separate arguments in the echo-chamber sample, each with its premise chain
+const E = run(SA2.SAMPLES.propaganda.text).arguments;
+ok(E.maps.length === 2, 'two arguments in propaganda sample (' + E.maps.length + ')');
+ok(E.maps.every(m => m.bones[0].items.some(i => i.chain && i.chain.length === 2)), 'each argument has a direct premise with a chain');
+ok(E.maps.some(m => m.bones.find(b => b.key === 'rhetoric').items.length), 'rhetoric bone populated');
+const X2 = SA2.argumentMaps(SA2.analyze(SA2.SAMPLES.propaganda.text), SA2.insights(SA2.analyze(SA2.SAMPLES.propaganda.text)), null, { theses: ['u0'] });
+ok(X2.maps.length === 1 && X2.maps[0].head.unit === 'u0', 'user-chosen thesis respected');
 // no-false-alarm control: plain hedged prose
 const C = run('The committee met on 4 May 2021. Members discussed the budget, which may need revision. The chair noted that results were mixed and further data are needed.');
 ok(!C.rhetoric.fallacies.items.length, 'no fallacies in control'); ok(!C.factcheck.arithmetic.length, 'no arithmetic in control');

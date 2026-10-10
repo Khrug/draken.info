@@ -1,7 +1,6 @@
 // ═══ SA2 RHETORIC ═══ discourse-level descriptors of a text: sentiment (VADER), loaded language,
 // political framing vocabulary, sources and links, stance/disposition (after Hyland 2005), fallacy and
-// rhetorical-device candidates, logos/ethos/pathos marker rates, and an Ishikawa (fishbone) map of the
-// reasoning around a thesis.
+// rhetorical-device candidates, logos/ethos/pathos marker rates, and thesis scoring for the argument maps (engine-argument.js).
 // Status of each tool: VADER is a published, validated method (Hutto & Gilbert 2014) and the port is
 // checked for parity against the reference package. Everything else is transparent cue matching on
 // curated lists written for this tool; outputs are candidates with their evidence, not verdicts, and
@@ -255,18 +254,17 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
 
     // per-unit pathos/logos tags for the fishbone
     var unitPathos = {}; [L.loaded, L.strong, L.fear, L.anger].forEach(function (bg) { bg.units.forEach(function (id) { unitPathos[id] = (unitPathos[id] || 0) + 1; }); });
-    out.fishbone = S.fishbone(R, I, out, units, unitById, unitPathos);
     return out;
   };
 
-  // ── Ishikawa (fishbone) map of reasoning around a thesis ──
+  // ── thesis candidates (used by engine-argument.js) ──
   var CONCL = /\b(?:in conclusion|to conclude|to sum up|in sum|in short|overall|therefore|thus|hence|consequently|the point is|this means that|it follows that|we (?:argue|conclude|propose|show)|i (?:argue|conclude|propose)|this (?:paper|post|article|essay|study) (?:argues|shows|claims|proposes|demonstrates))\b/i;
   var FINDING = /\b(?:we (?:found|find|show|demonstrate|conclude|argue)|our (?:results|findings|data|analysis) (?:show|suggest|indicate|prove|demonstrate|reveal)|(?:the )?results (?:show|suggest|indicate|prove|demonstrate|reveal)|this (?:shows|suggests|means|proves)|the (?:main|key|central) (?:finding|claim|argument) is)\b/i;
   var CLAIMV = /\b(?:causes?|leads? to|results? in|improves?|reduces?|increases?|prevents?|is (?:the|a) (?:cause|key|main)|are (?:responsible|the cause))\b/i;
   var METHODV = /^(?:we|the authors|participants|this study) (?:surveyed|recruited|collected|measured|sampled|interviewed|used|analy[sz]ed|conducted|administered)\b/i;
   function cset(t) { return new Set(W(t).map(function (w) { return w.toLowerCase(); }).filter(function (w) { return !STOPF.has(w) && w.length > 3; })); }
   function jac(a, b) { var n = 0; a.forEach(function (x) { if (b.has(x)) n++; }); return n / ((a.size + b.size - n) || 1); }
-  S.thesisCandidates = function (R, units) {
+  S.thesisCandidates = function (R, units, limit) {
     var indeg = {}; (R.supportEdges || []).forEach(function (e) { if (e[0] !== e[1]) indeg[e[1]] = (indeg[e[1]] || 0) + 1; });
     var c = [];
     units.forEach(function (u, i) { var s = 0, why = [];
@@ -279,43 +277,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       if (i === units.length - 1) { s += 0.5; why.push('closing sentence'); }
       if (/\?\s*$/.test(u.text)) s -= 2;
       if (s > 0) c.push({ unit: u.id, score: s, why: why.join(', '), text: u.cleanText || u.text }); });
-    return c.sort(function (a, b) { return b.score - a.score; }).slice(0, 6);
-  };
-  S.fishbone = function (R, I, RH, units, unitById, unitPathos, headId) {
-    var cands = S.thesisCandidates(R, units); if (!units.length) return null;
-    var head = headId ? unitById[headId] : (cands[0] ? unitById[cands[0].unit] : units[0]); if (!head) return null;
-    var hs = cset(head.text), inUnits = {}; units.forEach(function (u) { inUnits[u.id] = 1; });
-    var rel = function (id) { var u = unitById[id]; return u ? jac(hs, cset(u.text)) : 0; };
-    var item = function (id, label, extra) { var u = unitById[id]; return Object.assign({ unit: id, label: label || (u ? (u.cleanText || u.text) : id), rel: rel(id) }, extra || {}); };
-    var rank = function (arr, n) { var seen = {}; return arr.filter(function (x) { if (!x.unit || x.unit === head.id || seen[x.unit]) return false; seen[x.unit] = 1; return true; }).sort(function (a, b) { return (b.w || 0) - (a.w || 0) || b.rel - a.rel; }).slice(0, n || 5); };
-    // Reasoning: premises that reach the head through support edges (chain depth), then causal sentences
-    var back = {}; (R.supportEdges || []).forEach(function (e) { if (e[0] !== e[1]) (back[e[1]] = back[e[1]] || []).push(e[0]); });
-    var reasoning = [], seen = {}, q = [[head.id, 0]];
-    while (q.length) { var cur = q.shift(); (back[cur[0]] || []).forEach(function (p) { if (seen[p]) return; seen[p] = 1; reasoning.push(item(p, null, { w: 10 - cur[1], depth: cur[1] + 1, via: cur[0] })); q.push([p, cur[1] + 1]); }); }
-    units.forEach(function (u) { if (/\b(?:because|since|due to|as a result|therefore|thus|hence|consequently|it follows)\b/i.test(u.text)) reasoning.push(item(u.id, null, { w: 0.5 })); });
-    units.forEach(function (u) { if ((CLAIMV.test(u.text) || FINDING.test(u.text)) && rel(u.id) >= 0.08) reasoning.push(item(u.id, null, { w: 0.2, tag: 'related claim' })); });
-    var claimsBy = function (pred) { var o = []; R.claims.forEach(function (c) { if (pred(c) && inUnits[c.unit]) o.push(c.unit); }); return o; };
-    var evidence = claimsBy(function (c) { return (c.type === 'numeric' || c.type === 'date') && (!c.modality || c.modality.kind === 'asserted' || c.modality.kind === 'reported'); }).map(function (id) { return item(id); });
-    var srcI = claimsBy(function (c) { return c.modality && c.modality.kind === 'reported' && c.modality.source && !VAGUE_SRC.test(c.modality.source) && !/\d/.test(c.modality.source); }).map(function (id) { var c = R.claims.find(function (x) { return x.unit === id && x.modality && x.modality.source; }); return item(id, null, { tag: c ? c.modality.source : '' }); });
-    units.forEach(function (u) { if (/https?:\/\/|\b10\.\d{4,9}\/|\([A-Z][A-Za-z'’-]+(?: et al\.)?,? (?:19|20)\d\d\)|\[\d+\]/.test(u.text)) srcI.push(item(u.id, null, { tag: 'citation' })); });
-    var assume = (I.hedged || []).map(function (h) { var c = R.claims.find(function (x) { return x.id === h.claim; }); return c ? item(c.unit, null, { tag: 'hedged' }) : null; }).filter(Boolean)
-      .concat((I.ungrounded || []).map(function (g) { return item(g.unit, null, { tag: 'ungrounded', w: 1 }); }))
-      .concat(claimsBy(function (c) { return c.modality && c.modality.kind === 'hypothesized'; }).map(function (id) { return item(id, null, { tag: 'hypothesis' }); }));
-    var counter = [];
-    (R.obstructions || []).forEach(function (o) { (o.claims || []).forEach(function (cid) { var c = R.claims.find(function (x) { return x.id === cid; }); if (c) counter.push(item(c.unit, null, { tag: o.class, w: 3 })); }); });
-    units.forEach(function (u) { if (/^(?:however|but|yet|nevertheless|nonetheless|on the other hand|critics|opponents|admittedly|although|though)\b/i.test((u.cleanText || u.text).trim())) counter.push(item(u.id, null, { tag: 'contrast' })); });
-    var rhet = (RH.fallacies ? RH.fallacies.items : []).map(function (f) { return item(f.unit, null, { tag: f.name, w: 2 }); })
-      .concat(Object.keys(unitPathos).map(function (id) { return item(id, null, { tag: 'emotive', w: unitPathos[id] / 2 }); }));
-    var bones = [
-      { key: 'reasoning', name: 'Reasoning', hint: 'premises with support edges into the thesis, then causal sentences', items: rank(reasoning) },
-      { key: 'evidence', name: 'Evidence', hint: 'quantities and dates', items: rank(evidence) },
-      { key: 'sources', name: 'Sources', hint: 'named attribution and citations', items: rank(srcI) },
-      { key: 'assumptions', name: 'Assumptions', hint: 'hedged, hypothesised or ungrounded claims', items: rank(assume) },
-      { key: 'counter', name: 'Counterpoints', hint: 'obstructions and contrastive sentences', items: rank(counter) },
-      { key: 'rhetoric', name: 'Rhetoric', hint: 'fallacy candidates and emotive sentences', items: rank(rhet) }
-    ];
-    return { head: { unit: head.id, text: head.cleanText || head.text }, candidates: cands, bones: bones,
-      method: 'Head: the sentence with most incoming support edges, else a conclusion marker, else the lead. Items are ranked by structural role, then by word overlap with the head.' };
+    return c.sort(function (a, b) { return b.score - a.score; }).slice(0, limit || 6);
   };
   S.rhetoricLists = { LOADED: LOADED, ABSOLUTES: ABSOLUTES, FRAME_R: FRAME_R, FRAME_L: FRAME_L, VAGUE: VAGUE, HEDGES: HEDGES, BOOSTERS: BOOSTERS, ATTITUDE: ATTITUDE, DEONTIC: DEONTIC, CAUSAL: CAUSAL, CRED: CRED, EMOTION: EMOTION, FALLACIES: FALLACIES.map(function (f) { return { id: f.id, name: f.name, def: f.def }; }) };
 })(SA2);

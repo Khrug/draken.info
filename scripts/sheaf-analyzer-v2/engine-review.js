@@ -186,6 +186,6 @@ if (typeof module !== 'undefined') module.exports = SA2;
   // One call for the UI: rhetoric + fact-check + paper review.
   S.discourse = function (text, R, I) {
     var rh = S.rhetoric(text, R, I), ar = S.arithmetic(text);
-    return { rhetoric: rh, factcheck: S.factcheck(text, R, I, ar), paper: S.paperReview(text, R, I) };
+    return { rhetoric: rh, factcheck: S.factcheck(text, R, I, ar), paper: S.paperReview(text, R, I), arguments: S.argumentMaps ? S.argumentMaps(R, I, rh) : null };
   };
 })(SA2);
