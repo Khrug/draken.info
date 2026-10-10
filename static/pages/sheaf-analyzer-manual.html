@@ -1,0 +1,270 @@
+<style>
+.sam{max-width:900px;margin:0 auto;padding:24px 18px 80px;color:#c8d8c8;font-family:'Crimson Pro',Georgia,serif;font-size:17px;line-height:1.65}
+.sam h1{font-family:'JetBrains Mono',monospace;color:#4ade80;font-size:26px;letter-spacing:.5px;margin:6px 0 4px}
+.sam .sub{font-family:'JetBrains Mono',monospace;color:#6b8a6b;font-size:12px;margin-bottom:22px}
+.sam h2{font-family:'JetBrains Mono',monospace;color:#4ade80;font-size:17px;margin:40px 0 10px;padding-top:12px;border-top:1px solid #1a2c1a;letter-spacing:.4px}
+.sam h3{font-family:'JetBrains Mono',monospace;color:#e6cc6a;font-size:14px;margin:24px 0 8px}
+.sam p{margin:0 0 12px}.sam ul,.sam ol{margin:0 0 14px 22px}.sam li{margin:3px 0}
+.sam code,.sam .mono{font-family:'JetBrains Mono',monospace;font-size:13px;color:#a7c4a7;background:#0b120b;border-radius:3px;padding:1px 5px}
+.sam table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0 18px;font-family:'JetBrains Mono',monospace}
+.sam th,.sam td{text-align:left;vertical-align:top;padding:6px 8px;border-bottom:1px dashed #1a2c1a}.sam th{color:#6b8a6b;font-weight:600;font-size:12px}
+.sam td{font-size:12.5px;color:#c8d8c8}
+.sam .tbl{overflow-x:auto;-webkit-overflow-scrolling:touch}.sam .tbl table{min-width:560px}
+.sam .note{border-left:3px solid #e6cc6a;background:#0f1a0f;padding:8px 12px;margin:12px 0;font-size:15.5px}
+.sam .warn{border-left:3px solid #ef4444;background:#140b0b;padding:8px 12px;margin:12px 0;font-size:15.5px}
+.sam .toc{font-family:'JetBrains Mono',monospace;font-size:13px;columns:2 260px;background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:12px 16px 12px 34px;margin:10px 0 20px}
+.sam .toc li{margin:2px 0}.sam a{color:#7dd3fc;text-decoration:none}.sam a:hover{text-decoration:underline}
+.sam .flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:12px;margin:10px 0 18px}
+.sam .flow span{background:#0f1a0f;border:1px solid #1a6b38;border-radius:5px;padding:5px 8px;color:#e4f0e4}.sam .flow i{color:#4ade80;font-style:normal}
+.sam .back{font-family:'JetBrains Mono',monospace;font-size:13px}
+.sam .refs li{font-size:15px;margin:5px 0}
+</style>
+<div class="sam">
+<div class="back"><a href="/sheaf-analyzer/">← Back to the Sheaf Analyzer</a></div>
+<h1>Sheaf Analyzer v2 — manual and technical specification</h1>
+<div class="sub">How it works, exactly · engine 2.0.0 · source: <a href="https://github.com/Khrug/draken.info/tree/main/scripts/sheaf-analyzer-v2">scripts/sheaf-analyzer-v2</a></div>
+
+<p>The Sheaf Analyzer reads a text and answers three questions. <b>Can the claims it makes all be true together?</b> Where not, it gives the smallest set of sentences that cannot hold, with a witness. <b>How is the text built?</b> It reports who says what, which figures and dates it rests on, how its arguments are put together, and which rhetorical and statistical patterns it uses. <b>What should a reader check?</b> It gives a ranked list of claims, the arithmetic it can recompute, and the reporting gaps in research papers.</p>
+<div class="warn">It does not decide whether anything is true. A text can be perfectly consistent and false, and a contradiction tells you that at least one of the sentences involved is wrong, not which one. Most components are deterministic rules; their limits are stated below for each.</div>
+
+<ol class="toc">
+<li><a href="#use">Using the analyzer</a></li><li><a href="#pipeline">Pipeline overview</a></li><li><a href="#input">Input, files and segmentation</a></li><li><a href="#claims">Claim extraction</a></li>
+<li><a href="#layers">The three consistency layers</a></li><li><a href="#math">Mathematics: sheaves, Hodge, temporal networks</a></li><li><a href="#obs">Obstructions, classes and Γ</a></li><li><a href="#psi">Ψ: epistemic closure</a></li>
+<li><a href="#insights">Insights</a></li><li><a href="#graph">The graph</a></li><li><a href="#args">Argument map (Ishikawa diagrams)</a></li><li><a href="#review">Review tools</a></li>
+<li><a href="#validation">Validation</a></li><li><a href="#limits">Limitations</a></li><li><a href="#privacy">Privacy and network use</a></li><li><a href="#exports">Exports</a></li><li><a href="#refs">References</a></li>
+</ol>
+
+<h2 id="use">1. Using the analyzer</h2>
+<h3>Inputs</h3>
+<ul>
+<li><b>Paste</b> any text into the source box and press <span class="mono">▸ Analyze</span>. Markdown is understood (headings, lists, tables, links, code blocks).</li>
+<li><b>Upload file</b> (<span class="mono">⇪ Upload file</span>, or drop a file on the text box): <span class="mono">.txt</span>, <span class="mono">.md</span>, <span class="mono">.docx</span> and <span class="mono">.pdf</span>, up to 40 MB. The file is read in your browser; the extracted text appears in the box and is analysed at once. Scanned PDFs without a text layer give no text; run OCR first.</li>
+<li><b>Fetch URL</b>: the page is fetched through a public reader proxy (<span class="mono">r.jina.ai</span>) that returns its main text; if that fails a direct fetch is tried (most sites block it).</li>
+<li><b>Corpus</b>: select Draken posts and analyse them together; each post is a source, and conflicts between posts are marked <i>cross-post</i>.</li>
+<li><b>Compare</b>: two versions of a text. Obstructions are sorted into persistent, new in B, resolved since A, and B-contradicts-A.</li>
+<li><b>Samples</b>: fictional texts that exercise every component (the contradiction demo, conflicting accounts, an echo chamber, a paper with reporting errors) and real excerpts.</li>
+</ul>
+<h3>Outputs, top to bottom</h3>
+<ol>
+<li><b>Verdict and Γ cards</b>: per layer, whether the asserted claims glue (Γ = 1), do not (Γ = 0), or there is nothing to compare (N/A); counts of obstructions by class; exports.</li>
+<li><b>Ψ</b>: support-graph closure measures (ground, circ, seal, imp).</li>
+<li><b>Argument map</b>: one Ishikawa diagram per argument, with a detail pane for any node.</li>
+<li><b>Insights</b>: overview, entities and concepts, figures, timeline, arguments, who says what, possible tensions, repeated statements.</li>
+<li><b>Review</b>: fact-check, paper review, sources, sentiment, loaded words and framing, stance, fallacies and devices, logos/ethos/pathos.</li>
+<li><b>Obstructions, timeline, accounts</b>, the <b>graph</b>, the <b>inspector</b> and the <b>source text</b> with highlights. Tapping any finding highlights its sentences in the source text.</li>
+</ol>
+
+<h2 id="pipeline">2. Pipeline overview</h2>
+<div class="flow"><span>text / file / URL / corpus</span><i>→</i><span>segmentation</span><i>→</i><span>boilerplate removal</span><i>→</i><span>typed claims</span><i>→</i><span>3 layers</span><i>→</i><span>obstructions, Γ</span><i>→</i><span>Ψ</span><i>→</i><span>insights · argument maps · review</span></div>
+<p>Everything runs in the browser in plain JavaScript (no server, no model calls). A typical post of 3,000 words takes well under a second; the whole 90-post corpus about 1.5 s for the consistency engine. The engine files are <span class="mono">engine-math.js</span> (algebra and graph algorithms), <span class="mono">engine-text.js</span> (segmentation, claims, layers, Ψ), <span class="mono">engine-insights.js</span>, <span class="mono">engine-argument.js</span>, <span class="mono">engine-rhetoric.js</span>, <span class="mono">engine-sentiment.js</span>, <span class="mono">engine-stats.js</span> and <span class="mono">engine-review.js</span>; the page is assembled from them by <span class="mono">assemble.js</span>.</p>
+
+<h2 id="input">3. Input, files and segmentation</h2>
+<h3>File reading</h3>
+<ul>
+<li><b>.txt / .md</b>: read as UTF-8; Windows line endings are normalised.</li>
+<li><b>.docx</b>: a .docx is a ZIP archive. The analyzer reads its central directory, inflates <span class="mono">word/document.xml</span> with the browser's built-in <span class="mono">DecompressionStream('deflate-raw')</span>, and takes each paragraph (<span class="mono">w:p</span>) as a line: text runs, tabs and line breaks are kept; paragraphs styled Heading 1–6 or Title become Markdown headings; numbered or bulleted paragraphs become list items. Footnotes, comments and text boxes are not read. Old binary <span class="mono">.doc</span> files are not supported.</li>
+<li><b>.pdf</b>: <a href="https://github.com/mozilla/pdf.js">pdf.js</a> 4.10.38 (Mozilla, Apache-2.0), self-hosted on this site and loaded only when a PDF is opened, extracts the text items of each page with their positions. Lines are rebuilt from the vertical positions; a line break becomes a paragraph break when the gap is larger than 1.45× the normal line spacing on the page (the lower quartile of line gaps) (or 1.15× after a sentence end followed by a capital); words hyphenated across a line end are rejoined; a short line that recurs, digits aside, at the top or bottom of at least 60% of pages (minimum three) is removed as a running header or footer. Script evaluation inside pdf.js is disabled. Multi-column layouts are read in the order pdf.js returns them, which is usually but not always column by column.</li>
+</ul>
+<h3>Segmentation</h3>
+<p>The text is split into <b>units</b>, normally sentences, with character offsets into the original text (UTF-16), so every finding can be highlighted exactly. Rules:</p>
+<ul>
+<li>A unit never spans a line break. Headings, list items and table rows are units of their own, so whether a line ends with a full stop never changes what a claim is.</li>
+<li>Sentences end at <span class="mono">. ! ? …</span> followed by whitespace or the end of the line. A dot inside a token (<span class="mono">3.5</span>, <span class="mono">example.com</span>, <span class="mono">10.1038/…</span>) does not end a sentence; abbreviations such as <i>e.g., i.e., et al., Dr., Prof., no., fig., vs.</i> do not either.</li>
+<li>Code blocks are skipped. Units are flagged as <b>non-claims</b> when they are inside a references/sources/notes section, look like a bibliography line or citation, contain math markup, are HTML, metadata lines (<span class="mono">Key: value</span>) or table rows. Non-claims are shown but produce no claims.</li>
+<li><b>Boilerplate</b>: a short text (≤ 14 words) that recurs at least three times, spread through the document, with page numbers that increase (a running header), or at least four times unchanged (a fixed footer), is marked as boilerplate. A running header glued into another sentence is blanked out of that sentence. Three sentences that state three different values about the same thing are neither, so real conflicts are not removed.</li>
+</ul>
+
+<h2 id="claims">4. Claim extraction</h2>
+<p>Each unit yields zero or more <b>typed claims</b>. Every claim records its unit, the quote, its <b>modality</b>, its <b>polarity</b> and its <b>frame</b>.</p>
+<div class="tbl"><table>
+<tr><th>type</th><th>made when</th><th>content</th></tr>
+<tr><td>proposition</td><td>the frame has ≥ 3 content words</td><td>frame + polarity</td></tr>
+<tr><td>numeric</td><td>the unit has a non-year number and the frame ≥ 2 words; no formula symbols</td><td>values with unit (%, km, kg, currencies, people, deaths, years, …), scale words (thousand … billion, miljoner …), hedge flag (about, approximately, ~ …), years in the sentence as temporal scope</td></tr>
+<tr><td>date</td><td>exactly one date (ISO, “3 March 2025”, “March 3, 2025”, “March 2025”, “in 2025”) or one bare year as scope</td><td>interval in days [lo, hi] at day, month or year precision</td></tr>
+<tr><td>order</td><td>“A before/after B” (also prior to, preceded, following, innan, före, efter) in a non-negated sentence</td><td>two frames and the relation, with an offset when stated (“three days before”)</td></tr>
+<tr><td>relation</td><td>“X is N more/less/longer/… than Y”</td><td>signed difference N from Y to X, with unit</td></tr>
+</table></div>
+<ul>
+<li><b>Modality</b>: <i>question</i> (ends with ?), <i>reported</i> (said, claimed, according to, testified, denied, enligt, uppgav …; the source is the phrase after “according to” or the words before the reporting verb), <i>hypothesized</i> (may, might, could, perhaps, if, whether, suppose, kanske …), otherwise <i>asserted</i>. Only asserted claims can make a contradiction; reported speech is never treated as the author's own claim.</li>
+<li><b>Polarity</b>: −1 if the sentence has an odd number of negations (not, no, never, none, n't, inte, aldrig, ei …) after removing contrastive constructions that do not negate the claim (“not only”, “not X but Y”, “, not Z”, “no longer/more/matter/doubt”), else +1.</li>
+<li><b>Frame</b>: the set of content words (lower-cased, stopwords in English and Swedish removed, light stemming, numbers, dates and month names removed). For reported speech the frame is taken from the reported content after the verb, so “X said that the gate was locked” and “the gate was locked” share a frame.</li>
+<li><b>Not quantities</b>: section, step, layer, axiom, DRK, figure, table, version and similar identifiers; ordinals; list markers; citation years in parentheses; inline math; numbers glued to all-caps prefixes (“GA 348”).</li>
+</ul>
+
+<h2 id="layers">5. The three consistency layers</h2>
+<p>Two claims are <b>comparable</b> only if they talk about the same thing: their frames overlap strongly (Jaccard similarity $J(A,B)=|A\cap B|/|A\cup B|$). Candidate pairs are found through an inverted index on each claim's rarest frame words, so large corpora are not compared all-to-all.</p>
+<h3>Linear layer (quantities)</h3>
+<ul>
+<li>Numeric claims are comparable when $J \ge 0.6$, both frames have ≥ 2 words, they have the same number of values, the same temporal scope (years) and the same polarity, and their units match.</li>
+<li>For each value pair the <b>gluing residual</b> is the relative difference $r=|a-b|/\max(|a|,|b|)$. Tolerance is 10% when either value is hedged (“about 40”), otherwise exact. If any residual exceeds tolerance, the pair is an obstruction with magnitude $\max r$.</li>
+<li>Explicit relations (“X is 5 m longer than Y”) form an edge cochain on a graph of entities; see Hodge decomposition below. A non-zero harmonic part is an obstruction: the stated differences cannot all hold around a cycle.</li>
+</ul>
+<h3>Ordinal layer (time)</h3>
+<ul>
+<li>Dated claims about the same event (frames with $J \ge 0.6$) are merged into one event; order statements attach to events at $J \ge 0.5$.</li>
+<li>Each date gives two difference constraints against an origin $O$: $t_E - t_O \le hi$ and $t_O - t_E \le -lo$. “A before B” gives the strict constraint $t_A < t_B$; with a stated offset of $k$ days it gives $k \pm \max(1, 0.1k)$.</li>
+<li>The system is a simple temporal network. It is feasible iff its constraint graph has no negative cycle (strict arcs: no cycle of weight $(0,\text{strict})$). See below.</li>
+<li>When infeasible, the cycle's claims are reduced to a <b>minimal unsatisfiable subset</b> (MUS) by a deletion filter; the magnitude is $\varepsilon^{*}$, the smallest uniform widening (in days) of every constraint that restores feasibility. One claim of each MUS is set aside and the search repeats, so independent conflicts are all found (up to 12 per pass). Passes run on asserted claims, on non-asserted claims, and on all claims together.</li>
+</ul>
+<h3>Propositional layer (polarity)</h3>
+<ul><li>Propositions are comparable when $J \ge 0.8$ and both frames have ≥ 3 words. Opposite polarity on the same frame is $P \wedge \neg P$: an obstruction with the similarity as witness.</li></ul>
+
+<h2 id="math">6. Mathematics</h2>
+<h3>Cellular sheaves</h3>
+<p>A cellular sheaf $\mathcal F$ on a graph assigns a vector space (stalk) to each vertex and edge and a linear restriction map from each vertex to each incident edge. The coboundary $\delta^0: C^0\to C^1$ sends vertex values to their disagreement on each edge; global sections are $H^0=\ker\delta^0$, and $H^1=C^1/\operatorname{im}\delta^0$ measures edge data that no vertex assignment explains (Curry 2014; Hansen &amp; Ghrist 2019). The engine implements general sheaves with $\delta^0, \delta^1$, cohomology dimensions by rank (modified Gram–Schmidt with tolerance), and the sheaf Laplacian.</p>
+<h3>Hodge decomposition of relation data</h3>
+<p>For explicit relations the graph has one vertex per entity and one edge per stated difference $y_e$ (constant scalar sheaf). The edge cochain splits orthogonally as
+$$ y = \underbrace{\delta^0 x}_{\text{gradient}} + \underbrace{h}_{\text{harmonic}} + \underbrace{(\delta^1)^{\!\top} z}_{\text{curl}}, $$
+the decomposition used in HodgeRank (Jiang, Lim, Yao &amp; Ye 2011; Lim 2020). Without 2-cells the curl part is zero. If $\|h\|>10^{-6}$, the differences cannot come from any assignment of values to the entities: the stated relations are inconsistent around a cycle, and the edges with non-zero harmonic weight are reported. Example: east = west + 12, west = north + 5, east = north + 4 gives $\|h\| > 0$.</p>
+<h3>Simple temporal networks</h3>
+<p>Constraints $t_v - t_u \le c$ become arcs $u\to v$ of weight $c$; a set is satisfiable iff no cycle has negative total weight (Shostak 1981; Dechter, Meiri &amp; Pearl 1991). Strict inequalities use lexicographic weights $(c, -s)$, $s=1$ for strict, so a cycle of weight $(0,-k)$ with $k>0$ is also infeasible. Feasibility is decided by Bellman–Ford with cycle extraction; a feasible run yields a schedule (the reconstructed timeline). Karp's algorithm gives the minimum mean cycle weight $\mu^{*}$ (Karp 1978); the minimal uniform widening is $\varepsilon^{*} = \max(0,-\mu^{*})$. The MUS uses the deletion filter (Chinneck &amp; Dravnieks 1991): drop each constraint in turn and keep it only if the rest becomes feasible without it.</p>
+<p>Note on cycle bases: interval constraints cannot be checked cycle by cycle on a basis. A theta graph has feasible basis cycles and an infeasible combination, so the engine always searches the full constraint graph.</p>
+
+<h2 id="obs">7. Obstructions, classes and Γ</h2>
+<p>An <b>obstruction</b> (κ) is a minimal set of claims that cannot hold together, with its layer, kind (gluing residual, harmonic class, negative cycle, strict order cycle, polarity), magnitude and a human-readable witness. Its <b>class</b> depends on the modalities involved:</p>
+<div class="tbl"><table>
+<tr><th>class</th><th>when</th><th>meaning</th></tr>
+<tr><td>contradiction</td><td>all claims asserted</td><td>the text itself asserts things that cannot all be true</td></tr>
+<tr><td>inconsistent-testimony</td><td>all reported, same source</td><td>one source contradicts itself</td></tr>
+<tr><td>conflicting-accounts</td><td>reported by different sources, or mixed</td><td>sources disagree; the text relays the disagreement</td></tr>
+<tr><td>tension-with-hypothesis</td><td>a hypothetical claim is involved</td><td>a hypothesis conflicts with what is stated</td></tr>
+<tr><td>question</td><td>a question is involved</td><td>shown for completeness</td></tr>
+</table></div>
+<p>Pairwise linear or propositional conflicts that share claims are merged into one finding per connected group: $k$ sentences giving different values for one thing are one obstruction, not $k(k-1)/2$.</p>
+<p><b>Γ</b> per layer is binary: 1 if the layer has comparable asserted claims and none of them form a contradiction, 0 if at least one contradiction exists, N/A if nothing in that layer is comparable. The <b>agreement rate</b> shown beside it is the share of comparable pairs that glue; it is descriptive, not Γ.</p>
+
+<h2 id="psi">8. Ψ: epistemic closure</h2>
+<p>Ψ describes how conclusions are supported, from a <b>support graph</b>: an edge from sentence A to sentence B when B opens with an inference marker (therefore, thus, hence, consequently, this shows/means/proves, that is why, därför, alltså …) and A precedes it in the same paragraph. A sentence is <b>anchored</b> when it carries a link, DOI, numbered or author–year citation, “according to” + name, or a year.</p>
+<ul>
+<li><b>ground</b>: share of supported conclusions that no chain from an anchored sentence reaches (ungrounded reasoning).</li>
+<li><b>circ</b>: number of support cycles with no anchored member (circular reasoning).</li>
+<li><b>seal</b>: sentences that combine an evidence verb (is evidence, proves, confirms, shows) with absence, denial or suppression (no evidence, cover-up, deny, the official story …): self-sealing moves, where counter-evidence is read as confirmation.</li>
+<li><b>imp</b>: number of asserted contradictions (from the layers).</li>
+</ul>
+<div class="note">Ψ is a prototype. Its validation on conspiracy-theory text (the LOCO corpus, Miani, Hills &amp; Bangerter 2022) has not been done. Treat it as a description of argument structure.</div>
+
+<h2 id="insights">9. Insights</h2>
+<ul>
+<li><b>Entities</b>: capitalised names (multi-word names merged, sentence-initial and stop words excluded, “A and B” split); <b>concepts</b>: frequent content-word stems. Each lists mentions, claims and involvement in obstructions.</li>
+<li><b>Figures</b> and <b>timeline</b>: every numeric and dated claim, with modality and conflict status; order statements.</li>
+<li><b>Arguments</b>: premise → conclusion pairs from the support graph, ungrounded conclusions, self-sealing sentences, hedged statements.</li>
+<li><b>Who says what</b>: reported statements grouped by source.</li>
+<li><b>Possible tensions</b> (not obstructions): looser matches for a human to check: opposite polarity at $0.6\le J<0.8$; different values with the same unit at $0.4\le J<0.6$; non-overlapping dates for similar events at $0.4\le J<0.6$.</li>
+<li><b>Repeated and consistent</b>: comparable pairs that glue (for propositions, only if their digits are identical).</li>
+</ul>
+
+<h2 id="graph">10. The graph</h2>
+<p>A force-directed 2D graph (canvas, no external library). Hubs are the top 40 entities and 12–18 concepts; small nodes are claims. Links: mentions, co-occurrence, conflict (red), glue (green), shared event and support (arrows). Density: <i>conflicts</i> (only what is involved in obstructions), <i>map</i> (balanced), <i>full</i>. Pan by dragging the background, zoom with wheel, pinch or buttons, drag nodes, search by name. A tap selects a node when the finger moves less than 10 px (4 px with a mouse); the touch target is the drawn circle plus 16 px. Selecting a node shows it in the inspector and highlights its sentences.</p>
+
+<h2 id="args">11. Argument map (Ishikawa diagrams)</h2>
+<p>An Ishikawa or fishbone diagram (Ishikawa 1976) puts an effect at the head and its contributing causes on bones. Here the head is a <b>thesis</b> and the bones are what the thesis rests on. Each argument in the text gets its own diagram.</p>
+<h3>Choosing theses</h3>
+<p>Every eligible sentence (≥ 6 words, not a question, table row, licence or metadata line) gets a score: +3 per incoming support edge, +2.5 for a conclusion marker (in conclusion, therefore, thus, we argue, this paper shows …), +2 for a finding statement (we found, our results show …), +1 for a causal or general claim, +1 for the lead sentence, +0.5 for the closing sentence, −1.5 for a method description (we surveyed, recruited …), plus $1.5\times$ its <b>centrality</b> in its section (mean word-overlap with the other sentences of the section, normalised to the section maximum; cf. TextRank, Mihalcea &amp; Tarau 2004). In a text with several sections of five or more sentences, each section nominates its best sentence (score ≥ 1.2). Theses are then accepted greedily, highest score first, only if they differ from those already chosen ($J<0.25$) and neither is a premise of the other. At most one thesis per section (up to 8); in a text without sections at most one per five sentences (up to 6). You can change any thesis or start a new argument from any sentence.</p>
+<h3>Attaching sentences</h3>
+<p>A sentence whose support chain reaches a thesis joins that thesis (shortest chain). Otherwise it joins the thesis with the highest score $J + 0.15\,[\text{same section}] + 0.06/(1+d/8)$, where $d$ is the distance in sentences. With several theses a sentence scoring below 0.1 stays <b>unattached</b> and is listed under the diagram.</p>
+<h3>Bones and effects</h3>
+<div class="tbl"><table>
+<tr><th>bone</th><th>items</th><th>effect on the thesis</th></tr>
+<tr><td>Reasoning</td><td>premises on a support chain (direct, or n steps out); sentences with an in-sentence reason (because, since, due to); related claims sharing terms</td><td>+ supports (chains, reasons) · elaborates (related claims)</td></tr>
+<tr><td>Evidence</td><td>sentences with numeric, date or order claims or figures</td><td>+ supports; − if the figure conflicts with another sentence</td></tr>
+<tr><td>Sources</td><td>reported statements with a named source; citations</td><td>+ named; ~ unnamed (“experts”, “studies”)</td></tr>
+<tr><td>Assumptions</td><td>hedged or hypothetical statements; ungrounded intermediate conclusions</td><td>~ qualifies; − ungrounded</td></tr>
+<tr><td>Counterpoints</td><td>sentences in an obstruction; sentences opening with however, but, yet, although …</td><td>− weakens; ~ contrast</td></tr>
+<tr><td>Rhetoric</td><td>fallacy candidates; loaded or strongly valenced wording</td><td>∅ persuades without support</td></tr>
+</table></div>
+<p>A sentence can sit on several bones. The <b>detail pane</b> shows its full text and section, its role and effect, a sentence on how it contributes, the inference chain to the thesis step by step with the linking words, the words it shares with the thesis, conflicts, its extracted claims, signals from the other analyses, and verification links. For the thesis, the pane counts what is on each bone and names the structure:</p>
+<ul>
+<li><b>Contested</b>: the thesis itself is in an obstruction.</li>
+<li><b>Argued and evidenced</b>: linked premises plus figures or named sources.</li>
+<li><b>Argued without evidence</b>: linked premises, no figures or named sources.</li>
+<li><b>Evidenced but not argued</b>: figures or sources nearby, no inference marker linking them to the thesis.</li>
+<li><b>Supported by in-sentence reasons only</b>, or <b>Asserted</b>: nothing attached.</li>
+</ul>
+<p>Most prose uses few explicit inference markers between sentences, so in long texts most attachments come from shared words and section placement and appear as “elaborates”. The map shows how an argument is built, not whether it holds.</p>
+
+<h2 id="review">12. Review tools</h2>
+<h3>Fact-check</h3>
+<p>Each sentence gets a check-worthiness score (in the spirit of ClaimBuster, Hassan et al. 2017, but a transparent hand-set score, not a trained model): quantity +2, date +1, named entity +1, superlative or comparison +1.5, causal claim +1, statistic word +0.5, attributed +1, vague attribution +2, long quotation +0.5, internal conflict +2, arithmetic mismatch +2; opinion −1.5, hypothesis or question −1. Sentences scoring ≥ 2.5 are listed (top 40) with what would settle them (the primary dataset for the same population, unit and period; a contemporaneous record of a date; the original statement in context; the identity of unnamed experts; the full comparison set behind a superlative; a design able to show causation) and search links (Google Fact Check Explorer, Google Scholar, Wikipedia, web).</p>
+<p><b>Arithmetic</b> is recomputed exactly: “from A to B, an increase of C%” (relative change, with notes when C equals the absolute or percentage-point difference or the change relative to the end value), percentage points, “doubled/tripled/halved” (±10%), “X of Y (Z%)” and shares above 100% of a population.</p>
+<h3>Paper review</h3>
+<ul>
+<li><b>Recomputed tests</b> (after statcheck, Nuijten et al. 2016): APA-style $t(df)$, $F(df_1,df_2)$, $\chi^2(df)$, $r(df)$ and $z$ with a reported p. The p-value is recomputed from the regularised incomplete beta and gamma functions (two-tailed for t, r and z) over the rounding interval of the reported statistic. A result is <i>inconsistent</i> if no value in that interval reproduces the reported p at its precision, a <i>decision error</i> if the inconsistency crosses .05, and <i>consistent (one-tailed)</i> if it matches when halved and a one-tailed test is stated nearby.</li>
+<li><b>GRIM</b> (Brown &amp; Heathers 2017): for a mean M reported to d decimals with sample size n in the same sentence, is there an integer total whose mean rounds to M? Not testable when $n\ge 10^d$. Valid only for single-item integer data.</li>
+<li><b>p-value profile</b>: exact versus thresholded reporting; share of significant exact p in (.04, .05] (a pattern worth checking, cf. Head et al. 2015); ten or more p-values with no multiple-comparison correction mentioned.</li>
+<li><b>Checklist</b>: sections (abstract, methods, results, discussion, limitations, references) and statements (preregistration or trial registration, data availability, code availability, ethics approval, conflicts of interest, funding, power analysis, effect sizes, confidence intervals, blinding); design signals (RCT, experiment, quasi-experiment, cohort, case-control, cross-sectional/survey, correlational, meta-analysis, qualitative, simulation, case report, preprint).</li>
+<li><b>Causal language in a non-experimental design</b>: causes, leads to, results in, improves, reduces … without may/might/associated, when only observational design signals are present. <b>Overclaiming</b>: proves, conclusively, breakthrough, paradigm shift, for the first time, unprecedented …</li>
+<li><b>References</b>: entries, median and range of years, entries older than ten years, entries with a DOI. <b>DOI check</b> (on request): each DOI is looked up in Crossref; the table shows whether it resolves, the registered title and journal, the share of its title words that appear within 400 characters before the DOI in your text (a low share can mean a mismatched or invented citation, or a format without titles), and any update notices (retraction, correction, expression of concern) Crossref lists. DataCite DOIs (Zenodo, figshare) are not in Crossref.</li>
+</ul>
+<h3>Sources</h3>
+<p>Links by domain type (scholarly, government and intergovernmental, reference, news, social/video, blog/self-published, archive, link shortener, other), DOIs, arXiv identifiers, ISBNs, in-text citations, references per 1,000 words, share of https links, and attribution: reported statements with a named source versus vague attributions (“experts say”, “studies show”, “sources said”). Outlets are categorised, never rated.</p>
+<h3>Sentiment</h3>
+<p>A line-by-line JavaScript port of VADER 3.3.2 (Hutto &amp; Gilbert 2014; MIT licence; 7,506-entry lexicon), scored per sentence: lexicon valence, boosters and dampeners, negation within three words, “but” shifts, capitalisation and punctuation emphasis, normalised compound $s/\sqrt{s^2+15}$. Thresholds ±0.05. Shown: mean, counts, the sentiment arc, the most negative and positive sentences, the words driving the score, and the mean tone of sentences mentioning each entity. VADER was built for short social-media text; on long prose, read the arc and the extremes.</p>
+<h3>Loaded words and framing</h3>
+<p>Loaded or pejorative terms (a curated list: regime, elites, so-called, propaganda, hoax, slams …), VADER words with $|v|\ge 2.5$, and absolutes (always, never, everyone …), per 1,000 words. <b>Framing vocabulary</b>: curated lists of terms conventionally associated with left- or right-leaning usage in English (mainly US/UK) discourse, following the phrase-frequency approach of Gentzkow &amp; Shapiro (2010). The gauge is $(R-L)/(R+L)$, shown only with three or more hits. It describes vocabulary, not the author's politics: quoting or criticising a term counts the same.</p>
+<h3>Stance</h3>
+<p>Metadiscourse markers after Hyland (2005), per 1,000 words: hedges, boosters, attitude markers, must/should; certainty $(B-H)/(B+H)$; self-mention, in-group (we/us/our), out-group (they/them/their) and reader address (you/your); us-versus-them $(we-they)/(we+they)$; imperatives, questions, future and past markers.</p>
+<h3>Fallacies and rhetorical devices</h3>
+<p>Fallacy candidates by cue phrase: ad hominem, whataboutism/tu quoque, bandwagon, unnamed authority, false dilemma, slippery slope, sweeping generalisation, post hoc, appeal to fear, appeal to nature, appeal to tradition, appeal to ignorance, loaded question, straw man cues, anecdotal evidence; plus two structural detectors from the support graph: circular reasoning (Ψ circ) and self-sealing (Ψ seal). Devices: hypophora, rhetorical questions, anaphora (three or more sentences, or the same three opening words), epistrophe (same last two words), antithesis (“not X but Y”, excluding “not only … but also”), parallel tricolon, epizeuxis, chiasmus (A … B in one clause, B … A in the next), alliteration (three adjacent words of four or more letters with the same initial consonant), hyperbole, scare quotes (after so-called, or their/these + an evaluative noun). All are candidates with their evidence.</p>
+<h3>Logos, ethos, pathos</h3>
+<p>Marker counts per 1,000 words. Logos: quantities and dates, measurement terms, citations, grounded support edges (not ending in an ungrounded or self-sealing sentence), half-weight inferential connectives. Ethos: credentials and trust terms, named attribution, half-weight hedges. Pathos: loaded and strongly valenced words, fear, anger, hope and sadness terms, exclamation marks, half-weight second-person address. A proxy, not a validated measure.</p>
+
+<h2 id="validation">13. Validation</h2>
+<p>The v2 engine was tested with the perturbation protocol preregistered for the v1 audit (seed 201; <a href="https://github.com/Khrug/draken.info/tree/main/docs/sheaf-analyzer-v2">docs/sheaf-analyzer-v2</a>), on the 88 English Draken posts. A perturbation is detected when an obstruction involves the injected sentence. Current results (after the sentence-splitter fix of 10 October 2026):</p>
+<div class="tbl"><table>
+<tr><th>test</th><th>v2</th><th>word-overlap baseline</th><th>v1</th></tr>
+<tr><td>NEG: a negated copy of a sentence is inserted</td><td>83.0% (73/88)</td><td>76.1%</td><td>≈ 0%</td></tr>
+<tr><td>NUM: a copy with every number +7 is inserted (sentences carrying an extracted quantity or date)</td><td>48.1% (13/27); 65.5% (19/29) before the fix, on a different random sample; on identical perturbations 23 of 32 after the fix vs 24 before</td><td>92.6%</td><td>0%</td></tr>
+<tr><td>False alarms: contradictions in the unmodified posts</td><td>0 of 88 posts</td><td>32 of 88</td><td>—</td></tr>
+<tr><td>DUP control: an exact copy is inserted</td><td>0 / 88 flagged</td><td>32 / 88</td><td>—</td></tr>
+<tr><td>TOPIC: 25% of sentences replaced from another post; Γ must not rise</td><td>rose in 0 / 88</td><td>—</td><td>rose</td></tr>
+<tr><td>SHUFFLE (paragraph order) and SEGMENT (line-final full stops removed): obstruction set unchanged</td><td>88 / 88 and 88 / 88</td><td>—</td><td>—</td></tr>
+</table></div>
+<p>Most NUM misses are numbers the engine deliberately treats as identifiers (layer, step and DRK numbers, citation years); the baseline's higher rate comes with 32 false alarms in 88 unmodified posts. Other checks: the mathematics test suite (Hodge generators, twisted sheaves, partial holonomy, the theta graph, strict cycles, a temporal fixture with a −854-day cycle, its minimal unsatisfiable subsets, Karp's −213.5 and the corresponding ε*); VADER parity with the reference Python package on 19,748 sentences (identical scores; nine sentences with emoji symbols skipped, since the port omits emoji-to-text); the t, F, χ² and z distribution functions against SciPy on 134 cases (maximum relative error $2\times10^{-12}$); fixtures for statcheck, GRIM, arithmetic, fallacies, devices, framing, sources and argument maps. On the 90-post corpus the fallacy detectors raise 9 candidates in total.</p>
+
+<h2 id="limits">14. Limitations</h2>
+<ul>
+<li>Rule-based extraction: it misses claims phrased indirectly, and it compares only claims whose wording overlaps strongly. Paraphrases with different words are not compared. Coreference (“he”, “the company”) is not resolved.</li>
+<li>English is the main language; Swedish negations, reporting verbs, months and stopwords are covered for the consistency layers. The review tools are English only.</li>
+<li>Γ and the obstructions concern internal consistency. They do not check facts against the world.</li>
+<li>The fallacy, device, framing, stance, loaded-word and appeal detectors are curated cue lists, not trained or validated against annotated data. They show candidates with evidence.</li>
+<li>Sentiment uses a lexicon tuned for social media.</li>
+<li>Paper review sees only the text you provide; a missing statement may be on a page you did not paste.</li>
+<li>PDF extraction depends on the PDF's text layer and layout; scanned documents need OCR.</li>
+</ul>
+
+<h2 id="privacy">15. Privacy and network use</h2>
+<p>All analysis runs in your browser. Pasted text and uploaded files are not sent anywhere. Network requests happen only for: the page itself; the sentiment lexicon (<span class="mono">/data/vader-lexicon.json</span>) and, when you open a PDF, the pdf.js library (<span class="mono">/vendor/</span>), both from this site; the corpus list when you use corpus mode; <span class="mono">r.jina.ai</span> (the URL you enter) when you press Fetch URL; <span class="mono">api.crossref.org</span> (the DOIs only) when you press the DOI check; and the external search pages you choose to open.</p>
+
+<h2 id="exports">16. Exports</h2>
+<ul>
+<li><b>Markdown report</b>: Γ, obstructions with quotes, highlights, review flags, sentiment, framing, stance, appeals, fallacy candidates, the fact-check list and every argument map with its items and how they contribute. Written to paste into a Claude or Draken session.</li>
+<li><b>Deep JSON</b>: the full result, including claims, comparisons, Ψ, timeline, Hodge data, insights, review output and Crossref results.</li>
+<li><b>Flat JSON</b>: claims and comparisons only.</li>
+<li><b>Fact-check checklist</b>: copy button in the Fact-check tab.</li>
+</ul>
+<p>Source code, tests and the v1 audit are in the <a href="https://github.com/Khrug/draken.info">draken.info repository</a> under <span class="mono">scripts/sheaf-analyzer-v2/</span> and <span class="mono">docs/sheaf-analyzer-v2/</span>. Run <span class="mono">test-math.js</span>, <span class="mono">test-protocol.js</span>, <span class="mono">test-sentiment.js</span>, <span class="mono">test-stats.js</span> and <span class="mono">test-review.js</span> with Node.</p>
+
+<h2 id="refs">17. References</h2>
+<ol class="refs">
+<li>Brown, N. J. L., &amp; Heathers, J. A. J. (2017). The GRIM test: A simple technique detects numerous anomalies in the reporting of results in psychology. <i>Social Psychological and Personality Science</i>, 8(4), 363–369.</li>
+<li>Chinneck, J. W., &amp; Dravnieks, E. W. (1991). Locating minimal infeasible constraint sets in linear programs. <i>ORSA Journal on Computing</i>, 3(2), 157–168.</li>
+<li>Curry, J. (2014). <i>Sheaves, cosheaves and applications</i> (Doctoral dissertation). University of Pennsylvania.</li>
+<li>Dechter, R., Meiri, I., &amp; Pearl, J. (1991). Temporal constraint networks. <i>Artificial Intelligence</i>, 49, 61–95.</li>
+<li>Gentzkow, M., &amp; Shapiro, J. M. (2010). What drives media slant? Evidence from U.S. daily newspapers. <i>Econometrica</i>, 78(1), 35–71.</li>
+<li>Hansen, J., &amp; Ghrist, R. (2019). Toward a spectral theory of cellular sheaves. <i>Journal of Applied and Computational Topology</i>, 3, 315–358.</li>
+<li>Hassan, N., Arslan, F., Li, C., &amp; Tremayne, M. (2017). Toward automated fact-checking: Detecting check-worthy factual claims by ClaimBuster. <i>Proceedings of KDD 2017</i>, 1803–1812.</li>
+<li>Head, M. L., Holman, L., Lanfear, R., Kahn, A. T., &amp; Jennions, M. D. (2015). The extent and consequences of p-hacking in science. <i>PLoS Biology</i>, 13(3), e1002106.</li>
+<li>Hutto, C. J., &amp; Gilbert, E. (2014). VADER: A parsimonious rule-based model for sentiment analysis of social media text. <i>Proceedings of ICWSM-14</i>.</li>
+<li>Hyland, K. (2005). <i>Metadiscourse: Exploring interaction in writing</i>. Continuum.</li>
+<li>Ishikawa, K. (1976). <i>Guide to quality control</i>. Asian Productivity Organization.</li>
+<li>Jiang, X., Lim, L.-H., Yao, Y., &amp; Ye, Y. (2011). Statistical ranking and combinatorial Hodge theory. <i>Mathematical Programming</i>, 127, 203–244.</li>
+<li>Karp, R. M. (1978). A characterization of the minimum cycle mean in a digraph. <i>Discrete Mathematics</i>, 23(3), 309–311.</li>
+<li>Lim, L.-H. (2020). Hodge Laplacians on graphs. <i>SIAM Review</i>, 62(3), 685–715.</li>
+<li>Miani, A., Hills, T., &amp; Bangerter, A. (2022). LOCO: The 88-million-word language of conspiracy corpus. <i>Behavior Research Methods</i>, 54, 1794–1817.</li>
+<li>Mihalcea, R., &amp; Tarau, P. (2004). TextRank: Bringing order into texts. <i>Proceedings of EMNLP 2004</i>, 404–411.</li>
+<li>Nuijten, M. B., Hartgerink, C. H. J., van Assen, M. A. L. M., Epskamp, S., &amp; Wicherts, J. M. (2016). The prevalence of statistical reporting errors in psychology (1985–2013). <i>Behavior Research Methods</i>, 48(4), 1205–1226.</li>
+<li>Shostak, R. (1981). Deciding linear inequalities by computing loop residues. <i>Journal of the ACM</i>, 28(4), 769–779.</li>
+</ol>
+<p class="sub">Third-party code: VADER lexicon (MIT, C. J. Hutto; licence at <a href="/data/vader-LICENSE.txt">/data/vader-LICENSE.txt</a>); pdf.js 4.10.38 (Apache-2.0, Mozilla; licence at <a href="/vendor/pdfjs-4.10.38/LICENSE">/vendor/pdfjs-4.10.38/LICENSE</a>).</p>
+<div class="back"><a href="/sheaf-analyzer/">← Back to the Sheaf Analyzer</a></div>
+</div>
