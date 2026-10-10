@@ -21,9 +21,11 @@ node scripts/sheaf-analyzer-v2/test-review.js    # fixtures for rhetoric, fact-c
 | `engine-rhetoric.js` | loaded language, political framing vocabulary, sources/links by domain type, stance after Hyland (2005), fallacy candidates, rhetorical devices, logos/ethos/pathos marker rates, Ishikawa reasoning map |
 | `engine-stats.js` | t, F, χ², r, z p-values (incomplete beta/gamma); statcheck-style recomputation (Nuijten et al. 2016); GRIM (Brown & Heathers 2017); p-value profile; prose arithmetic (percent changes, percentage points, shares, multiples) |
 | `engine-review.js` | fact-check ranking with "what would settle it" and search links; paper-review checklist (design, n, effect sizes, CIs, power, preregistration, data/code, ethics, COI, funding, limitations, causal language in observational designs, overclaiming, reference ages); optional Crossref DOI lookup in the browser |
-| `ui-review.js` | Review card: tabs, fishbone SVG (wide and phone layouts), sentiment arc, exports |
+| `engine-argument.js` | argument maps: thesis selection (markers, inference links, section centrality), assignment of sentences to theses, bone, effect (+ · ~ − ∅), inference chain, shared terms and a contribution sentence per item, structural tally per thesis |
+| `ui-review.js` | Review card: tabs, sentiment arc, exports |
+| `ui-argument.js` | Argument map card: one Ishikawa diagram per argument (wide and phone layouts, "+N more" per bone), detail pane, thesis switching, new argument from any sentence |
 | `engine-topic.js` | descriptive 18-layer keyword tagging (v1 lexicon; not part of the mathematics) |
-| `samples.js`, `ui.js`, `ui-explore.js`, `ui-review.js`, `page-markup.html`, `v1-style.css` | page |
+| `samples.js`, `ui.js`, `ui-explore.js`, `ui-review.js`, `ui-argument.js`, `page-markup.html`, `v1-style.css` | page |
 
 Γ is binary per layer (asserted claims glue or not; N/A if nothing comparable). Reported speech is never treated as fact.
 Ψ is a prototype: validation on the LOCO corpus (Miani, Hills & Bangerter 2021) is pending.
