@@ -84,6 +84,7 @@
 .sa-src-pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .sa-src-pick button{background:#0b120b;border:1px solid #1a2c1a;color:#6b8a6b;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace}
 .sa-src-pick button:hover{border-color:#4ade80;color:#c8d8c8}
+.sa-arc{cursor:crosshair}.sa-arc-info{background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:10px 12px;margin-top:8px}.sa-arc-info .q{font-family:'Crimson Pro',Georgia,serif;font-size:15px;color:#e4f0e4;border-left:2px solid #7dd3fc;padding:4px 10px;margin:6px 0;line-height:1.5}.sa-arc-info .w{font-size:11px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:4px 0;line-height:1.5}.sa-arc-head{font-size:12px;color:#c8d8c8;font-family:'JetBrains Mono',monospace}.sa-arc-head b{font-size:15px}.sa-arc-nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .sa-upload-status{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px;line-height:1.5}.sa-upload-status.err{color:#ef4444}.sa-ta.drop{border-color:#4ade80!important;background:#4ade8010}
 .am-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.am-ctl select{max-width:100%;flex:1 1 260px;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:7px;font-size:12px;font-family:inherit}
 .am-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:#6b8a6b}.am-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
@@ -2848,14 +2849,56 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
     if (v == null) return '<div class="sa-gauge na">insufficient signal</div>';
     var x = 50 + 50 * v; return '<div class="sa-gauge"><span class="ends">' + esc(left) + '</span><span class="track"><i style="left:' + x + '%"></i></span><span class="ends">' + esc(right) + '</span><span class="val">' + (v > 0 ? '+' : '') + v.toFixed(2) + '</span></div>';
   }
+  // Sentiment arc. Up to 400 sentences: one dot each. Longer texts: per-pixel-column bands (min–max range,
+  // coloured by the column mean) plus a rolling mean, so 20,000 sentences draw as ~1,000 elements.
+  // Tap or click anywhere on the chart: the nearest sentence is selected and shown in the box below.
   function arcSvg(arc, width) {
     if (!arc || !arc.length) return '';
-    var w = Math.max(280, (width || 1000) - 18), h = 120, n = arc.length, dx = n > 1 ? w / (n - 1) : 0, y = function (c) { return h / 2 - c * (h / 2 - 8); };
-    var pts = arc.map(function (a, i) { return [i * dx, y(a.c)]; });
-    var path = pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ');
-    var dots = arc.map(function (a, i) { var col = a.c >= 0.05 ? '#4ade80' : a.c <= -0.05 ? '#ef4444' : '#6b8a6b'; return '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="' + (n > 200 ? 2 : n > 60 ? 3 : 4.5) + '" fill="' + col + '" data-unit="' + a.unit + '"><title>' + a.c + '</title></circle>'; }).join('');
-    return '<svg class="sa-arc" viewBox="-8 0 ' + (w + 16) + ' ' + h + '" preserveAspectRatio="xMidYMid meet"><line x1="0" x2="' + w + '" y1="' + h / 2 + '" y2="' + h / 2 + '" stroke="#1a2c1a" stroke-dasharray="4 4"/><path d="' + path + '" fill="none" stroke="#3a5a3a" stroke-width="1.5" vector-effect="non-scaling-stroke"/>' + dots + '</svg>'
-      + '<div class="sa-axis"><span>start</span><span>sentence order · tap a point</span><span>end</span></div>';
+    var w = Math.max(280, (width || 1000) - 18), h = 130, n = arc.length, dx = n > 1 ? w / (n - 1) : 0, y = function (c) { return h / 2 - c * (h / 2 - 8); };
+    var col = function (c) { return c >= 0.05 ? '#4ade80' : c <= -0.05 ? '#ef4444' : '#6b8a6b'; }, body = '';
+    if (n <= 400) {
+      var pts = arc.map(function (a, i) { return [i * dx, y(a.c)]; });
+      body = '<path d="' + pts.map(function (p, i) { return (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' ') + '" fill="none" stroke="#3a5a3a" stroke-width="1.5"/>'
+        + arc.map(function (a, i) { return '<circle cx="' + pts[i][0].toFixed(1) + '" cy="' + pts[i][1].toFixed(1) + '" r="' + (n > 150 ? 2.5 : n > 60 ? 3.2 : 4.5) + '" fill="' + col(a.c) + '"/>'; }).join('');
+    } else {
+      var cols = Math.min(Math.floor(w / 2), n), per = n / cols, win = Math.max(5, Math.round(n / 80)), cum = [0];
+      arc.forEach(function (a, i) { cum.push(cum[i] + a.c); });
+      for (var k = 0; k < cols; k++) { var a0 = Math.floor(k * per), a1 = Math.max(a0 + 1, Math.floor((k + 1) * per)), mn = 1, mx = -1, sm = 0;
+        for (var q = a0; q < a1; q++) { var c = arc[q].c; if (c < mn) mn = c; if (c > mx) mx = c; sm += c; }
+        var x = (k + 0.5) * w / cols; body += '<line x1="' + x.toFixed(1) + '" x2="' + x.toFixed(1) + '" y1="' + y(mx).toFixed(1) + '" y2="' + (y(mn) + 0.5).toFixed(1) + '" stroke="' + col(sm / (a1 - a0)) + '" stroke-opacity=".55" stroke-width="' + Math.max(1, w / cols * 0.8).toFixed(1) + '"/>'; }
+      var line = []; for (var k2 = 0; k2 < cols; k2++) { var c0 = Math.floor((k2 + 0.5) * per), lo = Math.max(0, c0 - win), hi = Math.min(n, c0 + win + 1); line.push(((k2 + 0.5) * w / cols).toFixed(1) + ' ' + y((cum[hi] - cum[lo]) / (hi - lo)).toFixed(1)); }
+      body += '<path d="M' + line.join(' L') + '" fill="none" stroke="#e4f0e4" stroke-width="1.6"/>';
+    }
+    var sel = U.arcSel != null && U.arcSel < n ? U.arcSel : null, mark = sel != null ? '<line x1="' + (sel * dx).toFixed(1) + '" x2="' + (sel * dx).toFixed(1) + '" y1="2" y2="' + (h - 2) + '" stroke="#7dd3fc" stroke-width="1.5"/><circle cx="' + (sel * dx).toFixed(1) + '" cy="' + y(arc[sel].c).toFixed(1) + '" r="6" fill="none" stroke="#7dd3fc" stroke-width="2"/>' : '';
+    return '<svg class="sa-arc" id="sa-arc" data-w="' + w + '" viewBox="-8 0 ' + (w + 16) + ' ' + h + '" preserveAspectRatio="xMidYMid meet"><line x1="0" x2="' + w + '" y1="' + h / 2 + '" y2="' + h / 2 + '" stroke="#1a2c1a" stroke-dasharray="4 4"/>' + body + mark + '<rect x="-8" y="0" width="' + (w + 16) + '" height="' + h + '" fill="transparent"/></svg>'
+      + '<div class="sa-axis"><span>start</span><span>end</span></div><div class="sa-method" style="text-align:center;margin-top:2px">' + (n > 400 ? 'bands: range per slice · white line: rolling mean · ' : '') + 'tap anywhere to read that sentence</div>'
+      + '<div id="sa-arc-info" class="sa-arc-info">' + arcInfo(arc, sel) + '</div>';
+  }
+  function arcInfo(arc, i) {
+    if (i == null) return '<div class="sa-method">No sentence selected. Tap the chart, or use the buttons below to step through the text.</div>' + arcNav();
+    var a = arc[i], R = U.last, u = R.units[+a.unit.slice(1)], t = u ? (u.cleanText || u.text) : '', v = S.vader.score(t) || { words: [] };
+    var c = a.c >= 0.05 ? '#4ade80' : a.c <= -0.05 ? '#ef4444' : '#8faf8f', label = a.c >= 0.05 ? 'positive' : a.c <= -0.05 ? 'negative' : 'neutral';
+    var where = []; if (u && u.source) where.push(String(u.source).replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, ''));
+    var hd = null; if (u) for (var k = +u.id.slice(1); k >= 0; k--) { var x = R.units[k]; if (x.heading && /^\s*#/.test(x.text) && (!u.source || x.source === u.source)) { hd = x.text.replace(/^#+\s*/, '').replace(/[*_`]/g, ''); break; } }
+    if (hd) where.push(hd);
+    var lo = Math.max(0, i - 25), hi = Math.min(arc.length, i + 26), loc = 0; for (var q = lo; q < hi; q++) loc += arc[q].c; loc /= (hi - lo);
+    return '<div class="sa-arc-head"><b style="color:' + c + '">' + (a.c > 0 ? '+' : '') + a.c.toFixed(3) + '</b> ' + label + ' · sentence ' + (i + 1).toLocaleString('en') + ' of ' + arc.length.toLocaleString('en') + (where.length ? ' · ' + esc(where.join(' › ')) : '') + '</div>'
+      + '<div class="q">' + esc(t) + '</div>'
+      + '<div class="w">positive ' + Math.round(a.pos * 100) + '% · negative ' + Math.round(a.neg * 100) + '% · neutral ' + Math.max(0, 100 - Math.round(a.pos * 100) - Math.round(a.neg * 100)) + '% of the scored words · surrounding ±25 sentences average ' + (loc > 0 ? '+' : '') + loc.toFixed(3) + '</div>'
+      + (v.words.length ? '<div class="w">words driving the score: ' + v.words.map(function (h) { return '<span style="color:' + (h.v > 0 ? '#86efac' : '#ffb4b4') + '">' + esc(h.w) + ' ' + (h.v > 0 ? '+' : '') + h.v.toFixed(2) + '</span>'; }).join(', ') + '</div>' : '<div class="w">no word in this sentence is in the VADER lexicon, so it scores 0.</div>')
+      + arcNav(true);
+  }
+  function arcNav(has) { return '<div class="sa-arc-nav"><button class="sa-btn sa-btn-sm" data-arcgo="prev">◀ previous</button><button class="sa-btn sa-btn-sm" data-arcgo="next">next ▶</button><button class="sa-btn sa-btn-sm" data-arcgo="neg">next negative ▼</button><button class="sa-btn sa-btn-sm" data-arcgo="pos">next positive ▲</button>' + (has ? '<button class="sa-btn sa-btn-sm" data-arcgo="text">show in text</button>' : '') + '</div>'; }
+  function bindArc() {
+    var svg = $('sa-arc'), SE = U.disc && U.disc.rhetoric.sentiment; if (!svg || !SE) return;
+    var arc = SE.arc, n = arc.length, w = +svg.dataset.w;
+    var pick = function (i) { U.arcSel = Math.max(0, Math.min(n - 1, i)); var box = svg.parentNode, keep = window.scrollY; var wrap = document.createElement('div'); wrap.innerHTML = arcSvg(arc, box.clientWidth);
+      var parts = Array.prototype.slice.call(wrap.childNodes); var axis = svg.nextElementSibling, hint = axis.nextElementSibling, info = $('sa-arc-info'); svg.replaceWith(parts[0]); axis.replaceWith(parts[1]); hint.replaceWith(parts[2]); info.replaceWith(parts[3]); window.scrollTo(0, keep); bindArc(); };
+    svg.addEventListener('click', function (e) { var r = svg.getBoundingClientRect(), vbx = (e.clientX - r.left) / r.width * (w + 16) - 8; pick(n > 1 ? Math.round(vbx / (w / (n - 1))) : 0); });
+    document.querySelectorAll('[data-arcgo]').forEach(function (b) { b.onclick = function () { var i = U.arcSel == null ? -1 : U.arcSel, g = b.dataset.arcgo, k;
+      if (g === 'prev') pick(Math.max(0, i - 1)); else if (g === 'next') pick(i + 1);
+      else if (g === 'neg' || g === 'pos') { for (k = i + 1; k < n; k++) if (g === 'neg' ? arc[k].c <= -0.05 : arc[k].c >= 0.05) break; if (k < n) pick(k); }
+      else if (g === 'text' && U.arcSel != null) { var id = arc[U.arcSel].unit; U.selectUnit(id); var el = $('txt-' + id); if (el) el.scrollIntoView({ block: 'center', behavior: 'smooth' }); else b.textContent = 'not in the text view (corpus mode shows only sentences in conflicts)'; } }; });
   }
   function pHist(values) {
     var ex = values.filter(function (p) { return p.cmp === '=' && p.v <= 0.1; }); if (ex.length < 3) return '';
@@ -2964,6 +3007,7 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
     el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id); }); });
     var cp = $('sa-fc-copy'); if (cp) cp.onclick = function () { var t = U.factcheckMarkdown(); if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { cp.textContent = '✓ Copied'; }); };
     var cr = $('sa-cr-run'); if (cr) cr.onclick = U.runCrossref;
+    bindArc();
   };
   U.unitText = function (id) { var u = U.last && U.last.units[+String(id).slice(1)]; return u ? (u.cleanText || u.text) : ''; };
 
@@ -3021,7 +3065,7 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
     catch (e) { $('sa-review').innerHTML = empty('Review failed: ' + esc(e.message)); if (window.console) console.error(e); }
   };
   var baseReset = U.reset;
-  U.reset = function () { baseReset(); U.disc = null; U.crossref = null; var r = $('sa-review'); if (r) r.innerHTML = empty('Run an analysis.'); };
+  U.reset = function () { baseReset(); U.arcSel = null; U.disc = null; U.crossref = null; var r = $('sa-review'); if (r) r.innerHTML = empty('Run an analysis.'); };
   var baseInit = U.init;
   U.init = function () { baseInit(); if (S.vader) S.vader.load();  };
 })(SA2);
