@@ -65,23 +65,37 @@
       var tc = await (await pdf.getPage(p)).getTextContent(), lines = [], cur = null;
       tc.items.forEach(function (it) {
         if (!('str' in it)) return;
-        var y = it.transform[5], h = Math.abs(it.transform[3]) || it.height || 10;
-        if (!cur || Math.abs(y - cur.y) > h * 0.5) { cur = { y: y, h: h, s: '' }; lines.push(cur); }
-        cur.s += (cur.s && !/\s$/.test(cur.s) && it.str && !/^\s/.test(it.str) && it.transform[4] > (cur.xEnd || 0) + h * 0.15 ? ' ' : '') + it.str;
-        cur.xEnd = it.transform[4] + (it.width || 0);
+        var y = it.transform[5], x = it.transform[4], h = Math.abs(it.transform[3]) || it.height || 10;
+        if (!cur || Math.abs(y - cur.y) > h * 0.5) { cur = { y: y, h: 0, s: '', cells: [] }; lines.push(cur); }
+        var gapX = cur.cells.length ? x - cur.xEnd : 0;
+        cur.s += (cur.s && !/\s$/.test(cur.s) && it.str && !/^\s/.test(it.str) && gapX > h * 0.15 ? ' ' : '') + it.str;
+        if (it.str.trim()) { if (!cur.cells.length || gapX > h * 1.8) cur.cells.push(it.str); else cur.cells[cur.cells.length - 1] += (gapX > h * 0.15 ? ' ' : '') + it.str; cur.h = Math.max(cur.h, h); }
+        cur.xEnd = x + (it.width || 0);
       });
       lines = lines.filter(function (l) { return l.s.trim(); });
       // paragraph breaks where the vertical gap is clearly larger than the usual line spacing
       var gaps = []; for (var i = 1; i < lines.length; i++) gaps.push(Math.abs(lines[i - 1].y - lines[i].y));
       var med = gaps.slice().sort(function (a, b) { return a - b; })[Math.floor(gaps.length / 4)] || 12, txt = '';   // lower quartile ≈ normal line spacing
+      var hs = lines.map(function (l) { return l.h; }).sort(function (a, b) { return a - b; }), medH = hs[Math.floor(hs.length / 2)] || 10;
       lines.forEach(function (l, i) {
-        var s = l.s.replace(/\s+/g, ' ').trim();
-        if (i === 0) { txt = s; return; }
+        var s = l.s.replace(/\s+/g, ' ').trim(), words = s.split(' ').length, gapBefore = i ? Math.abs(lines[i - 1].y - l.y) : 99;
+        // table rows: three or more cells separated by wide horizontal gaps → Markdown table row (not a claim)
+        if (l.cells.length >= 3) { txt += (i ? (/\|\s*$/.test(txt) ? '\n' : '\n\n') : '') + '| ' + l.cells.map(function (c) { return c.replace(/\s+/g, ' ').trim(); }).join(' | ') + ' |'; return; }
+        // headings: larger type, or a short numbered line set off from the text, without a sentence end
+        var num = s.match(/^(\d+(?:\.\d+)*)\.?\s+[A-ZÅÄÖ]/), big = l.h >= medH * 1.15;
+        var mathy = /[=≈≤≥∑∫∂∈∉⊂→↔‖◆•–—·]|[\u{1D400}-\u{1D7FF}]/u.test(s) || /^[^A-ZÅÄÖ0-9]/.test(s);
+        if (words <= 14 && !mathy && /[A-Za-zÀ-ÿ]{3}/.test(s) && !/[.!?]\s/.test(s) && !/[.!?,;:]["”’)]?$/.test(s) && gapBefore > med * 1.1 && (big || (num && words <= 12))) {
+          var lvl = num ? Math.min(4, num[1].split('.').length + 1) : (l.h >= medH * 1.6 ? 1 : l.h >= medH * 1.3 ? 2 : 3);
+          txt += (i ? '\n\n' : '') + new Array(lvl + 1).join('#') + ' ' + s + '\n\n'; return;
+        }
+        if (i === 0 || /\n\n$/.test(txt)) { txt += s; return; }
+        if (/\|\s*$/.test(txt)) { txt += '\n\n' + s; return; }
         var gap = Math.abs(lines[i - 1].y - l.y), brk = gap > med * 1.45 || /[.!?:]["”’)]?$/.test(txt) && /^[A-ZÅÄÖ0-9•\-–(]/.test(s) && gap > med * 1.15;
         if (brk) txt += '\n\n' + s;
         else if (/[A-Za-zÀ-ÿ]-$/.test(txt) && /^[a-zà-ÿ]/.test(s)) txt = txt.slice(0, -1) + s;   // re-join hyphenated words
         else txt += ' ' + s;
       });
+      txt = txt.replace(/\n{3,}/g, '\n\n').trim();
       pages.push(txt);
     }
     // drop running headers/footers: a short line repeated on most pages
@@ -89,7 +103,11 @@
     var common = function (arr) { var c = {}; arr.forEach(function (x) { var k = x.replace(/\d+/g, '#').trim(); if (k.length < 90) c[k] = (c[k] || 0) + 1; }); return Object.keys(c).filter(function (k) { return c[k] >= Math.max(3, pages.length * 0.6); }); };
     var drop = common(first).concat(common(last));
     pages = pages.map(function (t) { return t.split('\n\n').filter(function (b) { return drop.indexOf(b.replace(/\d+/g, '#').trim()) < 0; }).join('\n\n'); });
-    return { text: pages.join('\n\n'), pages: pdf.numPages };
+    // a sentence that runs over a page break continues on the next page
+    var out = pages[0] || '';
+    for (var pg = 1; pg < pages.length; pg++) { var nx = pages[pg]; if (!nx) continue;
+      if (out && /[A-Za-zÀ-ÿ,;]$/.test(out) && /^[a-zà-ÿ(]/.test(nx)) out += ' ' + nx; else if (out && /[A-Za-zÀ-ÿ]-$/.test(out) && /^[a-zà-ÿ]/.test(nx)) out = out.slice(0, -1) + nx; else out += '\n\n' + nx; }
+    return { text: out, pages: pdf.numPages };
   }
 
   // ── public: read any supported file ──

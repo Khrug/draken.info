@@ -26,7 +26,10 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     opt = opt || {};
     var all = R.units, byId = {}; all.forEach(function (u) { byId[u.id] = u; });
     // sections from headings; prose units
-    var sec = {}, s = 0, secName = { 0: '' }; all.forEach(function (u) { if (u.heading && /^\s*#{1,6}\s/.test(u.text)) { s++; secName[s] = u.text.replace(/^#+\s*/, '').replace(/[*_`]/g, ''); } sec[u.id] = s; });
+    var sec = {}, s = 0, secName = { 0: '' }, secPath = { 0: '' }, stack = [];
+    all.forEach(function (u) { var hm = u.heading && u.text.match(/^\s*(#{1,6})\s+(.*)$/);
+      if (hm) { s++; var lvl = hm[1].length, name = hm[2].replace(/[*_`]/g, '').trim(); stack = stack.filter(function (x) { return x.l < lvl; }); stack.push({ l: lvl, n: name }); secName[s] = name; secPath[s] = stack.map(function (x) { return x.n; }).join(' › '); }
+      sec[u.id] = s; });
     var units = all.filter(function (u) { return !u.heading && !u.refs && !u.boilerplate && W(u.text).length >= 3 && !/^\s*[<|\\]|\$\$/.test(u.text); });
     if (!units.length) return { maps: [], unattached: [], method: '' };
     var idx = {}; units.forEach(function (u, i) { idx[u.id] = i; });
@@ -52,21 +55,55 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       ids.forEach(function (a) { var t = 0; ids.forEach(function (b) { if (a !== b) t += jac(sets[a], sets[b]); }); raw[a] = ids.length > 1 ? t / (ids.length - 1) : 0; });
       var mx = Math.max.apply(null, ids.map(function (a) { return raw[a]; }).concat([1e-9])); ids.forEach(function (a) { cent[a] = raw[a] / mx; }); });
     var marker = {}; S.thesisCandidates(R, units, 400).forEach(function (c) { marker[c.unit] = c; });
+    // claim strength: what a thesis sentence looks like, independent of inference markers
+    var SEC_UP = /\b(abstract|summary|synopsis|core claim|central claim|main claim|the claim|thesis|argument|conclusions?|concluding|introduction|overview|key (?:findings|results|claims)|findings|results|discussion|implications|predictions?|hypothes[ie]s|principles?|in brief|tl;?dr)\b/i;
+    var SEC_DOWN = /\b(definitions?|notation|proofs?|lemma|appendix|appendices|references|bibliography|sources|notes|footnotes|tables?|figures?|errata|changelog|change log|version|fork|variants?|ledger|dictionary|glossary|index|acknowledg\w*|coding protocol|estimation|worked examples?|data|methods?|materials|supplementary|how to read|front matter|contents|metadata|licen[cs]e|citation)\b/i;
+    var LEAD = /^(?:the (?:central|main|core|key) (?:consequence|claim|result|point|thesis|finding|insight|prediction)|principle\s*[\d.]*|theorem\s*[\d.]*|claim\s*[\d.]*|thesis|hypothesis\s*[\d.]*|result|prediction\s*[\d.]*|conclusion|in short|in sum|in brief|the upshot)\b[:.,]?/i;
+    var GEN = /\b(every|always|never|only|all|no \w+ can|cannot|can never|must|necessarily|in general|any)\b/i;
+    var CLAIMVERB = /\b(predicts?|explains?|implies|entails|determines?|separates?|splits?|rises?|falls?|raises?|lowers?|increases?|decreases?|causes?|leads? to|turns?|makes?|is (?:not )?(?:a|an|the) \w+|are (?:not )?(?:the )?\w+|cannot|can be|depends? on|requires?|measures?)\b/i;
+    var MATHCH = /[=≈≤≥∑∫∂δ‖⊕⊗→←↔∈∉⊂∩∪⟨⟩√∞±×÷^_\\]|[\u{1D400}-\u{1D7FF}]/gu;
+    var BADSTART = /^(?:defined in|see|cf\.?|source|sources|table|fig\.?|figure|appendix|version|v\d|note|notes|e\.g\.|i\.e\.|hence\s+\S*[=≈])/i;
+    var claimStrength = function (u) {
+      var t = (u.cleanText || u.text).replace(/^[-*•\s]+/, ''), w = W(t).length, sc = 0, why = [];
+      var mathN = (t.match(MATHCH) || []).length, letters = (t.match(/[A-Za-zÀ-ÿ]/g) || []).length;
+      if (mathN >= 3 || (letters && mathN / letters > 0.05)) { sc -= 4; why.push('formula'); }
+      if (/^[a-z0-9)\]\-–—,;:.]/.test(t)) { sc -= 5; why.push('fragment'); }
+      if (w < 6) sc -= 3; else if (w < 8) sc -= 1; else if (w > 70) sc -= 1;
+      if (!/[.!?…]["”’)\]]*$/.test(t.trim())) { sc -= 2; }   // no sentence end: table cell, caption or heading residue
+      if (/^[^A-Za-zÀ-ÿ"“‘(•\-]/.test(t)) sc -= 2;
+      if (BADSTART.test(t)) sc -= 4;
+      if ((t.match(/\bDRK-\d+/g) || []).length >= 2 || (t.match(/\(/g) || []).length >= 3) sc -= 2;
+      if (/;\s/.test(t) && (t.match(/;/g) || []).length >= 2 && w < 30) sc -= 1.5;
+      if (LEAD.test(t)) { sc += 2; why.push('labelled claim'); }
+      var prev = all[+u.id.slice(1) - 1]; if (prev && !prev.heading && /^(?:the (?:central|main|core) \w+|principle|theorem|claim|thesis|result|prediction|conclusion)\s*[\d.]*[.:]?$/i.test((prev.cleanText || prev.text).trim())) { sc += 2; why.push('labelled claim'); }
+      if (GEN.test(t)) { sc += 1.2; why.push('general claim'); }
+      if (CLAIMVERB.test(t)) sc += 0.6;
+      var path = secPath[sec[u.id]] || '', near = secName[sec[u.id]] || '';
+      if (SEC_DOWN.test(near)) { sc -= 2.5; } else if (SEC_UP.test(path)) { sc += 2.5; why.push('in ' + near); }
+      if (/\b(may|might|perhaps|possibly)\b/i.test(t)) sc -= 0.5;
+      if (/^(?:it|this|that|these|those|they|such|he|she|its|their|here|there)\b/i.test(t) && !/^this (?:paper|thesis|monograph|article|essay|post|book|study|chapter|framework)\b/i.test(t)) sc -= 1.5;   // anaphoric openings lean on the previous sentence
+      return { sc: sc, why: why };
+    };
     var eligible = function (u) { var t = u.cleanText || u.text; return !u.nonclaim && W(t).length >= 6 && !/\?\s*$/.test(t) && !/^\s*[|*_>-]*\s*(?:released under|licen[cs]e|doi|orcid|cite as|keywords?)\b/i.test(t) && !/\|.*\|/.test(t); };
-    var cands = units.filter(eligible).map(function (u) { var m = marker[u.id], sc = (m ? m.score : 0) + 1.5 * (cent[u.id] || 0);
-      return { unit: u.id, score: Math.round(sc * 100) / 100, why: [m ? m.why : '', cent[u.id] > 0.85 ? 'central to its section' : ''].filter(Boolean).join(', ') || 'centrality', text: u.cleanText || u.text, sec: sec[u.id] }; })
+    var cands = units.filter(eligible).map(function (u) {
+      var m = marker[u.id], cs = claimStrength(u), mk = m ? m.score : 0;
+      if (cs.why.indexOf('formula') >= 0 || cs.why.indexOf('fragment') >= 0) mk = Math.min(mk, 1);   // an inference marker does not make a formula a thesis
+      var sc = mk + cs.sc + 1.0 * (cent[u.id] || 0);
+      var why = [m ? m.why : ''].concat(cs.why.filter(function (x) { return x !== 'formula' && x !== 'fragment'; }), [cent[u.id] > 0.85 ? 'central to its section' : '']).filter(Boolean).filter(function (x, i, A) { return A.indexOf(x) === i; }).join(', ');
+      return { unit: u.id, score: Math.round(sc * 100) / 100, why: why || 'centrality', text: u.cleanText || u.text, sec: sec[u.id] }; })
       .sort(function (a, b) { return b.score - a.score; });
     var nSec = Object.keys(bySec).filter(function (k) { return bySec[k].length >= 5; });
-    var maxK = opt.max || (nSec.length > 1 ? Math.min(8, nSec.length) : Math.max(1, Math.min(6, Math.floor(units.length / 5))));
+    var maxK = opt.max || (units.length > 300 ? 8 : nSec.length > 1 ? Math.min(6, nSec.length) : Math.max(1, Math.min(6, Math.floor(units.length / 5))));
     var theses = (opt.theses || []).filter(function (id) { return byId[id]; }).slice();
-    var distinct = function (id) { return !theses.some(function (t) { return jac(sets[t] || new Set(), sets[id]) >= 0.25 || pathTo(id, t) || pathTo(t, id); }); };
+    var perSec = {}, distinct = function (id) { return !theses.some(function (t) { return jac(sets[t] || new Set(), sets[id]) >= 0.25 || pathTo(id, t) || pathTo(t, id); }); };
     if (!theses.length) {
-      if (nSec.length > 1) { // one per substantial section, strongest sections first
-        var noms = nSec.map(function (k) { return cands.filter(function (c) { return String(c.sec) === k; })[0]; }).filter(Boolean).sort(function (a, b) { return b.score - a.score; });
-        noms.forEach(function (c) { if (theses.length < maxK && c.score >= 1.2 && distinct(c.unit)) theses.push(c.unit); });
-      }
-      cands.forEach(function (c) { if (theses.length < maxK && (theses.length ? c.score >= 2.5 : true) && distinct(c.unit)) theses.push(c.unit); });
-      if (!theses.length) theses.push(units[0].id);
+      // strongest claims first; at most two per section; extras need a clear claim score
+      cands.forEach(function (c) { if (theses.length >= maxK || (theses.length && c.score < 3) || (perSec[c.sec] || 0) >= 2 || !distinct(c.unit)) return; theses.push(c.unit); perSec[c.sec] = (perSec[c.sec] || 0) + 1; });
+      // then one per substantial section that has no thesis yet, if its best sentence is a reasonable claim
+      if (theses.length < maxK) Object.keys(bySec).filter(function (k) { return bySec[k].length >= 8 && !perSec[k] && !SEC_DOWN.test(secName[k] || ''); })
+        .map(function (k) { return cands.filter(function (c) { return String(c.sec) === k; })[0]; }).filter(function (c) { return c && c.score >= 1.5; })
+        .sort(function (a, b) { return b.score - a.score; }).forEach(function (c) { if (theses.length < maxK && distinct(c.unit)) { theses.push(c.unit); perSec[c.sec] = 1; } });
+      if (!theses.length) theses.push((cands[0] || { unit: units[0].id }).unit);
       theses.sort(function (a, b) { return idx[a] - idx[b]; });
     }
     var candOf = {}; cands.forEach(function (c) { candOf[c.unit] = c; });
@@ -165,7 +202,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
         shape: shape };
     });
     return { maps: maps, unattached: unattached, candidates: cands.slice(0, 12),
-      method: 'Theses: sentences with conclusion or finding markers, incoming inference links, or the highest centrality in their section (one per substantial section), kept only if distinct and not premises of one another (' + maps.length + ' found). Sentences join the thesis their inference chain reaches, else the one they share most words with in the same section; weakly related sentences stay unattached. Effects: + supports, · elaborates, ~ qualifies, − weakens, ∅ persuades without support. This maps structure, not truth.' };
+      method: 'Theses: sentences scored as claims (labelled claims and principles, general statements, claim verbs, sections such as Abstract, Core claim or Conclusion; formulas, fragments, cross-references and definition sections penalised), plus inference markers and section centrality; kept only if distinct, at most two per section, and not premises of one another (' + maps.length + ' found). Sentences join the thesis their inference chain reaches, else the one they share most words with in the same section; weakly related sentences stay unattached. Effects: + supports, · elaborates, ~ qualifies, − weakens, ∅ persuades without support. This maps structure, not truth.' };
   };
   var short = function (t, n) { t = String(t).replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
 })(SA2);
