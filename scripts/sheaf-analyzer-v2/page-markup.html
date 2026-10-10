@@ -23,7 +23,24 @@
 .sa-table{width:100%;border-collapse:collapse;font-size:11px;font-family:'JetBrains Mono',monospace}
 .sa-table td,.sa-table th{padding:3px 6px;border-bottom:1px dashed #1a2c1a;text-align:left}
 .sa-table th{color:#6b8a6b;font-weight:600}
-.sa-graph-overlay,.sa-graph-controls,.sa-graph-legend,.sa-zoom-pad,#sa-graph-empty{z-index:5}
+.sa-graph-overlay,.sa-zoom-pad,#sa-graph-empty{z-index:5}
+.sa-gbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.sa-seg{display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:#080c08}
+.sa-glegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:8px 2px 0}
+.sa-glegend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.sa-glegend .dot.ring{border:2px dashed;width:7px;height:7px}
+.sa-glegend .ln{display:inline-block;width:14px;height:3px;margin-right:5px;vertical-align:middle}
+.sa-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.sa-tab{padding:5px 10px;border:1px solid #1a2c1a;border-radius:5px;background:#080c08;color:#8faf8f;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer}
+.sa-tab.on{border-color:#4ade80;color:#4ade80;background:#4ade8014}
+.sa-tab .n{color:#6b8a6b;margin-left:4px}
+.sa-ins{font-size:13px;line-height:1.55;max-height:520px;overflow-y:auto}
+.sa-ins li{margin:4px 0}
+.sa-chipbtn{display:inline-block;font-size:11px;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:4px;background:#1a2c1a;color:#e4f0e4;margin:2px 4px 2px 0;cursor:pointer;border:1px solid transparent}
+.sa-chipbtn:hover{border-color:#4ade80}
+.sa-chipbtn.c{background:#0b120b;color:#a7c4a7;border:1px dashed #2a4a2a}
+.sa-row-click{cursor:pointer}.sa-row-click:hover td{background:#4ade800d}
+@media (max-width:640px){.sa-graph{height:440px!important}}
 </style>
 
 <div class="sa" id="sa-app">
@@ -111,6 +128,13 @@
     </div>
   </div>
 
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
+      <div class="sa-tabs" id="sa-tabs"></div>
+      <div class="sa-ins" id="sa-ins"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
+
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">
       <div class="sa-card">
@@ -126,26 +150,28 @@
 
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">
-      <div class="sa-graph" id="sa-graph">
-        <div id="sa-graph-canvas" style="position:absolute;inset:0"></div>
-        <div class="sa-graph-overlay" id="sa-graph-overlay">◆ claim complex — rotate: drag · zoom: scroll · select: click</div>
-        <div class="sa-graph-controls">
-          <div style="display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:rgba(8,12,8,0.85);margin-right:4px">
-            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus" title="only claims in obstructions">focus</button>
-            <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="claims with any comparison, order or support link">balanced</button>
-            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full" title="all quantity, date and order claims too">full</button>
-          </div>
-          <button class="sa-gc" id="sa-gc-reheat">⟳ reheat</button>
-          <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
-          <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+      <div class="sa-gbar">
+        <input id="sa-gsearch" class="sa-input" type="search" placeholder="Search the graph: a name, a word, a number…" style="flex:1 1 200px;min-width:160px">
+        <div class="sa-seg">
+          <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus" title="only obstructions and the entities they involve">conflicts</button>
+          <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="entities, concepts and checkable claims">map</button>
+          <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full" title="also every statement that mentions an entity">full</button>
         </div>
-        <div class="sa-zoom-pad"><button id="sa-zoom-in" aria-label="zoom in">+</button><button id="sa-zoom-out" aria-label="zoom out">−</button><button id="sa-zoom-reset" aria-label="reset">↺</button></div>
-        <div class="sa-graph-legend"><span style="color:#7dd3fc">● quantity</span> <span style="color:#fcd34d">● date/order</span> <span style="color:#e9a8ff">● proposition</span> <span style="color:#a3e635">● relation</span><br>red links: obstruction · green: claims that glue · amber: same event · blue: support</div>
+        <button class="sa-gc" id="sa-gc-labels" title="labels: auto / all / none">labels: auto</button>
+        <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        <button class="sa-gc" id="sa-gc-reheat">⟳ relayout</button>
+      </div>
+      <div class="sa-graph" id="sa-graph" style="height:600px">
+        <div id="sa-graph-canvas" style="position:absolute;inset:0"></div>
+        <div class="sa-graph-overlay" id="sa-graph-overlay" style="pointer-events:none">◆ drag to pan · scroll or pinch to zoom · tap a node</div>
+        <div class="sa-zoom-pad"><button id="sa-zoom-in" aria-label="zoom in">+</button><button id="sa-zoom-out" aria-label="zoom out">−</button><button id="sa-zoom-reset" aria-label="fit">⊡</button></div>
         <div id="sa-graph-empty" class="sa-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;pointer-events:none">No graph yet.</div>
       </div>
+      <div class="sa-glegend"><span><i class="dot" style="background:#e4f0e4"></i>entity (person, place, work)</span><span><i class="dot ring" style="border-color:#a7c4a7"></i>concept</span><span><i class="dot" style="background:#7dd3fc"></i>quantity</span><span><i class="dot" style="background:#fcd34d"></i>date / order</span><span><i class="dot" style="background:#e9a8ff"></i>statement</span><span><i class="dot" style="background:#a3e635"></i>relation</span><span><i class="ln" style="background:#ef4444"></i>obstruction</span><span><i class="ln" style="background:#4ade80"></i>agrees</span><span><i class="ln" style="background:#60a5fa"></i>supports</span><span><i class="ln" style="background:#fcd34d"></i>same event</span><span><i class="ln" style="background:#3d6b3d"></i>mentioned together</span></div>
+    </div>
     </div>
     <div class="sa-col" style="flex:1 1 380px">
-      <div class="sa-panel" id="sa-inspector"><h3>◉ Inspector</h3><div class="sa-panel-empty">Click a claim in the graph, an obstruction, or a highlighted sentence in the text.</div></div>
+      <div class="sa-panel" id="sa-inspector" style="max-height:640px;overflow-y:auto"><h3>◉ Inspector</h3><div class="sa-panel-empty">Tap an entity, concept or claim in the graph, an item in Insights or Obstructions, or a highlighted sentence in the text.</div></div>
     </div>
   </div>
 
@@ -166,7 +192,7 @@
         <details><summary>Propositional layer</summary><div class="body">Two units with the same content and opposite polarity (P and not-P) are unsatisfiable together. Contrastive negation ("X, not Y") and double negation are handled; deeper logic is out of scope.</div></details>
         <details><summary>κ classes</summary><div class="body"><b>contradiction</b>: all claims asserted by the text. <b>conflicting accounts</b>: at least one claim is reported speech from different sources — the text may be reporting a real disagreement accurately. <b>inconsistent testimony</b>: one reported source contradicts itself. <b>tension with hypothesis</b>: a hypothetical claim clashes with others.</div></details>
         <details><summary>Ψ — epistemic closure (prototype)</summary><div class="body">A property of the text's support structure, never of its author. Support edges come from markers ("therefore", "which proves"). <b>ground</b>: share of supported claims with no support path from an externally anchored claim (a citation, source, date). <b>circ</b>: groups of claims that justify only each other. <b>seal</b>: absence or denial of evidence used as evidence ("no documents exist, which proves the cover-up"). <b>imp</b>: asserted contradictions the text maintains. Pending validation on the LOCO conspiracy corpus.</div></details>
-        <details><summary>Why v1 was retired</summary><div class="body">A preregistered audit (seed 201, 88 posts) showed v1's Γ, Ψ and K(t) did not react to injected numeric or negated contradictions (the tokenizer removed digits and "not"), rose when unrelated text was mixed in, and its "severed" count was unreachable (ρ ≥ 0.3475 &gt; threshold 0.35). On the same protocol v2 detects 78% of injected negations (a naive near-duplicate check: 77%) and 67% of altered figures in sentences carrying a quantity or date (most misses are identifiers such as DRK numbers or citation years, which are not quantities), with zero false alarms on the 88 unmodified posts (the naive check: 25 posts) and full shuffle and segmentation invariance.</div></details>
+        <details><summary>Why v1 was retired</summary><div class="body">A preregistered audit (seed 201, 88 posts) showed v1's Γ, Ψ and K(t) did not react to injected numeric or negated contradictions (the tokenizer removed digits and "not"), rose when unrelated text was mixed in, and its "severed" count was unreachable (ρ ≥ 0.3475 &gt; threshold 0.35). On the same protocol v2 detects 78% of injected negations (a naive near-duplicate check: 77%) and about two thirds of altered figures in sentences carrying a quantity or date (most misses are identifiers such as DRK numbers or citation years, which are not quantities), with zero false alarms on the 88 unmodified posts (the naive check: 25 posts) and full shuffle and segmentation invariance.</div></details>
       </div>
     </div>
   </div>

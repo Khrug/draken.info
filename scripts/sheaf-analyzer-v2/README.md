@@ -12,8 +12,10 @@ node scripts/sheaf-analyzer-v2/test-protocol.js # preregistered perturbation pro
 |---|---|
 | `engine-math.js` | linear algebra, cellular sheaves (δ⁰, δ¹, cohomology), Hodge decomposition, difference constraints with strict arcs, Karp minimum mean cycle, ε*, deletion-filter MUS |
 | `engine-text.js` | Markdown-robust segmentation with UTF-16 offsets, typed claim extraction, discourse complex, linear/ordinal/propositional layers, Ψ support graph, compare/K(t) |
+| `engine-insights.js` | descriptive insights: entities, concepts, figures, timeline, argument structure, attribution, possible tensions, repeated statements |
+| `graph2d.js` | dependency-free canvas graph: pan, zoom, pinch, drag, search, readable labels |
 | `engine-topic.js` | descriptive 18-layer keyword tagging (v1 lexicon; not part of the mathematics) |
-| `samples.js`, `ui.js`, `page-markup.html`, `v1-style.css` | page |
+| `samples.js`, `ui.js`, `ui-explore.js`, `page-markup.html`, `v1-style.css` | page |
 
 Γ is binary per layer (asserted claims glue or not; N/A if nothing comparable). Reported speech is never treated as fact.
 Ψ is a prototype: validation on the LOCO corpus (Miani, Hills & Bangerter 2021) is pending.

@@ -10,13 +10,6 @@
   var TYPE_COLOR = { numeric: '#7dd3fc', date: '#fcd34d', order: '#fcd34d', proposition: '#e9a8ff', relation: '#a3e635' };
   var claimOf = function (R, id) { return R.claims[+String(id).slice(1)]; };
 
-  // ── deps (same multi-origin loader as v1) ──
-  var DEPS = { three: ['/vendor/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js', 'https://unpkg.com/three@0.149.0/build/three.min.js'],
-    fg: ['/vendor/3d-force-graph.min.js', 'https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.3/dist/3d-force-graph.min.js', 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js'] };
-  function loadScript(src) { return new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = function () { rej(new Error('load ' + src)); }; document.head.appendChild(s); }); }
-  async function loadFirst(urls) { for (var i = 0; i < urls.length; i++) { try { await loadScript(urls[i]); return; } catch (e) { } } throw new Error('graph library unavailable'); }
-  U.loadDeps = async function () { if (window.ForceGraph3D) return; if (!window.THREE) await loadFirst(DEPS.three); if (!window.ForceGraph3D) await loadFirst(DEPS.fg); };
-
   U.setProgress = function (p) { var el = $('sa-prog'); if (el) el.style.width = p + '%'; };
 
   // ── metrics ──
@@ -132,61 +125,12 @@
       + '<h4>Obstructions (' + obs.length + ')</h4>' + (obs.map(function (o) { return '<div class="w" style="font-size:11px;color:#c8d8c8;margin-bottom:4px">' + o.layer + ' · ' + o.class + ' — ' + esc(o.witness) + '</div>'; }).join('') || '<div class="sa-panel-empty">none</div>');
     $('sa-inspector').querySelectorAll('[data-claim]').forEach(function (d) { d.onclick = function () { U.selectClaim(claimOf(R, d.dataset.claim)); }; });
     U.highlight([c.unit]);
-    if (U.graph) { var n = U.graph.graphData().nodes.find(function (x) { return x.id === c.id; }); if (n) U.focusNode(n); }
+    if (U.focusGraph) U.focusGraph(c.id);
   };
   U.selectObstruction = function (o) {
     var R = U.last; U.selectClaim(claimOf(R, o.claims[0]));
     U.highlight(o.claims.map(function (id) { return claimOf(R, id).unit; }));
   };
-
-  // ── graph ──
-  U.graphData = function (R) {
-    var inObs = new Set(); R.obstructions.forEach(function (o) { o.claims.forEach(function (id) { inObs.add(id); }); });
-    var keep = new Set(), links = [];
-    R.edges.forEach(function (e) { links.push({ source: e.a, target: e.b, kind: e.conflict ? 'conflict' : 'glue' }); });
-    R.obstructions.forEach(function (o) { for (var i = 0; i < o.claims.length; i++) for (var j = i + 1; j < o.claims.length; j++) links.push({ source: o.claims[i], target: o.claims[j], kind: 'conflict' }); });
-    var byEvent = {}; R.claims.forEach(function (c) { if (c.event != null) (byEvent[c.event] = byEvent[c.event] || []).push(c.id); if (c.events) c.events.forEach(function (ev) { (byEvent[ev] = byEvent[ev] || []).push(c.id); }); });
-    Object.keys(byEvent).forEach(function (k) { var ids = byEvent[k]; for (var i = 1; i < ids.length; i++) links.push({ source: ids[0], target: ids[i], kind: 'event' }); });
-    var firstClaim = {}; R.claims.forEach(function (c) { if (!firstClaim[c.unit]) firstClaim[c.unit] = c.id; });
-    R.supportEdges.forEach(function (e) { if (e[0] !== e[1] && firstClaim[e[0]] && firstClaim[e[1]]) links.push({ source: firstClaim[e[0]], target: firstClaim[e[1]], kind: 'support' }); });
-    links.forEach(function (l) { keep.add(l.source); keep.add(l.target); });
-    var pick = function (c) { if (U.density === 'focus') return inObs.has(c.id); if (U.density === 'balanced') return keep.has(c.id); return keep.has(c.id) || c.type !== 'proposition'; };
-    var nodes = R.claims.filter(pick).slice(0, 1500).map(function (c) { return { id: c.id, type: c.type, obs: inObs.has(c.id), label: (c.span.quote || '').slice(0, 48), claim: c }; });
-    var ids = new Set(nodes.map(function (n) { return n.id; }));
-    return { nodes: nodes, links: links.filter(function (l) { return ids.has(l.source) && ids.has(l.target); }) };
-  };
-  U.renderGraph = async function (R) {
-    var el = $('sa-graph-canvas'), empty = $('sa-graph-empty');
-    try { await U.loadDeps(); } catch (e) { empty.textContent = 'Graph library could not load (offline?). All other panels work.'; return; }
-    var data = U.graphData(R);
-    if (!data.nodes.length) { empty.style.display = ''; empty.textContent = U.density === 'focus' ? 'No obstructions to show in focus mode.' : 'No linked claims to draw.'; if (U.graph) U.graph.graphData({ nodes: [], links: [] }); return; }
-    empty.style.display = 'none';
-    var col = { conflict: '#ef4444', glue: '#4ade8088', event: '#fcd34d88', support: '#60a5fa' };
-    if (!U.graph) {
-      U.graph = ForceGraph3D()(el).backgroundColor('#050805').width(el.clientWidth).height(el.clientHeight).showNavInfo(false)
-        .nodeVal(function (n) { return n.obs ? 6 : 2; }).nodeColor(function (n) { return n.obs ? '#ef4444' : TYPE_COLOR[n.type]; })
-        .nodeLabel(function (n) { return esc(n.claim.span.quote.slice(0, 160)); })
-        .linkColor(function (l) { return col[l.kind]; }).linkWidth(function (l) { return l.kind === 'conflict' ? 2.5 : 0.6; })
-        .linkDirectionalArrowLength(function (l) { return l.kind === 'support' ? 3 : 0; })
-        .onNodeClick(function (n) { U.selectClaim(n.claim); })
-        .onNodeHover(function (n) { el.style.cursor = n ? 'pointer' : 'grab'; });
-      window.addEventListener('resize', function () { if (U.graph) U.graph.width(el.clientWidth).height(el.clientHeight); });
-    }
-    U.graph.graphData(data);
-    U.applyLabels();
-    $('sa-graph-overlay').textContent = '◆ ' + data.nodes.length + ' claims · ' + data.links.length + ' links · ' + U.density;
-    setTimeout(function () { if (U.graph) U.graph.zoomToFit(600, 40); }, 1200);
-  };
-  U.applyLabels = function () {
-    if (!U.graph || !window.THREE) return;
-    U.graph.nodeThreeObjectExtend(true).nodeThreeObject(function (n) {
-      if (!U.labels || !(n.obs || n.type !== 'proposition')) return null;
-      var c = document.createElement('canvas'), ctx = c.getContext('2d'), txt = n.label; ctx.font = '28px monospace'; var w = ctx.measureText(txt).width + 12; c.width = w; c.height = 40; ctx.font = '28px monospace'; ctx.fillStyle = n.obs ? '#ffb4b4' : '#c8d8c8'; ctx.fillText(txt, 6, 30);
-      var tex = new THREE.CanvasTexture(c), sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthWrite: false, transparent: true })); sp.scale.set(w / 8, 5, 1); sp.position.set(0, 7, 0); return sp;
-    });
-  };
-  U.focusNode = function (n) { if (!U.graph || n.x == null) return; var d = 80, r = 1 + d / Math.hypot(n.x || 1, n.y || 1, n.z || 1); U.graph.cameraPosition({ x: n.x * r, y: n.y * r, z: n.z * r }, n, 800); };
-  U.zoom = function (f) { if (!U.graph) return; var p = U.graph.cameraPosition(); U.graph.cameraPosition({ x: p.x * f, y: p.y * f, z: p.z * f }, null, 300); };
 
   // ── exports ──
   function stripClaims(R) { return R.claims.map(function (c) { var o = Object.assign({}, c); delete o.fset; return o; }); }
@@ -290,11 +234,6 @@
     $('sa-cmp-run').onclick = U.runCompare;
     $('sa-cmp-swap').onclick = function () { var a = $('sa-cmp-a'), b = $('sa-cmp-b'), t = a.value; a.value = b.value; b.value = t; };
     $('sa-cmp-sample').onclick = function () { $('sa-cmp-a').value = S.SAMPLES.versionA.text; $('sa-cmp-b').value = S.SAMPLES.versionB.text; };
-    ['focus', 'balanced', 'full'].forEach(function (d) { $('sa-gc-dens-' + d).onclick = function () { U.density = d; document.querySelectorAll('.sa-gc-dens').forEach(function (b) { b.classList.toggle('sa-gc-on', b.id === 'sa-gc-dens-' + d); }); if (U.last) U.renderGraph(U.last); }; });
-    $('sa-gc-reheat').onclick = function () { U.graph && U.graph.d3ReheatSimulation(); };
-    $('sa-gc-fit').onclick = function () { U.graph && U.graph.zoomToFit(500, 40); };
-    $('sa-gc-labels').onclick = function () { U.labels = !U.labels; U.applyLabels(); };
-    $('sa-zoom-in').onclick = function () { U.zoom(0.75); }; $('sa-zoom-out').onclick = function () { U.zoom(1.33); }; $('sa-zoom-reset').onclick = function () { U.graph && U.graph.zoomToFit(500, 40); };
     document.querySelectorAll('.sa-export-opt').forEach(function (b) { b.onclick = function () { if (!U.last) return; var ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-'); var f = b.dataset.fmt;
       if (f === 'deep') U.download('sheaf-v2-' + ts + '.json', U.exportDeep(U.last), 'application/json');
       else if (f === 'md') U.download('sheaf-v2-' + ts + '.md', U.exportMarkdown(U.last), 'text/markdown');
@@ -305,4 +244,3 @@
     U.renderLayers({ topic: {} });
   };
 })(SA2);
-if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', SA2.ui.init); else SA2.ui.init(); }

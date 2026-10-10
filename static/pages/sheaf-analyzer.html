@@ -105,7 +105,24 @@
 .sa-table{width:100%;border-collapse:collapse;font-size:11px;font-family:'JetBrains Mono',monospace}
 .sa-table td,.sa-table th{padding:3px 6px;border-bottom:1px dashed #1a2c1a;text-align:left}
 .sa-table th{color:#6b8a6b;font-weight:600}
-.sa-graph-overlay,.sa-graph-controls,.sa-graph-legend,.sa-zoom-pad,#sa-graph-empty{z-index:5}
+.sa-graph-overlay,.sa-zoom-pad,#sa-graph-empty{z-index:5}
+.sa-gbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin-bottom:8px}
+.sa-seg{display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:#080c08}
+.sa-glegend{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:11px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:8px 2px 0}
+.sa-glegend .dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.sa-glegend .dot.ring{border:2px dashed;width:7px;height:7px}
+.sa-glegend .ln{display:inline-block;width:14px;height:3px;margin-right:5px;vertical-align:middle}
+.sa-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px}
+.sa-tab{padding:5px 10px;border:1px solid #1a2c1a;border-radius:5px;background:#080c08;color:#8faf8f;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer}
+.sa-tab.on{border-color:#4ade80;color:#4ade80;background:#4ade8014}
+.sa-tab .n{color:#6b8a6b;margin-left:4px}
+.sa-ins{font-size:13px;line-height:1.55;max-height:520px;overflow-y:auto}
+.sa-ins li{margin:4px 0}
+.sa-chipbtn{display:inline-block;font-size:11px;font-family:'JetBrains Mono',monospace;padding:2px 8px;border-radius:4px;background:#1a2c1a;color:#e4f0e4;margin:2px 4px 2px 0;cursor:pointer;border:1px solid transparent}
+.sa-chipbtn:hover{border-color:#4ade80}
+.sa-chipbtn.c{background:#0b120b;color:#a7c4a7;border:1px dashed #2a4a2a}
+.sa-row-click{cursor:pointer}.sa-row-click:hover td{background:#4ade800d}
+@media (max-width:640px){.sa-graph{height:440px!important}}
 </style>
 
 <div class="sa" id="sa-app">
@@ -193,6 +210,13 @@
     </div>
   </div>
 
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
+      <div class="sa-tabs" id="sa-tabs"></div>
+      <div class="sa-ins" id="sa-ins"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
+
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">
       <div class="sa-card">
@@ -208,26 +232,28 @@
 
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">
-      <div class="sa-graph" id="sa-graph">
-        <div id="sa-graph-canvas" style="position:absolute;inset:0"></div>
-        <div class="sa-graph-overlay" id="sa-graph-overlay">◆ claim complex — rotate: drag · zoom: scroll · select: click</div>
-        <div class="sa-graph-controls">
-          <div style="display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:rgba(8,12,8,0.85);margin-right:4px">
-            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus" title="only claims in obstructions">focus</button>
-            <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="claims with any comparison, order or support link">balanced</button>
-            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full" title="all quantity, date and order claims too">full</button>
-          </div>
-          <button class="sa-gc" id="sa-gc-reheat">⟳ reheat</button>
-          <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
-          <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+      <div class="sa-gbar">
+        <input id="sa-gsearch" class="sa-input" type="search" placeholder="Search the graph: a name, a word, a number…" style="flex:1 1 200px;min-width:160px">
+        <div class="sa-seg">
+          <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus" title="only obstructions and the entities they involve">conflicts</button>
+          <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="entities, concepts and checkable claims">map</button>
+          <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full" title="also every statement that mentions an entity">full</button>
         </div>
-        <div class="sa-zoom-pad"><button id="sa-zoom-in" aria-label="zoom in">+</button><button id="sa-zoom-out" aria-label="zoom out">−</button><button id="sa-zoom-reset" aria-label="reset">↺</button></div>
-        <div class="sa-graph-legend"><span style="color:#7dd3fc">● quantity</span> <span style="color:#fcd34d">● date/order</span> <span style="color:#e9a8ff">● proposition</span> <span style="color:#a3e635">● relation</span><br>red links: obstruction · green: claims that glue · amber: same event · blue: support</div>
+        <button class="sa-gc" id="sa-gc-labels" title="labels: auto / all / none">labels: auto</button>
+        <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        <button class="sa-gc" id="sa-gc-reheat">⟳ relayout</button>
+      </div>
+      <div class="sa-graph" id="sa-graph" style="height:600px">
+        <div id="sa-graph-canvas" style="position:absolute;inset:0"></div>
+        <div class="sa-graph-overlay" id="sa-graph-overlay" style="pointer-events:none">◆ drag to pan · scroll or pinch to zoom · tap a node</div>
+        <div class="sa-zoom-pad"><button id="sa-zoom-in" aria-label="zoom in">+</button><button id="sa-zoom-out" aria-label="zoom out">−</button><button id="sa-zoom-reset" aria-label="fit">⊡</button></div>
         <div id="sa-graph-empty" class="sa-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;pointer-events:none">No graph yet.</div>
       </div>
+      <div class="sa-glegend"><span><i class="dot" style="background:#e4f0e4"></i>entity (person, place, work)</span><span><i class="dot ring" style="border-color:#a7c4a7"></i>concept</span><span><i class="dot" style="background:#7dd3fc"></i>quantity</span><span><i class="dot" style="background:#fcd34d"></i>date / order</span><span><i class="dot" style="background:#e9a8ff"></i>statement</span><span><i class="dot" style="background:#a3e635"></i>relation</span><span><i class="ln" style="background:#ef4444"></i>obstruction</span><span><i class="ln" style="background:#4ade80"></i>agrees</span><span><i class="ln" style="background:#60a5fa"></i>supports</span><span><i class="ln" style="background:#fcd34d"></i>same event</span><span><i class="ln" style="background:#3d6b3d"></i>mentioned together</span></div>
+    </div>
     </div>
     <div class="sa-col" style="flex:1 1 380px">
-      <div class="sa-panel" id="sa-inspector"><h3>◉ Inspector</h3><div class="sa-panel-empty">Click a claim in the graph, an obstruction, or a highlighted sentence in the text.</div></div>
+      <div class="sa-panel" id="sa-inspector" style="max-height:640px;overflow-y:auto"><h3>◉ Inspector</h3><div class="sa-panel-empty">Tap an entity, concept or claim in the graph, an item in Insights or Obstructions, or a highlighted sentence in the text.</div></div>
     </div>
   </div>
 
@@ -248,7 +274,7 @@
         <details><summary>Propositional layer</summary><div class="body">Two units with the same content and opposite polarity (P and not-P) are unsatisfiable together. Contrastive negation ("X, not Y") and double negation are handled; deeper logic is out of scope.</div></details>
         <details><summary>κ classes</summary><div class="body"><b>contradiction</b>: all claims asserted by the text. <b>conflicting accounts</b>: at least one claim is reported speech from different sources — the text may be reporting a real disagreement accurately. <b>inconsistent testimony</b>: one reported source contradicts itself. <b>tension with hypothesis</b>: a hypothetical claim clashes with others.</div></details>
         <details><summary>Ψ — epistemic closure (prototype)</summary><div class="body">A property of the text's support structure, never of its author. Support edges come from markers ("therefore", "which proves"). <b>ground</b>: share of supported claims with no support path from an externally anchored claim (a citation, source, date). <b>circ</b>: groups of claims that justify only each other. <b>seal</b>: absence or denial of evidence used as evidence ("no documents exist, which proves the cover-up"). <b>imp</b>: asserted contradictions the text maintains. Pending validation on the LOCO conspiracy corpus.</div></details>
-        <details><summary>Why v1 was retired</summary><div class="body">A preregistered audit (seed 201, 88 posts) showed v1's Γ, Ψ and K(t) did not react to injected numeric or negated contradictions (the tokenizer removed digits and "not"), rose when unrelated text was mixed in, and its "severed" count was unreachable (ρ ≥ 0.3475 &gt; threshold 0.35). On the same protocol v2 detects 78% of injected negations (a naive near-duplicate check: 77%) and 67% of altered figures in sentences carrying a quantity or date (most misses are identifiers such as DRK numbers or citation years, which are not quantities), with zero false alarms on the 88 unmodified posts (the naive check: 25 posts) and full shuffle and segmentation invariance.</div></details>
+        <details><summary>Why v1 was retired</summary><div class="body">A preregistered audit (seed 201, 88 posts) showed v1's Γ, Ψ and K(t) did not react to injected numeric or negated contradictions (the tokenizer removed digits and "not"), rose when unrelated text was mixed in, and its "severed" count was unreachable (ρ ≥ 0.3475 &gt; threshold 0.35). On the same protocol v2 detects 78% of injected negations (a naive near-duplicate check: 77%) and about two thirds of altered figures in sentences carrying a quantity or date (most misses are identifiers such as DRK numbers or citation years, which are not quantities), with zero false alarms on the 88 unmodified posts (the naive check: 25 posts) and full shuffle and segmentation invariance.</div></details>
       </div>
     </div>
   </div>
@@ -583,7 +609,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       if (unit === 'percent') unit = '%';
       var hedged = HEDGE.test(t.slice(Math.max(0, idx - 14), idx));
       // ordinals / list markers / section numbers are not quantities
-      if (/^\s*(st|nd|rd|th)\b/i.test(after) || /§\s*$/.test(t.slice(0, idx)) || /\b(drk|section|chapter|page|p\.|nr|no\.?|layer|l|step|part|phase|stage|level|rule|axiom|law|item|case|figure|fig\.?|table|act|book|volume|vol\.?|ch\.?|version|v|round|day|session|post|episode|season|issue|claim|thesis|hypothesis|h|p|q|lemma|theorem|proposition|corollary|definition|remark|example|exercise|amendment|article|clause)\s*[-#]?$/i.test(t.slice(Math.max(0, idx - 14), idx))) continue;
+      if (/\b[A-ZÅÄÖ]{1,5}[-\s]?$/.test(t.slice(Math.max(0, idx - 7), idx)) || /^\s*(st|nd|rd|th)\b/i.test(after) || /§\s*$/.test(t.slice(0, idx)) || /\b(drk|section|chapter|page|p\.|nr|no\.?|layer|l|step|part|phase|stage|level|rule|axiom|law|item|case|figure|fig\.?|table|act|book|volume|vol\.?|ch\.?|version|v|round|day|session|post|episode|season|issue|claim|thesis|hypothesis|h|p|q|lemma|theorem|proposition|corollary|definition|remark|example|exercise|amendment|article|clause)\s*[-#]?$/i.test(t.slice(Math.max(0, idx - 14), idx))) continue;
       out.push({ index: idx, length: len, value: v, unit: unit, hedged: hedged, text: t.substr(idx, len) });
       cur = undefined;
     }
@@ -635,7 +661,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     if (claims.some(function (c) { return c.type === 'relation'; })) claims = claims.filter(function (c) { return c.type !== 'numeric'; });
     // support markers (Ψ layer)
     var sf = plain.match(SUPPORT_FWD), sb = plain.match(SUPPORT_BACK);
-    claims.support = { fwd: !!sf && sf.index < 40, back: sb ? { index: sb.index } : null, evidenceVerb: EVIDENCE_VERB.test(plain), absence: ABSENCE.test(plain), anchored: ANCHOR.test(t) };
+    claims.support = { fwd: !!sf && sf.index < 3 && !/^which/i.test(sf[0]), back: sb ? { index: sb.index } : null, evidenceVerb: EVIDENCE_VERB.test(plain), absence: ABSENCE.test(plain), anchored: ANCHOR.test(t) };
     return claims;
   };
 
@@ -920,6 +946,174 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : require('./engine-math.js');
 if (typeof module !== 'undefined') module.exports = SA2;
 
 </script>
+<script id="sa2-engine-insights">
+// ═══ SA2 INSIGHTS ═══ descriptive structure of a text beyond its obstructions:
+// entities and concepts, quantities, all dated events, argument structure, attribution, near-tensions.
+// Everything here is descriptive (what the text says and how it is built); only the consistency
+// layers in engine-text.js make formal claims about gluing.
+var SA2 = (typeof SA2 !== 'undefined') ? SA2 : require('./engine-math.js');
+(function (S) {
+  'use strict';
+  var CAP_STOP = new Set(('I A An The This That These Those It Its In On At For From By With As If When While But And Or So Yet Then There Here What Which Who Why How Where One Two Three Four Five First Second Third Each Every Some Many Most All No Not Our We You They He She His Her Their My Your Also However Therefore Thus Hence Because Since Although Though After Before During Under Over Between Into Through Both Either Neither Such Same Other Another Only Even Still Yet Just Very More Less Fig Figure Table Section Chapter Part Step Note See Yes Let Using Use Whether Within Without Across Against Among Toward Towards Unlike Like Given Unless Until Upon Refuted Supported Hypothesis Synthesis Established Metaphor Operators Layers Coherence Sources References Falsification Draft Status Definition Example Remark Claim Claims Read Reading Yet Thus Is Are Was Were Be Been Has Have Had Do Does Did Can Could May Might Must Shall Should Will Would Monday Tuesday Wednesday Thursday Friday Saturday Sunday January February March April May June July August September October November December Det Den De En Ett Och Att Som Är Var Har Men När Om Inte Detta Denna Dessa'
+    ).split(/\s+/));
+  var NAME_RE = /\b([A-ZÅÄÖÉ][\p{L}'’-]*(?:\s+(?:of|de|der|von|van|af|la|le|du|the|and|&|för|i)?\s*[A-ZÅÄÖÉ][\p{L}'’-]*){0,4})/gu;
+
+  function cleanName(n) { return n.replace(/['’]s$/, '').replace(/^(The|A|An|Den|Det)\s+/, '').replace(/\s+(of|de|der|von|van|af|la|le|du|the|and|&|för|i)$/i, '').trim(); }
+
+  S.entities = function (R) {
+    var lowerWords = new Set(); R.units.forEach(function (u) { (u.text.match(/\b[a-zåäö][\p{L}'-]+/gu) || []).forEach(function (w) { lowerWords.add(w); }); });
+    var ents = {}, unitClaims = {};
+    R.claims.forEach(function (c) { (unitClaims[c.unit] = unitClaims[c.unit] || []).push(c.id); });
+    R.units.forEach(function (u) {
+      if (u.nonclaim || u.boilerplate) return;
+      var t = (u.cleanText || u.text).replace(/[*_`#>\[\]]/g, ' '), m;
+      NAME_RE.lastIndex = 0;
+      while ((m = NAME_RE.exec(t))) {
+        var raw = m[1], atStart = /^\s*$/.test(t.slice(0, m.index).replace(/["'“(]/g, ''));
+        if (/^[-\d]/.test(t.slice(m.index + raw.length))) continue;            // codes such as DRK-123, GA 348
+        var parts = raw.split(/\s+(?:and|&|och)\s+/);
+        for (var pi = 0; pi < parts.length; pi++) {
+        var ws0 = parts[pi].split(/\s+/); while (ws0.length > 1 && CAP_STOP.has(ws0[0])) { ws0.shift(); if (pi === 0) atStart = false; }
+        var name = cleanName(ws0.join(' ').replace(/-+$/, ''));
+        if (!name || name.length < 2) continue;
+        var words = name.split(/\s+/);
+        if (words.length === 1) {
+          if (CAP_STOP.has(name) || name.length < 3) continue;
+          if (atStart && lowerWords.has(name.toLowerCase())) continue;   // ordinary word capitalised at sentence start
+          if (/^[A-ZÅÄÖ]{2,6}$/.test(name) && /^\d/.test(t.slice(m.index + raw.length).trim())) continue; // "GA 348" style codes
+        }
+        if (words.every(function (w) { return CAP_STOP.has(w); })) continue;
+        var e = ents[name] = ents[name] || { name: name, mentions: 0, units: new Set(), claims: new Set(), sources: new Set() };
+        e.mentions++; e.units.add(u.id); if (u.source) e.sources.add(u.source);
+        (unitClaims[u.id] || []).forEach(function (id) { e.claims.add(id); });
+        }
+      }
+    });
+    // merge single-token names into a unique longer name that contains them ("Ghrist" -> "Robert Ghrist")
+    Object.keys(ents).forEach(function (k) {
+      if (k.indexOf(' ') >= 0) return;
+      var hosts = Object.keys(ents).filter(function (h) { return h !== k && h.split(/\s+/).indexOf(k) >= 0; });
+      if (hosts.length === 1) { var h = ents[hosts[0]], e = ents[k]; h.mentions += e.mentions; e.units.forEach(function (x) { h.units.add(x); }); e.claims.forEach(function (x) { h.claims.add(x); }); e.sources.forEach(function (x) { h.sources.add(x); }); delete ents[k]; }
+    });
+    var list = Object.keys(ents).map(function (k) { var e = ents[k]; return { name: e.name, kind: 'entity', mentions: e.mentions, units: Array.from(e.units), claims: Array.from(e.claims), sources: Array.from(e.sources) }; })
+      .filter(function (e) { return e.mentions >= 2 || e.name.indexOf(' ') > 0; })
+      .sort(function (a, b) { return b.mentions - a.mentions; });
+    return list;
+  };
+
+  // Concepts: most frequent content stems that are not part of entity names (gives structure to essays without names)
+  S.concepts = function (R, ents, k) {
+    var entWords = new Set(); ents.forEach(function (e) { e.name.toLowerCase().split(/\s+/).forEach(function (w) { entWords.add(S.util.stem(w)); }); });
+    var freq = {}, unitsOf = {}, display = {};
+    R.units.forEach(function (u) {
+      if (u.nonclaim || u.boilerplate || u.heading) return;
+      var seen = new Set();
+      ((u.cleanText || u.text).toLowerCase().match(/[a-zåäöéü][a-zåäöéü'-]{3,}/g) || []).forEach(function (w) {
+        var st = S.util.stem(w); if (S.util.contentWords(w).length === 0 || entWords.has(st)) return;
+        if (!display[st] || w.length < display[st].length) display[st] = w;
+        if (seen.has(st)) return; seen.add(st);
+        freq[st] = (freq[st] || 0) + 1; (unitsOf[st] = unitsOf[st] || []).push(u.id);
+      });
+    });
+    var n = R.units.length || 1;
+    return Object.keys(freq).filter(function (s) { return freq[s] >= 3 && freq[s] < 0.5 * n; })
+      .sort(function (a, b) { return freq[b] - freq[a]; }).slice(0, k || 18)
+      .map(function (s) { return { name: display[s], kind: 'concept', stem: s, mentions: freq[s], units: unitsOf[s] }; });
+  };
+
+  S.insights = function (R) {
+    var claimAt = function (id) { return R.claims[+String(id).slice(1)]; };
+    var unitClaims = {}; R.claims.forEach(function (c) { (unitClaims[c.unit] = unitClaims[c.unit] || []).push(c); });
+    var ents = S.entities(R), concepts = S.concepts(R, ents, 18);
+    concepts.forEach(function (c) { var ids = new Set(); c.units.forEach(function (u) { (unitClaims[u] || []).forEach(function (x) { ids.add(x.id); }); }); c.claims = Array.from(ids); });
+    var obsByClaim = {}; R.obstructions.forEach(function (o, i) { o.claims.forEach(function (id) { (obsByClaim[id] = obsByClaim[id] || []).push(i); }); });
+    ents.concat(concepts).forEach(function (e) { var s = new Set(); e.claims.forEach(function (id) { (obsByClaim[id] || []).forEach(function (i) { s.add(i); }); }); e.obstructions = Array.from(s); });
+
+    var claimUnits = R.units.filter(function (u) { return !u.nonclaim && !u.heading && !u.boilerplate; });
+    var typed = claimUnits.filter(function (u) { return (unitClaims[u.id] || []).some(function (c) { return c.type !== 'proposition'; }); });
+
+    var quantities = R.claims.filter(function (c) { return c.type === 'numeric'; }).map(function (c) {
+      return { claim: c.id, values: c.values.map(function (v) { return v.text + (v.unit && v.text.indexOf(v.unit) < 0 ? ' ' + v.unit : ''); }).join(', '), unit: c.values.map(function (v) { return v.unit; }).filter(Boolean).join(','), hedged: c.values.some(function (v) { return v.hedged; }), modality: c.modality.kind, source: c.source, quote: c.span.quote, obstruction: !!obsByClaim[c.id] };
+    });
+    var dated = R.claims.filter(function (c) { return c.type === 'date'; }).map(function (c) {
+      return { claim: c.id, lo: S.util.dayStr(c.interval[0]), hi: S.util.dayStr(c.interval[1]), precision: c.precision, modality: c.modality.kind, source: c.source, quote: c.span.quote, obstruction: !!obsByClaim[c.id] };
+    }).sort(function (a, b) { return a.lo < b.lo ? -1 : a.lo > b.lo ? 1 : 0; });
+    var orders = R.claims.filter(function (c) { return c.type === 'order'; }).map(function (c) { return { claim: c.id, quote: c.span.quote, relation: c.relation, obstruction: !!obsByClaim[c.id] }; });
+
+    // argument structure
+    var unitById = {}; R.units.forEach(function (u) { unitById[u.id] = u; });
+    var arguments_ = R.supportEdges.filter(function (e) { return e[0] !== e[1]; }).map(function (e) { return { premise: e[0], conclusion: e[1], premiseText: unitById[e[0]].text, conclusionText: unitById[e[1]].text }; });
+    var ungrounded = (R.psi.ground.witnesses || []).map(function (u) { return { unit: u, text: unitById[u].text }; });
+    var sealing = (R.psi.seal.witnesses || []).map(function (u) { return { unit: u, text: unitById[u].text }; });
+    var hedged = R.claims.filter(function (c) { return c.type === 'proposition' && c.modality.kind === 'hypothesized'; }).map(function (c) { return { claim: c.id, quote: c.span.quote }; });
+    var questions = R.claims.filter(function (c) { return c.type === 'proposition' && c.modality.kind === 'question'; }).map(function (c) { return { claim: c.id, quote: c.span.quote }; });
+
+    // attribution: claims by reported source
+    var bySource = {};
+    R.claims.forEach(function (c) { if (c.type !== 'proposition' || c.modality.kind !== 'reported') return; var k = (c.modality.source || 'unattributed').slice(0, 50); (bySource[k] = bySource[k] || []).push({ claim: c.id, quote: c.span.quote, obstruction: !!obsByClaim[c.id] }); });
+
+    // corroboration: statements made more than once and consistent
+    var digits = function (c) { return (c.span.quote.match(/\d+(?:[.,]\d+)?/g) || []).join(','); };
+    var corroborated = R.edges.filter(function (e) { return !e.conflict && (e.layer !== 'propositional' || digits(claimAt(e.a)) === digits(claimAt(e.b))); }).map(function (e) { var a = claimAt(e.a), b = claimAt(e.b); return { layer: e.layer, a: a.span.quote, b: b.span.quote, claims: [e.a, e.b], crossSource: a.source !== b.source }; });
+
+    // near-tensions for human review (NOT obstructions): looser matches than the consistency layers accept
+    var tensions = [], seen = {};
+    var push = function (kind, a, b, note) { var k = [a.id, b.id].sort().join(); if (seen[k]) return; seen[k] = 1; tensions.push({ kind: kind, claims: [a.id, b.id], a: a.span.quote, b: b.span.quote, note: note }); };
+    var props = R.claims.filter(function (c) { return c.type === 'proposition'; });
+    var nums = R.claims.filter(function (c) { return c.type === 'numeric'; });
+    var dts = R.claims.filter(function (c) { return c.type === 'date'; });
+    function scan(list, minJ, maxJ, test, limit) {
+      var idx = {}, pairs = 0;
+      list.forEach(function (c, i) { new Set(c.frame).forEach(function (w) { (idx[w] = idx[w] || []).push(i); }); });
+      var cand = {};
+      Object.keys(idx).forEach(function (w) { var ix = idx[w]; if (ix.length > 60) return; for (var a = 0; a < ix.length; a++) for (var b = a + 1; b < ix.length; b++) cand[ix[a] + ',' + ix[b]] = 1; });
+      Object.keys(cand).forEach(function (k) {
+        if (pairs >= limit) return;
+        var p = k.split(',').map(Number), a = list[p[0]], b = list[p[1]]; if (a.unit === b.unit) return;
+        var j = S.util.jaccard(a.fset, b.fset); if (j < minJ || j >= maxJ) return;
+        if (test(a, b, j)) pairs++;
+      });
+    }
+    scan(props, 0.6, 0.8, function (a, b, j) { if (a.polarity === b.polarity || Math.min(a.fset.size, b.fset.size) < 3) return false; push('opposite polarity, partly different wording', a, b, 'similarity ' + j.toFixed(2)); return true; }, 25);
+    scan(nums, 0.4, 0.6, function (a, b, j) {
+      if (a.values.length !== 1 || b.values.length !== 1 || a.values[0].unit !== b.values[0].unit || !a.values[0].unit) return false;
+      if (a.values[0].value === b.values[0].value) return false;
+      push('different values for similar quantities', a, b, a.values[0].text + ' vs ' + b.values[0].text + ' (similarity ' + j.toFixed(2) + ')'); return true;
+    }, 25);
+    scan(dts, 0.4, 0.6, function (a, b, j) { if (a.interval[1] >= b.interval[0] && b.interval[1] >= a.interval[0]) return false; push('different dates for similar events', a, b, a.dateText + ' vs ' + b.dateText + ' (similarity ' + j.toFixed(2) + ')'); return true; }, 25);
+    // hedged quantities that agree only within tolerance
+    R.edges.forEach(function (e) { if (e.layer !== 'linear' || e.conflict) return; var a = claimAt(e.a), b = claimAt(e.b); var diff = a.values.some(function (v, i) { return v.value !== b.values[i].value; }); if (diff) push('agree only within the 10% tolerance for approximate figures', a, b, a.values.map(function (v) { return v.text; }).join(',') + ' vs ' + b.values.map(function (v) { return v.text; }).join(',')); });
+
+    var p = R.profile, tot = p.asserted + p.reported + p.hypothesized + p.question || 1;
+    var highlights = [];
+    var contra = R.obstructions.filter(function (o) { return o.class === 'contradiction'; }).length;
+    if (contra) highlights.push(contra + ' internal contradiction' + (contra > 1 ? 's' : '') + ': claims the text asserts that cannot all be true.');
+    if (R.obstructions.length - contra) highlights.push((R.obstructions.length - contra) + ' clash' + (R.obstructions.length - contra > 1 ? 'es' : '') + ' between reported accounts or hypotheses.');
+    if (tensions.length) highlights.push(tensions.length + ' possible tension' + (tensions.length > 1 ? 's' : '') + ' worth a human look (looser matches than the formal layers accept).');
+    if (ents.length) highlights.push('Most discussed: ' + ents.slice(0, 5).map(function (e) { return e.name + ' (' + e.mentions + ')'; }).join(', ') + '.');
+    if (concepts.length) highlights.push('Central concepts: ' + concepts.slice(0, 6).map(function (c) { return c.name; }).join(', ') + '.');
+    if (quantities.length || dated.length) highlights.push(quantities.length + ' figure' + (quantities.length === 1 ? '' : 's') + ' and ' + dated.length + ' dated statement' + (dated.length === 1 ? '' : 's') + ' can be checked against each other' + (R.obstructions.length ? '' : ', and all that are comparable agree') + '.');
+    var srcK = Object.keys(bySource).sort(function (a, b) { return bySource[b].length - bySource[a].length; });
+    if (srcK.length) highlights.push('Reported voices: ' + srcK.slice(0, 5).map(function (k) { return k + ' (' + bySource[k].length + ')'; }).join(', ') + '.');
+    if (corroborated.length) highlights.push(corroborated.length + ' statement' + (corroborated.length > 1 ? 's are' : ' is') + ' repeated consistently' + (corroborated.some(function (c) { return c.crossSource; }) ? ', some across sources' : '') + '.');
+    if (p.reported / tot > 0.2) highlights.push(Math.round(100 * p.reported / tot) + '% of statements are reported speech: the text largely relays what others say.');
+    if (p.hypothesized / tot > 0.2) highlights.push(Math.round(100 * p.hypothesized / tot) + '% of statements are hedged or hypothetical.');
+    if (ungrounded.length) highlights.push(ungrounded.length + ' conclusion' + (ungrounded.length > 1 ? 's are' : ' is') + ' argued for without any support chain reaching a cited or dated claim.');
+    if (sealing.length) highlights.push(sealing.length + ' self-sealing move' + (sealing.length > 1 ? 's' : '') + ': absence or denial of evidence presented as evidence.');
+    if (claimUnits.length && typed.length / claimUnits.length < 0.15) highlights.push('Only ' + Math.round(100 * typed.length / claimUnits.length) + '% of sentences carry a checkable quantity, date or order relation: mostly interpretive text, so the formal layers have little to test.');
+
+    return {
+      entities: ents.slice(0, 120), concepts: concepts, quantities: quantities, dated: dated, orders: orders,
+      arguments: arguments_, ungrounded: ungrounded, sealing: sealing, hedged: hedged, questions: questions,
+      bySource: bySource, corroborated: corroborated, tensions: tensions, highlights: highlights,
+      checkability: { units: claimUnits.length, typed: typed.length, share: claimUnits.length ? +(typed.length / claimUnits.length).toFixed(3) : 0 },
+      modality: { asserted: p.asserted, reported: p.reported, hypothesized: p.hypothesized, question: p.question }
+    };
+  };
+})(SA2);
+if (typeof module !== 'undefined') module.exports = SA2;
+
+</script>
 <script id="sa2-samples">
 // ═══ SA2 SAMPLES ═══ demo texts. The two first are constructed (fictional) to exercise every layer.
 (function (S) {
@@ -955,6 +1149,175 @@ Investigators may still revise the cause.` },
 })(SA2);
 
 </script>
+<script id="sa2-graph2d">
+// ═══ SA2 GRAPH2D ═══ dependency-free canvas force graph with readable labels.
+// Pan (drag background), zoom (wheel / pinch / buttons), drag nodes, click to select,
+// hover to preview, neighbour highlighting, search, greedy label collision avoidance.
+(function (S) {
+  'use strict';
+  S.Graph2D = function (container, opt) {
+    opt = opt || {};
+    var canvas = document.createElement('canvas'); canvas.style.width = '100%'; canvas.style.height = '100%'; canvas.style.display = 'block'; canvas.style.touchAction = 'none';
+    container.innerHTML = ''; container.appendChild(canvas);
+    var ctx = canvas.getContext('2d'), dpr = Math.max(1, window.devicePixelRatio || 1);
+    var W = 0, H = 0, nodes = [], links = [], byId = {}, adj = {}, alpha = 0, raf = 0;
+    var view = { x: 0, y: 0, k: 1 }, selected = null, hover = null, highlight = null, dragging = null, panning = null, pointers = {}, pinch = null, moved = false;
+    var labelMode = 'auto';
+
+    function resize() { var r = container.getBoundingClientRect(); W = r.width; H = r.height; canvas.width = W * dpr; canvas.height = H * dpr; draw(); }
+    var ro = new ResizeObserver(resize); ro.observe(container);
+
+    function toWorld(px, py) { return { x: (px - W / 2 - view.x) / view.k, y: (py - H / 2 - view.y) / view.k }; }
+    function toScreen(n) { return { x: n.x * view.k + view.x + W / 2, y: n.y * view.k + view.y + H / 2 }; }
+    function nodeAt(px, py) {
+      var best = null, bd = Infinity;
+      for (var i = nodes.length - 1; i >= 0; i--) { var n = nodes[i], s = toScreen(n), r = Math.max(6, n.r * view.k) + 4, d = Math.hypot(s.x - px, s.y - py); if (d < r && d < bd) { bd = d; best = n; } }
+      return best;
+    }
+
+    // ── simulation ──
+    function tick() {
+      var n = nodes.length, i, j, a, b, dx, dy, d2, d, f;
+      for (i = 0; i < n; i++) { a = nodes[i]; a.fx = 0; a.fy = 0; }
+      var rep = 900;
+      for (i = 0; i < n; i++) { a = nodes[i];
+        for (j = i + 1; j < n; j++) { b = nodes[j]; dx = a.x - b.x; dy = a.y - b.y; d2 = dx * dx + dy * dy + 0.01; if (d2 > 160000) continue;
+          f = rep * (a.mass + b.mass) / 2 / d2; d = Math.sqrt(d2); dx /= d; dy /= d; a.fx += dx * f; a.fy += dy * f; b.fx -= dx * f; b.fy -= dy * f; } }
+      for (i = 0; i < links.length; i++) { var l = links[i]; a = l.s; b = l.t; dx = b.x - a.x; dy = b.y - a.y; d = Math.sqrt(dx * dx + dy * dy) || 0.01;
+        f = (d - l.len) * l.k; dx /= d; dy /= d; a.fx += dx * f; a.fy += dy * f; b.fx -= dx * f; b.fy -= dy * f; }
+      for (i = 0; i < n; i++) { a = nodes[i]; a.fx -= a.x * 0.012 * a.mass; a.fy -= a.y * 0.012 * a.mass;
+        if (a === dragging) continue;
+        a.vx = (a.vx + a.fx / a.mass * alpha) * 0.6; a.vy = (a.vy + a.fy / a.mass * alpha) * 0.6;
+        var sp = Math.hypot(a.vx, a.vy); if (sp > 30) { a.vx *= 30 / sp; a.vy *= 30 / sp; }
+        a.x += a.vx; a.y += a.vy; }
+      alpha *= 0.985;
+    }
+    var userMoved = false, autoFit = false;
+    function loop() { raf = 0; if (alpha > 0.004) { tick(); tick(); raf = requestAnimationFrame(loop); } else if (autoFit) { autoFit = false; if (!userMoved) api.fit(); } draw(); }
+    function kick(a) { alpha = Math.max(alpha, a || 0.6); if (!raf) raf = requestAnimationFrame(loop); }
+
+    // ── drawing ──
+    function rectsOverlap(a, b) { return a.x < b.x + b.w && b.x < a.x + a.w && a.y < b.y + b.h && b.y < a.y + a.h; }
+    function draw() {
+      if (!W) return;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0); ctx.clearRect(0, 0, W, H); ctx.fillStyle = '#050805'; ctx.fillRect(0, 0, W, H);
+      var focus = selected || hover, nb = focus ? adj[focus.id] : null, hl = highlight;
+      var dim = function (n) { if (hl) return !hl.has(n.id); if (focus) return n !== focus && !(nb && nb.has(n.id)); return false; };
+      ctx.lineCap = 'round';
+      links.forEach(function (l) {
+        var a = toScreen(l.s), b = toScreen(l.t), faded = dim(l.s) || dim(l.t);
+        ctx.globalAlpha = faded ? 0.1 : (l.kind === 'mention' ? 0.4 : l.kind === 'cooc' ? 0.55 : 0.9);
+        ctx.strokeStyle = l.color; ctx.lineWidth = l.width * (faded ? 1 : 1);
+        if (l.dash) ctx.setLineDash(l.dash); else ctx.setLineDash([]);
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        if (l.arrow && !faded) { var ang = Math.atan2(b.y - a.y, b.x - a.x), rr = l.t.r * view.k + 3, tx = b.x - Math.cos(ang) * rr, ty = b.y - Math.sin(ang) * rr; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 8 * Math.cos(ang - 0.4), ty - 8 * Math.sin(ang - 0.4)); ctx.lineTo(tx - 8 * Math.cos(ang + 0.4), ty - 8 * Math.sin(ang + 0.4)); ctx.closePath(); ctx.fillStyle = l.color; ctx.fill(); }
+      });
+      ctx.setLineDash([]);
+      nodes.forEach(function (n) {
+        var s = toScreen(n), r = Math.max(2.5, n.r * Math.sqrt(view.k)), faded = dim(n);
+        ctx.globalAlpha = faded ? 0.3 : 1;
+        ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, 2 * Math.PI);
+        ctx.fillStyle = n.kind === 'concept' ? '#16261a' : n.color; ctx.fill();
+        if (n.kind === 'concept') { ctx.lineWidth = 2; ctx.strokeStyle = n.color; ctx.setLineDash([3, 2]); ctx.stroke(); ctx.setLineDash([]); }
+        if (n.ring) { ctx.lineWidth = 2.5; ctx.strokeStyle = '#ef4444'; ctx.beginPath(); ctx.arc(s.x, s.y, r + 3, 0, 2 * Math.PI); ctx.stroke(); }
+        if (n === selected) { ctx.lineWidth = 2; ctx.strokeStyle = '#4ade80'; ctx.beginPath(); ctx.arc(s.x, s.y, r + 6, 0, 2 * Math.PI); ctx.stroke(); }
+      });
+      // labels: importance order, constant screen size, skip on collision
+      var cand = nodes.filter(function (n) {
+        if (n === focus || (nb && nb.has(n.id) && focus.kind !== 'claim') || (hl && hl.has(n.id))) return true;
+        if (dim(n)) return n.kind !== 'claim' && labelMode !== 'none';
+        if (labelMode === 'none') return false;
+        if (labelMode === 'all') return true;
+        return n.kind !== 'claim' || view.k > 1.8;
+      }).sort(function (a, b) { return (b === focus) - (a === focus) || b.importance - a.importance; });
+      var placed = [];
+      ctx.font = '12px "JetBrains Mono", ui-monospace, monospace'; ctx.textBaseline = 'middle';
+      cand.slice(0, 220).forEach(function (n) {
+        var s = toScreen(n), txt = n === focus ? n.long || n.label : n.label, w = ctx.measureText(txt).width, r = Math.max(2.5, n.r * Math.sqrt(view.k));
+        var box = { x: s.x + r + 4, y: s.y - 9, w: w + 8, h: 18 };
+        if (box.x + box.w > W - 4) box.x = s.x - r - 4 - box.w;
+        if (box.x < 4) box.x = 4; if (box.x + box.w > W - 4) { box.w = Math.max(40, W - 8 - box.x); }
+        if (box.y < 2 || box.y > H - 20) return;
+        if (n !== focus && placed.some(function (p) { return rectsOverlap(p, box); })) return;
+        placed.push(box);
+        var fa = dim(n) ? 0.5 : 1; ctx.globalAlpha = 0.88 * fa; ctx.fillStyle = '#080c08'; ctx.fillRect(box.x, box.y, box.w, box.h);
+        ctx.globalAlpha = fa; ctx.save(); ctx.beginPath(); ctx.rect(box.x, box.y, box.w, box.h); ctx.clip(); ctx.fillStyle = n.kind === 'entity' ? '#e4f0e4' : n.kind === 'concept' ? '#a7c4a7' : (n.ring ? '#ffb4b4' : '#c8d8c8');
+        ctx.font = (n.kind === 'entity' ? '600 ' : '') + '12px "JetBrains Mono", ui-monospace, monospace';
+        ctx.fillText(txt, box.x + 4, box.y + 9.5); ctx.restore();
+      });
+      ctx.globalAlpha = 1;
+    }
+
+    // ── interaction ──
+    function pos(e) { var r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    canvas.addEventListener('pointerdown', function (e) {
+      canvas.setPointerCapture(e.pointerId); var p = pos(e); pointers[e.pointerId] = p; moved = false;
+      var ids = Object.keys(pointers);
+      if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), k: view.k }; dragging = null; panning = null; return; }
+      var n = nodeAt(p.x, p.y);
+      if (n) { dragging = n; n.vx = n.vy = 0; } else panning = { x: p.x, y: p.y, vx: view.x, vy: view.y };
+    });
+    canvas.addEventListener('pointermove', function (e) {
+      var p = pos(e);
+      if (pointers[e.pointerId]) pointers[e.pointerId] = p;
+      if (pinch) { var ids = Object.keys(pointers); if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y); view.k = Math.min(8, Math.max(0.15, pinch.k * d / pinch.d)); draw(); } return; }
+      if (dragging) { var w = toWorld(p.x, p.y); if (Math.hypot(w.x - dragging.x, w.y - dragging.y) > 1) moved = true; dragging.x = w.x; dragging.y = w.y; kick(0.25); return; }
+      if (panning) { if (Math.hypot(p.x - panning.x, p.y - panning.y) > 3) { moved = true; userMoved = true; } view.x = panning.vx + p.x - panning.x; view.y = panning.vy + p.y - panning.y; draw(); return; }
+      var h = nodeAt(p.x, p.y); if (h !== hover) { hover = h; canvas.style.cursor = h ? 'pointer' : 'grab'; if (opt.onHover) opt.onHover(h); draw(); }
+    });
+    function end(e) {
+      var p = pos(e), wasDrag = dragging, wasPan = panning;
+      delete pointers[e.pointerId];
+      if (pinch) { if (Object.keys(pointers).length < 2) pinch = null; return; }
+      dragging = null; panning = null;
+      if (!moved) { var n = nodeAt(p.x, p.y); api.select(n, true); }
+    }
+    canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', function (e) { delete pointers[e.pointerId]; pinch = null; dragging = null; panning = null; });
+    canvas.addEventListener('wheel', function (e) { e.preventDefault(); var p = pos(e), f = Math.exp(-e.deltaY * 0.0015); zoomAt(p.x, p.y, f); }, { passive: false });
+    canvas.addEventListener('mouseleave', function () { if (hover) { hover = null; draw(); } });
+    function zoomAt(px, py, f) { userMoved = true; var w = toWorld(px, py); view.k = Math.min(8, Math.max(0.15, view.k * f)); view.x = px - W / 2 - w.x * view.k; view.y = py - H / 2 - w.y * view.k; draw(); }
+
+    var api = {
+      setData: function (data) {
+        var old = byId; byId = {}; adj = {};
+        nodes = data.nodes.map(function (n, i) {
+          var o = old[n.id], ang = i * 2.399963, rad = 30 + 12 * Math.sqrt(i);
+          var m = Object.assign({ x: o ? o.x : Math.cos(ang) * rad, y: o ? o.y : Math.sin(ang) * rad, vx: 0, vy: 0, mass: n.kind === 'claim' ? 1 : 2.5, importance: 0 }, n);
+          byId[m.id] = m; adj[m.id] = new Set(); return m;
+        });
+        links = data.links.filter(function (l) { return byId[l.source] && byId[l.target]; }).map(function (l) {
+          adj[l.source].add(l.target); adj[l.target].add(l.source);
+          return Object.assign({ s: byId[l.source], t: byId[l.target], len: l.kind === 'mention' ? 45 : 70, k: l.kind === 'mention' ? 0.05 : 0.08, width: 1, color: '#2a4a2a' }, l, { len: l.len || (l.kind === 'mention' ? 45 : 70), k: l.k || (l.kind === 'mention' ? 0.05 : 0.08) });
+        });
+        selected = selected && byId[selected.id] ? byId[selected.id] : null; hover = null; highlight = null;
+        userMoved = false; autoFit = true; kick(1); setTimeout(function () { if (!userMoved) api.fit(); }, 900);
+      },
+      select: function (n, fromCanvas) { selected = n || null; draw(); if (fromCanvas && opt.onSelect) opt.onSelect(selected); },
+      selectId: function (id) { var n = byId[id]; if (n) { selected = n; api.focus(n); } draw(); return !!n; },
+      focus: function (n) { if (!n) return; var k = Math.max(view.k, 1.4); view.k = k; view.x = -n.x * k; view.y = -n.y * k; draw(); },
+      fit: function () { if (!nodes.length || !W) return; var um = userMoved; var xs = nodes.map(function (n) { return n.x; }), ys = nodes.map(function (n) { return n.y; });
+        var x0 = Math.min.apply(null, xs), x1 = Math.max.apply(null, xs), y0 = Math.min.apply(null, ys), y1 = Math.max.apply(null, ys);
+        var k = Math.min((W - 80) / Math.max(1, x1 - x0), (H - 80) / Math.max(1, y1 - y0), 2.5); view.k = Math.max(0.15, k); view.x = -(x0 + x1) / 2 * view.k; view.y = -(y0 + y1) / 2 * view.k; userMoved = um; draw(); },
+      zoom: function (f) { zoomAt(W / 2, H / 2, f); },
+      reheat: function () { kick(0.8); },
+      search: function (q) {
+        q = (q || '').trim().toLowerCase(); if (!q) { highlight = null; draw(); return []; }
+        var hits = nodes.filter(function (n) { return (n.label + ' ' + (n.long || '')).toLowerCase().indexOf(q) >= 0; });
+        highlight = new Set(); hits.forEach(function (n) { highlight.add(n.id); adj[n.id].forEach(function (x) { highlight.add(x); }); });
+        if (hits[0]) api.focus(hits[0]); draw(); return hits;
+      },
+      setLabelMode: function (m) { labelMode = m; draw(); },
+      neighbors: function (id) { return adj[id] ? Array.from(adj[id]).map(function (x) { return byId[x]; }) : []; },
+      clear: function () { selected = null; hover = null; highlight = null; draw(); },
+      size: function () { return { nodes: nodes.length, links: links.length }; },
+      destroy: function () { ro.disconnect(); cancelAnimationFrame(raf); }
+    };
+    resize();
+    return api;
+  };
+})(SA2);
+
+</script>
 <script id="sa2-ui">
 // ═══ SA2 UI ═══ controller, renderers, graph, exports.
 (function (S) {
@@ -967,13 +1330,6 @@ Investigators may still revise the cause.` },
   var LAYER_BADGE = { linear: 'b-lin', ordinal: 'b-ord', propositional: 'b-prop' };
   var TYPE_COLOR = { numeric: '#7dd3fc', date: '#fcd34d', order: '#fcd34d', proposition: '#e9a8ff', relation: '#a3e635' };
   var claimOf = function (R, id) { return R.claims[+String(id).slice(1)]; };
-
-  // ── deps (same multi-origin loader as v1) ──
-  var DEPS = { three: ['/vendor/three.min.js', 'https://cdn.jsdelivr.net/npm/three@0.149.0/build/three.min.js', 'https://unpkg.com/three@0.149.0/build/three.min.js'],
-    fg: ['/vendor/3d-force-graph.min.js', 'https://cdn.jsdelivr.net/npm/3d-force-graph@1.73.3/dist/3d-force-graph.min.js', 'https://unpkg.com/3d-force-graph@1.73.3/dist/3d-force-graph.min.js'] };
-  function loadScript(src) { return new Promise(function (res, rej) { var s = document.createElement('script'); s.src = src; s.onload = res; s.onerror = function () { rej(new Error('load ' + src)); }; document.head.appendChild(s); }); }
-  async function loadFirst(urls) { for (var i = 0; i < urls.length; i++) { try { await loadScript(urls[i]); return; } catch (e) { } } throw new Error('graph library unavailable'); }
-  U.loadDeps = async function () { if (window.ForceGraph3D) return; if (!window.THREE) await loadFirst(DEPS.three); if (!window.ForceGraph3D) await loadFirst(DEPS.fg); };
 
   U.setProgress = function (p) { var el = $('sa-prog'); if (el) el.style.width = p + '%'; };
 
@@ -1090,61 +1446,12 @@ Investigators may still revise the cause.` },
       + '<h4>Obstructions (' + obs.length + ')</h4>' + (obs.map(function (o) { return '<div class="w" style="font-size:11px;color:#c8d8c8;margin-bottom:4px">' + o.layer + ' · ' + o.class + ' — ' + esc(o.witness) + '</div>'; }).join('') || '<div class="sa-panel-empty">none</div>');
     $('sa-inspector').querySelectorAll('[data-claim]').forEach(function (d) { d.onclick = function () { U.selectClaim(claimOf(R, d.dataset.claim)); }; });
     U.highlight([c.unit]);
-    if (U.graph) { var n = U.graph.graphData().nodes.find(function (x) { return x.id === c.id; }); if (n) U.focusNode(n); }
+    if (U.focusGraph) U.focusGraph(c.id);
   };
   U.selectObstruction = function (o) {
     var R = U.last; U.selectClaim(claimOf(R, o.claims[0]));
     U.highlight(o.claims.map(function (id) { return claimOf(R, id).unit; }));
   };
-
-  // ── graph ──
-  U.graphData = function (R) {
-    var inObs = new Set(); R.obstructions.forEach(function (o) { o.claims.forEach(function (id) { inObs.add(id); }); });
-    var keep = new Set(), links = [];
-    R.edges.forEach(function (e) { links.push({ source: e.a, target: e.b, kind: e.conflict ? 'conflict' : 'glue' }); });
-    R.obstructions.forEach(function (o) { for (var i = 0; i < o.claims.length; i++) for (var j = i + 1; j < o.claims.length; j++) links.push({ source: o.claims[i], target: o.claims[j], kind: 'conflict' }); });
-    var byEvent = {}; R.claims.forEach(function (c) { if (c.event != null) (byEvent[c.event] = byEvent[c.event] || []).push(c.id); if (c.events) c.events.forEach(function (ev) { (byEvent[ev] = byEvent[ev] || []).push(c.id); }); });
-    Object.keys(byEvent).forEach(function (k) { var ids = byEvent[k]; for (var i = 1; i < ids.length; i++) links.push({ source: ids[0], target: ids[i], kind: 'event' }); });
-    var firstClaim = {}; R.claims.forEach(function (c) { if (!firstClaim[c.unit]) firstClaim[c.unit] = c.id; });
-    R.supportEdges.forEach(function (e) { if (e[0] !== e[1] && firstClaim[e[0]] && firstClaim[e[1]]) links.push({ source: firstClaim[e[0]], target: firstClaim[e[1]], kind: 'support' }); });
-    links.forEach(function (l) { keep.add(l.source); keep.add(l.target); });
-    var pick = function (c) { if (U.density === 'focus') return inObs.has(c.id); if (U.density === 'balanced') return keep.has(c.id); return keep.has(c.id) || c.type !== 'proposition'; };
-    var nodes = R.claims.filter(pick).slice(0, 1500).map(function (c) { return { id: c.id, type: c.type, obs: inObs.has(c.id), label: (c.span.quote || '').slice(0, 48), claim: c }; });
-    var ids = new Set(nodes.map(function (n) { return n.id; }));
-    return { nodes: nodes, links: links.filter(function (l) { return ids.has(l.source) && ids.has(l.target); }) };
-  };
-  U.renderGraph = async function (R) {
-    var el = $('sa-graph-canvas'), empty = $('sa-graph-empty');
-    try { await U.loadDeps(); } catch (e) { empty.textContent = 'Graph library could not load (offline?). All other panels work.'; return; }
-    var data = U.graphData(R);
-    if (!data.nodes.length) { empty.style.display = ''; empty.textContent = U.density === 'focus' ? 'No obstructions to show in focus mode.' : 'No linked claims to draw.'; if (U.graph) U.graph.graphData({ nodes: [], links: [] }); return; }
-    empty.style.display = 'none';
-    var col = { conflict: '#ef4444', glue: '#4ade8088', event: '#fcd34d88', support: '#60a5fa' };
-    if (!U.graph) {
-      U.graph = ForceGraph3D()(el).backgroundColor('#050805').width(el.clientWidth).height(el.clientHeight).showNavInfo(false)
-        .nodeVal(function (n) { return n.obs ? 6 : 2; }).nodeColor(function (n) { return n.obs ? '#ef4444' : TYPE_COLOR[n.type]; })
-        .nodeLabel(function (n) { return esc(n.claim.span.quote.slice(0, 160)); })
-        .linkColor(function (l) { return col[l.kind]; }).linkWidth(function (l) { return l.kind === 'conflict' ? 2.5 : 0.6; })
-        .linkDirectionalArrowLength(function (l) { return l.kind === 'support' ? 3 : 0; })
-        .onNodeClick(function (n) { U.selectClaim(n.claim); })
-        .onNodeHover(function (n) { el.style.cursor = n ? 'pointer' : 'grab'; });
-      window.addEventListener('resize', function () { if (U.graph) U.graph.width(el.clientWidth).height(el.clientHeight); });
-    }
-    U.graph.graphData(data);
-    U.applyLabels();
-    $('sa-graph-overlay').textContent = '◆ ' + data.nodes.length + ' claims · ' + data.links.length + ' links · ' + U.density;
-    setTimeout(function () { if (U.graph) U.graph.zoomToFit(600, 40); }, 1200);
-  };
-  U.applyLabels = function () {
-    if (!U.graph || !window.THREE) return;
-    U.graph.nodeThreeObjectExtend(true).nodeThreeObject(function (n) {
-      if (!U.labels || !(n.obs || n.type !== 'proposition')) return null;
-      var c = document.createElement('canvas'), ctx = c.getContext('2d'), txt = n.label; ctx.font = '28px monospace'; var w = ctx.measureText(txt).width + 12; c.width = w; c.height = 40; ctx.font = '28px monospace'; ctx.fillStyle = n.obs ? '#ffb4b4' : '#c8d8c8'; ctx.fillText(txt, 6, 30);
-      var tex = new THREE.CanvasTexture(c), sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthWrite: false, transparent: true })); sp.scale.set(w / 8, 5, 1); sp.position.set(0, 7, 0); return sp;
-    });
-  };
-  U.focusNode = function (n) { if (!U.graph || n.x == null) return; var d = 80, r = 1 + d / Math.hypot(n.x || 1, n.y || 1, n.z || 1); U.graph.cameraPosition({ x: n.x * r, y: n.y * r, z: n.z * r }, n, 800); };
-  U.zoom = function (f) { if (!U.graph) return; var p = U.graph.cameraPosition(); U.graph.cameraPosition({ x: p.x * f, y: p.y * f, z: p.z * f }, null, 300); };
 
   // ── exports ──
   function stripClaims(R) { return R.claims.map(function (c) { var o = Object.assign({}, c); delete o.fset; return o; }); }
@@ -1248,11 +1555,6 @@ Investigators may still revise the cause.` },
     $('sa-cmp-run').onclick = U.runCompare;
     $('sa-cmp-swap').onclick = function () { var a = $('sa-cmp-a'), b = $('sa-cmp-b'), t = a.value; a.value = b.value; b.value = t; };
     $('sa-cmp-sample').onclick = function () { $('sa-cmp-a').value = S.SAMPLES.versionA.text; $('sa-cmp-b').value = S.SAMPLES.versionB.text; };
-    ['focus', 'balanced', 'full'].forEach(function (d) { $('sa-gc-dens-' + d).onclick = function () { U.density = d; document.querySelectorAll('.sa-gc-dens').forEach(function (b) { b.classList.toggle('sa-gc-on', b.id === 'sa-gc-dens-' + d); }); if (U.last) U.renderGraph(U.last); }; });
-    $('sa-gc-reheat').onclick = function () { U.graph && U.graph.d3ReheatSimulation(); };
-    $('sa-gc-fit').onclick = function () { U.graph && U.graph.zoomToFit(500, 40); };
-    $('sa-gc-labels').onclick = function () { U.labels = !U.labels; U.applyLabels(); };
-    $('sa-zoom-in').onclick = function () { U.zoom(0.75); }; $('sa-zoom-out').onclick = function () { U.zoom(1.33); }; $('sa-zoom-reset').onclick = function () { U.graph && U.graph.zoomToFit(500, 40); };
     document.querySelectorAll('.sa-export-opt').forEach(function (b) { b.onclick = function () { if (!U.last) return; var ts = new Date().toISOString().slice(0, 19).replace(/[:T]/g, '-'); var f = b.dataset.fmt;
       if (f === 'deep') U.download('sheaf-v2-' + ts + '.json', U.exportDeep(U.last), 'application/json');
       else if (f === 'md') U.download('sheaf-v2-' + ts + '.md', U.exportMarkdown(U.last), 'text/markdown');
@@ -1261,6 +1563,204 @@ Investigators may still revise the cause.` },
     var pick = $('sa-src-pick');
     Object.keys(S.SAMPLES).filter(function (k) { return !S.SAMPLES[k].hidden; }).forEach(function (k) { var b = document.createElement('button'); b.textContent = S.SAMPLES[k].label; b.onclick = function () { $('sa-text').value = S.SAMPLES[k].text; U.run(); }; pick.appendChild(b); });
     U.renderLayers({ topic: {} });
+  };
+})(SA2);
+
+</script>
+<script id="sa2-ui-explore">
+// ═══ SA2 UI · EXPLORE ═══ insights tabs, entity-centred 2D graph, entity inspector, state reset.
+(function (S) {
+  'use strict';
+  var U = S.ui, $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var TYPE_COLOR = { numeric: '#7dd3fc', date: '#fcd34d', order: '#fcd34d', proposition: '#e9a8ff', relation: '#a3e635' };
+  var claimOf = function (R, id) { return R.claims[+String(id).slice(1)]; };
+  var short = function (t, n) { t = String(t).replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+  U.labelMode = 'auto'; U.tab = 'overview';
+
+  // ── reset everything that belongs to a previous analysis ──
+  U.reset = function () {
+    $('sa-inspector').innerHTML = '<h3>◉ Inspector</h3><div class="sa-panel-empty">Tap an entity, concept or claim in the graph, an item in Insights or Obstructions, or a highlighted sentence in the text.</div>';
+    document.querySelectorAll('.sa-u.sel').forEach(function (x) { x.classList.remove('sel'); });
+    if (U.g) U.g.clear();
+    var gs = $('sa-gsearch'); if (gs) gs.value = '';
+  };
+
+  // ── graph model: entities and concepts as labelled hubs, claims as small nodes ──
+  U.graphModel = function (R, I) {
+    var inObs = {}; R.obstructions.forEach(function (o) { o.claims.forEach(function (id) { inObs[id] = true; }); });
+    var mode = U.density, nodes = [], links = [], have = {};
+    var hubs = I.entities.slice(0, 40).concat(I.concepts.slice(0, mode === 'full' ? 18 : 12));
+    var claimOk = function (c) {
+      if (mode === 'focus') return !!inObs[c.id];
+      if (c.type !== 'proposition') return true;
+      if (inObs[c.id]) return true;
+      return mode === 'full';
+    };
+    var hubOfClaim = {};
+    hubs.forEach(function (h, i) { h.claims.forEach(function (id) { (hubOfClaim[id] = hubOfClaim[id] || []).push(i); }); });
+    var claimsShown = R.claims.filter(function (c) { return claimOk(c) && (hubOfClaim[c.id] || inObs[c.id] || c.type !== 'proposition'); });
+    if (claimsShown.length > 700) claimsShown = claimsShown.filter(function (c) { return inObs[c.id] || c.type !== 'proposition'; }).slice(0, 700);
+    var usedHub = {};
+    claimsShown.forEach(function (c) {
+      have[c.id] = true;
+      nodes.push({ id: c.id, kind: 'claim', type: c.type, r: inObs[c.id] ? 6 : 4, color: TYPE_COLOR[c.type], ring: !!inObs[c.id], label: short(c.span.quote, 42), long: short(c.span.quote, 120), importance: inObs[c.id] ? 5 : 1 });
+      (hubOfClaim[c.id] || []).forEach(function (hi) { usedHub[hi] = true; links.push({ source: 'h' + hi, target: c.id, kind: 'mention', color: '#2f4f2f', width: 1 }); });
+    });
+    hubs.forEach(function (h, i) {
+      if (mode === 'focus' && !usedHub[i]) return;
+      if (!usedHub[i] && mode !== 'full' && h.kind === 'concept') return;
+      nodes.push({ id: 'h' + i, kind: h.kind, r: Math.min(16, 6 + Math.sqrt(h.mentions) * 1.6), color: h.kind === 'entity' ? '#e4f0e4' : '#a7c4a7', ring: (h.obstructions || []).length > 0, label: h.name, long: h.name + ' · ' + h.mentions + ' mentions', importance: 10 + h.mentions, hub: h });
+    });
+    // entity–entity co-occurrence: hubs mentioned in the same sentence
+    var shownHub = {}; nodes.forEach(function (n) { if (n.hub) shownHub[n.id] = n.hub; });
+    var hk = Object.keys(shownHub), pairs = [];
+    for (var a = 0; a < hk.length; a++) { var ua = new Set(shownHub[hk[a]].units || []); for (var b = a + 1; b < hk.length; b++) { var n2 = (shownHub[hk[b]].units || []).filter(function (u) { return ua.has(u); }).length; if (n2) pairs.push([hk[a], hk[b], n2]); } }
+    pairs.sort(function (x, y) { return y[2] - x[2]; }).slice(0, 160).forEach(function (pr) { links.push({ source: pr[0], target: pr[1], kind: 'cooc', color: '#3d6b3d', width: Math.min(4, 0.8 + pr[2] * 0.6), len: 110, k: 0.02 + Math.min(0.06, pr[2] * 0.01) }); });
+    var add = function (a, b, kind, color, width, extra) { if (have[a] && have[b]) links.push(Object.assign({ source: a, target: b, kind: kind, color: color, width: width }, extra || {})); };
+    R.obstructions.forEach(function (o) { for (var i = 0; i < o.claims.length - 1; i++) add(o.claims[i], o.claims[i + 1], 'conflict', '#ef4444', 2.5); if (o.claims.length > 2) add(o.claims[o.claims.length - 1], o.claims[0], 'conflict', '#ef4444', 2.5); });
+    R.edges.forEach(function (e) { if (!e.conflict) add(e.a, e.b, 'glue', '#4ade80', 1.5); });
+    var byEvent = {}; R.claims.forEach(function (c) { if (c.event != null) (byEvent[c.event] = byEvent[c.event] || []).push(c.id); if (c.events) c.events.forEach(function (ev) { (byEvent[ev] = byEvent[ev] || []).push(c.id); }); });
+    Object.keys(byEvent).forEach(function (k) { var ids = byEvent[k]; for (var i = 1; i < ids.length; i++) add(ids[i - 1], ids[i], 'event', '#fcd34d', 1.2, { dash: [4, 3] }); });
+    var claimOfUnit = {}; R.claims.forEach(function (c) { if (have[c.id] && !claimOfUnit[c.unit]) claimOfUnit[c.unit] = c.id; });
+    R.supportEdges.forEach(function (e) { if (e[0] !== e[1] && claimOfUnit[e[0]] && claimOfUnit[e[1]]) add(claimOfUnit[e[0]], claimOfUnit[e[1]], 'support', '#60a5fa', 1.5, { arrow: true }); });
+    return { nodes: nodes, links: links };
+  };
+  U.renderGraph = function (R) {
+    var empty = $('sa-graph-empty');
+    if (!U.g) U.g = S.Graph2D($('sa-graph-canvas'), { onSelect: function (n) { if (!n) return; if (n.hub) U.selectEntity(n.hub, true); else U.selectClaim(claimOf(U.last, n.id), true); } });
+    var m = U.graphModel(R, U.ins);
+    U.g.setData(m); U.g.setLabelMode(U.labelMode);
+    empty.style.display = m.nodes.length ? 'none' : '';
+    if (!m.nodes.length) empty.textContent = U.density === 'focus' ? 'No obstructions to show.' : 'Nothing to draw: no entities, concepts or checkable claims found.';
+    var hubs = m.nodes.filter(function (n) { return n.hub; }).length;
+    $('sa-graph-overlay').textContent = '◆ ' + hubs + ' entities & concepts · ' + (m.nodes.length - hubs) + ' claims · ' + m.links.length + ' links — drag to pan · scroll/pinch to zoom · tap a node';
+  };
+  U.focusGraph = function (id) { if (U.g) U.g.selectId(id); };
+
+  // ── entity / concept inspector ──
+  U.selectEntity = function (h, fromGraph) {
+    var R = U.last, I = U.ins; if (!R || !h) return;
+    var cs = h.claims.map(function (id) { return claimOf(R, id); });
+    var by = function (t) { return cs.filter(function (c) { return c.type === t; }); };
+    var co = {}; (I.entities.concat(I.concepts)).forEach(function (o, i) { if (o === h) return; var shared = o.claims.filter(function (x) { return h.claims.indexOf(x) >= 0; }).length; if (shared) co[i] = shared; });
+    var hubsAll = I.entities.concat(I.concepts);
+    var coList = Object.keys(co).sort(function (a, b) { return co[b] - co[a]; }).slice(0, 14);
+    var line = function (c) { return '<div class="sa-obs" data-claim="' + c.id + '"><span class="sa-badge" style="background:' + TYPE_COLOR[c.type] + '22;color:' + TYPE_COLOR[c.type] + '">' + c.type + '</span>' + (c.modality.kind !== 'asserted' ? '<span class="sa-badge b-q">' + c.modality.kind + (c.modality.source ? ': ' + esc(short(c.modality.source, 24)) : '') + '</span>' : '') + '<div class="q">' + esc(short(c.span.quote, 220)) + '</div></div>'; };
+    var props = by('proposition').filter(function (c) { return !cs.some(function (o) { return o.unit === c.unit && o.type !== 'proposition'; }); });
+    var html = '<h3>◉ ' + esc(h.name) + ' <span class="sa-badge b-q">' + h.kind + '</span></h3>'
+      + '<div class="sa-kv"><b>mentions</b><span>' + h.mentions + '</span></div><div class="sa-kv"><b>sentences</b><span>' + (h.units || []).length + '</span></div>'
+      + (h.sources && h.sources.length ? '<div class="sa-kv"><b>sources</b><span>' + esc(h.sources.slice(0, 6).join(', ')) + '</span></div>' : '')
+      + '<div class="sa-kv"><b>in obstructions</b><span style="color:' + ((h.obstructions || []).length ? '#ef4444' : '#6b8a6b') + '">' + (h.obstructions || []).length + '</span></div>'
+      + (coList.length ? '<h4>Appears with</h4><div>' + coList.map(function (i) { var o = hubsAll[+i]; return '<span class="sa-chipbtn' + (o.kind === 'concept' ? ' c' : '') + '" data-hub="' + i + '">' + esc(o.name) + ' · ' + co[i] + '</span>'; }).join('') + '</div>' : '')
+      + (by('date').length ? '<h4>Dates (' + by('date').length + ')</h4>' + by('date').map(line).join('') : '')
+      + (by('numeric').length ? '<h4>Figures (' + by('numeric').length + ')</h4>' + by('numeric').map(line).join('') : '')
+      + (by('order').concat(by('relation')).length ? '<h4>Order & relations</h4>' + by('order').concat(by('relation')).map(line).join('') : '')
+      + '<h4>Statements (' + props.length + ')</h4>' + (props.slice(0, 30).map(line).join('') || '<div class="sa-panel-empty">none</div>') + (props.length > 30 ? '<div class="sa-panel-empty">… ' + (props.length - 30) + ' more</div>' : '');
+    var el = $('sa-inspector'); el.innerHTML = html; el.scrollTop = 0;
+    el.querySelectorAll('[data-claim]').forEach(function (d) { d.onclick = function () { U.selectClaim(claimOf(R, d.dataset.claim)); }; });
+    el.querySelectorAll('[data-hub]').forEach(function (d) { d.onclick = function () { U.selectEntity(hubsAll[+d.dataset.hub]); }; });
+    U.highlight(h.units || []);
+    if (!fromGraph && U.g) { var idx = hubsAll.indexOf(h); U.g.selectId('h' + idx); }
+  };
+
+  // claim inspector: add the entities a claim mentions
+  var baseSelectClaim = U.selectClaim;
+  U.selectClaim = function (c, fromGraph) {
+    if (!c) return;
+    var keep = U.focusGraph; if (fromGraph) U.focusGraph = null;
+    baseSelectClaim(c);
+    U.focusGraph = keep;
+    var I = U.ins; if (!I) return;
+    var hubsAll = I.entities.concat(I.concepts), mine = [];
+    hubsAll.forEach(function (h, i) { if (h.claims.indexOf(c.id) >= 0) mine.push(i); });
+    if (mine.length) { var el = $('sa-inspector'), div = document.createElement('div'); div.innerHTML = '<h4>Mentions</h4>' + mine.slice(0, 16).map(function (i) { var h = hubsAll[i]; return '<span class="sa-chipbtn' + (h.kind === 'concept' ? ' c' : '') + '" data-hub="' + i + '">' + esc(h.name) + '</span>'; }).join('');
+      el.insertBefore(div, el.querySelector('h4')); div.querySelectorAll('[data-hub]').forEach(function (d) { d.onclick = function () { U.selectEntity(hubsAll[+d.dataset.hub]); }; }); }
+    $('sa-inspector').scrollTop = 0;
+  };
+
+  // ── insights tabs ──
+  var TABS = [
+    ['overview', 'Overview'], ['entities', 'Entities & concepts'], ['figures', 'Figures'], ['timeline', 'Timeline'],
+    ['arguments', 'Arguments'], ['accounts', 'Who says what'], ['tensions', 'Possible tensions'], ['agreements', 'Repeated & consistent']
+  ];
+  U.renderInsights = function () {
+    var I = U.ins, R = U.last; if (!I) return;
+    var count = { overview: I.highlights.length, entities: I.entities.length + I.concepts.length, figures: I.quantities.length, timeline: I.dated.length + I.orders.length, arguments: I.arguments.length + I.sealing.length, accounts: Object.keys(I.bySource).length, tensions: I.tensions.length, agreements: I.corroborated.length };
+    $('sa-tabs').innerHTML = TABS.map(function (t) { return '<button class="sa-tab' + (U.tab === t[0] ? ' on' : '') + '" data-tab="' + t[0] + '">' + t[1] + '<span class="n">' + count[t[0]] + '</span></button>'; }).join('');
+    $('sa-tabs').querySelectorAll('[data-tab]').forEach(function (b) { b.onclick = function () { U.tab = b.dataset.tab; U.renderInsights(); }; });
+    var el = $('sa-ins'), h = '', hubsAll = I.entities.concat(I.concepts);
+    var row = function (cells, claim) { return '<tr' + (claim ? ' class="sa-row-click" data-claim="' + claim + '"' : '') + '>' + cells.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; };
+    var empty = function (t) { return '<div class="sa-panel-empty">' + t + '</div>'; };
+    if (U.tab === 'overview') {
+      var m = I.modality, tot = m.asserted + m.reported + m.hypothesized + m.question || 1, bar = function (v, c) { return '<span style="display:inline-block;height:10px;width:' + (100 * v / tot) + '%;background:' + c + '"></span>'; };
+      h = '<ul>' + (I.highlights.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') || '<li>Nothing notable found.</li>') + '</ul>'
+        + '<h4 style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin:12px 0 6px">HOW THE TEXT SPEAKS</h4><div style="display:flex;width:100%;border-radius:3px;overflow:hidden;margin-bottom:4px">' + bar(m.asserted, '#4ade80') + bar(m.reported, '#e6cc6a') + bar(m.hypothesized, '#c4bfff') + bar(m.question, '#6b8a6b') + '</div>'
+        + '<div style="font-size:11px;color:#8faf8f;font-family:JetBrains Mono,monospace"><span style="color:#4ade80">■</span> asserted ' + m.asserted + ' · <span style="color:#e6cc6a">■</span> reported ' + m.reported + ' · <span style="color:#c4bfff">■</span> hypothetical ' + m.hypothesized + ' · <span style="color:#6b8a6b">■</span> questions ' + m.question + '</div>'
+        + '<div style="font-size:11px;color:#8faf8f;font-family:JetBrains Mono,monospace;margin-top:6px">checkable sentences (carry a figure, date or order relation): ' + I.checkability.typed + ' of ' + I.checkability.units + ' (' + Math.round(I.checkability.share * 100) + '%)</div>'
+        + (I.entities.length ? '<h4 style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin:12px 0 6px">KEY ENTITIES</h4>' + I.entities.slice(0, 16).map(function (e) { return '<span class="sa-chipbtn" data-hub="' + hubsAll.indexOf(e) + '">' + esc(e.name) + ' · ' + e.mentions + '</span>'; }).join('') : '')
+        + (I.concepts.length ? '<h4 style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin:12px 0 6px">KEY CONCEPTS</h4>' + I.concepts.slice(0, 16).map(function (e) { return '<span class="sa-chipbtn c" data-hub="' + hubsAll.indexOf(e) + '">' + esc(e.name) + ' · ' + e.mentions + '</span>'; }).join('') : '');
+    } else if (U.tab === 'entities') {
+      h = '<table class="sa-table"><tr><th>name</th><th>kind</th><th>mentions</th><th>claims</th><th>in conflicts</th>' + (R.sources.length > 1 ? '<th>sources</th>' : '') + '</tr>'
+        + hubsAll.map(function (e, i) { return '<tr class="sa-row-click" data-hub="' + i + '"><td>' + esc(e.name) + '</td><td>' + e.kind + '</td><td>' + e.mentions + '</td><td>' + e.claims.length + '</td><td style="color:' + (e.obstructions.length ? '#ef4444' : '#6b8a6b') + '">' + e.obstructions.length + '</td>' + (R.sources.length > 1 ? '<td>' + (e.sources ? e.sources.length : '') + '</td>' : '') + '</tr>'; }).join('') + '</table>';
+    } else if (U.tab === 'figures') {
+      h = I.quantities.length ? '<table class="sa-table"><tr><th>value</th><th>context</th><th>status</th></tr>' + I.quantities.map(function (q) { return row([esc(q.values) + (q.hedged ? ' ~' : ''), esc(short(q.quote, 140)) + (q.source ? ' <span style="color:#4ade80">' + esc(q.source) + '</span>' : ''), (q.obstruction ? '<span style="color:#ef4444">conflict</span>' : '') + (q.modality !== 'asserted' ? ' ' + q.modality : '')], q.claim); }).join('') + '</table>' : empty('No figures with recognisable values.');
+    } else if (U.tab === 'timeline') {
+      h = (I.dated.length ? '<table class="sa-table"><tr><th>when</th><th>what</th><th></th></tr>' + I.dated.map(function (d) { return row([d.lo === d.hi ? d.lo : d.lo + ' … ' + d.hi, esc(short(d.quote, 150)) + (d.source ? ' <span style="color:#4ade80">' + esc(d.source) + '</span>' : ''), (d.obstruction ? '<span style="color:#ef4444">conflict</span> ' : '') + (d.modality !== 'asserted' ? d.modality : '')], d.claim); }).join('') + '</table>' : empty('No dated events.'))
+        + (I.orders.length ? '<h4 style="font-size:11px;color:#4ade80;font-family:JetBrains Mono,monospace;margin:12px 0 6px">ORDER STATEMENTS</h4><table class="sa-table">' + I.orders.map(function (o) { return row([o.relation, esc(short(o.quote, 160)), o.obstruction ? '<span style="color:#ef4444">cycle</span>' : ''], o.claim); }).join('') + '</table>' : '');
+    } else if (U.tab === 'arguments') {
+      h = (I.arguments.length ? '<table class="sa-table"><tr><th>premise</th><th></th><th>conclusion</th></tr>' + I.arguments.map(function (a) { return '<tr class="sa-row-click" data-unit="' + a.conclusion + '"><td>' + esc(short(a.premiseText, 110)) + '</td><td style="color:#60a5fa">→</td><td>' + esc(short(a.conclusionText, 110)) + '</td></tr>'; }).join('') + '</table>' : empty('No explicit inference markers (therefore, thus, which shows…).'))
+        + (I.ungrounded.length ? '<h4 style="font-size:11px;color:#c9a84c;font-family:JetBrains Mono,monospace;margin:12px 0 6px">CONCLUSIONS WITHOUT A GROUNDED SUPPORT CHAIN</h4>' + I.ungrounded.map(function (u) { return '<div class="sa-obs" data-unit="' + u.unit + '"><div class="q">' + esc(short(u.text, 220)) + '</div></div>'; }).join('') : '')
+        + (I.sealing.length ? '<h4 style="font-size:11px;color:#ef4444;font-family:JetBrains Mono,monospace;margin:12px 0 6px">SELF-SEALING</h4>' + I.sealing.map(function (u) { return '<div class="sa-obs" data-unit="' + u.unit + '"><div class="q">' + esc(short(u.text, 220)) + '</div></div>'; }).join('') : '')
+        + (I.hedged.length ? '<h4 style="font-size:11px;color:#c4bfff;font-family:JetBrains Mono,monospace;margin:12px 0 6px">HEDGED / HYPOTHETICAL (' + I.hedged.length + ')</h4>' + I.hedged.slice(0, 25).map(function (x) { return '<div class="sa-obs" data-claim="' + x.claim + '"><div class="q">' + esc(short(x.quote, 200)) + '</div></div>'; }).join('') : '');
+    } else if (U.tab === 'accounts') {
+      var ks = Object.keys(I.bySource).sort(function (a, b) { return I.bySource[b].length - I.bySource[a].length; });
+      h = ks.length ? ks.map(function (k) { var L = I.bySource[k]; return '<details' + (L.some(function (x) { return x.obstruction; }) ? ' open' : '') + '><summary style="cursor:pointer;color:#e6cc6a;font-family:JetBrains Mono,monospace;font-size:12px">' + esc(k) + ' — ' + L.length + ' statement' + (L.length > 1 ? 's' : '') + (L.some(function (x) { return x.obstruction; }) ? ' · <span style="color:#ef4444">in conflict</span>' : '') + '</summary>' + L.map(function (x) { return '<div class="sa-obs" data-claim="' + x.claim + '"><div class="q">' + esc(short(x.quote, 220)) + '</div></div>'; }).join('') + '</details>'; }).join('') : empty('No reported speech with an identifiable source.');
+    } else if (U.tab === 'tensions') {
+      h = '<div class="sa-panel-empty" style="font-style:normal">Looser matches than the formal layers accept. Not contradictions: candidates for a human to check.</div>'
+        + (I.tensions.map(function (t) { return '<div class="sa-obs" data-claim="' + t.claims[0] + '"><span class="sa-badge b-acc">' + esc(t.kind) + '</span><div class="q">' + esc(short(t.a, 200)) + '</div><div class="q">' + esc(short(t.b, 200)) + '</div><div class="w">' + esc(t.note) + '</div></div>'; }).join('') || empty('None found.'));
+    } else if (U.tab === 'agreements') {
+      h = I.corroborated.length ? I.corroborated.map(function (c) { return '<div class="sa-obs" data-claim="' + c.claims[0] + '"><span class="sa-badge b-q">' + c.layer + '</span>' + (c.crossSource ? '<span class="sa-badge b-acc">across sources</span>' : '') + '<div class="q" style="border-color:#1a6b38">' + esc(short(c.a, 200)) + '</div><div class="q" style="border-color:#1a6b38">' + esc(short(c.b, 200)) + '</div></div>'; }).join('') : empty('No statement is made twice.');
+    }
+    el.innerHTML = h;
+    el.querySelectorAll('[data-claim]').forEach(function (d) { d.onclick = function () { U.selectClaim(claimOf(R, d.dataset.claim)); }; });
+    el.querySelectorAll('[data-hub]').forEach(function (d) { d.onclick = function () { U.selectEntity(hubsAll[+d.dataset.hub]); }; });
+    el.querySelectorAll('[data-unit]').forEach(function (d) { d.onclick = function () { U.selectUnit(d.dataset.unit); }; });
+  };
+
+  // ── show: reset, compute insights, render ──
+  U.show = async function (R, opt) {
+    U.reset();
+    U.last = R; opt = opt || {}; U.ins = S.insights(R);
+    U.renderMetrics(R); U.renderObstructions(R); U.renderTimeline(R); U.renderAccounts(R);
+    U.renderInsights(); U.renderText(R, opt.maxUnits);
+    U.setProgress(80); U.renderGraph(R);
+    U.setProgress(100); setTimeout(function () { U.setProgress(0); }, 500);
+    if (R.obstructions[0]) U.selectObstruction(R.obstructions[0]);
+    else if (U.ins.entities[0] || U.ins.concepts[0]) U.selectEntity(U.ins.entities[0] || U.ins.concepts[0]);
+  };
+  var baseDeep = U.exportDeep;
+  U.exportDeep = function (R) { var o = JSON.parse(baseDeep(R)); var I = U.ins; o.insights = { highlights: I.highlights, checkability: I.checkability, modality: I.modality, entities: I.entities.map(function (e) { return { name: e.name, mentions: e.mentions, claims: e.claims.length, obstructions: e.obstructions.length }; }), concepts: I.concepts.map(function (e) { return { name: e.name, mentions: e.mentions }; }), figures: I.quantities, timeline: I.dated, orders: I.orders, arguments: I.arguments, ungrounded: I.ungrounded, sealing: I.sealing, accounts: I.bySource, tensions: I.tensions, repeated: I.corroborated }; return JSON.stringify(o, null, 2); };
+  var baseMd = U.exportMarkdown;
+  U.exportMarkdown = function (R) {
+    var I = U.ins, md = baseMd(R).split('\n'), at = md.indexOf('## Γ per layer');
+    var add = ['## Highlights', ''].concat(I.highlights.map(function (h) { return '- ' + h; }), ['', '**Key entities:** ' + I.entities.slice(0, 15).map(function (e) { return e.name + ' (' + e.mentions + ')'; }).join(', '), '', '**Key concepts:** ' + I.concepts.slice(0, 15).map(function (e) { return e.name; }).join(', '), '']);
+    if (I.tensions.length) add = add.concat(['## Possible tensions (for review)', ''], I.tensions.map(function (t) { return '- *' + t.kind + '* — “' + t.a + '” / “' + t.b + '” (' + t.note + ')'; }), ['']);
+    md.splice(at, 0, add.join('\n')); return md.join('\n');
+  };
+
+  // ── controls ──
+  var baseInit = U.init;
+  U.init = function () {
+    baseInit();
+    ['focus', 'balanced', 'full'].forEach(function (d) { $('sa-gc-dens-' + d).onclick = function () { U.density = d; document.querySelectorAll('.sa-gc-dens').forEach(function (b) { b.classList.toggle('sa-gc-on', b.id === 'sa-gc-dens-' + d); }); if (U.last) U.renderGraph(U.last); }; });
+    $('sa-gc-labels').onclick = function () { U.labelMode = { auto: 'all', all: 'none', none: 'auto' }[U.labelMode]; this.textContent = 'labels: ' + U.labelMode; if (U.g) U.g.setLabelMode(U.labelMode); };
+    $('sa-gc-fit').onclick = $('sa-zoom-reset').onclick = function () { if (U.g) U.g.fit(); };
+    $('sa-gc-reheat').onclick = function () { if (U.g) U.g.reheat(); };
+    $('sa-zoom-in').onclick = function () { if (U.g) U.g.zoom(1.35); };
+    $('sa-zoom-out').onclick = function () { if (U.g) U.g.zoom(1 / 1.35); };
+    var t = null; $('sa-gsearch').oninput = function () { var q = this.value; clearTimeout(t); t = setTimeout(function () { if (!U.g) return; var hits = U.g.search(q); $('sa-graph-overlay').textContent = q ? '◆ ' + hits.length + ' match' + (hits.length === 1 ? '' : 'es') + ' for “' + q + '”' : '◆ drag to pan · scroll/pinch to zoom · tap a node'; }, 180); };
+    $('sa-gsearch').onkeydown = function (e) { if (e.key === 'Enter' && U.g) { var hits = U.g.search(this.value); if (hits[0]) { if (hits[0].hub) U.selectEntity(hits[0].hub, true); else U.selectClaim(claimOf(U.last, hits[0].id), true); } } };
   };
 })(SA2);
 if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', SA2.ui.init); else SA2.ui.init(); }

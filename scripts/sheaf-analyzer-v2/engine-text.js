@@ -164,7 +164,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       if (unit === 'percent') unit = '%';
       var hedged = HEDGE.test(t.slice(Math.max(0, idx - 14), idx));
       // ordinals / list markers / section numbers are not quantities
-      if (/^\s*(st|nd|rd|th)\b/i.test(after) || /§\s*$/.test(t.slice(0, idx)) || /\b(drk|section|chapter|page|p\.|nr|no\.?|layer|l|step|part|phase|stage|level|rule|axiom|law|item|case|figure|fig\.?|table|act|book|volume|vol\.?|ch\.?|version|v|round|day|session|post|episode|season|issue|claim|thesis|hypothesis|h|p|q|lemma|theorem|proposition|corollary|definition|remark|example|exercise|amendment|article|clause)\s*[-#]?$/i.test(t.slice(Math.max(0, idx - 14), idx))) continue;
+      if (/\b[A-ZÅÄÖ]{1,5}[-\s]?$/.test(t.slice(Math.max(0, idx - 7), idx)) || /^\s*(st|nd|rd|th)\b/i.test(after) || /§\s*$/.test(t.slice(0, idx)) || /\b(drk|section|chapter|page|p\.|nr|no\.?|layer|l|step|part|phase|stage|level|rule|axiom|law|item|case|figure|fig\.?|table|act|book|volume|vol\.?|ch\.?|version|v|round|day|session|post|episode|season|issue|claim|thesis|hypothesis|h|p|q|lemma|theorem|proposition|corollary|definition|remark|example|exercise|amendment|article|clause)\s*[-#]?$/i.test(t.slice(Math.max(0, idx - 14), idx))) continue;
       out.push({ index: idx, length: len, value: v, unit: unit, hedged: hedged, text: t.substr(idx, len) });
       cur = undefined;
     }
@@ -216,7 +216,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     if (claims.some(function (c) { return c.type === 'relation'; })) claims = claims.filter(function (c) { return c.type !== 'numeric'; });
     // support markers (Ψ layer)
     var sf = plain.match(SUPPORT_FWD), sb = plain.match(SUPPORT_BACK);
-    claims.support = { fwd: !!sf && sf.index < 40, back: sb ? { index: sb.index } : null, evidenceVerb: EVIDENCE_VERB.test(plain), absence: ABSENCE.test(plain), anchored: ANCHOR.test(t) };
+    claims.support = { fwd: !!sf && sf.index < 3 && !/^which/i.test(sf[0]), back: sb ? { index: sb.index } : null, evidenceVerb: EVIDENCE_VERB.test(plain), absence: ABSENCE.test(plain), anchored: ANCHOR.test(t) };
     return claims;
   };
 
