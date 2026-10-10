@@ -2,6 +2,7 @@
 <!-- Self-contained: engine + UI inline; 3d-force-graph loaded from CDN at runtime. Source: github.com/Khrug/draken.info -->
 <style>
 /*V1STYLE*/
+.sa-pgrid{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}.sa-ppanel{flex:1 1 300px;min-width:0;background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:10px 12px}.sa-ptitle{font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ade80;letter-spacing:.6px;margin-bottom:8px}.sa-kstrip div{flex:1 1 100px}.sa-kgo{cursor:pointer}.sa-kgo:hover{border-color:#4ade80!important}.sa-pmethod{margin-top:12px}
 .sa-arc{cursor:crosshair}.sa-arc-info{background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:10px 12px;margin-top:8px}.sa-arc-info .q{font-family:'Crimson Pro',Georgia,serif;font-size:15px;color:#e4f0e4;border-left:2px solid #7dd3fc;padding:4px 10px;margin:6px 0;line-height:1.5}.sa-arc-info .w{font-size:11px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:4px 0;line-height:1.5}.sa-arc-head{font-size:12px;color:#c8d8c8;font-family:'JetBrains Mono',monospace}.sa-arc-head b{font-size:15px}.sa-arc-nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .sa-upload-status{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px;line-height:1.5}.sa-upload-status.err{color:#ef4444}.sa-ta.drop{border-color:#4ade80!important;background:#4ade8010}
 .am-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.am-ctl select{max-width:100%;flex:1 1 260px;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:7px;font-size:12px;font-family:inherit}
@@ -173,19 +174,20 @@
   </div></div>
 
   <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card" id="sa-review-card"><div class="sa-lbl">◉ Rhetoric & review — how the text persuades, its tone, its sources, and what to check</div>
+      <div class="sa-method" style="margin-bottom:8px">Sentiment uses VADER (validated, MIT licence). The statistical re-checks are exact arithmetic on what the text reports. Everything else is transparent cue matching: candidates with their evidence, for a human to judge. English only.</div>
+      <div class="sa-tabs" id="sa-rtabs"></div>
+      <div class="sa-ins" id="sa-review"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
+
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
     <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
       <div class="sa-tabs" id="sa-tabs"></div>
       <div class="sa-ins" id="sa-ins"><div class="sa-panel-empty">Run an analysis.</div></div>
     </div>
   </div></div>
 
-  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
-    <div class="sa-card"><div class="sa-lbl">◉ Review — fact-check, paper review, sources, rhetoric and the shape of the argument</div>
-      <div class="sa-method" style="margin-bottom:8px">Sentiment uses VADER (validated, MIT licence). The statistical re-checks are exact arithmetic on what the text reports. Everything else is transparent cue matching: candidates with their evidence, for a human to judge. English only.</div>
-      <div class="sa-tabs" id="sa-rtabs"></div>
-      <div class="sa-ins" id="sa-review"><div class="sa-panel-empty">Run an analysis.</div></div>
-    </div>
-  </div></div>
 
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">

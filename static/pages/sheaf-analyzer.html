@@ -84,6 +84,7 @@
 .sa-src-pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .sa-src-pick button{background:#0b120b;border:1px solid #1a2c1a;color:#6b8a6b;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace}
 .sa-src-pick button:hover{border-color:#4ade80;color:#c8d8c8}
+.sa-pgrid{display:flex;flex-wrap:wrap;gap:12px;margin-top:10px}.sa-ppanel{flex:1 1 300px;min-width:0;background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:10px 12px}.sa-ptitle{font-family:'JetBrains Mono',monospace;font-size:11px;color:#4ade80;letter-spacing:.6px;margin-bottom:8px}.sa-kstrip div{flex:1 1 100px}.sa-kgo{cursor:pointer}.sa-kgo:hover{border-color:#4ade80!important}.sa-pmethod{margin-top:12px}
 .sa-arc{cursor:crosshair}.sa-arc-info{background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:10px 12px;margin-top:8px}.sa-arc-info .q{font-family:'Crimson Pro',Georgia,serif;font-size:15px;color:#e4f0e4;border-left:2px solid #7dd3fc;padding:4px 10px;margin:6px 0;line-height:1.5}.sa-arc-info .w{font-size:11px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:4px 0;line-height:1.5}.sa-arc-head{font-size:12px;color:#c8d8c8;font-family:'JetBrains Mono',monospace}.sa-arc-head b{font-size:15px}.sa-arc-nav{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .sa-upload-status{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px;line-height:1.5}.sa-upload-status.err{color:#ef4444}.sa-ta.drop{border-color:#4ade80!important;background:#4ade8010}
 .am-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.am-ctl select{max-width:100%;flex:1 1 260px;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:7px;font-size:12px;font-family:inherit}
@@ -255,19 +256,20 @@
   </div></div>
 
   <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card" id="sa-review-card"><div class="sa-lbl">◉ Rhetoric & review — how the text persuades, its tone, its sources, and what to check</div>
+      <div class="sa-method" style="margin-bottom:8px">Sentiment uses VADER (validated, MIT licence). The statistical re-checks are exact arithmetic on what the text reports. Everything else is transparent cue matching: candidates with their evidence, for a human to judge. English only.</div>
+      <div class="sa-tabs" id="sa-rtabs"></div>
+      <div class="sa-ins" id="sa-review"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
+
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
     <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
       <div class="sa-tabs" id="sa-tabs"></div>
       <div class="sa-ins" id="sa-ins"><div class="sa-panel-empty">Run an analysis.</div></div>
     </div>
   </div></div>
 
-  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
-    <div class="sa-card"><div class="sa-lbl">◉ Review — fact-check, paper review, sources, rhetoric and the shape of the argument</div>
-      <div class="sa-method" style="margin-bottom:8px">Sentiment uses VADER (validated, MIT licence). The statistical re-checks are exact arithmetic on what the text reports. Everything else is transparent cue matching: candidates with their evidence, for a human to judge. English only.</div>
-      <div class="sa-tabs" id="sa-rtabs"></div>
-      <div class="sa-ins" id="sa-review"><div class="sa-panel-empty">Run an analysis.</div></div>
-    </div>
-  </div></div>
 
   <div class="sa-row">
     <div class="sa-col" style="flex:2 1 720px">
@@ -2835,10 +2837,9 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
   var sent = function (unit, text, extra, border) { return '<div class="sa-obs" data-unit="' + unit + '">' + (extra || '') + '<div class="q"' + (border ? ' style="border-color:' + border + '"' : '') + '>' + esc(short(text, 260)) + '</div></div>'; };
   var SEV = { high: '#ef4444', medium: '#f59e0b', low: '#c9a84c', info: '#6b8a6b' };
   var STATUS = function (s) { return /decision/.test(s) ? '#ef4444' : /inconsistent|mismatch/.test(s) ? '#f59e0b' : /not testable/.test(s) ? '#6b8a6b' : '#4ade80'; };
-  U.rtab = 'factcheck';
+  U.rtab = 'profile';
 
-  var TABS = [['factcheck', 'Fact-check'], ['paper', 'Paper review'], ['sources', 'Sources'], ['sentiment', 'Sentiment'], ['loaded', 'Loaded words & framing'],
-    ['stance', 'Stance'], ['fallacies', 'Fallacies & devices'], ['appeals', 'Logos · ethos · pathos']];
+  var TABS = [['profile', 'Rhetoric profile'], ['sentiment', 'Sentiment'], ['fallacies', 'Fallacies & devices'], ['sources', 'Sources'], ['factcheck', 'Fact-check'], ['paper', 'Paper review']];
 
   // ── small SVG helpers ──
   function bars(rows, max) { // rows: [label, value, color, note]
@@ -2912,8 +2913,8 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
   U.renderReview = function () {
     var D = U.disc, R = U.last; if (!D || !R) return;
     var RH = D.rhetoric, FC = D.factcheck, P = D.paper;
-    var cnt = { factcheck: FC.items.length, paper: P.flags.length, sources: RH.sources.urls.length + RH.sources.dois.length, sentiment: RH.sentiment ? RH.sentences : '—', loaded: RH.loaded.loaded.length + RH.loaded.strong.length,
-      stance: '', fallacies: RH.fallacies.items.length + RH.devices.items.length, appeals: '' };
+    var cnt = { profile: '', factcheck: FC.items.length, paper: P.paperness >= 3 ? P.flags.length : 'n/a', sources: RH.sources.urls.length + RH.sources.dois.length, sentiment: RH.sentiment ? RH.sentences : '—',
+      fallacies: RH.fallacies.items.length + RH.devices.items.length };
     $('sa-rtabs').innerHTML = TABS.map(function (t) { return '<button class="sa-tab' + (U.rtab === t[0] ? ' on' : '') + '" data-rtab="' + t[0] + '">' + t[1] + (cnt[t[0]] !== '' ? '<span class="n">' + cnt[t[0]] + '</span>' : '') + '</button>'; }).join('');
     $('sa-rtabs').querySelectorAll('[data-rtab]').forEach(function (b) { b.onclick = function () { U.rtab = b.dataset.rtab; U.renderReview(); }; });
     var h = '', el = $('sa-review'), tab = U.rtab;
@@ -2933,6 +2934,7 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
         }).join('') || empty('No check-worthy factual sentences found.'));
     } else if (tab === 'paper') {
       var sec = P.sections, stt = P.statements, mark = function (ok, t, title) { return '<span class="sa-ck ' + (ok ? 'y' : 'n') + '"' + (title ? ' title="' + esc(title) + '"' : '') + '>' + (ok ? '✓' : '✗') + ' ' + esc(t) + '</span>'; };
+      if (P.paperness < 3) h += '<div class="sa-flag" style="border-color:#6b8a6b">This text does not look like a research paper (structure score ' + P.paperness + '/7), so most checks below have nothing to work on. Paper review is for texts with an abstract, methods, results and references, or with reported test statistics.</div>';
       h += '<div class="sa-method">Structure score ' + P.paperness + '/7 (abstract, methods, results, discussion, references, test statistics, p-values). ' + (P.paperness < 3 ? 'This does not look like a research paper; the checks below still run but most will be empty.' : '') + ' ' + esc(P.method) + '</div>'
         + H4('FLAGS (' + P.flags.length + ')') + (P.flags.map(function (f) { return '<div class="sa-flag" style="border-color:' + SEV[f.sev] + '"><span style="color:' + SEV[f.sev] + '">' + f.sev + '</span> ' + esc(f.text) + '</div>'; }).join('') || empty('No flags.'))
         + H4('REPORTING CHECKLIST') + '<div class="sa-cks">' + ['abstract', 'methods', 'results', 'discussion', 'limitations', 'references'].map(function (k) { return mark(sec[k] || (k === 'limitations' && P.limitationUnits.length), k); }).join('')
@@ -2969,25 +2971,6 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
         + (SE.mostPositive.length ? H4('MOST POSITIVE') + SE.mostPositive.map(function (a) { return sent(a.unit, U.unitText(a.unit), '<span class="sa-badge" style="background:#1a3a1a;color:#4ade80">+' + a.c + '</span>', '#1a6b38'); }).join('') : '')
         + (SE.topNegWords.length || SE.topPosWords.length ? H4('WORDS DRIVING THE SCORE') + SE.topNegWords.map(function (w) { return '<span class="sa-chipbtn" style="color:#ffb4b4" data-unit="' + w.units[0] + '">' + esc(w.w) + ' ' + w.v.toFixed(1) + (w.n > 1 ? ' ×' + w.n : '') + '</span>'; }).join('') + SE.topPosWords.map(function (w) { return '<span class="sa-chipbtn" style="color:#86efac" data-unit="' + w.units[0] + '">' + esc(w.w) + ' +' + w.v.toFixed(1) + (w.n > 1 ? ' ×' + w.n : '') + '</span>'; }).join('') : '')
         + (SE.byEntity.length ? H4('TONE AROUND ENTITIES AND CONCEPTS') + '<table class="sa-table"><tr><th>name</th><th>sentences</th><th>mean</th></tr>' + SE.byEntity.map(function (e) { return '<tr class="sa-row-click" data-unit="' + e.units[0] + '"><td>' + esc(e.name) + '</td><td>' + e.n + '</td><td style="color:' + (e.mean >= 0.05 ? '#4ade80' : e.mean <= -0.05 ? '#ef4444' : '#8faf8f') + '">' + (e.mean > 0 ? '+' : '') + e.mean + '</td></tr>'; }).join('') + '</table>' : '');
-    } else if (tab === 'loaded') {
-      var LD = RH.loaded, FR = RH.framing;
-      h += method(LD.method)
-        + '<div class="sa-kpis"><div><b>' + LD.per1k + '</b><span>loaded per 1,000 words</span></div><div><b>' + LD.unitShare + '%</b><span>sentences with loaded words</span></div><div><b>' + LD.absolutesPer1k + '</b><span>absolutes per 1,000</span></div></div>'
-        + (LD.loaded.length ? H4('LOADED / PEJORATIVE TERMS') + LD.loaded.map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') : '')
-        + (LD.strong.length ? H4('STRONGLY VALENCED WORDS (VADER |v| ≥ 2.5)') + LD.strong.map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') : '')
-        + (LD.absolutes.length ? H4('ABSOLUTES') + LD.absolutes.map(function (t) { return chip(t.term, t.n, t.units[0], 'c'); }).join('') : '')
-        + H4('POLITICAL FRAMING VOCABULARY') + method(FR.method + ' This is a vocabulary indicator, not a classification of the author.')
-        + gauge(FR.index, 'left-coded', 'right-coded')
-        + '<div class="sa-cols"><div>' + '<div class="sa-sub">left-coded terms (' + FR.nLeft + ')</div>' + (FR.left.map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') || '<span class="sa-dim">none</span>') + '</div><div><div class="sa-sub">right-coded terms (' + FR.nRight + ')</div>' + (FR.right.map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') || '<span class="sa-dim">none</span>') + '</div></div>'
-        + (FR.reportedShare ? '<div class="sa-method">' + FR.reportedShare + ' of the sentences with framing terms are quoted or reported speech.</div>' : '');
-    } else if (tab === 'stance') {
-      var DS = RH.disposition;
-      h += method(DS.method)
-        + H4('CERTAINTY') + gauge(DS.certainty, 'hedged', 'assertive') + bars([['hedges', DS.hedges, '#c4bfff'], ['boosters', DS.boosters, '#4ade80'], ['attitude markers', DS.attitude, '#e6cc6a'], ['must / should', DS.deontic, '#f59e0b']])
-        + H4('VOICE AND AUDIENCE') + bars([['I / me / my', DS.selfMention, '#7dd3fc'], ['we / us / our', DS.inGroup, '#4ade80'], ['they / them / their', DS.outGroup, '#ef4444'], ['you / your', DS.reader, '#e6cc6a']])
-        + H4('US VERSUS THEM') + gauge(DS.usThem, 'they', 'we')
-        + '<div class="sa-method">' + DS.imperatives + ' imperative sentence(s) · ' + DS.questions + ' question(s) · future markers ' + DS.future + ' and past auxiliaries ' + DS.past + ' per 1,000 words</div>'
-        + ['hedges', 'boosters', 'attitude', 'deontic'].map(function (k) { return DS.terms[k].length ? '<div class="sa-sub">' + k + '</div>' + DS.terms[k].map(function (t) { return chip(t.term, t.n, t.units[0], 'c'); }).join('') : ''; }).join('');
     } else if (tab === 'fallacies') {
       var FA = RH.fallacies, DV = RH.devices, grp = function (items) { var g = {}; items.forEach(function (x) { (g[x.name] = g[x.name] || []).push(x); }); return g; };
       var gf = grp(FA.items), gd = grp(DV.items);
@@ -2995,16 +2978,50 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
         + (Object.keys(gf).map(function (k) { return '<details open><summary class="sa-sum">' + esc(k) + ' · ' + gf[k].length + '</summary><div class="sa-method">' + esc(gf[k][0].def) + ' Basis: ' + esc(gf[k][0].basis) + '.</div>' + gf[k].map(function (x) { return sent(x.unit, x.text, '<span class="sa-badge" style="background:#3a2a0a;color:#f59e0b">' + esc(short(x.cue, 50)) + '</span>', '#f59e0b'); }).join('') + '</details>'; }).join('') || empty('No fallacy cues found.'))
         + H4('RHETORICAL DEVICES (' + DV.items.length + ')', '#c4bfff') + method(DV.method + (DV.exclamations ? ' Exclamation marks: ' + DV.exclamations + '.' : ''))
         + (Object.keys(gd).map(function (k) { return '<details' + (gd[k].length <= 4 ? ' open' : '') + '><summary class="sa-sum">' + esc(k) + ' · ' + gd[k].length + '</summary>' + gd[k].map(function (x) { return sent(x.unit, x.units && x.units.length > 1 ? x.units.map(U.unitText).join(' ⏐ ') : x.text, '<span class="sa-badge" style="background:#1e1a3a;color:#c4bfff">' + esc(short(x.cue, 50)) + '</span>', '#c4bfff'); }).join('') + '</details>'; }).join('') || empty('No devices detected.'));
-    } else if (tab === 'appeals') {
-      var AP = RH.appeals, sh = AP.share;
-      h += method(AP.method)
-        + (sh ? '<div class="sa-tri"><i style="flex:' + Math.max(1, sh.logos) + ';background:#60a5fa">logos ' + sh.logos + '%</i><i style="flex:' + Math.max(1, sh.ethos) + ';background:#e6cc6a">ethos ' + sh.ethos + '%</i><i style="flex:' + Math.max(1, sh.pathos) + ';background:#ef4444">pathos ' + sh.pathos + '%</i></div>' : empty('No markers found.'))
-        + bars([['logos', AP.logos, '#60a5fa', 'per 1,000 words'], ['ethos', AP.ethos, '#e6cc6a', 'per 1,000 words'], ['pathos', AP.pathos, '#ef4444', 'per 1,000 words']])
-        + H4('WHAT WAS COUNTED') + '<table class="sa-table">' + Object.keys(AP.parts).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + AP.parts[k] + '</td></tr>'; }).join('') + '</table>'
-        + H4('EMOTION TERMS') + (['fear', 'anger', 'hope', 'sadness'].map(function (k) { return AP.emotions[k].length ? '<div class="sa-sub">' + k + '</div>' + AP.emotions[k].map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') : ''; }).join('') || '<span class="sa-dim">none</span>');
+    } else if (tab === 'profile') {
+      var AP = RH.appeals, sh = AP.share, LD = RH.loaded, FR = RH.framing, DS = RH.disposition, SE = RH.sentiment;
+      var top = function (L, n, cls) { return L.slice(0, n).map(function (t) { return chip(t.term, t.n, t.units[0], cls); }).join('') + (L.length > n ? '<span class="sa-dim"> +' + (L.length - n) + ' more</span>' : ''); };
+      var kpi = function (v, label, col, go) { return '<div' + (go ? ' class="sa-kgo" data-go="' + go + '"' : '') + '><b style="color:' + (col || '#e4f0e4') + '">' + v + '</b><span>' + label + '</span></div>'; };
+      var sgn = function (x) { return x == null ? '—' : (x > 0 ? '+' : '') + x; };
+      h += '<div class="sa-kpis sa-kstrip">'
+        + (SE ? kpi(sgn(SE.mean), 'mean sentiment', SE.mean >= 0.05 ? '#4ade80' : SE.mean <= -0.05 ? '#ef4444' : '#8faf8f', 'sentiment') : '')
+        + kpi(RH.fallacies.items.length, 'fallacy candidates', RH.fallacies.items.length ? '#f59e0b' : '#8faf8f', 'fallacies')
+        + kpi(RH.devices.items.length, 'rhetorical devices', '#c4bfff', 'fallacies')
+        + kpi(LD.per1k, 'loaded words / 1,000', LD.per1k >= 15 ? '#ef4444' : '#e4f0e4')
+        + kpi(sgn(DS.certainty), 'certainty (hedged − / + assertive)')
+        + kpi(sgn(DS.usThem), 'we (+) vs they (−)') + '</div>'
+        + '<div class="sa-pgrid">'
+        // appeals
+        + '<section class="sa-ppanel"><div class="sa-ptitle">APPEALS · logos · ethos · pathos</div>'
+        + (sh ? '<div class="sa-tri">' + [['logos', '#60a5fa'], ['ethos', '#e6cc6a'], ['pathos', '#ef4444']].map(function (x) { var v = sh[x[0]]; return '<i style="flex:' + Math.max(1, v) + ';background:' + x[1] + '">' + (v >= 22 ? x[0] + ' ' : '') + v + '%</i>'; }).join('') + '</div>' : empty('No markers found.'))
+        + bars([['logos', AP.logos, '#60a5fa'], ['ethos', AP.ethos, '#e6cc6a'], ['pathos', AP.pathos, '#ef4444']])
+        + '<div class="sa-dim">markers per 1,000 words · logos: reasons, figures, sources · ethos: credibility · pathos: emotion</div>'
+        + (['fear', 'anger', 'hope', 'sadness'].some(function (k) { return AP.emotions[k].length; }) ? '<div class="sa-sub">emotion terms</div>' + ['fear', 'anger', 'hope', 'sadness'].map(function (k) { return AP.emotions[k].length ? '<span class="sa-dim">' + k + ':</span> ' + top(AP.emotions[k], 5) + ' ' : ''; }).join('') : '')
+        + '<details><summary class="sa-sum">what was counted</summary><table class="sa-table">' + Object.keys(AP.parts).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + AP.parts[k] + '</td></tr>'; }).join('') + '</table></details></section>'
+        // loaded & framing
+        + '<section class="sa-ppanel"><div class="sa-ptitle">LOADED WORDS & FRAMING</div>'
+        + bars([['loaded / pejorative', LD.loaded.reduce(function (a, t) { return a + t.n; }, 0), '#ef4444'], ['strongly valenced', LD.strong.reduce(function (a, t) { return a + t.n; }, 0), '#f59e0b'], ['absolutes', LD.absolutes.reduce(function (a, t) { return a + t.n; }, 0), '#c4bfff']])
+        + '<div class="sa-dim">' + LD.unitShare + '% of sentences carry loaded or strongly valenced words</div>'
+        + (LD.loaded.length ? '<div class="sa-sub">loaded / pejorative</div>' + top(LD.loaded, 12) : '')
+        + (LD.strong.length ? '<div class="sa-sub">strongly valenced</div>' + top(LD.strong, 12) : '')
+        + (LD.absolutes.length ? '<div class="sa-sub">absolutes</div>' + top(LD.absolutes, 8, 'c') : '')
+        + '<div class="sa-sub">political framing vocabulary</div>' + gauge(FR.index, 'left-coded', 'right-coded')
+        + (FR.left.length || FR.right.length ? '<div class="sa-dim">left-coded (' + FR.nLeft + '):</div>' + (top(FR.left, 8) || '<span class="sa-dim">none</span>') + '<div class="sa-dim">right-coded (' + FR.nRight + '):</div>' + (top(FR.right, 8) || '<span class="sa-dim">none</span>') : '<div class="sa-dim">no framing terms found</div>')
+        + '</section>'
+        // stance
+        + '<section class="sa-ppanel"><div class="sa-ptitle">STANCE</div>'
+        + '<div class="sa-sub">certainty</div>' + gauge(DS.certainty, 'hedged', 'assertive')
+        + bars([['hedges', DS.hedges, '#c4bfff'], ['boosters', DS.boosters, '#4ade80'], ['attitude markers', DS.attitude, '#e6cc6a'], ['must / should', DS.deontic, '#f59e0b']])
+        + '<div class="sa-sub">voice and audience</div>' + bars([['I / me / my', DS.selfMention, '#7dd3fc'], ['we / us / our', DS.inGroup, '#4ade80'], ['they / them / their', DS.outGroup, '#ef4444'], ['you / your', DS.reader, '#e6cc6a']])
+        + '<div class="sa-sub">us versus them</div>' + gauge(DS.usThem, 'they', 'we')
+        + '<div class="sa-dim">' + DS.imperatives + ' imperative · ' + DS.questions + ' questions · future ' + DS.future + ' / past ' + DS.past + ' per 1,000 words</div>'
+        + '<details><summary class="sa-sum">marker words</summary>' + ['hedges', 'boosters', 'attitude', 'deontic'].map(function (k) { return DS.terms[k].length ? '<div class="sa-sub">' + k + '</div>' + top(DS.terms[k], 10, 'c') : ''; }).join('') + '</details></section>'
+        + '</div>'
+        + '<details class="sa-pmethod"><summary class="sa-sum">How these are measured</summary>' + method(AP.method) + method(LD.method) + method(FR.method + ' A vocabulary indicator, not a classification of the author.') + method(DS.method) + '</details>';
     }
     el.innerHTML = h;
     el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id); }); });
+    el.querySelectorAll('[data-go]').forEach(function (d) { d.onclick = function () { U.rtab = d.dataset.go; U.renderReview(); var c = $('sa-review-card'); if (c) c.scrollIntoView({ block: 'start', behavior: 'smooth' }); }; });
     var cp = $('sa-fc-copy'); if (cp) cp.onclick = function () { var t = U.factcheckMarkdown(); if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { cp.textContent = '✓ Copied'; }); };
     var cr = $('sa-cr-run'); if (cr) cr.onclick = U.runCrossref;
     bindArc();
