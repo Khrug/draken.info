@@ -15,7 +15,7 @@
   U.rtab = 'factcheck';
 
   var TABS = [['factcheck', 'Fact-check'], ['paper', 'Paper review'], ['sources', 'Sources'], ['sentiment', 'Sentiment'], ['loaded', 'Loaded words & framing'],
-    ['stance', 'Stance'], ['fallacies', 'Fallacies & devices'], ['appeals', 'Logos · ethos · pathos'], ['fishbone', 'Reasoning map']];
+    ['stance', 'Stance'], ['fallacies', 'Fallacies & devices'], ['appeals', 'Logos · ethos · pathos']];
 
   // ── small SVG helpers ──
   function bars(rows, max) { // rows: [label, value, color, note]
@@ -43,64 +43,12 @@
       + '<line x1="' + (10 * bw) + '" x2="' + (10 * bw) + '" y1="0" y2="' + h + '" stroke="#ef4444" stroke-dasharray="3 2"/><text x="0" y="' + (h + 12) + '" fill="#6b8a6b" font-size="9">0</text><text x="' + (10 * bw - 8) + '" y="' + (h + 12) + '" fill="#ef4444" font-size="9">.05</text><text x="' + (w - 14) + '" y="' + (h + 12) + '" fill="#6b8a6b" font-size="9">.10</text></svg>';
   }
 
-  // ── Ishikawa / fishbone ──
-  function wrap(t, n, maxLines) { var w = String(t).split(/\s+/), L = [], cur = ''; w.forEach(function (x) { if ((cur + ' ' + x).trim().length > n) { if (cur) L.push(cur); cur = x; } else cur = (cur + ' ' + x).trim(); }); if (cur) L.push(cur); if (L.length > maxLines) { L = L.slice(0, maxLines); L[maxLines - 1] = L[maxLines - 1].slice(0, n - 1) + '…'; } return L; }
-  var BONE_COLOR = { reasoning: '#60a5fa', evidence: '#7dd3fc', sources: '#e6cc6a', assumptions: '#c4bfff', counter: '#ef4444', rhetoric: '#f59e0b' };
-  function fishSvg(F, width) {
-    var narrow = width < 640, s = '', CH = 6.3;
-    var tlabel = function (x, y, t, anchor, col, unit, chars, lines, size, title) { // multi-line label, baseline of the last line at y
-      var L = wrap(t, chars, lines), out = '';
-      L.forEach(function (l, i) { out += '<text x="' + x + '" y="' + (y - (L.length - 1 - i) * 13) + '" text-anchor="' + anchor + '" fill="' + col + '" font-size="' + (size || 10.5) + '"' + (unit ? ' data-unit="' + unit + '" class="fb-item"' : '') + '>' + esc(l) + (unit ? '<title>' + esc(title || t) + '</title>' : '') + '</text>'; });
-      return out;
-    };
-    var itemText = function (it) { return (it.tag ? '[' + it.tag + '] ' : '') + it.label; };
-    var head = function (x, y, w, chars) { var hl = wrap(F.head.text, chars, 7), h = hl.length * 16 + 16;
-      var o = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="#0f1a0f" stroke="#4ade80" data-unit="' + F.head.unit + '" class="fb-item"/>';
-      hl.forEach(function (l, i) { o += '<text x="' + (x + 8) + '" y="' + (y + 20 + i * 16) + '" fill="#e4f0e4" font-size="12" font-weight="600" data-unit="' + F.head.unit + '" class="fb-item">' + esc(l) + '</text>'; });
-      return { svg: o, h: h }; };
-    if (!narrow) {
-      var W = width, headW = Math.min(260, Math.max(200, W * 0.2)), maxItems = Math.max(2, Math.max.apply(null, F.bones.map(function (b) { return b.items.length; }))), step = 38, boneH = 34 + maxItems * step, Hh = 2 * boneH + 50;
-      var spineY = Hh / 2, x0 = 12, x1 = W - headW - 22, slotW = (x1 - x0) / 3, slant = Math.min(70, slotW * 0.22);
-      s += '<line x1="' + x0 + '" y1="' + spineY + '" x2="' + x1 + '" y2="' + spineY + '" stroke="#4ade80" stroke-width="3"/>';
-      s += '<polygon points="' + x1 + ',' + (spineY - 8) + ' ' + (x1 + 12) + ',' + spineY + ' ' + x1 + ',' + (spineY + 8) + '" fill="#4ade80"/>';
-      var hy = Math.max(4, spineY - (wrap(F.head.text, Math.floor((headW - 16) / 7.3), 7).length * 16 + 16) / 2); s += head(x1 + 16, hy, headW, Math.floor((headW - 16) / 7.3)).svg;
-      F.bones.forEach(function (b, k) {
-        var top = k < 3, sx = x0 + (k % 3 + 1) * slotW, ex = sx - slant, ey = top ? spineY - boneH : spineY + boneH, col = BONE_COLOR[b.key];
-        s += '<line x1="' + sx + '" y1="' + spineY + '" x2="' + ex + '" y2="' + ey + '" stroke="' + col + '" stroke-width="2"/>';
-        s += tlabel(ex, top ? ey - 6 : ey + 16, b.name.toUpperCase() + ' (' + b.items.length + ')', 'middle', col, null, 40, 1, 11);
-        if (!b.items.length) s += tlabel(ex - 10, top ? ey + 26 : ey - 18, 'none found', 'end', '#3a5a3a', null, 20, 1, 10);
-        b.items.forEach(function (it, i) {
-          var f = (i + 1) / (maxItems + 1), by = top ? ey + (spineY - ey) * f : ey - (ey - spineY) * f, bx = ex + (sx - ex) * (Math.abs(by - ey) / boneH), start = sx - slotW + 14;
-          s += '<line x1="' + start + '" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".45"/>';
-          s += tlabel(start, by - 4, itemText(it), 'start', '#c8d8c8', it.unit, Math.floor((bx - start - 6) / CH), 2, 10.5, it.label);
-        });
-      });
-      return '<svg class="sa-fish" viewBox="0 0 ' + W + ' ' + Hh + '" width="100%">' + s + '</svg>';
-    }
-    // narrow: head on top, spine down the right edge, every bone enters from the left so labels get the full width
-    var Wn = width, sxr = Wn - 14, hdn = head(6, 6, Wn - 12, Math.floor((Wn - 28) / 7.3)), y = hdn.h + 18, spineTop = y, chars = Math.floor((Wn - 70) / CH);
-    s += hdn.svg + '<polygon points="' + (sxr - 8) + ',' + (y + 8) + ' ' + sxr + ',' + (y - 4) + ' ' + (sxr + 8) + ',' + (y + 8) + '" fill="#4ade80"/>';
-    y += 22;
-    F.bones.forEach(function (b) {
-      var col = BONE_COLOR[b.key], n = b.items.length, per = 36, bh = 22 + Math.max(1, n) * per, bxTop = sxr - 46;
-      s += tlabel(8, y + 4, b.name.toUpperCase() + ' (' + n + ')', 'start', col, null, 40, 1, 11);
-      s += '<line x1="' + bxTop + '" y1="' + y + '" x2="' + sxr + '" y2="' + (y + bh) + '" stroke="' + col + '" stroke-width="2"/>';
-      b.items.forEach(function (it, i) { var by = y + 22 + (i + 1) * per - 6, bx = bxTop + (sxr - bxTop) * ((by - y) / bh);
-        s += '<line x1="8" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".35"/>';
-        s += tlabel(8, by - 4, itemText(it), 'start', '#c8d8c8', it.unit, chars, 2, 10.5, it.label); });
-      if (!n) s += tlabel(8, y + 30, 'none found', 'start', '#3a5a3a', null, 20, 1, 10);
-      y += bh + 18;
-    });
-    s = '<line x1="' + sxr + '" y1="' + spineTop + '" x2="' + sxr + '" y2="' + (y - 14) + '" stroke="#4ade80" stroke-width="3"/>' + s;
-    return '<svg class="sa-fish" viewBox="0 0 ' + Wn + ' ' + y + '" width="100%">' + s + '</svg>';
-  }
-
   // ── render ──
   U.renderReview = function () {
     var D = U.disc, R = U.last; if (!D || !R) return;
     var RH = D.rhetoric, FC = D.factcheck, P = D.paper;
     var cnt = { factcheck: FC.items.length, paper: P.flags.length, sources: RH.sources.urls.length + RH.sources.dois.length, sentiment: RH.sentiment ? RH.sentences : '—', loaded: RH.loaded.loaded.length + RH.loaded.strong.length,
-      stance: '', fallacies: RH.fallacies.items.length + RH.devices.items.length, appeals: '', fishbone: '' };
+      stance: '', fallacies: RH.fallacies.items.length + RH.devices.items.length, appeals: '' };
     $('sa-rtabs').innerHTML = TABS.map(function (t) { return '<button class="sa-tab' + (U.rtab === t[0] ? ' on' : '') + '" data-rtab="' + t[0] + '">' + t[1] + (cnt[t[0]] !== '' ? '<span class="n">' + cnt[t[0]] + '</span>' : '') + '</button>'; }).join('');
     $('sa-rtabs').querySelectorAll('[data-rtab]').forEach(function (b) { b.onclick = function () { U.rtab = b.dataset.rtab; U.renderReview(); }; });
     var h = '', el = $('sa-review'), tab = U.rtab;
@@ -189,27 +137,13 @@
         + bars([['logos', AP.logos, '#60a5fa', 'per 1,000 words'], ['ethos', AP.ethos, '#e6cc6a', 'per 1,000 words'], ['pathos', AP.pathos, '#ef4444', 'per 1,000 words']])
         + H4('WHAT WAS COUNTED') + '<table class="sa-table">' + Object.keys(AP.parts).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + AP.parts[k] + '</td></tr>'; }).join('') + '</table>'
         + H4('EMOTION TERMS') + (['fear', 'anger', 'hope', 'sadness'].map(function (k) { return AP.emotions[k].length ? '<div class="sa-sub">' + k + '</div>' + AP.emotions[k].map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') : ''; }).join('') || '<span class="sa-dim">none</span>');
-    } else if (tab === 'fishbone') {
-      var F = RH.fishbone;
-      if (!F) h = empty('Not enough text for a reasoning map.');
-      else h += method(F.method) + '<div class="sa-fb-ctl"><label>Thesis (head) </label><select id="sa-fb-head">' + F.candidates.map(function (c) { return '<option value="' + c.unit + '"' + (c.unit === F.head.unit ? ' selected' : '') + '>' + esc(short(c.text, 70)) + ' — ' + esc(c.why) + '</option>'; }).join('')
-          + (F.candidates.some(function (c) { return c.unit === F.head.unit; }) ? '' : '<option value="' + F.head.unit + '" selected>' + esc(short(F.head.text, 70)) + ' — chosen</option>') + '</select> <span class="sa-dim">or tap any sentence below the diagram, then “Use as thesis”</span></div>'
-        + '<div id="sa-fb-wrap">' + fishSvg(F, Math.max(320, el.clientWidth || 900)) + '</div><div id="sa-fb-detail" class="sa-method">Tap a label for the full sentence; it is also highlighted in the source text.</div>'
-        + '<div class="sa-legend">' + F.bones.map(function (b) { return '<span><i style="background:' + BONE_COLOR[b.key] + '"></i>' + esc(b.name) + ': ' + esc(b.hint) + '</span>'; }).join('') + '</div>';
     }
     el.innerHTML = h;
-    el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id);
-      var det = $('sa-fb-detail'); if (det && d.classList.contains('fb-item')) det.innerHTML = '<div class="q">' + esc(U.unitText(id)) + '</div><button class="sa-btn sa-btn-sm" id="sa-fb-use">Use as thesis</button>', $('sa-fb-use').onclick = function () { U.setThesis(id); }; }); });
+    el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id); }); });
     var cp = $('sa-fc-copy'); if (cp) cp.onclick = function () { var t = U.factcheckMarkdown(); if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { cp.textContent = '✓ Copied'; }); };
-    var hs = $('sa-fb-head'); if (hs) hs.onchange = function () { U.setThesis(this.value); };
     var cr = $('sa-cr-run'); if (cr) cr.onclick = U.runCrossref;
   };
   U.unitText = function (id) { var u = U.last && U.last.units[+String(id).slice(1)]; return u ? (u.cleanText || u.text) : ''; };
-  U.setThesis = function (id) {
-    var D = U.disc, R = U.last, units = R.units.filter(function (u) { return !u.heading && !u.refs && !u.boilerplate; }), byId = {}; R.units.forEach(function (u) { byId[u.id] = u; });
-    var pathos = {}; [D.rhetoric.loaded.loaded, D.rhetoric.loaded.strong].forEach(function (L) { L.forEach(function (t) { t.units.forEach(function (u) { pathos[u] = (pathos[u] || 0) + 1; }); }); });
-    D.rhetoric.fishbone = S.fishbone(R, U.ins, D.rhetoric, units, byId, pathos, id); U.rtab = 'fishbone'; U.renderReview();
-  };
 
   // ── Crossref ──
   function crossrefBlock() {
@@ -267,7 +201,7 @@
   var baseReset = U.reset;
   U.reset = function () { baseReset(); U.disc = null; U.crossref = null; var r = $('sa-review'); if (r) r.innerHTML = empty('Run an analysis.'); };
   var baseInit = U.init;
-  U.init = function () { baseInit(); if (S.vader) S.vader.load(); var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (U.disc && U.rtab === 'fishbone') U.renderReview(); }, 250); }); };
+  U.init = function () { baseInit(); if (S.vader) S.vader.load();  };
 })(SA2);
 
-if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', SA2.ui.init); else SA2.ui.init(); }
+// auto-init lives at the end of ui-argument.js (the last UI module)

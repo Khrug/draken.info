@@ -84,6 +84,18 @@
 .sa-src-pick{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .sa-src-pick button{background:#0b120b;border:1px solid #1a2c1a;color:#6b8a6b;font-size:11px;padding:4px 10px;border-radius:4px;cursor:pointer;font-family:'JetBrains Mono',monospace}
 .sa-src-pick button:hover{border-color:#4ade80;color:#c8d8c8}
+.am-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.am-ctl select{max-width:100%;flex:1 1 260px;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:7px;font-size:12px;font-family:inherit}
+.am-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:#6b8a6b}.am-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
+.am-layout{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.am-diagram{flex:1 1 600px;min-width:0}.am-pane{flex:0 0 340px;max-width:100%;position:sticky;top:64px;max-height:calc(100vh - 80px);overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:12px 14px;font-size:12px}
+@media (max-width:980px){.am-pane{flex:1 1 100%;position:static;max-height:none}}
+.am-role{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5px;margin-bottom:6px}.am-q{font-family:'Crimson Pro',Georgia,serif;font-size:15px;line-height:1.5;color:#e4f0e4;border-left:2px solid #4ade80;padding:4px 10px;margin:8px 0}
+.am-k{font-family:'JetBrains Mono',monospace;font-size:10px;color:#4ade80;text-transform:uppercase;letter-spacing:.6px;margin:12px 0 4px}.am-v{color:#c8d8c8;line-height:1.55;font-size:12.5px}.am-dim{color:#6b8a6b;font-size:11px}
+.am-shape{color:#e4f0e4;font-size:13px;line-height:1.5;padding:6px 8px;background:#0f1a0f;border-radius:4px}.am-tally td{vertical-align:top;font-size:11px}
+.am-chain{margin-top:4px}.am-step{font-family:'Crimson Pro',Georgia,serif;font-size:13.5px;color:#c8d8c8;background:#0b120b;border:1px solid #1a2c1a;border-radius:5px;padding:5px 8px;cursor:pointer}.am-step.th{border-color:#4ade80;color:#e4f0e4}.am-step:hover{border-color:#60a5fa}
+.am-arrow{font-family:'JetBrains Mono',monospace;font-size:11px;color:#60a5fa;padding:3px 0 3px 12px}.am-term{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:10.5px;background:#1a2c1a;color:#a7c4a7;border-radius:3px;padding:1px 6px;margin:1px 2px}
+.am-claim{margin:3px 0;font-size:11px}.am-btns{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}.am-unatt{margin-top:12px}.am-ua{display:flex;gap:8px;align-items:center;justify-content:space-between;border-bottom:1px dashed #1a2c1a;padding:5px 0;font-size:12.5px;color:#c8d8c8;font-family:'Crimson Pro',Georgia,serif}.am-ua .sa-btn{flex:0 0 auto}
+.sa-fish .fb-more{cursor:pointer;text-decoration:underline}
+
 .sa-h4{font-size:11px;color:#4ade80;font-family:'JetBrains Mono',monospace;margin:14px 0 6px;letter-spacing:.5px}
 .sa-method{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;line-height:1.5;margin:4px 0}
 .sa-dim{color:#3a5a3a;font-size:11px;font-family:'JetBrains Mono',monospace}
@@ -101,9 +113,7 @@
 .sa-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.sa-scroll .sa-table{min-width:460px}
 .sa-tri{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:8px 0}.sa-tri i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-family:'JetBrains Mono',monospace;color:#050805;font-weight:700;white-space:nowrap;overflow:hidden;min-width:0}
 .sa-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:10px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px}.sa-legend i{display:inline-block;width:10px;height:3px;margin-right:5px;vertical-align:middle}
-.sa-fb-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0}.sa-fb-ctl select{max-width:100%;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:6px;font-size:12px;font-family:inherit}
 .sa-fish{display:block;background:#050805;border:1px solid #1a2c1a;border-radius:8px;font-family:'JetBrains Mono',monospace}.sa-fish .fb-item{cursor:pointer}.sa-fish text.fb-item:hover{fill:#4ade80}
-#sa-fb-detail .q{font-family:'Crimson Pro',Georgia,serif;font-size:14px;color:#e4f0e4;border-left:2px solid #4ade80;padding:4px 8px;margin:6px 0}
 .sa-sum{cursor:pointer;color:#e4f0e4;font-family:'JetBrains Mono',monospace;font-size:12px;margin:6px 0}
 .sa-btn-sm{padding:6px 12px!important;font-size:11px!important;min-height:34px}
 
@@ -232,6 +242,12 @@
       </div>
     </div>
   </div>
+
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card" id="sa-args-card"><div class="sa-lbl">◉ Argument map — an Ishikawa diagram for each argument: what the thesis rests on, and how each statement contributes</div>
+      <div id="sa-args"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
 
   <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
     <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
@@ -1276,8 +1292,7 @@ if (typeof module !== 'undefined') module.exports = SA2;
 <script id="sa2-engine-rhetoric">
 // ═══ SA2 RHETORIC ═══ discourse-level descriptors of a text: sentiment (VADER), loaded language,
 // political framing vocabulary, sources and links, stance/disposition (after Hyland 2005), fallacy and
-// rhetorical-device candidates, logos/ethos/pathos marker rates, and an Ishikawa (fishbone) map of the
-// reasoning around a thesis.
+// rhetorical-device candidates, logos/ethos/pathos marker rates, and thesis scoring for the argument maps (engine-argument.js).
 // Status of each tool: VADER is a published, validated method (Hutto & Gilbert 2014) and the port is
 // checked for parity against the reference package. Everything else is transparent cue matching on
 // curated lists written for this tool; outputs are candidates with their evidence, not verdicts, and
@@ -1531,18 +1546,17 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
 
     // per-unit pathos/logos tags for the fishbone
     var unitPathos = {}; [L.loaded, L.strong, L.fear, L.anger].forEach(function (bg) { bg.units.forEach(function (id) { unitPathos[id] = (unitPathos[id] || 0) + 1; }); });
-    out.fishbone = S.fishbone(R, I, out, units, unitById, unitPathos);
     return out;
   };
 
-  // ── Ishikawa (fishbone) map of reasoning around a thesis ──
+  // ── thesis candidates (used by engine-argument.js) ──
   var CONCL = /\b(?:in conclusion|to conclude|to sum up|in sum|in short|overall|therefore|thus|hence|consequently|the point is|this means that|it follows that|we (?:argue|conclude|propose|show)|i (?:argue|conclude|propose)|this (?:paper|post|article|essay|study) (?:argues|shows|claims|proposes|demonstrates))\b/i;
   var FINDING = /\b(?:we (?:found|find|show|demonstrate|conclude|argue)|our (?:results|findings|data|analysis) (?:show|suggest|indicate|prove|demonstrate|reveal)|(?:the )?results (?:show|suggest|indicate|prove|demonstrate|reveal)|this (?:shows|suggests|means|proves)|the (?:main|key|central) (?:finding|claim|argument) is)\b/i;
   var CLAIMV = /\b(?:causes?|leads? to|results? in|improves?|reduces?|increases?|prevents?|is (?:the|a) (?:cause|key|main)|are (?:responsible|the cause))\b/i;
   var METHODV = /^(?:we|the authors|participants|this study) (?:surveyed|recruited|collected|measured|sampled|interviewed|used|analy[sz]ed|conducted|administered)\b/i;
   function cset(t) { return new Set(W(t).map(function (w) { return w.toLowerCase(); }).filter(function (w) { return !STOPF.has(w) && w.length > 3; })); }
   function jac(a, b) { var n = 0; a.forEach(function (x) { if (b.has(x)) n++; }); return n / ((a.size + b.size - n) || 1); }
-  S.thesisCandidates = function (R, units) {
+  S.thesisCandidates = function (R, units, limit) {
     var indeg = {}; (R.supportEdges || []).forEach(function (e) { if (e[0] !== e[1]) indeg[e[1]] = (indeg[e[1]] || 0) + 1; });
     var c = [];
     units.forEach(function (u, i) { var s = 0, why = [];
@@ -1555,43 +1569,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       if (i === units.length - 1) { s += 0.5; why.push('closing sentence'); }
       if (/\?\s*$/.test(u.text)) s -= 2;
       if (s > 0) c.push({ unit: u.id, score: s, why: why.join(', '), text: u.cleanText || u.text }); });
-    return c.sort(function (a, b) { return b.score - a.score; }).slice(0, 6);
-  };
-  S.fishbone = function (R, I, RH, units, unitById, unitPathos, headId) {
-    var cands = S.thesisCandidates(R, units); if (!units.length) return null;
-    var head = headId ? unitById[headId] : (cands[0] ? unitById[cands[0].unit] : units[0]); if (!head) return null;
-    var hs = cset(head.text), inUnits = {}; units.forEach(function (u) { inUnits[u.id] = 1; });
-    var rel = function (id) { var u = unitById[id]; return u ? jac(hs, cset(u.text)) : 0; };
-    var item = function (id, label, extra) { var u = unitById[id]; return Object.assign({ unit: id, label: label || (u ? (u.cleanText || u.text) : id), rel: rel(id) }, extra || {}); };
-    var rank = function (arr, n) { var seen = {}; return arr.filter(function (x) { if (!x.unit || x.unit === head.id || seen[x.unit]) return false; seen[x.unit] = 1; return true; }).sort(function (a, b) { return (b.w || 0) - (a.w || 0) || b.rel - a.rel; }).slice(0, n || 5); };
-    // Reasoning: premises that reach the head through support edges (chain depth), then causal sentences
-    var back = {}; (R.supportEdges || []).forEach(function (e) { if (e[0] !== e[1]) (back[e[1]] = back[e[1]] || []).push(e[0]); });
-    var reasoning = [], seen = {}, q = [[head.id, 0]];
-    while (q.length) { var cur = q.shift(); (back[cur[0]] || []).forEach(function (p) { if (seen[p]) return; seen[p] = 1; reasoning.push(item(p, null, { w: 10 - cur[1], depth: cur[1] + 1, via: cur[0] })); q.push([p, cur[1] + 1]); }); }
-    units.forEach(function (u) { if (/\b(?:because|since|due to|as a result|therefore|thus|hence|consequently|it follows)\b/i.test(u.text)) reasoning.push(item(u.id, null, { w: 0.5 })); });
-    units.forEach(function (u) { if ((CLAIMV.test(u.text) || FINDING.test(u.text)) && rel(u.id) >= 0.08) reasoning.push(item(u.id, null, { w: 0.2, tag: 'related claim' })); });
-    var claimsBy = function (pred) { var o = []; R.claims.forEach(function (c) { if (pred(c) && inUnits[c.unit]) o.push(c.unit); }); return o; };
-    var evidence = claimsBy(function (c) { return (c.type === 'numeric' || c.type === 'date') && (!c.modality || c.modality.kind === 'asserted' || c.modality.kind === 'reported'); }).map(function (id) { return item(id); });
-    var srcI = claimsBy(function (c) { return c.modality && c.modality.kind === 'reported' && c.modality.source && !VAGUE_SRC.test(c.modality.source) && !/\d/.test(c.modality.source); }).map(function (id) { var c = R.claims.find(function (x) { return x.unit === id && x.modality && x.modality.source; }); return item(id, null, { tag: c ? c.modality.source : '' }); });
-    units.forEach(function (u) { if (/https?:\/\/|\b10\.\d{4,9}\/|\([A-Z][A-Za-z'’-]+(?: et al\.)?,? (?:19|20)\d\d\)|\[\d+\]/.test(u.text)) srcI.push(item(u.id, null, { tag: 'citation' })); });
-    var assume = (I.hedged || []).map(function (h) { var c = R.claims.find(function (x) { return x.id === h.claim; }); return c ? item(c.unit, null, { tag: 'hedged' }) : null; }).filter(Boolean)
-      .concat((I.ungrounded || []).map(function (g) { return item(g.unit, null, { tag: 'ungrounded', w: 1 }); }))
-      .concat(claimsBy(function (c) { return c.modality && c.modality.kind === 'hypothesized'; }).map(function (id) { return item(id, null, { tag: 'hypothesis' }); }));
-    var counter = [];
-    (R.obstructions || []).forEach(function (o) { (o.claims || []).forEach(function (cid) { var c = R.claims.find(function (x) { return x.id === cid; }); if (c) counter.push(item(c.unit, null, { tag: o.class, w: 3 })); }); });
-    units.forEach(function (u) { if (/^(?:however|but|yet|nevertheless|nonetheless|on the other hand|critics|opponents|admittedly|although|though)\b/i.test((u.cleanText || u.text).trim())) counter.push(item(u.id, null, { tag: 'contrast' })); });
-    var rhet = (RH.fallacies ? RH.fallacies.items : []).map(function (f) { return item(f.unit, null, { tag: f.name, w: 2 }); })
-      .concat(Object.keys(unitPathos).map(function (id) { return item(id, null, { tag: 'emotive', w: unitPathos[id] / 2 }); }));
-    var bones = [
-      { key: 'reasoning', name: 'Reasoning', hint: 'premises with support edges into the thesis, then causal sentences', items: rank(reasoning) },
-      { key: 'evidence', name: 'Evidence', hint: 'quantities and dates', items: rank(evidence) },
-      { key: 'sources', name: 'Sources', hint: 'named attribution and citations', items: rank(srcI) },
-      { key: 'assumptions', name: 'Assumptions', hint: 'hedged, hypothesised or ungrounded claims', items: rank(assume) },
-      { key: 'counter', name: 'Counterpoints', hint: 'obstructions and contrastive sentences', items: rank(counter) },
-      { key: 'rhetoric', name: 'Rhetoric', hint: 'fallacy candidates and emotive sentences', items: rank(rhet) }
-    ];
-    return { head: { unit: head.id, text: head.cleanText || head.text }, candidates: cands, bones: bones,
-      method: 'Head: the sentence with most incoming support edges, else a conclusion marker, else the lead. Items are ranked by structural role, then by word overlap with the head.' };
+    return c.sort(function (a, b) { return b.score - a.score; }).slice(0, limit || 6);
   };
   S.rhetoricLists = { LOADED: LOADED, ABSOLUTES: ABSOLUTES, FRAME_R: FRAME_R, FRAME_L: FRAME_L, VAGUE: VAGUE, HEDGES: HEDGES, BOOSTERS: BOOSTERS, ATTITUDE: ATTITUDE, DEONTIC: DEONTIC, CAUSAL: CAUSAL, CRED: CRED, EMOTION: EMOTION, FALLACIES: FALLACIES.map(function (f) { return { id: f.id, name: f.name, def: f.def }; }) };
 })(SA2);
@@ -1973,9 +1951,184 @@ if (typeof module !== 'undefined') module.exports = SA2;
   // One call for the UI: rhetoric + fact-check + paper review.
   S.discourse = function (text, R, I) {
     var rh = S.rhetoric(text, R, I), ar = S.arithmetic(text);
-    return { rhetoric: rh, factcheck: S.factcheck(text, R, I, ar), paper: S.paperReview(text, R, I) };
+    return { rhetoric: rh, factcheck: S.factcheck(text, R, I, ar), paper: S.paperReview(text, R, I), arguments: S.argumentMaps ? S.argumentMaps(R, I, rh) : null };
   };
 })(SA2);
+
+</script>
+<script id="sa2-engine-argument">
+// ═══ SA2 ARGUMENT MAPS ═══ one Ishikawa (fishbone) diagram per argument in the text.
+// 1. Thesis candidates are scored (incoming support edges, conclusion and finding markers, causal/general
+//    claims, position), then chosen greedily so that the selected theses are lexically distinct and none is
+//    a premise of another.
+// 2. Every prose sentence is assigned to one thesis: through the support graph if it reaches a thesis,
+//    else by shared content words, section and proximity; weakly related sentences stay unattached.
+// 3. Each assigned sentence is placed on a bone (Reasoning, Evidence, Sources, Assumptions, Counterpoints,
+//    Rhetoric) with its effect on the thesis (+ supports, ~ qualifies, − weakens, ∅ adds force without
+//    support), the inference chain it travels, the shared terms, and a sentence saying how it contributes.
+// Structure, not truth: a well-built argument can rest on false premises.
+var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ? require('./engine-math.js') : {});
+(function (S) {
+  var W = function (s) { return (s.match(/[A-Za-zÀ-ÖØ-öø-ÿ][A-Za-zÀ-ÖØ-öø-ÿ'’-]*/g) || []); };
+  var STOP = new Set('the a an it this that these those there here and or but of in on at to for with as is are was were be been being has have had do does did not no by from into than then so such its their his her our your we they he she i you which who whom what when where why how also more most less very can could may might will would should must about over under after before during between itself themselves only just even still yet thus therefore hence'.split(' '));
+  var cset = function (t) { return new Set(W(t).map(function (w) { return w.toLowerCase().replace(/(?:ies)$/, 'y').replace(/(?<=[a-z]{3})s$/, ''); }).filter(function (w) { return !STOP.has(w) && w.length > 3; })); };
+  var shared = function (a, b) { var o = []; a.forEach(function (x) { if (b.has(x)) o.push(x); }); return o; };
+  var jac = function (a, b) { var n = shared(a, b).length; return n / ((a.size + b.size - n) || 1); };
+  var FWD = /\b(therefore|thus|hence|consequently|accordingly|so it follows|it follows that|which (?:proves|shows|means|demonstrates|confirms)|this (?:proves|shows|means|demonstrates|confirms|is why|explains)|that is why|därför|alltså)\b/i;
+  var BACK = /\b(because|since|given that|as shown by|due to|owing to|eftersom)\b/i;
+  var HEDGE = /\b(may|might|could|perhaps|possibly|likely|probably|suggests?|appears?|seems?|arguably|presumably)\b/i;
+  var CONTRAST = /^(however|but|yet|nevertheless|nonetheless|on the other hand|critics|opponents|admittedly|although|though|in contrast|conversely)\b/i;
+  var VAGUE_SRC = /^(?:(?:some|many|most|several|other|unnamed|anonymous|leading|top|the)\s+)?(?:experts?|scientists?|sources?|critics?|officials?|observers?|analysts?|studies|research(?:ers)?|reports?|people|they|some|many|insiders?|doctors?|commentators?)$/i;
+  var CITE = /https?:\/\/|\b10\.\d{4,9}\/|\([A-Z][A-Za-z'’-]+(?: et al\.)?,? (?:19|20)\d\d[a-z]?\)|\[\d+\]/;
+
+  S.argumentMaps = function (R, I, RH, opt) {
+    opt = opt || {};
+    var all = R.units, byId = {}; all.forEach(function (u) { byId[u.id] = u; });
+    // sections from headings; prose units
+    var sec = {}, s = 0, secName = { 0: '' }; all.forEach(function (u) { if (u.heading && /^\s*#{1,6}\s/.test(u.text)) { s++; secName[s] = u.text.replace(/^#+\s*/, '').replace(/[*_`]/g, ''); } sec[u.id] = s; });
+    var units = all.filter(function (u) { return !u.heading && !u.refs && !u.boilerplate && W(u.text).length >= 3 && !/^\s*[<|\\]|\$\$/.test(u.text); });
+    if (!units.length) return { maps: [], unattached: [], method: '' };
+    var idx = {}; units.forEach(function (u, i) { idx[u.id] = i; });
+    var sets = {}; units.forEach(function (u) { sets[u.id] = cset(u.cleanText || u.text); });
+    var T = function (id) { return byId[id] ? (byId[id].cleanText || byId[id].text) : ''; };
+
+    // support graph (premise → conclusion)
+    var fwd = {}, back = {};
+    (R.supportEdges || []).forEach(function (e) { if (e[0] === e[1]) return; (fwd[e[0]] = fwd[e[0]] || []).push(e[1]); (back[e[1]] = back[e[1]] || []).push(e[0]); });
+    var pathTo = function (from, target) { // BFS along fwd edges
+      var prev = {}, q = [from], seen = {}; seen[from] = 1;
+      while (q.length) { var c = q.shift(); if (c === target) { var p = [c]; while (prev[p[0]]) p.unshift(prev[p[0]]); return p; }
+        (fwd[c] || []).forEach(function (n) { if (!seen[n]) { seen[n] = 1; prev[n] = c; q.push(n); } }); }
+      return null;
+    };
+
+    // thesis selection. Marker-based candidates (S.thesisCandidates) plus centrality within the section:
+    // the sentence most similar to the rest of its section stands for that section's claim (cf. TextRank,
+    // Mihalcea & Tarau 2004). Sections with five or more sentences nominate their best candidate.
+    var bySec = {}; units.forEach(function (u) { (bySec[sec[u.id]] = bySec[sec[u.id]] || []).push(u.id); });
+    var cent = {};
+    Object.keys(bySec).forEach(function (k) { var ids = bySec[k], raw = {};
+      ids.forEach(function (a) { var t = 0; ids.forEach(function (b) { if (a !== b) t += jac(sets[a], sets[b]); }); raw[a] = ids.length > 1 ? t / (ids.length - 1) : 0; });
+      var mx = Math.max.apply(null, ids.map(function (a) { return raw[a]; }).concat([1e-9])); ids.forEach(function (a) { cent[a] = raw[a] / mx; }); });
+    var marker = {}; S.thesisCandidates(R, units, 400).forEach(function (c) { marker[c.unit] = c; });
+    var eligible = function (u) { var t = u.cleanText || u.text; return !u.nonclaim && W(t).length >= 6 && !/\?\s*$/.test(t) && !/^\s*[|*_>-]*\s*(?:released under|licen[cs]e|doi|orcid|cite as|keywords?)\b/i.test(t) && !/\|.*\|/.test(t); };
+    var cands = units.filter(eligible).map(function (u) { var m = marker[u.id], sc = (m ? m.score : 0) + 1.5 * (cent[u.id] || 0);
+      return { unit: u.id, score: Math.round(sc * 100) / 100, why: [m ? m.why : '', cent[u.id] > 0.85 ? 'central to its section' : ''].filter(Boolean).join(', ') || 'centrality', text: u.cleanText || u.text, sec: sec[u.id] }; })
+      .sort(function (a, b) { return b.score - a.score; });
+    var nSec = Object.keys(bySec).filter(function (k) { return bySec[k].length >= 5; });
+    var maxK = opt.max || (nSec.length > 1 ? Math.min(8, nSec.length) : Math.max(1, Math.min(6, Math.floor(units.length / 5))));
+    var theses = (opt.theses || []).filter(function (id) { return byId[id]; }).slice();
+    var distinct = function (id) { return !theses.some(function (t) { return jac(sets[t] || new Set(), sets[id]) >= 0.25 || pathTo(id, t) || pathTo(t, id); }); };
+    if (!theses.length) {
+      if (nSec.length > 1) { // one per substantial section, strongest sections first
+        var noms = nSec.map(function (k) { return cands.filter(function (c) { return String(c.sec) === k; })[0]; }).filter(Boolean).sort(function (a, b) { return b.score - a.score; });
+        noms.forEach(function (c) { if (theses.length < maxK && c.score >= 1.2 && distinct(c.unit)) theses.push(c.unit); });
+      }
+      cands.forEach(function (c) { if (theses.length < maxK && (theses.length ? c.score >= 2.5 : true) && distinct(c.unit)) theses.push(c.unit); });
+      if (!theses.length) theses.push(units[0].id);
+      theses.sort(function (a, b) { return idx[a] - idx[b]; });
+    }
+    var candOf = {}; cands.forEach(function (c) { candOf[c.unit] = c; });
+
+    // assignment
+    var assign = {}, unattached = [];
+    units.forEach(function (u) {
+      if (theses.indexOf(u.id) >= 0) return;
+      var best = null, bs = -1, via = null;
+      theses.forEach(function (t) { var p = pathTo(u.id, t); if (p && (!via || p.length < via.length)) { via = p; best = t; bs = 9; } });
+      if (!via) theses.forEach(function (t) {
+        var sc = jac(sets[u.id], sets[t]) + (sec[u.id] === sec[t] ? 0.15 : 0) + 0.06 / (1 + Math.abs(idx[u.id] - (idx[t] || 0)) / 8);
+        if (sc > bs) { bs = sc; best = t; } });
+      if (via || bs >= (theses.length > 1 ? 0.1 : 0.0)) assign[u.id] = { t: best, path: via }; else unattached.push(u.id);
+    });
+
+    // lookup tables
+    var claimsOf = {}; R.claims.forEach(function (c) { (claimsOf[c.unit] = claimsOf[c.unit] || []).push(c); });
+    var obsOf = {}; (R.obstructions || []).forEach(function (o, k) { var us = o.claims.map(function (cid) { return R.claims[+cid.slice(1)].unit; });
+      us.forEach(function (uid) { (obsOf[uid] = obsOf[uid] || []).push({ k: k, cls: o.class, layer: o.layer, witness: o.witness, partners: us.filter(function (x) { return x !== uid; }) }); }); });
+    var hedgedUnits = {}; (I.hedged || []).forEach(function (h) { var c = R.claims[+String(h.claim).slice(1)]; if (c) hedgedUnits[c.unit] = 1; });
+    var ungrounded = {}; (I.ungrounded || []).forEach(function (g) { ungrounded[g.unit] = 1; });
+    var fallOf = {}; (RH && RH.fallacies ? RH.fallacies.items : []).forEach(function (f) { (fallOf[f.unit] = fallOf[f.unit] || []).push(f); });
+    var emo = {}; if (RH && RH.loaded) [RH.loaded.loaded, RH.loaded.strong].forEach(function (L) { L.forEach(function (t) { t.units.forEach(function (u) { (emo[u] = emo[u] || []).push(t.term); }); }); });
+
+    var maps = theses.map(function (th, k) {
+      var hs = sets[th] || cset(T(th)), members = Object.keys(assign).filter(function (id) { return assign[id].t === th; }).sort(function (a, b) { return idx[a] - idx[b]; });
+      var bones = { reasoning: [], evidence: [], sources: [], assumptions: [], counter: [], rhetoric: [] };
+      members.forEach(function (id) {
+        var t = T(id), cs = claimsOf[id] || [], sh = shared(sets[id], hs), rel = jac(sets[id], hs), a = assign[id], placed = false;
+        var base = { unit: id, label: t, rel: rel, shared: sh, section: secName[sec[id]] || '', chain: a.path };
+        var put = function (bone, o) { bones[bone].push(Object.assign({}, base, o)); placed = true; };
+        // counterpoints first: a sentence in conflict is first of all a conflict
+        (obsOf[id] || []).forEach(function (o) { put('counter', { effect: '−', role: o.cls, tag: o.cls, w: 5, partners: o.partners,
+          how: 'Cannot hold together with ' + o.partners.map(function (p) { return '“' + short(T(p), 90) + '”'; }).join(' and ') + ' (' + o.layer + ' layer' + (o.witness ? ': ' + o.witness : '') + '). Until resolved, whichever of them the thesis relies on is in doubt.' }); });
+        if (CONTRAST.test(t.trim())) put('counter', { effect: '~', role: 'contrast', tag: 'contrast', w: 1, how: 'Opens with a contrastive marker (“' + t.trim().match(CONTRAST)[0] + '”): it qualifies or opposes the line of argument rather than supporting it.' });
+        // reasoning: explicit inference chain to the thesis
+        if (a.path) {
+          var steps = a.path.length - 1, nxt = a.path[1], mk = (T(nxt).match(FWD) || T(nxt).match(BACK) || [])[0];
+          put('reasoning', { effect: '+', role: steps === 1 ? 'direct premise' : 'premise, ' + steps + ' steps out', tag: steps === 1 ? 'premise' : 'chain ×' + steps, w: 10 - steps,
+            connective: mk || '', how: (steps === 1 ? 'Direct premise' : 'Premise of a premise') + ': the next sentence opens with “' + (mk || 'an inference marker') + '”, which presents this sentence as a reason for it' + (steps === 1 ? ', and that sentence is the thesis.' : '; the chain reaches the thesis in ' + steps + ' steps.') + (ungrounded[id] ? ' The chain itself has no grounded starting point.' : '') });
+        } else if (BACK.test(t) && rel >= 0.05) {
+          put('reasoning', { effect: '+', role: 'stated reason', tag: 'reason', w: 3, connective: t.match(BACK)[0], how: 'Gives a reason inside the sentence (“' + t.match(BACK)[0] + '”) on terms shared with the thesis (' + sh.slice(0, 5).join(', ') + '). The link to the thesis is topical: no marker connects the two sentences.' });
+        }
+        // evidence
+        var q = cs.filter(function (c) { return c.type === 'numeric' || c.type === 'date' || c.type === 'order'; });
+        if (q.length || /\b\d[\d.,]*\s?(?:%|percent|million|billion|thousand)\b/i.test(t)) {
+          var conflicted = !!obsOf[id];
+          put('evidence', { effect: conflicted ? '−' : '+', role: q.map(function (c) { return c.type; }).filter(function (x, i, A) { return A.indexOf(x) === i; }).join(' + ') || 'figure', tag: q.length ? q[0].type : 'figure', w: 2 + rel * 4,
+            how: 'Supplies ' + (q.length ? q.map(function (c) { return c.type; }).filter(function (x, i, A) { return A.indexOf(x) === i; }).join(' and ') + ' data' : 'a figure') + (sh.length ? ' about ' + sh.slice(0, 5).join(', ') : '') + '. It supports the thesis only as far as the thesis depends on these values' + (conflicted ? '; another sentence in the text gives incompatible values.' : '.') });
+        }
+        // sources
+        var rep = cs.find(function (c) { return c.modality && c.modality.kind === 'reported' && c.modality.source; });
+        if (rep) { var vague = VAGUE_SRC.test(rep.modality.source) || /\d/.test(rep.modality.source);
+          put('sources', { effect: vague ? '~' : '+', role: vague ? 'unnamed source' : 'attributed', tag: vague ? 'unnamed' : rep.modality.source, w: vague ? 1 : 3,
+            how: vague ? 'Attributes the claim to an unnamed group (“' + rep.modality.source + '”). It cannot be checked, so it adds little support.' : 'Rests on ' + rep.modality.source + '. The thesis inherits that source’s reliability; the claim is reported, not asserted by the author.' }); }
+        if (CITE.test(t)) put('sources', { effect: '+', role: 'citation', tag: 'citation', w: 3, how: 'Cites external work. Support depends on whether the cited work says this; verify the citation (Fact-check and Sources tabs).' });
+        // assumptions
+        var hyp = cs.some(function (c) { return c.modality && c.modality.kind === 'hypothesized'; });
+        if (hedgedUnits[id] || hyp || (HEDGE.test(t) && rel >= 0.08)) put('assumptions', { effect: '~', role: hyp ? 'hypothesis' : 'hedged', tag: hyp ? 'hypothesis' : 'hedged', w: 2 + rel * 3,
+          how: (hyp ? 'Framed as a hypothesis' : 'Hedged (“' + ((t.match(HEDGE) || [''])[0]) + '”)') + '. If the thesis relies on it, the thesis can be no more certain than this sentence.' });
+        if (ungrounded[id]) put('assumptions', { effect: '−', role: 'ungrounded conclusion', tag: 'ungrounded', w: 4, how: 'An intermediate conclusion whose support chain never reaches a sentence with independent grounding (figures, sources, citations). Everything resting on it is unsupported.' });
+        // rhetoric
+        (fallOf[id] || []).forEach(function (f) { put('rhetoric', { effect: '∅', role: f.name, tag: f.name, w: 3, how: f.name + ': ' + f.def + ' It adds persuasive force, not evidence.' }); });
+        if (emo[id]) put('rhetoric', { effect: '∅', role: 'emotive wording', tag: 'emotive', w: 1 + emo[id].length / 2, how: 'Emotive or loaded wording (' + emo[id].slice(0, 5).join(', ') + '). It colours the claim without adding support.' });
+        // nothing else: related claim (topical)
+        if (!placed && rel >= 0.06) put('reasoning', { effect: '·', role: 'related claim', tag: 'related', w: rel, how: 'Shares terms with the thesis (' + sh.slice(0, 5).join(', ') + ') but carries no figure, source or inference marker. It elaborates the thesis rather than supporting it.' });
+      });
+      var order = function (L) { return L.sort(function (a, b) { return b.w - a.w || b.rel - a.rel; }); };
+      var B = [
+        { key: 'reasoning', name: 'Reasoning', hint: 'premises linked by inference markers, stated reasons, related claims' },
+        { key: 'evidence', name: 'Evidence', hint: 'figures, dates and orderings' },
+        { key: 'sources', name: 'Sources', hint: 'attributed statements and citations' },
+        { key: 'assumptions', name: 'Assumptions', hint: 'hedged, hypothetical or ungrounded statements' },
+        { key: 'counter', name: 'Counterpoints', hint: 'contradictions and contrastive sentences' },
+        { key: 'rhetoric', name: 'Rhetoric', hint: 'fallacy candidates and emotive wording' }
+      ].map(function (b) { b.items = order(bones[b.key]); return b; });
+      // how it adds up
+      var cnt = function (key, pred) { return B.filter(function (b) { return b.key === key; })[0].items.filter(pred || function () { return true; }).length; };
+      var premises = cnt('reasoning', function (x) { return x.chain; }), reasons = cnt('reasoning', function (x) { return x.role === 'stated reason'; }), related = cnt('reasoning', function (x) { return x.role === 'related claim'; });
+      var maxChain = Math.max.apply(null, [0].concat(B[0].items.filter(function (x) { return x.chain; }).map(function (x) { return x.chain.length - 1; })));
+      var ev = cnt('evidence'), evConf = cnt('evidence', function (x) { return x.effect === '−'; }), named = cnt('sources', function (x) { return x.effect === '+'; }), unnamed = cnt('sources', function (x) { return x.effect !== '+'; });
+      var hed = cnt('assumptions', function (x) { return x.effect === '~'; }), ung = cnt('assumptions', function (x) { return x.effect === '−'; }) + (ungrounded[th] ? 1 : 0);
+      var contra = cnt('counter', function (x) { return x.effect === '−'; }), contrast = cnt('counter', function (x) { return x.effect === '~'; }), rh = cnt('rhetoric');
+      var thConf = (obsOf[th] || []).length;
+      var shape = thConf ? 'Contested: the thesis itself conflicts with another statement in the text.'
+        : premises && (ev || named) ? 'Argued and evidenced: explicit premises lead to the thesis and figures or named sources are present.'
+        : premises ? 'Argued without evidence: explicit premises, but no figures or named sources on this argument.'
+        : (ev || named) ? 'Evidenced but not argued: figures or sources sit next to the thesis, but no inference marker connects them to it.'
+        : reasons ? 'Supported by in-sentence reasons only.'
+        : 'Asserted: no premises, figures or sources are attached to this thesis.';
+      var c = candOf[th];
+      return { id: 'A' + (k + 1), head: { unit: th, text: T(th), section: secName[sec[th]] || '', why: c ? c.why : 'chosen', score: c ? c.score : null, conflicts: obsOf[th] || [], hedged: !!hedgedUnits[th] || HEDGE.test(T(th)), ungrounded: !!ungrounded[th], rhetoric: (fallOf[th] || []).map(function (f) { return f.name; }) },
+        bones: B, members: members.length,
+        tally: { premises: premises, maxChain: maxChain, reasons: reasons, related: related, evidence: ev, evidenceInConflict: evConf, namedSources: named, unnamedSources: unnamed, hedged: hed, ungrounded: ung, contradictions: contra, contrasts: contrast, rhetoric: rh },
+        shape: shape };
+    });
+    return { maps: maps, unattached: unattached, candidates: cands.slice(0, 12),
+      method: 'Theses: sentences with conclusion or finding markers, incoming inference links, or the highest centrality in their section (one per substantial section), kept only if distinct and not premises of one another (' + maps.length + ' found). Sentences join the thesis their inference chain reaches, else the one they share most words with in the same section; weakly related sentences stay unattached. Effects: + supports, · elaborates, ~ qualifies, − weakens, ∅ persuades without support. This maps structure, not truth.' };
+  };
+  var short = function (t, n) { t = String(t).replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+})(SA2);
+if (typeof module !== 'undefined') module.exports = SA2;
 
 </script>
 <script id="sa2-samples">
@@ -2680,7 +2833,7 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
   U.rtab = 'factcheck';
 
   var TABS = [['factcheck', 'Fact-check'], ['paper', 'Paper review'], ['sources', 'Sources'], ['sentiment', 'Sentiment'], ['loaded', 'Loaded words & framing'],
-    ['stance', 'Stance'], ['fallacies', 'Fallacies & devices'], ['appeals', 'Logos · ethos · pathos'], ['fishbone', 'Reasoning map']];
+    ['stance', 'Stance'], ['fallacies', 'Fallacies & devices'], ['appeals', 'Logos · ethos · pathos']];
 
   // ── small SVG helpers ──
   function bars(rows, max) { // rows: [label, value, color, note]
@@ -2708,64 +2861,12 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
       + '<line x1="' + (10 * bw) + '" x2="' + (10 * bw) + '" y1="0" y2="' + h + '" stroke="#ef4444" stroke-dasharray="3 2"/><text x="0" y="' + (h + 12) + '" fill="#6b8a6b" font-size="9">0</text><text x="' + (10 * bw - 8) + '" y="' + (h + 12) + '" fill="#ef4444" font-size="9">.05</text><text x="' + (w - 14) + '" y="' + (h + 12) + '" fill="#6b8a6b" font-size="9">.10</text></svg>';
   }
 
-  // ── Ishikawa / fishbone ──
-  function wrap(t, n, maxLines) { var w = String(t).split(/\s+/), L = [], cur = ''; w.forEach(function (x) { if ((cur + ' ' + x).trim().length > n) { if (cur) L.push(cur); cur = x; } else cur = (cur + ' ' + x).trim(); }); if (cur) L.push(cur); if (L.length > maxLines) { L = L.slice(0, maxLines); L[maxLines - 1] = L[maxLines - 1].slice(0, n - 1) + '…'; } return L; }
-  var BONE_COLOR = { reasoning: '#60a5fa', evidence: '#7dd3fc', sources: '#e6cc6a', assumptions: '#c4bfff', counter: '#ef4444', rhetoric: '#f59e0b' };
-  function fishSvg(F, width) {
-    var narrow = width < 640, s = '', CH = 6.3;
-    var tlabel = function (x, y, t, anchor, col, unit, chars, lines, size, title) { // multi-line label, baseline of the last line at y
-      var L = wrap(t, chars, lines), out = '';
-      L.forEach(function (l, i) { out += '<text x="' + x + '" y="' + (y - (L.length - 1 - i) * 13) + '" text-anchor="' + anchor + '" fill="' + col + '" font-size="' + (size || 10.5) + '"' + (unit ? ' data-unit="' + unit + '" class="fb-item"' : '') + '>' + esc(l) + (unit ? '<title>' + esc(title || t) + '</title>' : '') + '</text>'; });
-      return out;
-    };
-    var itemText = function (it) { return (it.tag ? '[' + it.tag + '] ' : '') + it.label; };
-    var head = function (x, y, w, chars) { var hl = wrap(F.head.text, chars, 7), h = hl.length * 16 + 16;
-      var o = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="#0f1a0f" stroke="#4ade80" data-unit="' + F.head.unit + '" class="fb-item"/>';
-      hl.forEach(function (l, i) { o += '<text x="' + (x + 8) + '" y="' + (y + 20 + i * 16) + '" fill="#e4f0e4" font-size="12" font-weight="600" data-unit="' + F.head.unit + '" class="fb-item">' + esc(l) + '</text>'; });
-      return { svg: o, h: h }; };
-    if (!narrow) {
-      var W = width, headW = Math.min(260, Math.max(200, W * 0.2)), maxItems = Math.max(2, Math.max.apply(null, F.bones.map(function (b) { return b.items.length; }))), step = 38, boneH = 34 + maxItems * step, Hh = 2 * boneH + 50;
-      var spineY = Hh / 2, x0 = 12, x1 = W - headW - 22, slotW = (x1 - x0) / 3, slant = Math.min(70, slotW * 0.22);
-      s += '<line x1="' + x0 + '" y1="' + spineY + '" x2="' + x1 + '" y2="' + spineY + '" stroke="#4ade80" stroke-width="3"/>';
-      s += '<polygon points="' + x1 + ',' + (spineY - 8) + ' ' + (x1 + 12) + ',' + spineY + ' ' + x1 + ',' + (spineY + 8) + '" fill="#4ade80"/>';
-      var hy = Math.max(4, spineY - (wrap(F.head.text, Math.floor((headW - 16) / 7.3), 7).length * 16 + 16) / 2); s += head(x1 + 16, hy, headW, Math.floor((headW - 16) / 7.3)).svg;
-      F.bones.forEach(function (b, k) {
-        var top = k < 3, sx = x0 + (k % 3 + 1) * slotW, ex = sx - slant, ey = top ? spineY - boneH : spineY + boneH, col = BONE_COLOR[b.key];
-        s += '<line x1="' + sx + '" y1="' + spineY + '" x2="' + ex + '" y2="' + ey + '" stroke="' + col + '" stroke-width="2"/>';
-        s += tlabel(ex, top ? ey - 6 : ey + 16, b.name.toUpperCase() + ' (' + b.items.length + ')', 'middle', col, null, 40, 1, 11);
-        if (!b.items.length) s += tlabel(ex - 10, top ? ey + 26 : ey - 18, 'none found', 'end', '#3a5a3a', null, 20, 1, 10);
-        b.items.forEach(function (it, i) {
-          var f = (i + 1) / (maxItems + 1), by = top ? ey + (spineY - ey) * f : ey - (ey - spineY) * f, bx = ex + (sx - ex) * (Math.abs(by - ey) / boneH), start = sx - slotW + 14;
-          s += '<line x1="' + start + '" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".45"/>';
-          s += tlabel(start, by - 4, itemText(it), 'start', '#c8d8c8', it.unit, Math.floor((bx - start - 6) / CH), 2, 10.5, it.label);
-        });
-      });
-      return '<svg class="sa-fish" viewBox="0 0 ' + W + ' ' + Hh + '" width="100%">' + s + '</svg>';
-    }
-    // narrow: head on top, spine down the right edge, every bone enters from the left so labels get the full width
-    var Wn = width, sxr = Wn - 14, hdn = head(6, 6, Wn - 12, Math.floor((Wn - 28) / 7.3)), y = hdn.h + 18, spineTop = y, chars = Math.floor((Wn - 70) / CH);
-    s += hdn.svg + '<polygon points="' + (sxr - 8) + ',' + (y + 8) + ' ' + sxr + ',' + (y - 4) + ' ' + (sxr + 8) + ',' + (y + 8) + '" fill="#4ade80"/>';
-    y += 22;
-    F.bones.forEach(function (b) {
-      var col = BONE_COLOR[b.key], n = b.items.length, per = 36, bh = 22 + Math.max(1, n) * per, bxTop = sxr - 46;
-      s += tlabel(8, y + 4, b.name.toUpperCase() + ' (' + n + ')', 'start', col, null, 40, 1, 11);
-      s += '<line x1="' + bxTop + '" y1="' + y + '" x2="' + sxr + '" y2="' + (y + bh) + '" stroke="' + col + '" stroke-width="2"/>';
-      b.items.forEach(function (it, i) { var by = y + 22 + (i + 1) * per - 6, bx = bxTop + (sxr - bxTop) * ((by - y) / bh);
-        s += '<line x1="8" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".35"/>';
-        s += tlabel(8, by - 4, itemText(it), 'start', '#c8d8c8', it.unit, chars, 2, 10.5, it.label); });
-      if (!n) s += tlabel(8, y + 30, 'none found', 'start', '#3a5a3a', null, 20, 1, 10);
-      y += bh + 18;
-    });
-    s = '<line x1="' + sxr + '" y1="' + spineTop + '" x2="' + sxr + '" y2="' + (y - 14) + '" stroke="#4ade80" stroke-width="3"/>' + s;
-    return '<svg class="sa-fish" viewBox="0 0 ' + Wn + ' ' + y + '" width="100%">' + s + '</svg>';
-  }
-
   // ── render ──
   U.renderReview = function () {
     var D = U.disc, R = U.last; if (!D || !R) return;
     var RH = D.rhetoric, FC = D.factcheck, P = D.paper;
     var cnt = { factcheck: FC.items.length, paper: P.flags.length, sources: RH.sources.urls.length + RH.sources.dois.length, sentiment: RH.sentiment ? RH.sentences : '—', loaded: RH.loaded.loaded.length + RH.loaded.strong.length,
-      stance: '', fallacies: RH.fallacies.items.length + RH.devices.items.length, appeals: '', fishbone: '' };
+      stance: '', fallacies: RH.fallacies.items.length + RH.devices.items.length, appeals: '' };
     $('sa-rtabs').innerHTML = TABS.map(function (t) { return '<button class="sa-tab' + (U.rtab === t[0] ? ' on' : '') + '" data-rtab="' + t[0] + '">' + t[1] + (cnt[t[0]] !== '' ? '<span class="n">' + cnt[t[0]] + '</span>' : '') + '</button>'; }).join('');
     $('sa-rtabs').querySelectorAll('[data-rtab]').forEach(function (b) { b.onclick = function () { U.rtab = b.dataset.rtab; U.renderReview(); }; });
     var h = '', el = $('sa-review'), tab = U.rtab;
@@ -2854,27 +2955,13 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
         + bars([['logos', AP.logos, '#60a5fa', 'per 1,000 words'], ['ethos', AP.ethos, '#e6cc6a', 'per 1,000 words'], ['pathos', AP.pathos, '#ef4444', 'per 1,000 words']])
         + H4('WHAT WAS COUNTED') + '<table class="sa-table">' + Object.keys(AP.parts).map(function (k) { return '<tr><td>' + esc(k) + '</td><td>' + AP.parts[k] + '</td></tr>'; }).join('') + '</table>'
         + H4('EMOTION TERMS') + (['fear', 'anger', 'hope', 'sadness'].map(function (k) { return AP.emotions[k].length ? '<div class="sa-sub">' + k + '</div>' + AP.emotions[k].map(function (t) { return chip(t.term, t.n, t.units[0]); }).join('') : ''; }).join('') || '<span class="sa-dim">none</span>');
-    } else if (tab === 'fishbone') {
-      var F = RH.fishbone;
-      if (!F) h = empty('Not enough text for a reasoning map.');
-      else h += method(F.method) + '<div class="sa-fb-ctl"><label>Thesis (head) </label><select id="sa-fb-head">' + F.candidates.map(function (c) { return '<option value="' + c.unit + '"' + (c.unit === F.head.unit ? ' selected' : '') + '>' + esc(short(c.text, 70)) + ' — ' + esc(c.why) + '</option>'; }).join('')
-          + (F.candidates.some(function (c) { return c.unit === F.head.unit; }) ? '' : '<option value="' + F.head.unit + '" selected>' + esc(short(F.head.text, 70)) + ' — chosen</option>') + '</select> <span class="sa-dim">or tap any sentence below the diagram, then “Use as thesis”</span></div>'
-        + '<div id="sa-fb-wrap">' + fishSvg(F, Math.max(320, el.clientWidth || 900)) + '</div><div id="sa-fb-detail" class="sa-method">Tap a label for the full sentence; it is also highlighted in the source text.</div>'
-        + '<div class="sa-legend">' + F.bones.map(function (b) { return '<span><i style="background:' + BONE_COLOR[b.key] + '"></i>' + esc(b.name) + ': ' + esc(b.hint) + '</span>'; }).join('') + '</div>';
     }
     el.innerHTML = h;
-    el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id);
-      var det = $('sa-fb-detail'); if (det && d.classList.contains('fb-item')) det.innerHTML = '<div class="q">' + esc(U.unitText(id)) + '</div><button class="sa-btn sa-btn-sm" id="sa-fb-use">Use as thesis</button>', $('sa-fb-use').onclick = function () { U.setThesis(id); }; }); });
+    el.querySelectorAll('[data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { if (e.target.closest('a')) return; e.stopPropagation(); var id = d.dataset.unit; U.selectUnit(id); }); });
     var cp = $('sa-fc-copy'); if (cp) cp.onclick = function () { var t = U.factcheckMarkdown(); if (navigator.clipboard) navigator.clipboard.writeText(t).then(function () { cp.textContent = '✓ Copied'; }); };
-    var hs = $('sa-fb-head'); if (hs) hs.onchange = function () { U.setThesis(this.value); };
     var cr = $('sa-cr-run'); if (cr) cr.onclick = U.runCrossref;
   };
   U.unitText = function (id) { var u = U.last && U.last.units[+String(id).slice(1)]; return u ? (u.cleanText || u.text) : ''; };
-  U.setThesis = function (id) {
-    var D = U.disc, R = U.last, units = R.units.filter(function (u) { return !u.heading && !u.refs && !u.boilerplate; }), byId = {}; R.units.forEach(function (u) { byId[u.id] = u; });
-    var pathos = {}; [D.rhetoric.loaded.loaded, D.rhetoric.loaded.strong].forEach(function (L) { L.forEach(function (t) { t.units.forEach(function (u) { pathos[u] = (pathos[u] || 0) + 1; }); }); });
-    D.rhetoric.fishbone = S.fishbone(R, U.ins, D.rhetoric, units, byId, pathos, id); U.rtab = 'fishbone'; U.renderReview();
-  };
 
   // ── Crossref ──
   function crossrefBlock() {
@@ -2932,7 +3019,225 @@ Lee, K. (2021). Sleep and grades. Sleep, 44, 1-9.` },
   var baseReset = U.reset;
   U.reset = function () { baseReset(); U.disc = null; U.crossref = null; var r = $('sa-review'); if (r) r.innerHTML = empty('Run an analysis.'); };
   var baseInit = U.init;
-  U.init = function () { baseInit(); if (S.vader) S.vader.load(); var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (U.disc && U.rtab === 'fishbone') U.renderReview(); }, 250); }); };
+  U.init = function () { baseInit(); if (S.vader) S.vader.load();  };
+})(SA2);
+
+// auto-init lives at the end of ui-argument.js (the last UI module)
+
+</script>
+<script id="sa2-ui-argument">
+// ═══ SA2 UI · ARGUMENT MAP ═══ one Ishikawa diagram per argument, with a detail pane that shows the
+// full statement, its role and effect, the inference chain to the thesis, and every signal the other
+// analyses attach to it. Loads after ui-review.js (wraps U.show) and before the auto-init line.
+(function (S) {
+  'use strict';
+  var U = S.ui, $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var short = function (t, n) { t = String(t).replace(/\s+/g, ' ').trim(); return t.length > n ? t.slice(0, n - 1) + '…' : t; };
+  var COL = { reasoning: '#60a5fa', evidence: '#7dd3fc', sources: '#e6cc6a', assumptions: '#c4bfff', counter: '#ef4444', rhetoric: '#f59e0b' };
+  var EFF = { '+': ['supports', '#4ade80'], '·': ['elaborates', '#8faf8f'], '~': ['qualifies', '#e6cc6a'], '−': ['weakens', '#ef4444'], '∅': ['persuades without support', '#f59e0b'] };
+  var SHOW = 8;   // items per bone before "+ N more"
+  U.am = { cur: 0, sel: null, expand: {}, theses: null };
+
+  function wrap(t, n, maxLines) { var w = String(t).split(/\s+/), L = [], cur = ''; w.forEach(function (x) { if ((cur + ' ' + x).trim().length > n) { if (cur) L.push(cur); cur = x; } else cur = (cur + ' ' + x).trim(); }); if (cur) L.push(cur); if (L.length > maxLines) { L = L.slice(0, maxLines); L[maxLines - 1] = L[maxLines - 1].slice(0, Math.max(1, n - 1)) + '…'; } return L; }
+  var M = function () { return U.disc && U.disc.arguments; };
+  var curMap = function () { var A = M(); return A && A.maps[Math.min(U.am.cur, A.maps.length - 1)]; };
+
+  // ── diagram ──
+  function fish(F, width) {
+    var sel = U.am.sel, chainSet = {}, narrow = width < 640, s = '', CH = 6.3;
+    if (sel) { var it = findItem(F, sel); if (it && it.chain) it.chain.forEach(function (u) { chainSet[u] = 1; }); }
+    var shown = function (b) { var all = U.am.expand[F.id + ':' + b.key]; return all ? b.items : b.items.slice(0, SHOW); };
+    var label = function (x, y, it, bone, anchor, chars) {
+      var on = sel && sel.unit === it.unit && sel.bone === bone.key, inChain = chainSet[it.unit], e = EFF[it.effect] || EFF['+'];
+      var L = wrap(it.label, chars, 2), out = '';
+      if (on) out += '<rect x="' + (anchor === 'end' ? x - chars * CH - 6 : x - 4) + '" y="' + (y - L.length * 13 - 2) + '" width="' + (chars * CH + 10) + '" height="' + (L.length * 13 + 8) + '" rx="4" fill="#4ade8018" stroke="#4ade80"/>';
+      out += '<circle cx="' + (anchor === 'end' ? x + 8 : x - 8) + '" cy="' + (y - 4 - (L.length - 1) * 13) + '" r="3.5" fill="' + e[1] + '"/>';
+      L.forEach(function (l, i) { out += '<text x="' + x + '" y="' + (y - (L.length - 1 - i) * 13) + '" text-anchor="' + anchor + '" fill="' + (on ? '#e4f0e4' : inChain ? '#93c5fd' : '#c8d8c8') + '" font-size="10.5"' + (on ? ' font-weight="600"' : '') + ' data-unit="' + it.unit + '" data-bone="' + bone.key + '" class="fb-item">' + esc(l) + '<title>' + esc(it.label) + '</title></text>'; });
+      return out;
+    };
+    var more = function (x, y, b, anchor) { var n = b.items.length - SHOW, ex = U.am.expand[F.id + ':' + b.key]; if (n <= 0) return '';
+      return '<text x="' + x + '" y="' + y + '" text-anchor="' + anchor + '" fill="' + COL[b.key] + '" font-size="11" class="fb-more" data-more="' + b.key + '">' + (ex ? '− show fewer' : '+ ' + n + ' more') + '</text>'; };
+    var headBox = function (x, y, w, chars) { var hl = wrap(F.head.text, chars, 8), h = hl.length * 16 + 16, on = sel && sel.unit === F.head.unit && sel.bone === 'head';
+      var o = '<rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="6" fill="#0f1a0f" stroke="#4ade80" stroke-width="' + (on ? 3 : 1.5) + '" data-unit="' + F.head.unit + '" data-bone="head" class="fb-item"/>';
+      hl.forEach(function (l, i) { o += '<text x="' + (x + 8) + '" y="' + (y + 20 + i * 16) + '" fill="#e4f0e4" font-size="12" font-weight="600" data-unit="' + F.head.unit + '" data-bone="head" class="fb-item">' + esc(l) + '</text>'; });
+      return { svg: o, h: h }; };
+    if (!narrow) {
+      var W = width, headW = Math.min(280, Math.max(200, W * 0.22)), counts = F.bones.map(function (b) { return shown(b).length + (b.items.length > SHOW ? 1 : 0); });
+      var step = 36, topH = 40 + Math.max(2, counts[0], counts[1], counts[2]) * step, botH = 40 + Math.max(2, counts[3], counts[4], counts[5]) * step, Hh = topH + botH + 30;
+      var spineY = topH + 12, x0 = 12, x1 = W - headW - 22, slotW = (x1 - x0) / 3;
+      s += '<line x1="' + x0 + '" y1="' + spineY + '" x2="' + x1 + '" y2="' + spineY + '" stroke="#4ade80" stroke-width="3"/><polygon points="' + x1 + ',' + (spineY - 8) + ' ' + (x1 + 12) + ',' + spineY + ' ' + x1 + ',' + (spineY + 8) + '" fill="#4ade80"/>';
+      var hch = Math.floor((headW - 16) / 7.3), hh = wrap(F.head.text, hch, 8).length * 16 + 16;
+      s += headBox(x1 + 16, Math.max(4, Math.min(Hh - hh - 4, spineY - hh / 2)), headW, hch).svg;
+      F.bones.forEach(function (b, k) {
+        var top = k < 3, boneH = (top ? topH : botH) - 10, sx = x0 + (k % 3 + 1) * slotW, ex = sx - Math.min(70, slotW * 0.22), ey = top ? spineY - boneH : spineY + boneH, col = COL[b.key], list = shown(b), slots = list.length + (b.items.length > SHOW ? 1 : 0);
+        s += '<line x1="' + sx + '" y1="' + spineY + '" x2="' + ex + '" y2="' + ey + '" stroke="' + col + '" stroke-width="2"/>';
+        s += '<text x="' + ex + '" y="' + (top ? ey - 6 : ey + 16) + '" text-anchor="middle" fill="' + col + '" font-size="11">' + b.name.toUpperCase() + ' (' + b.items.length + ')</text>';
+        if (!b.items.length) s += '<text x="' + (ex - 10) + '" y="' + (top ? ey + 26 : ey - 18) + '" text-anchor="end" fill="#3a5a3a" font-size="10">none found</text>';
+        list.forEach(function (it, i) {
+          var by = top ? ey + 26 + i * step : ey - 26 - (slots - 1 - i) * step, bx = ex + (sx - ex) * (Math.abs(by - ey) / boneH), start = sx - slotW + 22;
+          s += '<line x1="' + (start - 12) + '" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".45"/>';
+          s += label(start, by - 4, it, b, 'start', Math.floor((bx - start - 8) / CH));
+        });
+        if (b.items.length > SHOW) { var my = top ? ey + 26 + list.length * step : ey - 26; s += more(sx - slotW + 22, my - 4, b, 'start'); }
+      });
+      return '<svg class="sa-fish" viewBox="0 0 ' + W + ' ' + Hh + '" width="100%">' + s + '</svg>';
+    }
+    var Wn = width, sxr = Wn - 14, hd = headBox(6, 6, Wn - 12, Math.floor((Wn - 28) / 7.3)), y = hd.h + 18, spineTop = y, chars = Math.floor((Wn - 70) / CH);
+    s += hd.svg + '<polygon points="' + (sxr - 8) + ',' + (y + 8) + ' ' + sxr + ',' + (y - 4) + ' ' + (sxr + 8) + ',' + (y + 8) + '" fill="#4ade80"/>';
+    y += 22;
+    F.bones.forEach(function (b) {
+      var col = COL[b.key], list = shown(b), n = list.length + (b.items.length > SHOW ? 1 : 0), per = 36, bh = 22 + Math.max(1, n) * per, bxTop = sxr - 46;
+      s += '<text x="8" y="' + (y + 4) + '" fill="' + col + '" font-size="11">' + b.name.toUpperCase() + ' (' + b.items.length + ')</text>';
+      s += '<line x1="' + bxTop + '" y1="' + y + '" x2="' + sxr + '" y2="' + (y + bh) + '" stroke="' + col + '" stroke-width="2"/>';
+      list.forEach(function (it, i) { var by = y + 22 + (i + 1) * per - 6, bx = bxTop + (sxr - bxTop) * ((by - y) / bh);
+        s += '<line x1="18" y1="' + by + '" x2="' + bx + '" y2="' + by + '" stroke="' + col + '" stroke-opacity=".35"/>' + label(20, by - 4, it, b, 'start', chars); });
+      if (b.items.length > SHOW) s += more(20, y + 22 + (list.length + 1) * per - 10, b, 'start');
+      if (!b.items.length) s += '<text x="8" y="' + (y + 30) + '" fill="#3a5a3a" font-size="10">none found</text>';
+      y += bh + 18;
+    });
+    return '<svg class="sa-fish" viewBox="0 0 ' + Wn + ' ' + y + '" width="100%"><line x1="' + sxr + '" y1="' + spineTop + '" x2="' + sxr + '" y2="' + (y - 14) + '" stroke="#4ade80" stroke-width="3"/>' + s + '</svg>';
+  }
+  function findItem(F, sel) { if (!sel) return null; if (sel.bone === 'head') return null; var b = F.bones.filter(function (x) { return x.key === sel.bone; })[0]; return b ? b.items.filter(function (i) { return i.unit === sel.unit; })[0] : null; }
+
+  // ── detail pane ──
+  function signals(uid) {
+    var D = U.disc, R = U.last, out = [];
+    var arc = D.rhetoric.sentiment && D.rhetoric.sentiment.arc.filter(function (a) { return a.unit === uid; })[0];
+    if (arc) out.push(['sentiment (VADER)', '<span style="color:' + (arc.c >= 0.05 ? '#4ade80' : arc.c <= -0.05 ? '#ef4444' : '#8faf8f') + '">' + (arc.c > 0 ? '+' : '') + arc.c + '</span>']);
+    var lw = D.rhetoric.loaded.loaded.concat(D.rhetoric.loaded.strong).filter(function (t) { return t.units.indexOf(uid) >= 0; }).map(function (t) { return t.term; });
+    if (lw.length) out.push(['loaded words', esc(lw.join(', '))]);
+    var fr = D.rhetoric.framing.left.concat(D.rhetoric.framing.right).filter(function (t) { return t.units.indexOf(uid) >= 0; }).map(function (t) { return t.term; });
+    if (fr.length) out.push(['framing terms', esc(fr.join(', '))]);
+    var dv = D.rhetoric.devices.items.filter(function (d) { return d.unit === uid || (d.units || []).indexOf(uid) >= 0; }).map(function (d) { return d.name; });
+    if (dv.length) out.push(['rhetorical devices', esc(dv.join(', '))]);
+    var t = U.unitText(uid), sc = D.paper.statcheck.filter(function (x) { return t.indexOf(x.text.replace('CHI2', '').slice(-12)) >= 0; });
+    sc.forEach(function (x) { out.push(['test statistic', esc(x.text) + ' → p = ' + x.recomputed.toPrecision(3) + ' <span style="color:' + (x.status === 'consistent' ? '#4ade80' : '#ef4444') + '">' + esc(x.status) + '</span>']); });
+    D.factcheck.arithmetic.filter(function (a) { return t.indexOf(a.text.split(' … ')[0].slice(0, 16)) >= 0; }).forEach(function (a) { out.push(['arithmetic', esc(a.stated + ' stated, ' + a.computed + ' computed') + ' <span style="color:' + (a.status === 'mismatch' ? '#ef4444' : '#4ade80') + '">' + a.status + '</span>']); });
+    return out;
+  }
+  function claimsHtml(uid) {
+    var cs = U.last.claims.filter(function (c) { return c.unit === uid; }); if (!cs.length) return '';
+    return '<div class="am-k">extracted claims</div>' + cs.map(function (c) { var m = c.modality || {}; return '<div class="am-claim"><span class="sa-badge" style="background:#0f1a0f;color:#8faf8f">' + c.type + '</span><span class="sa-badge" style="background:#0f1a0f;color:' + (m.kind === 'asserted' ? '#4ade80' : m.kind === 'reported' ? '#e6cc6a' : '#c4bfff') + '">' + esc(m.kind || '') + (m.source ? ': ' + esc(m.source) : '') + '</span>' + (c.polarity < 0 ? '<span class="sa-badge" style="background:#2a1010;color:#ffb4b4">negated</span>' : '') + ' <span class="am-dim">' + esc(short(c.span.quote, 140)) + '</span></div>'; }).join('');
+  }
+  function factHtml(uid) {
+    var f = U.disc.factcheck.items.filter(function (x) { return x.unit === uid; })[0]; if (!f) return '';
+    return '<div class="am-k">to verify it</div><div class="am-v">' + esc(f.settle.join('; ')) + '.</div><div class="sa-links">' + f.links.map(function (l) { return '<a href="' + esc(l.url) + '" target="_blank" rel="noopener noreferrer">' + esc(l.name) + ' ↗</a>'; }).join('') + '</div>';
+  }
+  function otherRoles(F, uid, bone) {
+    var o = []; F.bones.forEach(function (b) { b.items.forEach(function (it) { if (it.unit === uid && b.key !== bone) o.push('<span class="sa-chipbtn" data-sel="' + b.key + '" style="border-color:' + COL[b.key] + '">' + esc(b.name) + ': ' + esc(it.role) + '</span>'); }); });
+    return o.length ? '<div class="am-k">also appears as</div>' + o.join('') : '';
+  }
+  function pane(F) {
+    var sel = U.am.sel, h = '';
+    if (!sel || sel.bone === 'head') {
+      var T = F.tally, hd = F.head;
+      h += '<div class="am-role" style="color:#4ade80">THESIS ' + F.id + (hd.section ? ' · ' + esc(hd.section) : '') + '</div><div class="am-q">' + esc(hd.text) + '</div>'
+        + '<div class="am-k">why this sentence</div><div class="am-v">' + esc(hd.why || '') + '</div>'
+        + '<div class="am-k">how it adds up</div><div class="am-shape">' + esc(F.shape) + '</div>'
+        + '<table class="sa-table am-tally">'
+        + row('+', 'Reasoning', T.premises ? T.premises + ' premise' + (T.premises > 1 ? 's' : '') + ' linked by inference markers' + (T.maxChain > 1 ? ' (longest chain ' + T.maxChain + ' steps)' : '') : 'no linked premises', T.reasons ? T.reasons + ' in-sentence reason(s)' : '', T.related ? T.related + ' related claim(s) that elaborate without arguing' : '')
+        + row(T.evidenceInConflict ? '−' : '+', 'Evidence', T.evidence ? T.evidence + ' sentence(s) with figures or dates' : 'none', T.evidenceInConflict ? T.evidenceInConflict + ' in conflict with other figures' : '')
+        + row('+', 'Sources', T.namedSources ? T.namedSources + ' named source(s) or citation(s)' : 'none named', T.unnamedSources ? T.unnamedSources + ' unnamed' : '')
+        + row('~', 'Assumptions', T.hedged ? T.hedged + ' hedged or hypothetical' : 'none hedged', T.ungrounded ? T.ungrounded + ' ungrounded' : '')
+        + row('−', 'Counterpoints', T.contradictions ? T.contradictions + ' contradiction(s)' : 'no contradictions', T.contrasts ? T.contrasts + ' contrastive sentence(s)' : '')
+        + row('∅', 'Rhetoric', T.rhetoric ? T.rhetoric + ' fallacy or emotive item(s)' : 'none')
+        + '</table>'
+        + (hd.conflicts.length ? '<div class="am-k" style="color:#ef4444">the thesis itself is in conflict</div>' + hd.conflicts.map(function (c) { return '<div class="am-v">' + esc(c.cls) + ' with ' + c.partners.map(function (p) { return '“' + esc(short(U.unitText(p), 120)) + '”'; }).join(', ') + '</div>'; }).join('') : '')
+        + (hd.hedged ? '<div class="am-v" style="color:#c4bfff">The thesis is itself hedged.</div>' : '') + (hd.ungrounded ? '<div class="am-v" style="color:#ef4444">The thesis has no grounded support chain.</div>' : '')
+        + (hd.rhetoric.length ? '<div class="am-v" style="color:#f59e0b">Rhetoric in the thesis: ' + esc(hd.rhetoric.join(', ')) + '</div>' : '')
+        + claimsHtml(hd.unit) + sigHtml(hd.unit) + factHtml(hd.unit)
+        + '<div class="am-k">this argument</div><div class="am-v">' + F.members + ' sentence(s) attached. Tap any label in the diagram for its role.</div>'
+        + '<div class="am-btns"><button class="sa-btn sa-btn-sm" data-act="text">Show in text</button></div>';
+      return h;
+    }
+    var it = findItem(F, sel); if (!it) return '<div class="sa-panel-empty">Select a node.</div>';
+    var e = EFF[it.effect] || EFF['+'], bname = F.bones.filter(function (b) { return b.key === sel.bone; })[0].name;
+    h += '<div class="am-role" style="color:' + COL[sel.bone] + '">' + esc(bname.toUpperCase()) + ' · ' + esc(it.role) + '</div>'
+      + '<span class="sa-badge" style="background:' + e[1] + '22;color:' + e[1] + ';font-size:11px">' + it.effect + ' ' + e[0] + ' the thesis</span>'
+      + '<div class="am-q">' + esc(it.label) + '</div>' + (it.section ? '<div class="am-dim">section: ' + esc(it.section) + '</div>' : '')
+      + '<div class="am-k">how it contributes</div><div class="am-v">' + esc(it.how) + '</div>';
+    if (it.chain && it.chain.length > 1) h += '<div class="am-k">inference chain to the thesis</div><div class="am-chain">' + it.chain.map(function (u, i) { var last = i === it.chain.length - 1, txt = U.unitText(u), mk = it.chain[i + 1] ? (U.unitText(it.chain[i + 1]).match(/\b(therefore|thus|hence|consequently|accordingly|so it follows|it follows that|which (?:proves|shows|means|demonstrates|confirms)|this (?:proves|shows|means|demonstrates|confirms|is why|explains)|that is why)\b/i) || [])[0] : null;
+      return '<div class="am-step' + (last ? ' th' : '') + '" data-goto="' + u + '">' + (last ? '★ ' : (i + 1) + '. ') + esc(short(txt, 200)) + '</div>' + (last ? '' : '<div class="am-arrow">↓ ' + (mk ? '“' + esc(mk) + '”' : 'supports') + '</div>'); }).join('') + '</div>';
+    else h += '<div class="am-k">link to the thesis</div><div class="am-v">' + (it.connective ? 'In-sentence reason marker “' + esc(it.connective) + '”; ' : '') + 'no inference marker connects this sentence to the thesis. ' + (it.shared.length ? 'Shared terms: ' + it.shared.slice(0, 10).map(function (w) { return '<span class="am-term">' + esc(w) + '</span>'; }).join(' ') : 'No shared terms: it joined this argument by position in the section.') + '</div>';
+    if (it.partners && it.partners.length) h += '<div class="am-k" style="color:#ef4444">conflicts with</div>' + it.partners.map(function (p) { return '<div class="am-step" data-goto="' + p + '">' + esc(short(U.unitText(p), 200)) + '</div>'; }).join('');
+    h += otherRoles(F, it.unit, sel.bone) + claimsHtml(it.unit) + sigHtml(it.unit) + factHtml(it.unit)
+      + '<div class="am-btns"><button class="sa-btn sa-btn-sm" data-act="text">Show in text</button><button class="sa-btn sa-btn-sm" data-act="thesis">Make this the thesis</button><button class="sa-btn sa-btn-sm" data-act="new">New argument from this</button></div>';
+    return h;
+  }
+  function row(eff, name) { var e = EFF[eff], parts = Array.prototype.slice.call(arguments, 2).filter(Boolean); return '<tr><td style="color:' + e[1] + ';width:14px">' + eff + '</td><td style="color:#8faf8f">' + name + '</td><td>' + esc(parts.join('; ')) + '</td></tr>'; }
+  function sigHtml(uid) { var s = signals(uid); return s.length ? '<div class="am-k">signals from the other analyses</div><table class="sa-table">' + s.map(function (x) { return '<tr><td style="color:#6b8a6b">' + x[0] + '</td><td>' + x[1] + '</td></tr>'; }).join('') + '</table>' : ''; }
+
+  // ── render ──
+  U.renderArgs = function () {
+    var A = M(), box = $('sa-args'); if (!box) return;
+    if (!A || !A.maps.length) { box.innerHTML = '<div class="sa-panel-empty">No argument found.</div>'; return; }
+    var F = curMap();
+    var tabs = A.maps.map(function (m, i) { return '<button class="sa-tab' + (m === F ? ' on' : '') + '" data-arg="' + i + '">' + m.id + ' <span class="n">' + esc(short(m.head.text, 34)) + '</span></button>'; }).join('');
+    var opts = (A.candidates || []).concat([{ unit: F.head.unit, text: F.head.text }]).filter(function (c, i, L) { return L.findIndex(function (x) { return x.unit === c.unit; }) === i; });
+    var diagW = Math.max(300, ($('sa-am-diagram') && $('sa-am-diagram').clientWidth) || (box.clientWidth > 980 ? box.clientWidth - 380 : box.clientWidth) || 900);
+    box.innerHTML = '<div class="sa-method">' + esc(A.method) + '</div>'
+      + '<div class="sa-tabs" id="sa-am-tabs">' + tabs + '</div>'
+      + '<div class="am-ctl"><label>Thesis of ' + F.id + ' </label><select id="sa-am-head">' + opts.map(function (c) { return '<option value="' + c.unit + '"' + (c.unit === F.head.unit ? ' selected' : '') + '>' + esc(short(c.text, 80)) + '</option>'; }).join('') + '</select>'
+      + ' <span class="am-legend">' + Object.keys(EFF).map(function (k) { return '<span><i style="background:' + EFF[k][1] + '"></i>' + k + ' ' + EFF[k][0] + '</span>'; }).join('') + '</span></div>'
+      + '<div class="am-layout"><div class="am-diagram" id="sa-am-diagram">' + fish(F, diagW) + '</div><aside class="am-pane" id="sa-am-pane">' + pane(F) + '</aside></div>'
+      + (A.unattached.length ? '<details class="am-unatt"><summary class="sa-sum">Sentences not attached to any argument (' + A.unattached.length + ')</summary><div class="sa-method">Too weakly related to every thesis. “New argument” maps one of them as a thesis of its own.</div>' + A.unattached.slice(0, 200).map(function (u) { return '<div class="am-ua"><span>' + esc(short(U.unitText(u), 180)) + '</span><button class="sa-btn sa-btn-sm" data-newarg="' + u + '">New argument</button></div>'; }).join('') + '</details>' : '');
+    // after layout, re-render the diagram at the real width once
+    var dg = $('sa-am-diagram'); if (dg && Math.abs(dg.clientWidth - diagW) > 40) dg.innerHTML = fish(F, dg.clientWidth);
+    bind(F);
+  };
+  function bind(F) {
+    var box = $('sa-args');
+    box.querySelectorAll('[data-arg]').forEach(function (b) { b.onclick = function () { U.am.cur = +b.dataset.arg; U.am.sel = null; U.renderArgs(); }; });
+    $('sa-am-head').onchange = function () { U.setThesis(F, this.value); };
+    box.querySelectorAll('#sa-am-diagram [data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { e.stopPropagation(); U.am.sel = { unit: d.dataset.unit, bone: d.dataset.bone }; refresh(F, true); }); });
+    box.querySelectorAll('#sa-am-diagram [data-more]').forEach(function (d) { d.addEventListener('click', function () { var k = F.id + ':' + d.dataset.more; U.am.expand[k] = !U.am.expand[k]; refresh(F); }); });
+    box.querySelectorAll('[data-newarg]').forEach(function (b) { b.onclick = function () { U.addArgument(b.dataset.newarg); }; });
+    bindPane(F);
+  }
+  function bindPane(F) {
+    var p = $('sa-am-pane'), sel = U.am.sel;
+    p.querySelectorAll('[data-goto]').forEach(function (d) { d.onclick = function () { var u = d.dataset.goto; if (u === F.head.unit) U.am.sel = { unit: u, bone: 'head' }; else { var b = F.bones.filter(function (b) { return b.items.some(function (i) { return i.unit === u; }); })[0]; U.am.sel = b ? { unit: u, bone: b.key } : U.am.sel; U.selectUnit(u); } refresh(F); }; });
+    p.querySelectorAll('[data-sel]').forEach(function (d) { d.onclick = function () { U.am.sel = { unit: sel.unit, bone: d.dataset.sel }; refresh(F); }; });
+    p.querySelectorAll('[data-act]').forEach(function (b) { b.onclick = function () { var u = sel ? sel.unit : F.head.unit;
+      if (b.dataset.act === 'text') { U.selectUnit(u); var t = $('txt-' + u); if (t) t.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
+      else if (b.dataset.act === 'thesis') U.setThesis(F, u); else U.addArgument(u); }; });
+  }
+  function refresh(F, scrollPane) {
+    var dg = $('sa-am-diagram'); dg.innerHTML = fish(F, dg.clientWidth); $('sa-am-pane').innerHTML = pane(F);
+    var box = $('sa-args'); box.querySelectorAll('#sa-am-diagram [data-unit]').forEach(function (d) { d.addEventListener('click', function (e) { e.stopPropagation(); U.am.sel = { unit: d.dataset.unit, bone: d.dataset.bone }; refresh(F, true); }); });
+    box.querySelectorAll('#sa-am-diagram [data-more]').forEach(function (d) { d.addEventListener('click', function () { var k = F.id + ':' + d.dataset.more; U.am.expand[k] = !U.am.expand[k]; refresh(F); }); });
+    bindPane(F);
+    if (U.am.sel && U.am.sel.bone !== 'head') U.selectUnit(U.am.sel.unit);
+    if (scrollPane) { var p = $('sa-am-pane'); if (p.getBoundingClientRect().top > window.innerHeight - 80 || p.getBoundingClientRect().top < 0) p.scrollIntoView({ block: 'start', behavior: 'smooth' }); }
+  }
+  function recompute(theses, focus) {
+    U.disc.arguments = S.argumentMaps(U.last, U.ins, U.disc.rhetoric, { theses: theses });
+    var i = U.disc.arguments.maps.findIndex(function (m) { return m.head.unit === focus; }); U.am.cur = i < 0 ? 0 : i; U.am.sel = { unit: focus, bone: 'head' }; U.renderArgs();
+  }
+  U.setThesis = function (F, uid) { var th = M().maps.map(function (m) { return m === F ? uid : m.head.unit; }).filter(function (x, i, L) { return L.indexOf(x) === i; }); recompute(th, uid); };
+  U.addArgument = function (uid) { var th = M().maps.map(function (m) { return m.head.unit; }); if (th.indexOf(uid) < 0) th.push(uid); recompute(th, uid); };
+
+  // ── exports ──
+  U.argumentsMarkdown = function () {
+    var A = M(); if (!A) return ''; var L = ['## Arguments (Ishikawa maps)', '', '_' + A.method + '_', ''];
+    A.maps.forEach(function (F) {
+      L.push('### ' + F.id + ': ' + F.head.text, '', '**Structure:** ' + F.shape, '');
+      F.bones.forEach(function (b) { if (!b.items.length) return; L.push('**' + b.name + '** (' + b.items.length + ')'); b.items.forEach(function (it) { L.push('- ' + it.effect + ' *' + it.role + '* — “' + it.label + '” — ' + it.how); }); L.push(''); });
+    });
+    if (A.unattached.length) L.push('_' + A.unattached.length + ' sentence(s) not attached to any argument._', '');
+    return L.join('\n');
+  };
+  var baseMd = U.exportMarkdown;
+  U.exportMarkdown = function (R) { var md = baseMd(R); return M() ? md + '\n\n' + U.argumentsMarkdown() : md; };
+
+  // ── hooks ──
+  var baseShow = U.show;
+  U.show = async function (R, opt) { U.am = { cur: 0, sel: null, expand: {} }; await baseShow(R, opt); try { U.am.sel = { unit: curMap().head.unit, bone: 'head' }; U.renderArgs(); } catch (e) { var b = $('sa-args'); if (b) b.innerHTML = '<div class="sa-panel-empty">Argument map failed: ' + esc(e.message) + '</div>'; if (window.console) console.error(e); } };
+  var baseReset = U.reset;
+  U.reset = function () { baseReset(); var b = $('sa-args'); if (b) b.innerHTML = '<div class="sa-panel-empty">Run an analysis.</div>'; };
+  var baseInit = U.init;
+  U.init = function () { baseInit(); var rt, lastW = window.innerWidth; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(function () { if (Math.abs(window.innerWidth - lastW) > 30 && M()) { lastW = window.innerWidth; U.renderArgs(); } }, 250); }); };
 })(SA2);
 
 if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', SA2.ui.init); else SA2.ui.init(); }
