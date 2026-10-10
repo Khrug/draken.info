@@ -380,6 +380,20 @@ function buildSheafAnalyzerPage(baseTpl) {
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), html);
   console.log('  ✓ sheaf-analyzer/');
+  // v1, retired but kept selectable for comparison
+  const v1p = path.join(STATIC_DIR, 'pages', 'sheaf-analyzer-v1.html');
+  if (fs.existsSync(v1p)) {
+    const v1html = render(baseTpl, {
+      title: 'Sheaf Analyzer v1 (retired) — Draken',
+      description: 'The retired v1 co-occurrence analyzer, kept for comparison with v2. See the v2 analyzer for claim-level consistency analysis.',
+      content: fs.readFileSync(v1p, 'utf-8'), og_type: 'website', og_url: 'https://draken.info/sheaf-analyzer/v1/',
+      og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
+    });
+    const v1dir = path.join(dir, 'v1');
+    fs.mkdirSync(v1dir, { recursive: true });
+    fs.writeFileSync(path.join(v1dir, 'index.html'), v1html.replace('<head>', '<head><meta name="robots" content="noindex">'));
+    console.log('  ✓ sheaf-analyzer/v1/');
+  }
 }
 
 // ── SLASK PAGE (dynamic GitHub-powered file dump) ──
