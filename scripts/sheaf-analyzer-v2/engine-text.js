@@ -88,7 +88,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
   // Such units carry no claims, and the recurring phrase is blanked where it is glued into other units.
   S.markBoilerplate = function (units) {
     var norm = function (t) { return t.toLowerCase().replace(/\d+/g, ' ').replace(/[^a-zåäöéü ]+/g, ' ').replace(/\s+/g, ' ').trim(); };
-    var occ = {};
+    var occ = {}, paged = {};
     units.forEach(function (u) { var n = norm(u.text); if (n.split(' ').length <= 14 && n.length >= 8) (occ[n] = occ[n] || []).push(u); });
     // page numbering: the numbers increase through the document; a fixed footer repeats unchanged >= 4 times.
     // Three sentences stating three different values (a real conflict) do neither.
@@ -102,6 +102,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
       var nums = us.map(function (u) { var m = u.text.match(/\d+/g); return m ? +m[m.length - 1] : null; });
       if (nums.every(function (x) { return x === null; }) || nums.every(function (x) { return x === nums[0]; })) return us.length >= 4;
       for (var i = 1; i < nums.length; i++) if (nums[i] === null || nums[i - 1] === null || nums[i] <= nums[i - 1]) return false;
+      paged[k] = true;
       return true;
     });
     if (!phrases.length) return;
@@ -109,7 +110,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     units.forEach(function (u) {
       if (set.has(norm(u.text))) { u.nonclaim = true; u.boilerplate = true; return; }
       phrases.forEach(function (ph) {
-        if (ph.split(' ').length < 3) return;
+        if (!paged[ph] || ph.split(' ').length < 4) return;   // only page headers are blanked inside other sentences
         var re = new RegExp(ph.split(' ').map(function (w) { return w.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); }).join('[^a-zåäöéü0-9]+') + '[^a-zåäöéü0-9]*\\d*', 'gi');
         if (re.test(u.text)) { u.cleanText = (u.cleanText || u.text).replace(re, function (m) { return ' '.repeat(m.length); }); }
       });
