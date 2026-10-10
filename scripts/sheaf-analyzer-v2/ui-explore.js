@@ -193,4 +193,4 @@
     $('sa-gsearch').onkeydown = function (e) { if (e.key === 'Enter' && U.g) { var hits = U.g.search(this.value); if (hits[0]) { if (hits[0].hub) U.selectEntity(hits[0].hub, true); else U.selectClaim(claimOf(U.last, hits[0].id), true); } } };
   };
 })(SA2);
-if (typeof document !== 'undefined') { if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', SA2.ui.init); else SA2.ui.init(); }
+// auto-init lives at the end of ui-review.js (the last UI module)

@@ -2,6 +2,29 @@
 <!-- Self-contained: engine + UI inline; 3d-force-graph loaded from CDN at runtime. Source: github.com/Khrug/draken.info -->
 <style>
 /*V1STYLE*/
+.sa-h4{font-size:11px;color:#4ade80;font-family:'JetBrains Mono',monospace;margin:14px 0 6px;letter-spacing:.5px}
+.sa-method{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;line-height:1.5;margin:4px 0}
+.sa-dim{color:#3a5a3a;font-size:11px;font-family:'JetBrains Mono',monospace}
+.sa-sub{font-size:10px;color:#8faf8f;font-family:'JetBrains Mono',monospace;margin:8px 0 3px;text-transform:uppercase;letter-spacing:.5px}
+.sa-bars{margin:6px 0}.sa-barrow{display:flex;align-items:center;gap:8px;font-size:11px;font-family:'JetBrains Mono',monospace;color:#c8d8c8;margin:3px 0}
+.sa-barrow .l{flex:0 0 38%;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.sa-barrow .b{flex:1;height:10px;background:#0b120b;border-radius:3px;overflow:hidden}.sa-barrow .b i{display:block;height:100%}.sa-barrow .v{flex:0 0 auto;min-width:36px;text-align:right}.sa-barrow em{color:#6b8a6b;font-style:normal;font-size:10px}
+.sa-gauge{display:flex;align-items:center;gap:8px;font-size:10px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0}.sa-gauge.na{color:#3a5a3a}.sa-gauge .track{flex:1;height:8px;border-radius:4px;background:linear-gradient(90deg,#1e3a5f,#1a2c1a 50%,#5c1a1a);position:relative}.sa-gauge .track i{position:absolute;top:-4px;width:4px;height:16px;margin-left:-2px;background:#e4f0e4;border-radius:2px}.sa-gauge .val{color:#e4f0e4;min-width:40px;text-align:right}
+.sa-arc{width:100%;height:auto;display:block;background:#080c08;border:1px solid #1a2c1a;border-radius:6px}.sa-arc circle{cursor:pointer}.sa-axis{display:flex;justify-content:space-between;font-size:9px;color:#3a5a3a;font-family:'JetBrains Mono',monospace;margin-top:2px}
+.sa-phist{width:100%;max-width:420px;display:block;margin:4px 0}
+.sa-kpis{display:flex;gap:10px;flex-wrap:wrap;margin:8px 0}.sa-kpis div{flex:1 1 64px;min-width:0;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:8px;text-align:center}.sa-kpis b{display:block;font-size:17px;font-family:'JetBrains Mono',monospace;color:#e4f0e4}.sa-kpis span{font-size:10px;color:#6b8a6b;font-family:'JetBrains Mono',monospace}
+.sa-cols{display:flex;gap:12px;flex-wrap:wrap}.sa-cols>div{flex:1 1 240px}
+.sa-links{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}.sa-links a{font-size:11px;font-family:'JetBrains Mono',monospace;color:#7dd3fc;text-decoration:none;padding:4px 0}
+.sa-flag{border-left:3px solid;padding:4px 8px;margin:4px 0;font-size:12px;color:#c8d8c8;background:#080c08;font-family:'JetBrains Mono',monospace}.sa-flag span{font-size:10px;text-transform:uppercase;margin-right:6px}
+.sa-cks{display:flex;flex-wrap:wrap;gap:4px}.sa-ck{font-size:11px;font-family:'JetBrains Mono',monospace;padding:3px 8px;border-radius:4px;border:1px solid #1a2c1a}.sa-ck.y{color:#4ade80;background:#4ade8010}.sa-ck.n{color:#8a6b6b}
+.sa-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}.sa-scroll .sa-table{min-width:460px}
+.sa-tri{display:flex;height:26px;border-radius:5px;overflow:hidden;margin:8px 0}.sa-tri i{display:flex;align-items:center;justify-content:center;font-style:normal;font-size:11px;font-family:'JetBrains Mono',monospace;color:#050805;font-weight:700;white-space:nowrap;overflow:hidden;min-width:0}
+.sa-legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:10px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px}.sa-legend i{display:inline-block;width:10px;height:3px;margin-right:5px;vertical-align:middle}
+.sa-fb-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0}.sa-fb-ctl select{max-width:100%;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:6px;font-size:12px;font-family:inherit}
+.sa-fish{display:block;background:#050805;border:1px solid #1a2c1a;border-radius:8px;font-family:'JetBrains Mono',monospace}.sa-fish .fb-item{cursor:pointer}.sa-fish text.fb-item:hover{fill:#4ade80}
+#sa-fb-detail .q{font-family:'Crimson Pro',Georgia,serif;font-size:14px;color:#e4f0e4;border-left:2px solid #4ade80;padding:4px 8px;margin:6px 0}
+.sa-sum{cursor:pointer;color:#e4f0e4;font-family:'JetBrains Mono',monospace;font-size:12px;margin:6px 0}
+.sa-btn-sm{padding:6px 12px!important;font-size:11px!important;min-height:34px}
+
 .sa-badge{display:inline-block;font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 7px;border-radius:4px;margin-right:4px;letter-spacing:.5px}
 .b-contra{background:#5c1a1a;color:#ffb4b4}.b-acc{background:#5c4528;color:#f0d48a}.b-hyp{background:#2c2a5c;color:#c4bfff}.b-test{background:#4a2c5c;color:#e4c4ff}.b-q{background:#1a2c1a;color:#8faf8f}
 .b-lin{background:#0e3a4a;color:#7dd3fc}.b-ord{background:#4a3a0e;color:#fcd34d}.b-prop{background:#3a0e4a;color:#e9a8ff}
@@ -132,6 +155,14 @@
     <div class="sa-card"><div class="sa-lbl">◉ Insights — what the text says, who says it, and how it is built</div>
       <div class="sa-tabs" id="sa-tabs"></div>
       <div class="sa-ins" id="sa-ins"><div class="sa-panel-empty">Run an analysis.</div></div>
+    </div>
+  </div></div>
+
+  <div class="sa-row"><div class="sa-col" style="flex:1 1 100%;min-width:100%">
+    <div class="sa-card"><div class="sa-lbl">◉ Review — fact-check, paper review, sources, rhetoric and the shape of the argument</div>
+      <div class="sa-method" style="margin-bottom:8px">Sentiment uses VADER (validated, MIT licence). The statistical re-checks are exact arithmetic on what the text reports. Everything else is transparent cue matching: candidates with their evidence, for a human to judge. English only.</div>
+      <div class="sa-tabs" id="sa-rtabs"></div>
+      <div class="sa-ins" id="sa-review"><div class="sa-panel-empty">Run an analysis.</div></div>
     </div>
   </div></div>
 
