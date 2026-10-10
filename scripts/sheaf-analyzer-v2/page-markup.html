@@ -2,6 +2,7 @@
 <!-- Self-contained: engine + UI inline; 3d-force-graph loaded from CDN at runtime. Source: github.com/Khrug/draken.info -->
 <style>
 /*V1STYLE*/
+.sa-upload-status{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace;margin-top:8px;line-height:1.5}.sa-upload-status.err{color:#ef4444}.sa-ta.drop{border-color:#4ade80!important;background:#4ade8010}
 .am-ctl{font-size:11px;font-family:'JetBrains Mono',monospace;color:#8faf8f;margin:6px 0 8px;display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center}.am-ctl select{max-width:100%;flex:1 1 260px;background:#080c08;color:#e4f0e4;border:1px solid #1a2c1a;border-radius:4px;padding:7px;font-size:12px;font-family:inherit}
 .am-legend{display:flex;gap:10px;flex-wrap:wrap;font-size:10px;color:#6b8a6b}.am-legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle}
 .am-layout{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}.am-diagram{flex:1 1 600px;min-width:0}.am-pane{flex:0 0 340px;max-width:100%;position:sticky;top:64px;max-height:calc(100vh - 80px);overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:8px;padding:12px 14px;font-size:12px}
@@ -77,7 +78,7 @@
 </style>
 
 <div class="sa" id="sa-app">
-  <div class="sa-version" style="display:flex;justify-content:center;gap:0;margin:2px 0 6px"><div style="display:inline-flex;border:1px solid #1a2c1a;border-radius:6px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="padding:6px 16px;background:#4ade8022;color:#4ade80;font-weight:700">v2 · claim consistency</span><a href="/sheaf-analyzer/v1/" style="padding:6px 16px;color:#6b8a6b;text-decoration:none;border-left:1px solid #1a2c1a">v1 · co-occurrence (retired)</a></div></div>
+  <div class="sa-version" style="display:flex;justify-content:center;gap:0;margin:2px 0 6px"><div style="display:inline-flex;border:1px solid #1a2c1a;border-radius:6px;overflow:hidden;font-family:'JetBrains Mono',monospace;font-size:12px"><span style="padding:6px 16px;background:#4ade8022;color:#4ade80;font-weight:700">v2 · claim consistency</span><a href="/sheaf-analyzer/v1/" style="padding:6px 16px;color:#6b8a6b;text-decoration:none;border-left:1px solid #1a2c1a">v1 · co-occurrence (retired)</a><a href="/sheaf-analyzer/manual/" style="padding:6px 16px;color:#7dd3fc;text-decoration:none;border-left:1px solid #1a2c1a">? How does this work</a></div></div>
   <div style="text-align:center;padding:8px 0 10px">
     <div style="font-size:11px;color:#4ade80;letter-spacing:4px;font-weight:700;font-family:'JetBrains Mono',monospace">DRAKEN — DIAGNOSTIC TOOL · v2</div>
     <h2>Sheaf Analyzer v2 — Claim Consistency &amp; Obstruction Diagnostic</h2>
@@ -104,8 +105,11 @@
         <div class="sa-btns">
           <button class="sa-btn" id="sa-run">▸ Analyze</button>
           <button class="sa-btn ghost" id="sa-fetch">↓ Fetch URL</button>
+          <button class="sa-btn ghost" id="sa-upload" title="Read a .txt, .md, .docx or .pdf file in your browser">⇪ Upload file</button>
+          <input type="file" id="sa-file" accept=".txt,.md,.markdown,.docx,.pdf,text/plain,text/markdown,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden>
           <button class="sa-btn ghost" id="sa-clear">✕ Clear</button>
         </div>
+        <div class="sa-upload-status" id="sa-upload-status">Files (.txt, .md, .docx, .pdf) are read in your browser and never uploaded to a server. You can also drop a file on the text box.</div>
         <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
       </div>
       <div class="sa-card sa-mode-panel" data-mode="corpus" style="display:none">
