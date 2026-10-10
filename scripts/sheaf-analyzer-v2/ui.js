@@ -105,9 +105,11 @@
 
   // ── inspector & selection ──
   U.selectUnit = function (uid) { var R = U.last; if (!R) return; var c = R.claims.filter(function (x) { return x.unit === uid; }); if (c.length) U.selectClaim(c.find(function (x) { return x.type !== 'proposition'; }) || c[0]); else { var u = R.units[+uid.slice(1)]; $('sa-inspector').innerHTML = '<h3>◉ Unit</h3><div class="sa-panel-empty">No claim extracted from this unit' + (u.nonclaim ? ' (reference, markup, math or metadata line)' : u.heading ? ' (heading)' : '') + '.</div><div class="sa-text-view" style="max-height:120px">' + esc(u.text) + '</div>'; } };
+  // Scroll the source-text box only; never the page (scrollIntoView moved the whole page on phones after each tap).
+  function scrollInBox(el) { var box = el.closest('.sa-text-view'); if (!box) return; var top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop; if (top < box.scrollTop || top > box.scrollTop + box.clientHeight - 24) box.scrollTo({ top: Math.max(0, top - box.clientHeight / 3), behavior: 'smooth' }); }
   U.highlight = function (uids) {
     document.querySelectorAll('.sa-u.sel').forEach(function (x) { x.classList.remove('sel'); });
-    uids.forEach(function (u, i) { var el = $('txt-' + u); if (el) { el.classList.add('sel'); if (i === 0) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } });
+    uids.forEach(function (u, i) { var el = $('txt-' + u); if (el) { el.classList.add('sel'); if (i === 0) scrollInBox(el); } });
   };
   U.selectClaim = function (c) {
     var R = U.last; if (!R || !c) return;

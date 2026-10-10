@@ -1169,9 +1169,11 @@ Investigators may still revise the cause.` },
 
     function toWorld(px, py) { return { x: (px - W / 2 - view.x) / view.k, y: (py - H / 2 - view.y) / view.k }; }
     function toScreen(n) { return { x: n.x * view.k + view.x + W / 2, y: n.y * view.k + view.y + H / 2 }; }
-    function nodeAt(px, py) {
-      var best = null, bd = Infinity;
-      for (var i = nodes.length - 1; i >= 0; i--) { var n = nodes[i], s = toScreen(n), r = Math.max(6, n.r * view.k) + 4, d = Math.hypot(s.x - px, s.y - py); if (d < r && d < bd) { bd = d; best = n; } }
+    function drawnR(n) { return Math.max(2.5, n.r * Math.sqrt(view.k)); }
+    // Hit test against the drawn radius plus padding (larger for fingers); nearest edge wins.
+    function nodeAt(px, py, pad) {
+      var best = null, bd = Infinity; pad = pad == null ? 6 : pad;
+      for (var i = nodes.length - 1; i >= 0; i--) { var n = nodes[i], s = toScreen(n), r = drawnR(n), d = Math.hypot(s.x - px, s.y - py); if (d < r + pad && d - r < bd) { bd = d - r; best = n; } }
       return best;
     }
 
@@ -1210,11 +1212,11 @@ Investigators may still revise the cause.` },
         ctx.strokeStyle = l.color; ctx.lineWidth = l.width * (faded ? 1 : 1);
         if (l.dash) ctx.setLineDash(l.dash); else ctx.setLineDash([]);
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
-        if (l.arrow && !faded) { var ang = Math.atan2(b.y - a.y, b.x - a.x), rr = l.t.r * view.k + 3, tx = b.x - Math.cos(ang) * rr, ty = b.y - Math.sin(ang) * rr; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 8 * Math.cos(ang - 0.4), ty - 8 * Math.sin(ang - 0.4)); ctx.lineTo(tx - 8 * Math.cos(ang + 0.4), ty - 8 * Math.sin(ang + 0.4)); ctx.closePath(); ctx.fillStyle = l.color; ctx.fill(); }
+        if (l.arrow && !faded) { var ang = Math.atan2(b.y - a.y, b.x - a.x), rr = drawnR(l.t) + 3, tx = b.x - Math.cos(ang) * rr, ty = b.y - Math.sin(ang) * rr; ctx.setLineDash([]); ctx.beginPath(); ctx.moveTo(tx, ty); ctx.lineTo(tx - 8 * Math.cos(ang - 0.4), ty - 8 * Math.sin(ang - 0.4)); ctx.lineTo(tx - 8 * Math.cos(ang + 0.4), ty - 8 * Math.sin(ang + 0.4)); ctx.closePath(); ctx.fillStyle = l.color; ctx.fill(); }
       });
       ctx.setLineDash([]);
       nodes.forEach(function (n) {
-        var s = toScreen(n), r = Math.max(2.5, n.r * Math.sqrt(view.k)), faded = dim(n);
+        var s = toScreen(n), r = drawnR(n), faded = dim(n);
         ctx.globalAlpha = faded ? 0.3 : 1;
         ctx.beginPath(); ctx.arc(s.x, s.y, r, 0, 2 * Math.PI);
         ctx.fillStyle = n.kind === 'concept' ? '#16261a' : n.color; ctx.fill();
@@ -1233,7 +1235,7 @@ Investigators may still revise the cause.` },
       var placed = [];
       ctx.font = '12px "JetBrains Mono", ui-monospace, monospace'; ctx.textBaseline = 'middle';
       cand.slice(0, 220).forEach(function (n) {
-        var s = toScreen(n), txt = n === focus ? n.long || n.label : n.label, w = ctx.measureText(txt).width, r = Math.max(2.5, n.r * Math.sqrt(view.k));
+        var s = toScreen(n), txt = n === focus ? n.long || n.label : n.label, w = ctx.measureText(txt).width, r = drawnR(n);
         var box = { x: s.x + r + 4, y: s.y - 9, w: w + 8, h: 18 };
         if (box.x + box.w > W - 4) box.x = s.x - r - 4 - box.w;
         if (box.x < 4) box.x = 4; if (box.x + box.w > W - 4) { box.w = Math.max(40, W - 8 - box.x); }
@@ -1250,29 +1252,34 @@ Investigators may still revise the cause.` },
 
     // ── interaction ──
     function pos(e) { var r = canvas.getBoundingClientRect(); return { x: e.clientX - r.left, y: e.clientY - r.top }; }
+    // A press becomes a drag/pan only after the pointer travels `slop` screen px from where it went down;
+    // until then it is a tap and selects the node found at pointerdown (finger jitter no longer cancels taps).
+    var press = null;
     canvas.addEventListener('pointerdown', function (e) {
-      canvas.setPointerCapture(e.pointerId); var p = pos(e); pointers[e.pointerId] = p; moved = false;
+      try { canvas.setPointerCapture(e.pointerId); } catch (_) {}
+      var p = pos(e); pointers[e.pointerId] = p; moved = false;
       var ids = Object.keys(pointers);
-      if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), k: view.k }; dragging = null; panning = null; return; }
-      var n = nodeAt(p.x, p.y);
+      if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]]; pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), k: view.k, cx: (a.x + b.x) / 2, cy: (a.y + b.y) / 2, vx: view.x, vy: view.y }; dragging = null; panning = null; press = null; moved = true; return; }
+      var touch = e.pointerType !== 'mouse', n = nodeAt(p.x, p.y, touch ? 16 : 6);
+      press = { x: p.x, y: p.y, node: n, slop: touch ? 10 : 4 };
       if (n) { dragging = n; n.vx = n.vy = 0; } else panning = { x: p.x, y: p.y, vx: view.x, vy: view.y };
     });
     canvas.addEventListener('pointermove', function (e) {
       var p = pos(e);
       if (pointers[e.pointerId]) pointers[e.pointerId] = p;
-      if (pinch) { var ids = Object.keys(pointers); if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y); view.k = Math.min(8, Math.max(0.15, pinch.k * d / pinch.d)); draw(); } return; }
-      if (dragging) { var w = toWorld(p.x, p.y); if (Math.hypot(w.x - dragging.x, w.y - dragging.y) > 1) moved = true; dragging.x = w.x; dragging.y = w.y; kick(0.25); return; }
-      if (panning) { if (Math.hypot(p.x - panning.x, p.y - panning.y) > 3) { moved = true; userMoved = true; } view.x = panning.vx + p.x - panning.x; view.y = panning.vy + p.y - panning.y; draw(); return; }
-      var h = nodeAt(p.x, p.y); if (h !== hover) { hover = h; canvas.style.cursor = h ? 'pointer' : 'grab'; if (opt.onHover) opt.onHover(h); draw(); }
+      if (pinch) { var ids = Object.keys(pointers); if (ids.length === 2) { var a = pointers[ids[0]], b = pointers[ids[1]], d = Math.hypot(a.x - b.x, a.y - b.y), k = Math.min(8, Math.max(0.15, pinch.k * d / pinch.d)), w = { x: (pinch.cx - W / 2 - pinch.vx) / pinch.k, y: (pinch.cy - H / 2 - pinch.vy) / pinch.k }, cx = (a.x + b.x) / 2, cy = (a.y + b.y) / 2; view.k = k; view.x = cx - W / 2 - w.x * k; view.y = cy - H / 2 - w.y * k; userMoved = true; draw(); } return; }
+      if (press && !moved) { if (Math.hypot(p.x - press.x, p.y - press.y) <= press.slop) return; moved = true; }
+      if (dragging) { var w2 = toWorld(p.x, p.y); dragging.x = w2.x; dragging.y = w2.y; kick(0.25); return; }
+      if (panning) { userMoved = true; view.x = panning.vx + p.x - panning.x; view.y = panning.vy + p.y - panning.y; draw(); return; }
+      if (e.pointerType === 'mouse') { var h = nodeAt(p.x, p.y, 6); if (h !== hover) { hover = h; canvas.style.cursor = h ? 'pointer' : 'grab'; if (opt.onHover) opt.onHover(h); draw(); } }
     });
     function end(e) {
-      var p = pos(e), wasDrag = dragging, wasPan = panning;
       delete pointers[e.pointerId];
-      if (pinch) { if (Object.keys(pointers).length < 2) pinch = null; return; }
-      dragging = null; panning = null;
-      if (!moved) { var n = nodeAt(p.x, p.y); api.select(n, true); }
+      if (pinch) { if (Object.keys(pointers).length < 2) pinch = null; press = null; return; }
+      var pr = press; press = null; dragging = null; panning = null;
+      if (pr && !moved) api.select(pr.node, true);
     }
-    canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', function (e) { delete pointers[e.pointerId]; pinch = null; dragging = null; panning = null; });
+    canvas.addEventListener('pointerup', end); canvas.addEventListener('pointercancel', function (e) { delete pointers[e.pointerId]; pinch = null; dragging = null; panning = null; press = null; });
     canvas.addEventListener('wheel', function (e) { e.preventDefault(); var p = pos(e), f = Math.exp(-e.deltaY * 0.0015); zoomAt(p.x, p.y, f); }, { passive: false });
     canvas.addEventListener('mouseleave', function () { if (hover) { hover = null; draw(); } });
     function zoomAt(px, py, f) { userMoved = true; var w = toWorld(px, py); view.k = Math.min(8, Math.max(0.15, view.k * f)); view.x = px - W / 2 - w.x * view.k; view.y = py - H / 2 - w.y * view.k; draw(); }
@@ -1293,6 +1300,9 @@ Investigators may still revise the cause.` },
         userMoved = false; autoFit = true; kick(1); setTimeout(function () { if (!userMoved) api.fit(); }, 900);
       },
       select: function (n, fromCanvas) { selected = n || null; draw(); if (fromCanvas && opt.onSelect) opt.onSelect(selected); },
+      // Screen positions and drawn radii (canvas px), for tests and overlays.
+      layout: function () { return nodes.map(function (n) { var s = toScreen(n); return { id: n.id, kind: n.kind, x: s.x, y: s.y, r: drawnR(n) }; }); },
+      selectedId: function () { return selected ? selected.id : null; },
       selectId: function (id) { var n = byId[id]; if (n) { selected = n; api.focus(n); } draw(); return !!n; },
       focus: function (n) { if (!n) return; var k = Math.max(view.k, 1.4); view.k = k; view.x = -n.x * k; view.y = -n.y * k; draw(); },
       fit: function () { if (!nodes.length || !W) return; var um = userMoved; var xs = nodes.map(function (n) { return n.x; }), ys = nodes.map(function (n) { return n.y; });
@@ -1426,9 +1436,11 @@ Investigators may still revise the cause.` },
 
   // ── inspector & selection ──
   U.selectUnit = function (uid) { var R = U.last; if (!R) return; var c = R.claims.filter(function (x) { return x.unit === uid; }); if (c.length) U.selectClaim(c.find(function (x) { return x.type !== 'proposition'; }) || c[0]); else { var u = R.units[+uid.slice(1)]; $('sa-inspector').innerHTML = '<h3>◉ Unit</h3><div class="sa-panel-empty">No claim extracted from this unit' + (u.nonclaim ? ' (reference, markup, math or metadata line)' : u.heading ? ' (heading)' : '') + '.</div><div class="sa-text-view" style="max-height:120px">' + esc(u.text) + '</div>'; } };
+  // Scroll the source-text box only; never the page (scrollIntoView moved the whole page on phones after each tap).
+  function scrollInBox(el) { var box = el.closest('.sa-text-view'); if (!box) return; var top = el.getBoundingClientRect().top - box.getBoundingClientRect().top + box.scrollTop; if (top < box.scrollTop || top > box.scrollTop + box.clientHeight - 24) box.scrollTo({ top: Math.max(0, top - box.clientHeight / 3), behavior: 'smooth' }); }
   U.highlight = function (uids) {
     document.querySelectorAll('.sa-u.sel').forEach(function (x) { x.classList.remove('sel'); });
-    uids.forEach(function (u, i) { var el = $('txt-' + u); if (el) { el.classList.add('sel'); if (i === 0) el.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); } });
+    uids.forEach(function (u, i) { var el = $('txt-' + u); if (el) { el.classList.add('sel'); if (i === 0) scrollInBox(el); } });
   };
   U.selectClaim = function (c) {
     var R = U.last; if (!R || !c) return;
