@@ -11,3 +11,4 @@ dist/
 
 # Google Drive sync temp files
 .tmp.drive*/
+scripts/sheaf-analyzer-v2/protocol-results.json

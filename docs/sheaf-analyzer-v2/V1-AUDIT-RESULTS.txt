@@ -1,0 +1,34 @@
+n posts = 88; between-post SD on originals: {'gamma': np.float64(0.0284), 'kt': np.float64(0.3493), 'psi': np.float64(0.5007), 'severed': np.float64(0.0)}
+
+NUM vs DUP_NUM  (n=88)
+  gamma    median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=0.0000
+  kt       median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=0.0000
+  psi      median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=0.0000
+  severed  median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=nan
+  baseline flag rate: NUM=0.81  DUP_NUM=0.27
+
+NEG vs DUP  (n=88)
+  gamma    median Δ=+0.00000 mean Δ=+0.00004  nonzero= 24  p=0.0258  |median|/SD=0.0000
+  kt       median Δ=+0.00000 mean Δ=+0.00013  nonzero= 24  p=0.00511  |median|/SD=0.0000
+  psi      median Δ=+0.00000 mean Δ=+0.00040  nonzero= 24  p=0.153  |median|/SD=0.0000
+  severed  median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=nan
+  baseline flag rate: NEG=0.74  DUP=0.27
+
+DUP vs ORIG  (n=88)
+  gamma    median Δ=-0.00001 mean Δ=+0.00085  nonzero= 88  p=0.092  |median|/SD=0.0003
+  kt       median Δ=+0.00050 mean Δ=-0.00418  nonzero= 88  p=0.79  |median|/SD=0.0014
+  psi      median Δ=-0.00049 mean Δ=+0.00442  nonzero= 88  p=0.0114  |median|/SD=0.0010
+  severed  median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=nan
+  baseline flag rate: DUP=0.27  ORIG=0.27
+
+TOPIC vs ORIG  (n=88)
+  gamma    median Δ=+0.01194 mean Δ=+0.01318  nonzero= 88  p=7.45e-08  |median|/SD=0.4210
+  kt       median Δ=-0.12455 mean Δ=-0.12095  nonzero= 88  p=6.96e-09  |median|/SD=0.3566
+  psi      median Δ=-0.01907 mean Δ=+0.01657  nonzero= 88  p=0.739  |median|/SD=0.0381
+  severed  median Δ=+0.00000 mean Δ=+0.01136  nonzero=  1  p=0.317  |median|/SD=nan
+
+SHUFFLE vs ORIG  (n=88)
+  gamma    median Δ=+0.00107 mean Δ=+0.00277  nonzero= 88  p=0.054  |median|/SD=0.0377
+  kt       median Δ=+0.05540 mean Δ=+0.04864  nonzero= 88  p=4.02e-06  |median|/SD=0.1586
+  psi      median Δ=+0.10152 mean Δ=+0.13944  nonzero= 88  p=1.05e-11  |median|/SD=0.2028
+  severed  median Δ=+0.00000 mean Δ=+0.00000  nonzero=  0  p=1  |median|/SD=nan

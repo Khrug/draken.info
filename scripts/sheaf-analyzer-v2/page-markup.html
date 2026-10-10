@@ -1,0 +1,172 @@
+<!-- Sheaf Analyzer v2 — Khrug Engineering · Draken. Claim-level consistency analysis with formal witnesses. -->
+<!-- Self-contained: engine + UI inline; 3d-force-graph loaded from CDN at runtime. Source: github.com/Khrug/draken.info -->
+<style>
+/*V1STYLE*/
+.sa-badge{display:inline-block;font-size:10px;font-family:'JetBrains Mono',monospace;padding:2px 7px;border-radius:4px;margin-right:4px;letter-spacing:.5px}
+.b-contra{background:#5c1a1a;color:#ffb4b4}.b-acc{background:#5c4528;color:#f0d48a}.b-hyp{background:#2c2a5c;color:#c4bfff}.b-test{background:#4a2c5c;color:#e4c4ff}.b-q{background:#1a2c1a;color:#8faf8f}
+.b-lin{background:#0e3a4a;color:#7dd3fc}.b-ord{background:#4a3a0e;color:#fcd34d}.b-prop{background:#3a0e4a;color:#e9a8ff}
+.sa-obs{border:1px solid #1a2c1a;border-radius:8px;padding:10px 12px;margin-bottom:8px;background:#080c08;cursor:pointer}
+.sa-obs:hover{border-color:#4ade80}
+.sa-obs .q{font-family:'Crimson Pro',Georgia,serif;font-size:13px;color:#c8d8c8;border-left:2px solid #5c1a1a;padding:2px 8px;margin:5px 0}
+.sa-obs .w{font-size:11px;color:#6b8a6b;font-family:'JetBrains Mono',monospace}
+.sa-u{border-radius:2px;cursor:pointer}
+.sa-u.claim{border-bottom:1px dotted #4ade8066}
+.sa-u.rep{font-style:italic;color:#e6cc6a}
+.sa-u.hyp{color:#c4bfff}
+.sa-u.obs{background:#ef444426;border-bottom:1px solid #ef4444}
+.sa-u.sel{outline:1px solid #4ade80;background:#4ade8022}
+.sa-u.nc{color:#56705a}
+.sa-tl{display:grid;grid-template-columns:160px 1fr;gap:4px 10px;font-size:12px}
+.sa-tl .d{font-family:'JetBrains Mono',monospace;color:#fcd34d}
+.sa-tl .d.x{color:#ef4444}
+.sa-gamma{font-size:30px;font-weight:700;font-family:'Space Grotesk',sans-serif;line-height:1.1}
+.sa-table{width:100%;border-collapse:collapse;font-size:11px;font-family:'JetBrains Mono',monospace}
+.sa-table td,.sa-table th{padding:3px 6px;border-bottom:1px dashed #1a2c1a;text-align:left}
+.sa-table th{color:#6b8a6b;font-weight:600}
+.sa-graph-overlay,.sa-graph-controls,.sa-graph-legend,.sa-zoom-pad,#sa-graph-empty{z-index:5}
+</style>
+
+<div class="sa" id="sa-app">
+  <div style="text-align:center;padding:8px 0 10px">
+    <div style="font-size:11px;color:#4ade80;letter-spacing:4px;font-weight:700;font-family:'JetBrains Mono',monospace">DRAKEN — DIAGNOSTIC TOOL · v2</div>
+    <h2>Sheaf Analyzer v2 — Claim Consistency &amp; Obstruction Diagnostic</h2>
+    <p class="sa-sub">Paste any text, fetch a URL, select corpus posts, or compare two versions. v2 extracts typed claims (quantities, dates, order relations, propositions, explicit numeric relations), builds a discourse complex over them and tests whether the claims can hold together. Every inconsistency comes with the minimal set of conflicting claims, their exact quotes, and a magnitude.</p>
+    <div class="sa-warn"><strong>◆ Honest scope.</strong> The consistency layers are exact mathematics on the <em>extracted</em> claims: cellular-sheaf gluing and Hodge decomposition (linear), difference constraints with negative-cycle witnesses and minimal widening ε* (ordinal), and polarity satisfiability (propositional). Extraction is rule-based and limited: it misses most claims that are not quantities, dates, order relations or near-repeated statements, and it cannot judge truth — only whether claims can be true <em>together</em>. Reported speech ("X said…") is never treated as fact: clashes between accounts are shown as <em>conflicting accounts</em>, not contradictions. Ψ (epistemic closure) is a prototype awaiting validation. v1's co-occurrence metrics were retired after a <a href="#sa-explain" style="color:#4ade80">preregistered audit</a>.</div>
+  </div>
+
+  <div class="sa-row" style="margin-bottom:4px"><div class="sa-col" style="flex:1 1 100%;min-width:100%"><div class="sa-btns" style="margin:0">
+    <button class="sa-btn" id="sa-mode-single" data-mode="single">▸ Single text</button>
+    <button class="sa-btn ghost" id="sa-mode-corpus" data-mode="corpus">⌘ Corpus mode — analyze draken.info posts</button>
+    <button class="sa-btn ghost" id="sa-mode-compare" data-mode="compare">⇌ Compare two versions</button>
+  </div></div></div>
+
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 600px">
+      <div class="sa-card sa-mode-panel" data-mode="single">
+        <div class="sa-lbl">◉ Source text</div>
+        <textarea id="sa-text" class="sa-ta" placeholder="Paste text here: an article, report, transcript, timeline, thread. Fact-dense text (dates, figures, who-said-what) gives the most signal."></textarea>
+        <div style="margin-top:10px">
+          <div class="sa-lbl">◉ Or fetch from URL (public reader proxy to bypass CORS)</div>
+          <input id="sa-url" class="sa-input" type="url" placeholder="https://example.com/article">
+          <div class="sa-src-pick" id="sa-src-pick"></div>
+        </div>
+        <div class="sa-btns">
+          <button class="sa-btn" id="sa-run">▸ Analyze</button>
+          <button class="sa-btn ghost" id="sa-fetch">↓ Fetch URL</button>
+          <button class="sa-btn ghost" id="sa-clear">✕ Clear</button>
+        </div>
+        <div class="sa-progress"><div class="sa-progress-fill" id="sa-prog"></div></div>
+      </div>
+      <div class="sa-card sa-mode-panel" data-mode="corpus" style="display:none">
+        <div class="sa-lbl">◉ Corpus mode — select draken.info posts; claims are compared within and across posts</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center">
+          <button class="sa-btn ghost" id="sa-corpus-all">☑ Select all</button>
+          <button class="sa-btn ghost" id="sa-corpus-none">☐ Clear</button>
+          <span id="sa-corpus-count" style="font-size:11px;color:#6b8a6b;margin-left:auto;font-family:'JetBrains Mono',monospace">Loading corpus…</span>
+        </div>
+        <div id="sa-corpus-list" style="max-height:320px;overflow-y:auto;background:#080c08;border:1px solid #1a2c1a;border-radius:6px;padding:8px 10px"><div class="sa-panel-empty">Fetching /data/corpus.json…</div></div>
+        <div class="sa-btns"><button class="sa-btn" id="sa-corpus-run">▸ Analyze selected</button><button class="sa-btn ghost" id="sa-corpus-refresh">⟳ Refresh corpus</button></div>
+      </div>
+      <div class="sa-card sa-mode-panel" data-mode="compare" style="display:none">
+        <div class="sa-lbl">◉ Compare — version A vs version B (draft vs revision, statement vs later statement)</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <div style="flex:1 1 280px;min-width:260px"><div style="font-size:11px;color:#4ade80;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ VERSION A</div><textarea id="sa-cmp-a" class="sa-ta" style="min-height:200px"></textarea></div>
+          <div style="flex:1 1 280px;min-width:260px"><div style="font-size:11px;color:#c9a84c;font-family:'JetBrains Mono',monospace;margin-bottom:4px">◆ VERSION B</div><textarea id="sa-cmp-b" class="sa-ta" style="min-height:200px"></textarea></div>
+        </div>
+        <div class="sa-btns"><button class="sa-btn" id="sa-cmp-run">⇌ Compare</button><button class="sa-btn ghost" id="sa-cmp-sample">⌁ Sample A vs B</button><button class="sa-btn ghost" id="sa-cmp-swap">⇅ Swap A↔B</button></div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 360px">
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Γ — can the asserted claims hold together? (per layer)</div>
+        <div class="sa-metrics">
+          <div class="sa-metric"><div class="sa-gamma" id="g-lin" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">Γ linear</div><div class="sa-metric-hint" id="g-lin-h"></div></div>
+          <div class="sa-metric"><div class="sa-gamma" id="g-ord" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">Γ ordinal</div><div class="sa-metric-hint" id="g-ord-h"></div></div>
+          <div class="sa-metric"><div class="sa-gamma" id="g-prop" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">Γ propositional</div><div class="sa-metric-hint" id="g-prop-h"></div></div>
+        </div>
+        <div class="sa-lbl" style="margin-top:12px">◉ κ obstructions · claims</div>
+        <div class="sa-metrics">
+          <div class="sa-metric"><div class="sa-metric-val" id="m-contra" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">contradictions</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" id="m-acc" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">conflicting accounts</div></div>
+          <div class="sa-metric"><div class="sa-metric-val" id="m-claims" style="color:#6b8a6b">—</div><div class="sa-metric-lbl">claims</div></div>
+        </div>
+        <div style="margin-top:10px;font-size:11px;color:#6b8a6b" id="sa-verdict">◆ Awaiting text.</div>
+        <div class="sa-lbl" style="margin-top:14px">◉ Export analysis</div>
+        <div class="sa-btns" style="margin-top:4px">
+          <button class="sa-btn sa-export-opt" data-fmt="deep" disabled title="Full report: claims, comparisons, obstructions with witnesses, Ψ, timeline">📄 JSON (deep)</button>
+          <button class="sa-btn sa-export-opt" data-fmt="md" disabled title="Readable report with a Claude-ready preamble">📝 Markdown</button>
+          <button class="sa-btn ghost sa-export-opt" data-fmt="min" disabled title="Flat claims + edges table">⌬ JSON (flat)</button>
+        </div>
+        <div style="font-size:10px;color:#6b8a6b;margin-top:6px;font-family:'JetBrains Mono',monospace" id="sa-export-hint">Enabled after first analysis.</div>
+      </div>
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Ψ — epistemic closure of the support structure (prototype)</div>
+        <div id="sa-psi" class="sa-panel-empty">No analysis yet.</div>
+      </div>
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Topic coverage — 18 Draken layers (descriptive keyword tags)</div>
+        <div class="sa-layers" id="sa-layers"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 720px">
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Obstructions κ — minimal conflicting claim sets, with witnesses</div>
+        <div id="sa-obs"><div class="sa-panel-empty">No analysis yet.</div></div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 380px">
+      <div class="sa-card"><div class="sa-lbl">◉ Reconstructed timeline (ordinal layer)</div><div id="sa-timeline" class="sa-panel-empty">No dated events yet.</div></div>
+      <div class="sa-card"><div class="sa-lbl">◉ Accounts — who is reported as saying what</div><div id="sa-accounts" class="sa-panel-empty">No reported speech yet.</div></div>
+    </div>
+  </div>
+
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 720px">
+      <div class="sa-graph" id="sa-graph">
+        <div id="sa-graph-canvas" style="position:absolute;inset:0"></div>
+        <div class="sa-graph-overlay" id="sa-graph-overlay">◆ claim complex — rotate: drag · zoom: scroll · select: click</div>
+        <div class="sa-graph-controls">
+          <div style="display:flex;gap:2px;border:1px solid #1a2c1a;border-radius:5px;padding:2px;background:rgba(8,12,8,0.85);margin-right:4px">
+            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-focus" title="only claims in obstructions">focus</button>
+            <button class="sa-gc sa-gc-dens sa-gc-on" id="sa-gc-dens-balanced" title="claims with any comparison, order or support link">balanced</button>
+            <button class="sa-gc sa-gc-dens" id="sa-gc-dens-full" title="all quantity, date and order claims too">full</button>
+          </div>
+          <button class="sa-gc" id="sa-gc-reheat">⟳ reheat</button>
+          <button class="sa-gc" id="sa-gc-labels">◉ labels</button>
+          <button class="sa-gc" id="sa-gc-fit">⊡ fit</button>
+        </div>
+        <div class="sa-zoom-pad"><button id="sa-zoom-in" aria-label="zoom in">+</button><button id="sa-zoom-out" aria-label="zoom out">−</button><button id="sa-zoom-reset" aria-label="reset">↺</button></div>
+        <div class="sa-graph-legend"><span style="color:#7dd3fc">● quantity</span> <span style="color:#fcd34d">● date/order</span> <span style="color:#e9a8ff">● proposition</span> <span style="color:#a3e635">● relation</span><br>red links: obstruction · green: claims that glue · amber: same event · blue: support</div>
+        <div id="sa-graph-empty" class="sa-loading" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:80%;pointer-events:none">No graph yet.</div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 380px">
+      <div class="sa-panel" id="sa-inspector"><h3>◉ Inspector</h3><div class="sa-panel-empty">Click a claim in the graph, an obstruction, or a highlighted sentence in the text.</div></div>
+    </div>
+  </div>
+
+  <div class="sa-row">
+    <div class="sa-col" style="flex:2 1 720px">
+      <div class="sa-card">
+        <div class="sa-lbl">◉ Source text — <span style="color:#ef4444">red</span>: in an obstruction · <span style="color:#e6cc6a;font-style:italic">amber italic</span>: reported · <span style="color:#c4bfff">violet</span>: hypothetical · dotted: carries a claim</div>
+        <div class="sa-text-view" id="sa-text-view" style="max-height:420px"><div class="sa-panel-empty">No text analyzed yet.</div></div>
+      </div>
+    </div>
+    <div class="sa-col" style="flex:1 1 380px">
+      <div class="sa-card sa-explain" id="sa-explain">
+        <div class="sa-lbl">◉ Explain the mathematics</div>
+        <details open><summary>Claims and the discourse complex</summary><div class="body">Each sentence or line is a unit; from it the extractor reads typed claims: <code>quantity</code> (numbers with units), <code>date</code> (day, month or year intervals), <code>order</code> ("A before/after B", optionally "N days after"), <code>relation</code> ("X is N more than Y"), and <code>proposition</code> (the sentence's content with its polarity). Claims become vertices; two claims are joined when they speak about the same thing (content-word Jaccard ≥ 0.6, ≥ 0.8 for propositions, same structure and temporal scope). Modality is kept: asserted, reported (with source), hypothetical, question. Headings, reference lists, math and tables are not read as claims.</div></details>
+        <details><summary>Γ — gluing, per layer</summary><div class="body"><code>Γ = 1</code> if the asserted claims of that layer admit a global section (can all be true together), <code>0</code> if not, <code>N/A</code> if the text gives nothing comparable. It is the minimum over components, so adding unrelated text can never raise it. "Agreement" shows the share of comparable claim pairs that glue.</div></details>
+        <details><summary>Linear layer — sheaf gluing and Hodge</summary><div class="body">Quantity claims about the same frame must agree slot by slot (relative tolerance 10% if hedged with "about", "nearly"; exact otherwise). Explicit relations ("A is 5 more than B") form an edge cochain on an entity graph; its Hodge decomposition <code>y = grad + harm</code> splits it into the part explained by consistent values and the harmonic part — a nonzero class in H¹, i.e. relations that cannot all hold around a cycle.</div></details>
+        <details><summary>Ordinal layer — difference constraints</summary><div class="body">Dates pin events to day intervals; order relations add <code>t_A &lt; t_B</code>. The system is consistent iff the constraint graph has no negative cycle (strict arcs counted lexicographically). Each failure is shrunk to a minimal conflicting set (deletion filter) and measured by <code>ε*</code>: the smallest uniform shift, in days, that would reconcile it (Karp's minimum mean cycle). Interval obstructions are not H¹ classes: a cycle basis does not suffice to certify them.</div></details>
+        <details><summary>Propositional layer</summary><div class="body">Two units with the same content and opposite polarity (P and not-P) are unsatisfiable together. Contrastive negation ("X, not Y") and double negation are handled; deeper logic is out of scope.</div></details>
+        <details><summary>κ classes</summary><div class="body"><b>contradiction</b>: all claims asserted by the text. <b>conflicting accounts</b>: at least one claim is reported speech from different sources — the text may be reporting a real disagreement accurately. <b>inconsistent testimony</b>: one reported source contradicts itself. <b>tension with hypothesis</b>: a hypothetical claim clashes with others.</div></details>
+        <details><summary>Ψ — epistemic closure (prototype)</summary><div class="body">A property of the text's support structure, never of its author. Support edges come from markers ("therefore", "which proves"). <b>ground</b>: share of supported claims with no support path from an externally anchored claim (a citation, source, date). <b>circ</b>: groups of claims that justify only each other. <b>seal</b>: absence or denial of evidence used as evidence ("no documents exist, which proves the cover-up"). <b>imp</b>: asserted contradictions the text maintains. Pending validation on the LOCO conspiracy corpus.</div></details>
+        <details><summary>Why v1 was retired</summary><div class="body">A preregistered audit (seed 201, 88 posts) showed v1's Γ, Ψ and K(t) did not react to injected numeric or negated contradictions (the tokenizer removed digits and "not"), rose when unrelated text was mixed in, and its "severed" count was unreachable (ρ ≥ 0.3475 &gt; threshold 0.35). On the same protocol v2 detects 78% of injected negations (a naive near-duplicate check: 77%) and 67% of altered figures in sentences carrying a quantity or date (most misses are identifiers such as DRK numbers or citation years, which are not quantities), with zero false alarms on the 88 unmodified posts (the naive check: 25 posts) and full shuffle and segmentation invariance.</div></details>
+      </div>
+    </div>
+  </div>
+</div>

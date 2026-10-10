@@ -371,8 +371,8 @@ function buildSheafAnalyzerPage(baseTpl) {
   if (fs.existsSync(ap)) body = fs.readFileSync(ap, 'utf-8');
 
   const html = render(baseTpl, {
-    title: 'Sheaf Analyzer — Draken Topological Narrative Diagnostic',
-    description: 'Paste text or fetch a URL; extract sheaf metrics (Γ, Ψ, K(t), α), detect manufactured voids, and render a rotatable 3D concept graph across the 18 Draken layers.',
+    title: 'Sheaf Analyzer v2 — Draken Claim Consistency Diagnostic',
+    description: 'Paste text, fetch a URL or select corpus posts; v2 extracts typed claims and finds the minimal sets that cannot hold together, with quotes, witnesses and ε* in days.',
     content: body, og_type: 'website', og_url: 'https://draken.info/sheaf-analyzer/',
     og_image: 'https://draken.info/images/og-v2.png', jsonld: '',
   });
