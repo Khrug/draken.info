@@ -429,7 +429,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     + ' och att det som den de en ett är var har hade inte för på med till av om men så vid när eller ska kan sig han hon dem deras sin sitt sina också bara efter före under över mellan').split(/\s+/));
   var NEG = /\b(not|no|never|none|nobody|nothing|neither|nor|cannot|can't|won't|isn't|aren't|wasn't|weren't|doesn't|don't|didn't|hasn't|haven't|hadn't|shouldn't|wouldn't|couldn't|inte|ej|aldrig|ingen|inget|inga|ei)\b|n't\b/gi;
   var REPORT = /\b(said|says|say|claimed|claims|claim|stated|states|reported|reports|according to|alleged|alleges|allegedly|testified|told|believes|believed|insisted|insists|denied|denies|argued|argues|maintains|maintained|asserted|asserts|wrote|writes|recalled|recalls|uppgav|uppger|säger|sade|sa att|enligt|hävdar|hävdade|påstår|påstod)\b/i;
-  var HYPO = /\b(may|might|could|perhaps|possibly|probably|likely|presumably|suppose|supposedly|hypothes\w*|theor(y|ies|ized|ised)|speculat\w*|if|unless|whether|kanske|möjligen|troligen|eventuellt)\b/i;
+  var HYPO = /\b(may|might|could|perhaps|possibly|probably|likely|presumably|suppose|supposedly|hypothesi[sz]ed?|hypothesizes|theori[sz]ed|speculated?|speculates|if|unless|whether|kanske|möjligen|troligen|eventuellt)\b/i;
   var HEDGE = /\b(about|around|approximately|approx\.?|roughly|nearly|almost|some|circa|ca\.?|över|ungefär|omkring|drygt|knappt)\b|~/i;
   var MONTHS = { jan: 0, january: 0, januari: 0, feb: 1, february: 1, februari: 1, mar: 2, march: 2, mars: 2, apr: 3, april: 3, may: 4, maj: 4, jun: 5, june: 5, juni: 5, jul: 6, july: 6, juli: 6, aug: 7, august: 7, augusti: 7, sep: 8, sept: 8, september: 8, oct: 9, october: 9, okt: 9, oktober: 9, nov: 10, november: 10, dec: 11, december: 11 };
   var MONTH_RE = '(jan(?:uary|uari)?|feb(?:ruary|ruari)?|mar(?:ch|s)?|apr(?:il)?|may|maj|june?|juni|july?|juli|aug(?:ust|usti)?|sept?(?:ember)?|oct(?:ober)?|okt(?:ober)?|nov(?:ember)?|dec(?:ember)?)';
@@ -502,6 +502,39 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     return units;
   };
 
+  // Running headers, footers and page numbers: a short text that recurs >= 3 times once digits are
+  // removed is boilerplate (e.g. "Toward a Spectral Theory of Cellular Sheaves 43" on every page).
+  // Such units carry no claims, and the recurring phrase is blanked where it is glued into other units.
+  S.markBoilerplate = function (units) {
+    var norm = function (t) { return t.toLowerCase().replace(/\d+/g, ' ').replace(/[^a-zåäöéü ]+/g, ' ').replace(/\s+/g, ' ').trim(); };
+    var occ = {};
+    units.forEach(function (u) { var n = norm(u.text); if (n.split(' ').length <= 14 && n.length >= 8) (occ[n] = occ[n] || []).push(u); });
+    // page numbering: the numbers increase through the document; a fixed footer repeats unchanged >= 4 times.
+    // Three sentences stating three different values (a real conflict) do neither.
+    var phrases = Object.keys(occ).filter(function (k) {
+      var us = occ[k]; if (us.length < 3) return false;
+      // headers are spread through the document, separated by body text
+      var idx = us.map(function (u) { return +u.id.slice(1); }), gaps = [];
+      for (var g = 1; g < idx.length; g++) gaps.push(idx[g] - idx[g - 1]);
+      gaps.sort(function (a, b) { return a - b; });
+      if (gaps[Math.floor(gaps.length / 2)] < 2) return false;
+      var nums = us.map(function (u) { var m = u.text.match(/\d+/g); return m ? +m[m.length - 1] : null; });
+      if (nums.every(function (x) { return x === null; }) || nums.every(function (x) { return x === nums[0]; })) return us.length >= 4;
+      for (var i = 1; i < nums.length; i++) if (nums[i] === null || nums[i - 1] === null || nums[i] <= nums[i - 1]) return false;
+      return true;
+    });
+    if (!phrases.length) return;
+    var set = new Set(phrases);
+    units.forEach(function (u) {
+      if (set.has(norm(u.text))) { u.nonclaim = true; u.boilerplate = true; return; }
+      phrases.forEach(function (ph) {
+        if (ph.split(' ').length < 3) return;
+        var re = new RegExp(ph.split(' ').map(function (w) { return w.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'); }).join('[^a-zåäöéü0-9]+') + '[^a-zåäöéü0-9]*\\d*', 'gi');
+        if (re.test(u.text)) { u.cleanText = (u.cleanText || u.text).replace(re, function (m) { return ' '.repeat(m.length); }); }
+      });
+    });
+  };
+
   // ───────────── 2. claim extraction ─────────────
   function modalityOf(t) {
     if (/\?\s*$/.test(t)) return { kind: 'question' };
@@ -558,7 +591,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
 
   // Extract typed claims from one unit.
   S.extractClaims = function (u) {
-    var t = u.text, claims = [], mod = modalityOf(t), pol = polarityOf(t);
+    var t = u.cleanText || u.text, claims = [], mod = modalityOf(t), pol = polarityOf(t);
     if (u.nonclaim || u.heading) { claims.support = { fwd: false, back: null, evidenceVerb: false, absence: false, anchored: true }; return claims; }
     var plain = t.replace(/^[#>*\-+\s]+/, '').replace(/\*\*|__|`/g, '');
     t = t.replace(/\((?=[^()]*[A-ZÅÄÖ][^()]*(?:1[5-9]|20)\d{2})[^()]{0,120}\)/g, function (m) { return ' '.repeat(m.length); }).replace(/\$[^$]{1,200}\$/g, function (m) { return ' '.repeat(m.length); }).replace(/^(\s*(?:[-*+]\s+)?)(\d{1,2})([.)]?\s+)(?=[A-ZÅÄÖ])/, function (m, a, b, c) { return a + ' '.repeat(b.length) + c; });
@@ -631,6 +664,7 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     var sources = typeof input === 'string' ? [{ text: input, tag: null }] : input;
     var units = [], offset = 0, fullText = '';
     sources.forEach(function (s) { var u = S.segment(s.text, s.tag, offset); u.forEach(function (x) { x.id = 'u' + (units.length); units.push(x); }); fullText += s.text + '\n\n'; offset += s.text.length + 2; });
+    S.markBoilerplate(units);
     var claims = [], support = {};
     units.forEach(function (u) {
       var cs = S.extractClaims(u); support[u.id] = cs.support;
@@ -727,6 +761,38 @@ var SA2 = (typeof SA2 !== 'undefined') ? SA2 : (typeof require !== 'undefined' ?
     ordinalPass(function (c) { return !isAsserted(c); }, 'non-asserted');
     // dated events on the same frame with disjoint intervals across modalities are caught by the pass below
     var mixed = ordinalPass(function (c) { return c.modality.kind !== 'question'; }, 'all');
+    // Collapse pairwise linear/propositional conflicts into one finding per connected group:
+    // k claims about one frame that disagree are one obstruction, not k(k-1)/2.
+    (function () {
+      var claimAt = function (id) { return claims[+id.slice(1)]; };
+      var setClass = function (ids) {
+        var cs = ids.map(claimAt);
+        if (cs.every(isAsserted)) return 'contradiction';
+        if (cs.some(function (c) { return c.modality.kind === 'question'; })) return 'question';
+        if (cs.some(function (c) { return c.modality.kind === 'hypothesized'; })) return 'tension-with-hypothesis';
+        var srcs = new Set(cs.filter(function (c) { return c.modality.kind === 'reported'; }).map(function (c) { return (c.modality.source || '?').toLowerCase(); }));
+        return (srcs.size === 1 && cs.every(function (c) { return c.modality.kind === 'reported'; })) ? 'inconsistent-testimony' : 'conflicting-accounts';
+      };
+      ['linear', 'propositional'].forEach(function (L) {
+        var kind = L === 'linear' ? 'gluing-residual' : 'polarity';
+        var group = obstructions.filter(function (o) { return o.layer === L && o.kind === kind; });
+        if (group.length < 2) return;
+        var ids = []; group.forEach(function (o) { o.claims.forEach(function (c) { if (ids.indexOf(c) < 0) ids.push(c); }); });
+        var comps = S.graph.components(ids, group.map(function (o) { return o.claims; }));
+        var merged = comps.map(function (comp) {
+          var cset = new Set(comp), os = group.filter(function (o) { return cset.has(o.claims[0]); });
+          if (os.length === 1) return os[0];
+          var sorted = comp.slice().sort(function (a, b) { return +a.slice(1) - +b.slice(1); });
+          if (L === 'linear') {
+            var vals = Array.from(new Set(sorted.map(function (id) { return claimAt(id).values.map(function (v) { return v.text; }).join(', '); })));
+            var mx = Math.max.apply(null, os.map(function (o) { return o.magnitude.value; }));
+            return { layer: L, kind: kind, class: setClass(sorted), claims: sorted, pairs: os.length, magnitude: { kind: 'relative-difference', value: mx, unit: os[0].magnitude.unit }, witness: sorted.length + ' claims on one frame take ' + vals.length + ' different values: ' + vals.slice(0, 8).join(' · ') + (vals.length > 8 ? ' …' : '') };
+          }
+          return { layer: L, kind: kind, class: setClass(sorted), claims: sorted, pairs: os.length, magnitude: { kind: 'logical', value: 'unsatisfiable' }, witness: sorted.length + ' near-identical statements with opposite polarity' };
+        });
+        obstructions = obstructions.filter(function (o) { return group.indexOf(o) < 0; }).concat(merged);
+      });
+    })();
     // de-duplicate obstructions with identical claim sets
     var seenKeys = {}; obstructions = obstructions.filter(function (o) { var k = o.layer + ':' + o.claims.slice().sort().join(','); if (seenKeys[k]) return false; seenKeys[k] = 1; return true; });
 
