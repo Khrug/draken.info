@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="robots" content="noindex,nofollow">
+<style>:root{color-scheme:dark;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style></head><body>
+<title>Volut</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Instrument+Sans:wght@400;600&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: petriskålen är scenen till vänster, labbjournalen (granskare, arter, händelser) till höger; staplas på mobil.
+   En medvetet mörk värld: agar i mikroskopljus, cellerna färgade som i en spänningskänslig färgning. */
+:root{
+  --bench:#081316; --agar:#0d2227; --agar-2:#163940; --panel:#0e1c20; --line:#24454c; --grid:rgba(126,214,200,.06);
+  --ink:#dbeee8; --muted:#86a8a0; --depol:#ffb45c; --hyper:#62c9ff; --food:#a6e8b8; --ghost:rgba(255,180,92,.55);
+  --c-core:#ffd86b; --c-body:#3f9f91; --c-mouth:#ff8058; --c-fin:#76d3ff; --c-eye:#eef6f3; --c-tooth:#ff4f6e; --c-shell:#b4a0ff; --c-photo:#9bd65a; --c-build:#d0915e; --c-voice:#ff9ad5; --c-alarm:#ff5d73; --c-call:#a6e8b8; --c-mob:#ffb45c;
+  --f-display:'Bricolage Grotesque', 'Segoe UI', system-ui, sans-serif;
+  --f-body:'Instrument Sans', 'Segoe UI', system-ui, sans-serif;
+  --f-mono:'IBM Plex Mono', ui-monospace, 'Cascadia Mono', monospace;
+  color-scheme:dark;
+}
+html,body{background:var(--bench);color:var(--ink)}
+body{font-family:var(--f-body);font-size:15px;line-height:1.45}
+.app{max-width:1280px;margin:0 auto;padding-block:18px 32px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:grid;gap:14px}
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px}
+h1{font-family:var(--f-display);font-weight:800;font-size:clamp(30px,4.2vw,44px);letter-spacing:.06em;margin:0;color:var(--depol);line-height:1}
+.sub{margin:0;color:var(--muted);max-width:62ch;text-wrap:balance}
+.stats{margin-left:auto;font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.main{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:16px;align-items:start}
+@media (max-width:920px){.main{grid-template-columns:minmax(0,1fr)}.stats{margin-left:0}}
+.stage{min-width:0}
+.tools,.controls{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.btn{font:600 13px var(--f-body);background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:7px 11px;cursor:pointer;display:inline-flex;gap:7px;align-items:center}
+.btn kbd{font:11px var(--f-mono);color:var(--muted)}
+.btn:hover{border-color:var(--muted)}
+.btn[aria-pressed="true"]{border-color:var(--depol);color:var(--depol);box-shadow:inset 0 0 0 1px var(--depol)}
+.btn:focus-visible,.pcell:focus-visible,input:focus-visible{outline:2px solid var(--hyper);outline-offset:2px}
+.sw{width:10px;height:10px;border-radius:2px;display:inline-block}
+.canvaswrap{position:relative;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--bench);margin-block:8px}
+#world{display:block;width:100%;touch-action:none;cursor:crosshair}
+.hint{position:absolute;left:12px;top:10px;font:12px var(--f-mono);color:var(--muted);pointer-events:none;max-width:min(70%,46ch)}
+.controls label{font:12px var(--f-mono);color:var(--muted);display:inline-flex;gap:6px;align-items:center}
+.controls .sep{flex:1}
+.legend{font:12px var(--f-mono);color:var(--muted);display:inline-flex;gap:6px;align-items:center;flex-wrap:wrap}
+.legend i{width:11px;height:11px;border:1.5px solid;border-radius:50%;display:inline-block;margin-left:6px}
+input[type=range]{accent-color:var(--depol);width:110px}
+input[type=checkbox]{accent-color:var(--depol)}
+.side{display:grid;gap:12px;min-width:0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;min-width:0}
+.card h2{font:600 11px var(--f-mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.empty{color:var(--muted);margin:0}
+.ihead{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap;margin-bottom:8px}
+.ihead b{font-family:var(--f-display);font-size:20px;font-weight:600}
+.mono{font-family:var(--f-mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block;flex:none;align-self:center}
+.meter{display:grid;grid-template-columns:78px 1fr 44px;gap:8px;align-items:center;font:12px var(--f-mono);color:var(--muted);margin-block:4px}
+.bar{height:6px;border-radius:3px;background:var(--agar-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--depol)}
+.bar.h i{background:var(--hyper)}
+.paint{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap;margin-block:12px 6px}
+.gridbox{display:grid;gap:4px;justify-items:start}
+.pgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;width:196px;max-width:100%;aspect-ratio:1}
+.pcell{border:1px solid var(--line);border-radius:3px;background:transparent;padding:0;cursor:pointer;min-width:0}
+.palette{display:grid;grid-template-columns:1fr;gap:4px;min-width:0}
+.palette .btn{padding:4px 8px;font-size:12px;justify-content:flex-start}
+.fine{font-size:12.5px;color:var(--muted);margin:6px 0 10px;max-width:46ch}
+.wts{display:grid;gap:2px}
+.splist{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px}
+.splist li{display:grid;grid-template-columns:12px 1fr auto;gap:8px;align-items:center;font-size:13.5px}
+.splist li.gone{color:var(--muted);text-decoration:line-through}
+.splist .mono{color:var(--muted)}
+#chart{width:100%;height:96px;display:block}
+.log{list-style:none;margin:0;padding:0;display:grid;gap:6px;max-height:230px;overflow:auto;font-size:13.5px}
+.log li{border-left:2px solid var(--line);padding-left:8px}
+.log li.n{border-color:var(--depol)} .log li.h{border-color:var(--hyper)} .log li.d{border-color:var(--c-tooth)}
+.log time{font:11px var(--f-mono);color:var(--muted);margin-right:6px}
+@media (prefers-reduced-motion: reduce){ .btn{transition:none} }
+</style>
+
+<div class="app">
+  <header class="top">
+    <h1>VOLUT</h1>
+    <p class="sub">Tolv grundformer växer mot sina bioelektriska mönster, läker, klyver sig, bygger bon, ropar till varandra och bildar nya arter. Du är handen som matar, belönar, straffar och skriver om mönstret.</p>
+    <div class="stats" id="stats"></div>
+  </header>
+
+  <div class="main">
+    <section class="stage" aria-label="Petriskålen">
+      <div class="tools" role="toolbar" aria-label="Handens verktyg" id="tools">
+        <button class="btn" data-tool="valj" aria-pressed="true">Välj <kbd>1</kbd></button>
+        <button class="btn" data-tool="mata" aria-pressed="false">Mata <kbd>2</kbd></button>
+        <button class="btn" data-tool="smek" aria-pressed="false">Belöna <kbd>3</kbd></button>
+        <button class="btn" data-tool="sla" aria-pressed="false">Straffa <kbd>4</kbd></button>
+        <button class="btn" data-tool="skar" aria-pressed="false">Klyv <kbd>5</kbd></button>
+      </div>
+      <div class="canvaswrap" id="wrap">
+        <canvas id="world" aria-label="Simulerad petriskål med varelser"></canvas>
+        <div class="hint" id="hint"></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="play" aria-pressed="false">Paus <kbd>mellanslag</kbd></button>
+        <button class="btn sp" data-sp="1" aria-pressed="true">1×</button>
+        <button class="btn sp" data-sp="3" aria-pressed="false">3×</button>
+        <button class="btn sp" data-sp="8" aria-pressed="false">8×</button>
+        <span class="sep"></span>
+        <span class="legend"><i style="border-color:var(--c-alarm)"></i>varningsrop <i style="border-color:var(--c-call)"></i>matrop <i style="border-color:var(--c-mob);border-style:dashed"></i>mobbad</span>
+        <label for="field"><input type="checkbox" id="field" checked> Bioelektriskt fält</label>
+        <label for="rate">Näring <input type="range" id="rate" min="0" max="20" step="1" value="4"> <span id="rateV">4/s</span></label>
+      </div>
+    </section>
+
+    <aside class="side">
+      <div class="card" aria-live="polite">
+        <h2>Granskare</h2>
+        <p class="empty" id="inspEmpty">Välj en form i skålen för att se dess kropp, dess målmönster och vad den har lärt sig.</p>
+        <div id="insp" hidden>
+          <div class="ihead"><span class="dot" id="iDot"></span><b id="iName"></b><span class="mono" id="iGen"></span></div>
+          <div class="meter">Energi <span class="bar"><i id="iE"></i></span><span id="iEv"></span></div>
+          <div class="meter">Form <span class="bar h"><i id="iF"></i></span><span id="iFv"></span></div>
+          <div class="mono" id="iAct"></div>
+          <div class="paint">
+            <div class="gridbox">
+              <div class="pgrid" id="pgrid" role="grid" aria-label="Målmönster, framåt åt höger"></div>
+              <span class="mono">framåt →</span>
+            </div>
+            <div class="palette" id="palette" aria-label="Pensel"></div>
+          </div>
+          <p class="fine">Fyllda rutor är kroppen nu. Streckade rutor är målmönstret som cellerna växer mot. Måla för att skriva om mönstret. Kroppen formas om, och avkomman ärver det nya mönstret.</p>
+          <div class="wts" id="wts"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>Arter</h2>
+        <canvas id="chart" aria-label="Antal individer per art över tid"></canvas>
+        <ul class="splist" id="splist"></ul>
+      </div>
+
+      <div class="card">
+        <h2>Händelser</h2>
+        <ol class="log" id="log"></ol>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<script>
+(() => {
+const N = 7, C = 3, CI = C * N + C, CS = 6.2;
+const W = 1000, H = 700, CX = 500, CY = 350, R = 335;
+const KEY = {'.':0, K:1, v:2, m:3, f:4, o:5, t:6, s:7, p:8, b:9, r:10};
+const TNAME = ['Sudda','Kärna','Vävnad','Mun','Fena','Öga','Tand','Skal','Fotocell','Byggkörtel','Röstorgan'];
+const css = getComputedStyle(document.documentElement);
+const cv = n => css.getPropertyValue(n).trim();
+const COL = [null, cv('--c-core'), cv('--c-body'), cv('--c-mouth'), cv('--c-fin'), cv('--c-eye'), cv('--c-tooth'), cv('--c-shell'), cv('--c-photo'), cv('--c-build'), cv('--c-voice')];
+const K = { bench:cv('--bench'), agar:cv('--agar'), agar2:cv('--agar-2'), line:cv('--line'), grid:cv('--grid'), ink:cv('--ink'), muted:cv('--muted'), depol:cv('--depol'), hyper:cv('--hyper'), food:cv('--food'), ghost:cv('--ghost'), alarm:cv('--c-alarm'), call:cv('--c-call'), mob:cv('--c-mob') };
+const WKEY = { 'äta':'food', 'jaga':'hunt', 'fly':'flee', 'vandra':'wander', 'handen':'hand', 'bygga':'build', 'raida':'raid', 'mobba':'mob' };
+const WNAME = { food:'Äta', hunt:'Jaga', flee:'Fly', wander:'Vandra', hand:'Följa handen', build:'Bygga bo', raid:'Anfalla bon', mob:'Mobba', call:'Ropa' };
+const DOING = { 'äta':'söker föda', 'jaga':'jagar', 'fly':'flyr', 'vandra':'vandrar', 'handen':'följer din hand', 'bygga':'bygger bo', 'raida':'anfaller ett främmande bo', 'mobba':'mobbar en fiende' };
+const VERB = { 'äta':'söka föda', 'jaga':'jaga', 'fly':'fly', 'vandra':'vandra', 'handen':'följa din hand', 'bygga':'bygga bo', 'raida':'anfalla ett bo', 'mobba':'mobba en fiende' };
+
+const rnd = Math.random, rr = (a,b) => a + rnd()*(b-a), pick = a => a[Math.floor(rnd()*a.length)];
+const clamp = (v,a,b) => v < a ? a : v > b ? b : v;
+const gauss = () => (rnd()+rnd()+rnd()-1.5) * 1.4;
+
+let tick = 0, nextId = 1, running = true, speed = 1, showField = true, foodRate = 4;
+let creatures = [], food = [], nests = [], signals = [], firsts = new Set(), species = new Map(), effects = [], selected = null, tool = 'valj', brush = 2;
+let spots = [];
+const hand = { x:CX, y:CY, last:-9999, on:false };
+
+function nbs(i){ const x=i%N, y=(i/N)|0, o=[]; if(x>0)o.push(i-1); if(x<N-1)o.push(i+1); if(y>0)o.push(i-N); if(y<N-1)o.push(i+N); return o; }
+const NB = [...Array(49)].map((_,i) => nbs(i));
+function parse(rows){ const t = new Uint8Array(49); rows.forEach((r,y) => [...r].forEach((ch,x) => t[y*N+x] = KEY[ch] || 0)); t[CI] = 1; return t; }
+
+const RUND = ['.......','..f.o..','.vvvvm.','.vvKvm.','.vvvvm.','..f.o..','.......'];
+const SAG  = ['.......','...o...','fvvvvt.','.vvKvtt','fvvvvt.','...o...','.......'];
+const SKAL = ['.......','..sss..','.svbvs.','.svKvm.','.svvvs.','..sss..','.......'];
+const FOUNDERS = [
+  // namn, mönster, antal, drifter
+  ['Rundmun',    ['.......','..f.o..','.vrvvm.','.vvKvm.','.vvvvm.','..f.o..','.......'], 6, { mob:0.9 }],
+  ['Sågtand',    SAG,  3, { hunt:1.5, food:0.2, raid:0.8 }],
+  ['Skalbärare', SKAL, 4, { flee:0.6 }],
+  ['Ljusalg',    ['.......','..ppp..','.ppvpp.','.pvKvp.','.ppvpp.','..ppp..','.......'], 7, { wander:0.3, flee:0.4 }],
+  ['Pilfena',    ['.......','.......','..f.o..','.frKvm.','..f....','.......','.......'], 5, { flee:1.6, call:1.5, mob:0.2 }],
+  ['Spejare',    ['...o...','..ovo..','.fvvvt.','ofvKvto','.fvvvt.','..ovo..','...o...'], 3, { hunt:1.4, food:0.2 }],
+  ['Kolonimun',  ['.m.m.m.','mvvbvvm','.vvrvv.','mvvKvvm','.vvvvv.','mvvbvvm','.m.m.m.'], 3, { food:1.4, flee:0.5, build:1.4, mob:1.7, call:1.2 }],
+  ['Klyvhaj',    ['.......','f.vvt..','fvvvvtt','fvvKvvt','fvvvvtt','f.vvt..','.......'], 2, { hunt:1.8, food:0.1, raid:1.2 }],
+  ['Pansarsåg',  ['..sss..','.svvvs.','ssvvvtt','.svKvt.','ssvvvtt','.svvvs.','..sss..'], 2, { hunt:1.3, flee:0.3, raid:1.7 }],
+  ['Fotomun',    ['.......','..pp...','.ppvvm.','fvvKvm.','.ppvvm.','..pp...','.......'], 4, {}],
+  ['Glimfena',   ['.......','..o.o..','.fvrvm.','ffvKvm.','.fvvvm.','..o.o..','.......'], 4, { flee:1.5, call:1.4 }],
+  ['Ringmask',   ['.......','.......','.......','fvbKvmm','.......','.......','.......'], 5, { wander:1.3 }]
+];
+const light = (x, y) => 1 - 0.7*Math.min(1, Math.hypot(x-CX, y-CY)/R);
+
+/* ---------- arter ---------- */
+const HUES = [38, 190, 285, 120, 340, 60, 220, 160, 12, 305, 95, 250, 25, 175, 265, 140];
+let hueI = 0;
+function addSpecies(name, target, parent){
+  const id = 's' + (species.size + 1);
+  const s = { id, name, hue: hueI < HUES.length ? HUES[hueI++] : (HUES[0] + 137.508*(hueI++)) % 360, founder: Uint8Array.from(target), parent, count:0, hist:[], gone:false };
+  species.set(id, s); return s;
+}
+const PRE = {10:['Rop','Sång','Kvitter'],9:['Bo','Mur','Väv'],8:['Ljus','Grön','Sol'],2:['Klump','Vol','Blobb'],3:['Mun','Glup','Slurp'],4:['Fen','Vift','Snabb'],5:['Glim','Spej','Ögon'],6:['Såg','Klyv','Tand'],7:['Skal','Kupol','Pansar']};
+const SUF = ['ling','are','sa','ut','ing','vol','ix','orm','ka'];
+function nameFor(t, parentT){
+  const g = [0,0,0,0,0,0,0,0,0,0,0];
+  for (let i=0;i<49;i++){ if(t[i]) g[t[i]]++; if(parentT[i]) g[parentT[i]]--; }
+  let best = 2, bv = -99; for (let k=2;k<=10;k++) if (g[k] > bv){ bv = g[k]; best = k; }
+  const names = new Set([...species.values()].map(s => s.name));
+  const RN = ['II','III','IV','V','VI','VII','VIII','IX','X'];
+  for (let tries = 0; tries < 40; tries++){ const nm = pick(PRE[best]) + pick(SUF); if (!names.has(nm)) return nm; }
+  const base = pick(PRE[best]) + pick(SUF);
+  for (let n = 0; ; n++){ const nm = base + ' ' + (RN[n] || (n + 2)); if (!names.has(nm)) return nm; }
+}
+const spOf = c => species.get(c.sp);
+const label = c => `<b>${spOf(c).name}</b> #${c.id}`;
+
+/* ---------- varelser ---------- */
+function recalc(c){
+  const s = [0,0,0,0,0,0,0,0,0,0,0]; let cells = 0, rad = 0, tc = 0, match = 0;
+  for (let i=0;i<49;i++){
+    const b = c.body[i];
+    if (b){ s[b]++; cells++; rad = Math.max(rad, Math.hypot(i%N - C, ((i/N)|0) - C)); }
+    if (c.target[i]){ tc++; if (c.body[i] === c.target[i]) match++; }
+  }
+  c.st = { mouth:s[3], fin:s[4], eye:s[5], tooth:s[6], shell:s[7], photo:s[8], build:s[9], voice:s[10], cells };
+  c.rad = (rad + 0.8) * CS;
+  c.complete = tc ? match / tc : 1;
+  c.speed = (0.32 + 0.26*s[4]) / (1 + cells*0.025 + s[7]*0.05);
+  c.sight = 50 + 32*s[5];
+  c.metab = 0.006 + 0.0015*cells + 0.0025*s[6] + 0.0008*s[7] + 0.001*s[10];
+  c.repE = 40 + cells*2.5 + 10*s[6];
+}
+function make(o){
+  const body = o.body ? Uint8Array.from(o.body) : (() => { const b = new Uint8Array(49); b[CI] = 1; return b; })();
+  const c = { id:nextId++, sp:o.sp, gen:o.gen || 1, x:o.x, y:o.y, h:o.h ?? rr(0, 6.283), energy:o.energy ?? 20, age:o.age || 0,
+    target:Uint8Array.from(o.target), body, w:{ build:1, raid:0.3, mob:0.6, call:1, ...o.w }, buildT:0, callT:0, harass:0, action:'vandra', actT:0, goal:null, growT:(rnd()*10)|0,
+    hurt:0, biteT:0, eatT:0, dead:false, wound:false, trained:o.trained || 0 };
+  recalc(c); creatures.push(c); return c;
+}
+function prune(c){
+  if (!c.body[CI]){ kill(c, 'förlorade sin kärna'); return; }
+  const seen = new Uint8Array(49), q = [CI]; seen[CI] = 1;
+  while (q.length){ const i = q.pop(); for (const j of NB[i]) if (!seen[j] && c.body[j]){ seen[j] = 1; q.push(j); } }
+  for (let i=0;i<49;i++) if (c.body[i] && !seen[i]) c.body[i] = 0;
+  recalc(c);
+}
+function mutTarget(t){
+  const n = Uint8Array.from(t);
+  const k = rnd() < 0.35 ? 0 : rnd() < 0.75 ? 1 : 2;
+  for (let m=0;m<k;m++){
+    const cand = [];
+    for (let i=0;i<49;i++){ if (i === CI) continue; if (n[i] || NB[i].some(j => n[j])) cand.push(i); }
+    const i = pick(cand);
+    if (n[i] && rnd() < 0.3) n[i] = 0; else n[i] = 2 + Math.floor(rnd()*9);
+  }
+  return n;
+}
+function mutW(w){ const o = {}; for (const k in w) o[k] = clamp(w[k] + (rnd()-0.5)*0.3, 0.05, 4); return o; }
+function tdist(a,b){ let d = 0; for (let i=0;i<49;i++) if (a[i] !== b[i]) d++; return d; }
+
+function develop(c){
+  if (c.energy < 2) return;
+  const grow = [], conv = [], extra = [];
+  for (let i=0;i<49;i++){
+    const t = c.target[i], b = c.body[i];
+    if (t && !b){ if (NB[i].some(j => c.body[j])) grow.push(i); }
+    else if (t && b && t !== b) conv.push(i);
+    else if (!t && b && i !== CI) extra.push(i);
+  }
+  if (grow.length){ const i = pick(grow); c.body[i] = c.target[i]; c.energy -= 1.0; recalc(c); }
+  else if (conv.length){ const i = pick(conv); c.body[i] = c.target[i]; c.energy -= 0.5; recalc(c); }
+  else if (extra.length){ const i = pick(extra); c.body[i] = 0; c.energy += 0.3; prune(c); }
+  if (c.wound && !c.dead && c.complete >= 0.999 && !extra.length){ c.wound = false; log(`${label(c)} har läkt och nått sitt målmönster igen.`, 'h'); }
+}
+function damage(v, att){
+  if (v.dead) return 0;
+  if (att && v.home && rnd() < 0.7){ fx(v.x, v.y, COL[9]); return 0; }
+  if (rnd() < Math.min(0.4, 0.08*v.st.shell)){ fx(v.x, v.y, COL[7]); return 0; }
+  const edge = [];
+  for (let i=0;i<49;i++){
+    if (i === CI || !v.body[i]) continue;
+    const x = i%N, y = (i/N)|0;
+    if (x === 0 || x === N-1 || y === 0 || y === N-1 || NB[i].some(j => !v.body[j])) edge.push(i);
+  }
+  if (!edge.length){ const e = v.energy; kill(v, att ? `skars ner av ${label(att)}` : 'slogs ihjäl av handen'); return 2 + Math.max(0, e*0.1); }
+  const i = pick(edge); v.body[i] = 0; v.hurt = 8; prune(v); return 1;
+}
+function kill(c, why){
+  if (c.dead) return; c.dead = true;
+  const n = Math.max(1, (c.st.cells/2)|0);
+  for (let k=0;k<n;k++) food.push({ x:c.x+rr(-8,8), y:c.y+rr(-8,8), e:5 });
+  if (c === selected || c.trained || rnd() < 0.12) log(`${label(c)} ${why}.`, 'd');
+}
+function fission(c){
+  const t = mutTarget(c.target), s = spOf(c); let sp = c.sp;
+  if (tdist(t, s.founder) >= 6){
+    const ns = addSpecies(nameFor(t, s.founder), t, s.id); sp = ns.id;
+    log(`Ny art: <b>${ns.name}</b> har knoppat av från ${s.name}.`, 'n');
+  }
+  const ch = make({ sp, gen:c.gen+1, x:c.x - Math.cos(c.h)*(c.rad+4), y:c.y - Math.sin(c.h)*(c.rad+4), h:c.h + Math.PI + rr(-0.5,0.5),
+    target:t, w:mutW(c.w), energy:c.energy*(c.home ? 0.6 : 0.45), trained:c.trained ? 1 : 0 });
+  c.energy *= 0.5; fx(ch.x, ch.y, K.depol);
+}
+function cut(c){
+  const back = new Uint8Array(49); let n = 0;
+  for (let i=0;i<49;i++) if (i%N < C && c.body[i]){ back[i] = c.body[i]; c.body[i] = 0; n++; }
+  if (!n){ fx(c.x, c.y, K.muted); return; }
+  prune(c); back[CI] = 1;
+  const ch = make({ sp:c.sp, gen:c.gen, x:c.x - Math.cos(c.h)*12, y:c.y - Math.sin(c.h)*12, h:c.h + Math.PI,
+    target:c.target, body:back, w:{...c.w}, energy:c.energy*0.5, trained:c.trained });
+  prune(ch); c.energy *= 0.5; c.wound = ch.wound = true;
+  log(`Du klöv ${label(c)} mitt itu. Båda halvorna växer tillbaka mot samma mönster.`, 'h');
+}
+
+/* ---------- bon ---------- */
+function homeOf(c){ for (const n of nests) if (n.sp === c.sp && n.hp > 150 && (n.x-c.x)**2 + (n.y-c.y)**2 < n.r*n.r) return n; return null; }
+function nearNest(c){ let b = null, bd = c.sight*c.sight*2.2; for (const n of nests){ if (n.sp !== c.sp) continue; const d = (n.x-c.x)**2 + (n.y-c.y)**2; if (d < bd){ bd = d; b = n; } } return b; }
+function build(c){
+  c.buildT = 30; c.energy -= 1.5;
+  const n = c.home;
+  if (n){ n.hp = Math.min(1600, n.hp + 60*c.st.build); n.r = Math.min(38, n.r + 0.5*c.st.build); return; }
+  const g = c.goal && c.goal.n && nests.includes(c.goal.n) ? c.goal.n : null;
+  if (g) return;
+  const own = nests.filter(x => x.sp === c.sp).length;
+  if (own >= 6 || nests.length >= 30) return;
+  if (nests.some(x => Math.hypot(x.x-c.x, x.y-c.y) < x.r + 16)) return;
+  nests.push({ x:c.x, y:c.y, r:10, sp:c.sp, hp:500, id:nextId++ });
+  if (own === 0) log(`<b>${spOf(c).name}</b> har byggt sitt första bo.`, 'n');
+}
+function graze(o){
+  const ps = []; for (let i=0;i<49;i++) if (i !== CI && o.body[i] === 8) ps.push(i);
+  if (!ps.length) return false;
+  o.body[pick(ps)] = 0; o.hurt = 5; prune(o); return true;
+}
+
+/* ---------- beteende ---------- */
+function decide(c){
+  let f = null, fd = c.sight*c.sight;
+  if (c.st.mouth > 0) for (const p of food){ const d = (p.x-c.x)**2 + (p.y-c.y)**2; if (d < fd){ fd = d; f = p; } }
+  let prey = null, ps = 1e9, thr = null, td = c.sight*c.sight, allies = 0;
+  for (const o of creatures){
+    if (o === c || o.dead) continue;
+    const d = (o.x-c.x)**2 + (o.y-c.y)**2;
+    if (o.sp === c.sp){ if (d < 2500) allies++; continue; }
+    if (d > c.sight*c.sight) continue;
+    if (c.st.tooth > 0){ const sc = d / (1 + spOf(o).count/8); if (sc < ps){ ps = sc; prey = o; } }   // bytesväxling: vanliga arter jagas helst
+    if (o.st.tooth > 0 && d < td){ td = d; thr = o; }
+  }
+  let raidN = null;
+  if (c.st.tooth >= 2){ let nd = (c.sight*1.5)**2; for (const n of nests){ if (n.sp === c.sp) continue; const d = (n.x-c.x)**2 + (n.y-c.y)**2; if (d < nd){ nd = d; raidN = n; } } }
+  const hunger = clamp(1 - c.energy/c.repE, 0, 1);
+  const handOn = hand.on && tick - hand.last < 150 && Math.hypot(hand.x-c.x, hand.y-c.y) < 260;
+  const opts = [
+    ['äta',    f ? c.w.food*(0.5+hunger) : -1],
+    ['jaga',   prey && hunger > 0.2 ? c.w.hunt*(0.3+hunger) : -1],
+    ['fly',    thr ? c.w.flee*(1.3 - 0.5*Math.min(1, c.st.shell/4)) : -1],
+    ['mobba',  thr && allies >= 2 ? c.w.mob*(0.3 + 0.2*allies) : -1],
+    ['raida',  raidN && hunger > 0.2 ? c.w.raid*(0.4+hunger) : -1],
+    ['vandra', c.w.wander*0.3],
+    ['handen', handOn ? c.w.hand*0.8 : -1],
+    ['bygga',  c.st.build && c.energy > 0.45*c.repE ? c.w.build*0.7 : -1]
+  ];
+  let best = null, bv = -2;
+  for (const [a, v] of opts){ const s = v < 0 ? -1 : v + rnd()*0.15; if (s > bv){ bv = s; best = a; } }
+  c.action = best;
+  c.goal = best === 'äta' ? { p:f } : best === 'jaga' ? { c:prey } : best === 'fly' ? { c:thr, n:nearNest(c) } : best === 'mobba' ? { c:thr }
+         : best === 'raida' ? { n:raidN } : best === 'bygga' ? { n:nearNest(c) } : null;
+  // kommunikation
+  if (c.st.voice && c.callT <= 0){
+    if (thr && rnd() < 0.5*c.w.call) emit(c, 'larm', { threat:thr });
+    else if (best === 'äta' && f){ let n = 0; for (const p of food) if ((p.x-f.x)**2 + (p.y-f.y)**2 < 900) n++; if (n >= 4 && rnd() < 0.35*c.w.call) emit(c, 'mat', { px:f.x, py:f.y }); }
+  }
+}
+function emit(c, kind, x){
+  c.callT = 60; c.energy -= 0.3;
+  const sg = { x:c.x, y:c.y, r:70 + 40*c.st.voice, sp:c.sp, kind, t:30, ...x };
+  signals.push(sg);
+  const key = kind + c.sp;
+  if (!firsts.has(key)){ firsts.add(key); log(kind === 'larm' ? `<b>${spOf(c).name}</b> har börjat utstöta varningsrop.` : `<b>${spOf(c).name}</b> har börjat locka artfränder till föda.`, 'n'); }
+  for (const o of creatures){
+    if (o === c || o.dead) continue;
+    if ((o.x-sg.x)**2 + (o.y-sg.y)**2 > sg.r*sg.r) continue;
+    if (o.sp === c.sp){
+      if (kind === 'larm' && !sg.threat.dead){
+        let near = 0; for (const q of creatures) if (q.sp === o.sp && (q.x-o.x)**2 + (q.y-o.y)**2 < 3600) near++;
+        if (o.w.mob*(0.4 + 0.18*near) > o.w.flee){ o.action = 'mobba'; o.goal = { c:sg.threat }; }
+        else { o.action = 'fly'; o.goal = { c:sg.threat, n:nearNest(o) }; }
+        o.actT = 40;
+      } else if (kind === 'mat' && o.st.mouth && o.energy < o.repE){ o.action = 'äta'; o.goal = { p:{ x:sg.px, y:sg.py, e:1 } }; o.actT = 40; }
+    } else if (o.st.tooth > 0 && o.st.eye >= 1 && o.energy < o.repE*0.8 && rnd() < 0.5){
+      o.action = 'jaga'; o.goal = { c:c }; o.actT = 30;   // rovdjur avlyssnar ropet
+    }
+  }
+}
+function steer(c){
+  let ta = null, sp = c.speed; const g = c.goal;
+  if (c.action === 'äta' && g && g.p && g.p.e > 0) ta = Math.atan2(g.p.y-c.y, g.p.x-c.x);
+  else if (c.action === 'jaga' && g && g.c && !g.c.dead){ ta = Math.atan2(g.c.y-c.y, g.c.x-c.x); sp *= 1.15; }
+  else if (c.action === 'fly' && g && g.n && nests.includes(g.n) && !c.home){ ta = Math.atan2(g.n.y-c.y, g.n.x-c.x); sp *= 1.25; }
+  else if (c.action === 'fly' && g && g.c && !g.c.dead){ if (c.home){ sp *= 0.2; } else { ta = Math.atan2(c.y-g.c.y, c.x-g.c.x); sp *= 1.25; } }
+  else if (c.action === 'bygga'){ if (g && g.n && nests.includes(g.n) && !c.home){ ta = Math.atan2(g.n.y-c.y, g.n.x-c.x); } else { sp *= 0.15; c.h += (rnd()-0.5)*0.2; } }
+  else if (c.action === 'mobba' && g && g.c && !g.c.dead){ ta = Math.atan2(g.c.y-c.y, g.c.x-c.x); sp *= 1.2; }
+  else if (c.action === 'raida' && g && g.n && nests.includes(g.n)){ ta = Math.atan2(g.n.y-c.y, g.n.x-c.x); if ((g.n.x-c.x)**2 + (g.n.y-c.y)**2 < g.n.r*g.n.r) sp *= 0.3; }
+  else if (c.action === 'handen'){ ta = Math.atan2(hand.y-c.y, hand.x-c.x); if (Math.hypot(hand.x-c.x, hand.y-c.y) < 22) sp *= 0.15; }
+  else { c.h += (rnd()-0.5)*0.25; sp *= 0.6; }
+  if (ta !== null){ let d = ta - c.h; d = Math.atan2(Math.sin(d), Math.cos(d)); c.h += clamp(d, -0.14, 0.14); }
+  if (c.energy < 1) sp *= 0.5;
+  c.x += Math.cos(c.h)*sp; c.y += Math.sin(c.h)*sp;
+  const dx = c.x-CX, dy = c.y-CY, d = Math.hypot(dx, dy), lim = R - c.rad;
+  if (d > lim){ c.x = CX + dx/d*lim; c.y = CY + dy/d*lim; c.h = Math.atan2(-dy, -dx) + rr(-0.8, 0.8); }
+}
+function live(c){
+  c.age++; c.energy -= c.metab*crowd*(1 + Math.max(0, (spOf(c).count - 16)/20));
+  if (c.st.photo){ let sh = 0; for (const o of creatures) if (o !== c && o.st.photo && Math.abs(o.x-c.x) < 34 && Math.abs(o.y-c.y) < 34) sh++;
+    c.energy += 0.009*c.st.photo*light(c.x, c.y)/(1 + 0.35*sh); }
+  c.home = homeOf(c); if (c.home) c.energy += c.metab*0.3;
+  if (c.buildT > 0) c.buildT--;
+  if (c.action === 'bygga' && c.st.build && c.buildT <= 0 && c.energy > 4) build(c);
+  if (c.hurt > 0) c.hurt--; if (c.biteT > 0) c.biteT--; if (c.eatT > 0) c.eatT--; if (c.callT > 0) c.callT--;
+  c.harass *= 0.92;
+  if (c.harass > 2.5 && c.action !== 'fly'){
+    let m = null, md = 1e9; for (const o of creatures) if (o.sp !== c.sp && o.action === 'mobba' && o.goal && o.goal.c === c){ const d = (o.x-c.x)**2 + (o.y-c.y)**2; if (d < md){ md = d; m = o; } }
+    if (m){ c.action = 'fly'; c.goal = { c:m }; c.actT = 50; const k = 'mob' + m.sp; if (!firsts.has(k)){ firsts.add(k); log(`En flock <b>${spOf(m).name}</b> mobbade bort ${label(c)}.`, 'n'); } }
+  }
+  if (c.harass > 1) c.energy -= 0.01*c.harass;
+  if (--c.growT <= 0){ c.growT = 10; develop(c); if (c.dead) return; }
+  if (--c.actT <= 0){ decide(c); c.actT = 14 + ((rnd()*8)|0); }
+  steer(c);
+  if (c.st.mouth > 0 && c.eatT <= 0){
+    const r2 = (c.rad+5)**2;
+    for (let k=0;k<food.length;k++){ const p = food[k];
+      if ((p.x-c.x)**2 + (p.y-c.y)**2 < r2){ c.energy += p.e*(0.7 + 0.3*Math.min(c.st.mouth, 3)); p.e = 0; food.splice(k,1); c.eatT = Math.max(2, 10 - 3*c.st.mouth); break; } }
+  }
+  if (c.st.mouth > 0 && c.eatT <= 0 && c.action === 'äta'){
+    for (const o of creatures){ if (o === c || o.dead || !o.st.photo || o.sp === c.sp) continue;
+      if (Math.hypot(o.x-c.x, o.y-c.y) < c.rad + o.rad + 2){ if (graze(o)){ c.energy += 4; c.eatT = 18; } break; } }
+  }
+  if (c.st.tooth > 0 && c.biteT <= 0 && c.action === 'jaga' && c.goal && c.goal.c && !c.goal.c.dead){
+    const v = c.goal.c;
+    if (Math.hypot(v.x-c.x, v.y-c.y) < c.rad + v.rad + 3){
+      const got = damage(v, c); c.energy += got*2.5; c.biteT = Math.max(14, 34 - 5*c.st.tooth);
+      if (got) fx(v.x, v.y, COL[6]);
+    }
+  }
+  if (c.action === 'mobba' && c.goal && c.goal.c && !c.goal.c.dead){
+    const v = c.goal.c;
+    if (Math.hypot(v.x-c.x, v.y-c.y) < c.rad + v.rad + 8){ v.harass += 0.25; if (c.st.tooth && c.biteT <= 0){ damage(v, c); c.biteT = 30; } else if (rnd() < 0.01) damage(v, c); }
+  }
+  if (c.action === 'raida' && c.goal && c.goal.n && nests.includes(c.goal.n) && c.biteT <= 0){
+    const n = c.goal.n;
+    if ((n.x-c.x)**2 + (n.y-c.y)**2 < n.r*n.r){
+      n.hp -= 110*c.st.tooth; c.energy += 3; c.biteT = 20; fx(n.x + rr(-n.r, n.r)*0.5, n.y + rr(-n.r, n.r)*0.5, COL[9]);
+      if (n.hp <= 0){ const ow = species.get(n.sp); nests.splice(nests.indexOf(n), 1); c.energy += 8; log(`${label(c)} raserade ett bo som tillhörde <b>${ow ? ow.name : 'okänd art'}</b>.`, 'd'); }
+    }
+  }
+  const sc = spOf(c).count, rare = sc <= 3;
+  const repEff = rare ? c.repE*0.6 : c.repE;
+  c.energy = Math.min(c.energy, c.repE*1.6);
+  if (c.energy > repEff && c.complete >= 0.95 && c.age > (rare ? 250 : 420) && creatures.length < 200 && sc < 40) fission(c);
+  if (c.energy <= 0) kill(c, 'svalt ihjäl');
+}
+
+/* ---------- näring ---------- */
+function spawnFood(){
+  if (food.length > 320) return;
+  const s = pick(spots);
+  const px = CX + Math.cos(s.a)*s.r + gauss()*45, py = CY + Math.sin(s.a)*s.r + gauss()*45;
+  if ((px-CX)**2 + (py-CY)**2 < (R-8)**2) food.push({ x:px, y:py, e:6 });
+}
+
+/* ---------- simulering ---------- */
+let crowd = 1;
+function step(){
+  tick++; crowd = 1 + Math.max(0, (creatures.length - 100)/40);
+  for (const s of spots) s.a += s.v;
+  for (const n of nests){ n.hp -= 1; if (food.length < 360 && rnd() < 0.015*n.r/38){ const ang = rr(0,6.28), rad = rr(0, n.r*0.8); food.push({ x:n.x+Math.cos(ang)*rad, y:n.y+Math.sin(ang)*rad, e:6 }); } } if (tick % 20 === 0){ const before = nests.length; nests = nests.filter(n => n.hp > 0); }
+  let k = foodRate/60; while (k > 0){ if (rnd() < Math.min(1, k)) spawnFood(); k -= 1; }
+  for (let i=0;i<creatures.length;i++){ const c = creatures[i]; if (!c.dead) live(c); }
+  creatures = creatures.filter(c => !c.dead);
+  if (selected && selected.dead) selected = null;
+  if (tick % 30 === 0) sample();
+  for (const e of effects) e.t--; effects = effects.filter(e => e.t > 0);
+  for (const g of signals) g.t--; signals = signals.filter(g => g.t > 0);
+}
+function sample(){
+  for (const s of species.values()) s.count = 0;
+  for (const c of creatures) spOf(c).count++;
+  for (const s of species.values()){
+    const prev = s.hist.length ? s.hist[s.hist.length-1] : 0;
+    s.hist.push(s.count); if (s.hist.length > 240) s.hist.shift();
+    if (prev > 0 && s.count === 0 && !s.gone){ s.gone = true; log(`<b>${s.name}</b> har dött ut.`, 'd'); }
+    if (s.count > 0) s.gone = false;
+  }
+}
+
+/* ---------- handen ---------- */
+function nearestC(x, y, r = 26){
+  let b = null, bd = r;
+  for (const c of creatures){ const d = Math.hypot(c.x-x, c.y-y) - c.rad; if (d < bd){ bd = d; b = c; } }
+  return b;
+}
+function apply(x, y){
+  const c = nearestC(x, y);
+  if (tool === 'valj'){ selected = c; updInspector(true); return; }
+  if (tool === 'mata'){ for (let k=0;k<7;k++) food.push({ x:x+gauss()*8, y:y+gauss()*8, e:8 }); fx(x, y, K.food); return; }
+  if (!c){ fx(x, y, K.muted); return; }
+  selected = c;
+  const key = WKEY[c.action];
+  if (tool === 'smek'){
+    c.w[key] = Math.min(4, c.w[key]*1.25 + 0.15); c.energy += 4; c.trained++;
+    fx(c.x, c.y, K.hyper, '+'); log(`Du belönade ${label(c)} för att ${VERB[c.action]}.`, 'h');
+  } else if (tool === 'sla'){
+    c.w[key] = Math.max(0.05, c.w[key]*0.6); c.trained++; c.wound = true;
+    fx(c.x, c.y, COL[6], '−'); log(`Du straffade ${label(c)} för att ${VERB[c.action]}.`, 'h'); damage(c, null);
+  } else if (tool === 'skar'){ cut(c); }
+  updInspector(true);
+}
+function fx(x, y, color, text = ''){ effects.push({ x, y, color, text, t:28 }); }
+
+/* ---------- logg ---------- */
+const logEl = document.getElementById('log');
+function log(html, cls = ''){
+  const li = document.createElement('li'); if (cls) li.className = cls;
+  li.innerHTML = `<time>${Math.floor(tick/60)} s</time>${html}`;
+  logEl.prepend(li); while (logEl.children.length > 40) logEl.lastChild.remove();
+}
+
+/* ---------- rendering ---------- */
+const cvs = document.getElementById('world'), ctx = cvs.getContext('2d'), wrap = document.getElementById('wrap');
+let dpr = 1, sc = 1;
+function resize(){
+  dpr = Math.min(2, window.devicePixelRatio || 1);
+  const w = wrap.clientWidth, h = Math.round(w*0.7);
+  cvs.style.height = h + 'px'; cvs.width = Math.round(w*dpr); cvs.height = Math.round(h*dpr); sc = w / W;
+}
+new ResizeObserver(resize).observe(wrap);
+function drawC(c){
+  const s = spOf(c);
+  ctx.save(); ctx.translate(c.x, c.y); ctx.rotate(c.h);
+  if (showField){ ctx.fillStyle = `hsla(${s.hue},80%,60%,0.10)`; ctx.beginPath(); ctx.arc(0, 0, c.rad+4, 0, 6.2832); ctx.fill(); }
+  for (let i=0;i<49;i++){
+    const x = (i%N - C)*CS - CS/2, y = (((i/N)|0) - C)*CS - CS/2, b = c.body[i];
+    if (b){ ctx.fillStyle = COL[b]; ctx.fillRect(x+0.3, y+0.3, CS-0.6, CS-0.6); }
+    else if (showField && c.target[i]){ ctx.strokeStyle = K.ghost; ctx.lineWidth = 0.6; ctx.strokeRect(x+0.9, y+0.9, CS-1.8, CS-1.8); }
+  }
+  ctx.strokeStyle = `hsl(${s.hue},85%,62%)`; ctx.lineWidth = 1; ctx.strokeRect(-CS/2, -CS/2, CS, CS);
+  if (c.hurt){ ctx.globalAlpha = c.hurt/12; ctx.fillStyle = K.ink; ctx.beginPath(); ctx.arc(0, 0, c.rad, 0, 6.2832); ctx.fill(); ctx.globalAlpha = 1; }
+  ctx.restore();
+  if (c === selected){ ctx.strokeStyle = K.depol; ctx.lineWidth = 1.2; ctx.setLineDash([3,3]); ctx.beginPath(); ctx.arc(c.x, c.y, c.rad+8, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]); }
+}
+function draw(){
+  ctx.setTransform(dpr*sc, 0, 0, dpr*sc, 0, 0);
+  ctx.fillStyle = K.bench; ctx.fillRect(0, 0, W, H);
+  const g = ctx.createRadialGradient(CX, CY-60, 30, CX, CY, R);
+  g.addColorStop(0, K.agar2); g.addColorStop(1, K.agar);
+  ctx.fillStyle = g; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 6.2832); ctx.fill();
+  ctx.save(); ctx.beginPath(); ctx.arc(CX, CY, R, 0, 6.2832); ctx.clip();
+  ctx.strokeStyle = K.grid; ctx.lineWidth = 1;
+  for (let x = CX-R; x <= CX+R; x += 50){ ctx.beginPath(); ctx.moveTo(x, CY-R); ctx.lineTo(x, CY+R); ctx.stroke(); }
+  for (let y = CY-R; y <= CY+R; y += 50){ ctx.beginPath(); ctx.moveTo(CX-R, y); ctx.lineTo(CX+R, y); ctx.stroke(); }
+  ctx.fillStyle = K.food;
+  for (const p of food) ctx.fillRect(p.x-1.3, p.y-1.3, 2.6, 2.6);
+  for (const n of nests){
+    const sp = species.get(n.sp), a = Math.min(1, n.hp/600);
+    ctx.fillStyle = `hsla(${sp ? sp.hue : 30},45%,45%,${0.10 + 0.12*a})`; ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.fill();
+    ctx.strokeStyle = COL[9]; ctx.globalAlpha = 0.35 + 0.5*a; ctx.lineWidth = 1.4; ctx.setLineDash([4, 3]);
+    ctx.beginPath(); ctx.arc(n.x, n.y, n.r, 0, 6.2832); ctx.stroke();
+    ctx.setLineDash([2, 4]); ctx.beginPath(); ctx.arc(n.x, n.y, n.r*0.7, 0.5, 6.7832); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+  for (const c of creatures) drawC(c);
+  for (const g of signals){
+    const k = 1 - g.t/30; ctx.globalAlpha = 0.55*(g.t/30); ctx.strokeStyle = g.kind === 'larm' ? K.alarm : K.call; ctx.lineWidth = 1.2;
+    ctx.beginPath(); ctx.arc(g.x, g.y, g.r*k, 0, 6.2832); ctx.stroke(); ctx.globalAlpha = 1;
+  }
+  for (const c of creatures) if (c.harass > 1.2){ ctx.strokeStyle = K.mob; ctx.globalAlpha = Math.min(0.8, c.harass/4); ctx.lineWidth = 1; ctx.setLineDash([2,3]); ctx.beginPath(); ctx.arc(c.x, c.y, c.rad + 5, 0, 6.2832); ctx.stroke(); ctx.setLineDash([]); ctx.globalAlpha = 1; }
+  for (const e of effects){
+    const k = 1 - e.t/28; ctx.globalAlpha = e.t/28; ctx.strokeStyle = e.color; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(e.x, e.y, 6 + k*22, 0, 6.2832); ctx.stroke();
+    if (e.text){ ctx.fillStyle = e.color; ctx.font = '600 16px "IBM Plex Mono", monospace'; ctx.textAlign = 'center'; ctx.fillText(e.text, e.x, e.y - 14 - k*10); }
+    ctx.globalAlpha = 1;
+  }
+  ctx.restore();
+  ctx.strokeStyle = K.line; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(CX, CY, R, 0, 6.2832); ctx.stroke();
+  if (hand.on){
+    ctx.strokeStyle = K.depol; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(hand.x, hand.y, 14, 0, 6.2832); ctx.stroke();
+    ctx.fillStyle = K.depol; ctx.font = '600 11px "IBM Plex Mono", monospace'; ctx.textAlign = 'center';
+    ctx.fillText({valj:'välj',mata:'mata',smek:'belöna',sla:'straffa',skar:'klyv'}[tool], hand.x, hand.y + 28);
+  }
+  // skalstock
+  ctx.strokeStyle = K.muted; ctx.lineWidth = 2; ctx.beginPath(); ctx.moveTo(40, H-36); ctx.lineTo(90, H-36); ctx.stroke();
+  ctx.fillStyle = K.muted; ctx.font = '12px "IBM Plex Mono", monospace'; ctx.textAlign = 'left'; ctx.fillText('100 µm', 40, H-46);
+}
+
+/* ---------- gränssnitt ---------- */
+const $ = id => document.getElementById(id);
+const hints = {
+  valj:'Klicka på en form för att granska den och skriva om dess mönster.',
+  mata:'Klicka för att strö näring. Former som gillar handen söker sig hit.',
+  smek:'Klicka på en form för att belöna det den gör just nu.',
+  sla:'Klicka på en form för att straffa det den gör just nu. Den förlorar en cell men läker.',
+  skar:'Klicka på en form för att klyva den. Båda halvorna växer tillbaka.'
+};
+function setTool(t){ tool = t; document.querySelectorAll('[data-tool]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tool === t)); $('hint').textContent = hints[t]; }
+document.querySelectorAll('[data-tool]').forEach(b => b.addEventListener('click', () => setTool(b.dataset.tool)));
+function setRun(r){ running = r; $('play').setAttribute('aria-pressed', !r); $('play').firstChild.textContent = r ? 'Paus ' : 'Fortsätt '; }
+$('play').addEventListener('click', () => setRun(!running));
+document.querySelectorAll('.sp').forEach(b => b.addEventListener('click', () => { speed = +b.dataset.sp; document.querySelectorAll('.sp').forEach(x => x.setAttribute('aria-pressed', x === b)); }));
+$('field').addEventListener('change', e => showField = e.target.checked);
+$('rate').addEventListener('input', e => { foodRate = +e.target.value; $('rateV').textContent = foodRate + '/s'; });
+window.addEventListener('keydown', e => {
+  if (e.target.closest && e.target.closest('input')) return;
+  if (e.code === 'Space'){ e.preventDefault(); setRun(!running); }
+  const m = {Digit1:'valj',Digit2:'mata',Digit3:'smek',Digit4:'sla',Digit5:'skar'}[e.code]; if (m) setTool(m);
+});
+function toWorld(e){ const r = cvs.getBoundingClientRect(); return [(e.clientX - r.left)/r.width*W, (e.clientY - r.top)/r.height*H]; }
+cvs.addEventListener('pointermove', e => { const [x,y] = toWorld(e); hand.x = x; hand.y = y; hand.last = tick; hand.on = true; });
+cvs.addEventListener('pointerleave', () => hand.on = false);
+cvs.addEventListener('pointerdown', e => { const [x,y] = toWorld(e); hand.x = x; hand.y = y; hand.last = tick; hand.on = true; apply(x, y); });
+
+// granskaren
+const pgrid = $('pgrid'), cellsEl = [];
+for (let i=0;i<49;i++){
+  const b = document.createElement('button'); b.className = 'pcell'; b.type = 'button'; b.id = 'pc' + i;
+  b.setAttribute('aria-label', `Ruta ${i%N+1},${((i/N)|0)+1}`);
+  b.addEventListener('click', () => paint(i)); pgrid.appendChild(b); cellsEl.push(b);
+}
+const pal = $('palette');
+[2,3,4,5,6,7,8,9,10,0].forEach(t => {
+  const b = document.createElement('button'); b.className = 'btn'; b.type = 'button'; b.dataset.brush = t; b.id = 'br' + t;
+  b.innerHTML = `<span class="sw" style="background:${t ? COL[t] : 'transparent'};border:1px solid ${t ? COL[t] : K.muted}"></span>${TNAME[t]}`;
+  b.setAttribute('aria-pressed', t === brush);
+  b.addEventListener('click', () => { brush = t; pal.querySelectorAll('.btn').forEach(x => x.setAttribute('aria-pressed', +x.dataset.brush === brush)); });
+  pal.appendChild(b);
+});
+let paintedId = null;
+function paint(i){
+  if (!selected || i === CI) return;
+  selected.target[i] = brush; recalc(selected); selected.wound = true;
+  if (paintedId !== selected.id){ paintedId = selected.id; log(`Du skrev om det bioelektriska mönstret hos ${label(selected)}. Kroppen formas om, och avkomman ärver mönstret.`, 'h'); }
+  updInspector(true);
+}
+let lastSel = null;
+function updInspector(force){
+  const c = selected;
+  $('insp').hidden = !c; $('inspEmpty').hidden = !!c;
+  if (!c) return;
+  const s = spOf(c);
+  if (force || lastSel !== c){ $('iDot').style.background = `hsl(${s.hue},85%,62%)`; lastSel = c; }
+  $('iName').innerHTML = `${s.name} <span class="mono">#${c.id}</span>`;
+  $('iGen').textContent = `generation ${c.gen} · ${c.st.cells} celler`;
+  const e = clamp(c.energy/c.repE, 0, 1);
+  $('iE').style.width = (e*100) + '%'; $('iEv').textContent = Math.round(c.energy);
+  $('iF').style.width = (c.complete*100) + '%'; $('iFv').textContent = Math.round(c.complete*100) + '%';
+  $('iAct').textContent = `Gör nu: ${DOING[c.action]}` + (c.trained ? ` · tränad ${c.trained} ggr` : '');
+  for (let i=0;i<49;i++){
+    const el = cellsEl[i], b = c.body[i], t = c.target[i];
+    el.style.background = b ? COL[b] : 'transparent';
+    el.style.borderStyle = (!b && t) ? 'dashed' : 'solid';
+    el.style.borderColor = t ? COL[t] : K.line;
+    el.style.opacity = (b && !t) ? 0.45 : 1;
+    el.disabled = i === CI;
+  }
+  const max = 4;
+  $('wts').innerHTML = Object.keys(WNAME).map(k =>
+    `<div class="meter">${WNAME[k]} <span class="bar h"><i style="width:${clamp(c.w[k]/max,0,1)*100}%"></i></span><span>${c.w[k].toFixed(2)}</span></div>`).join('');
+}
+function updStats(){
+  const alive = [...species.values()].filter(s => s.count > 0).length;
+  let mg = 0; for (const c of creatures) mg = Math.max(mg, c.gen);
+  $('stats').textContent = `${Math.floor(tick/60)} s · ${creatures.length} former · ${alive} arter · ${nests.length} bon · högsta generation ${mg}`;
+}
+const chart = $('chart'), cctx = chart.getContext('2d');
+function updSpecies(){
+  const list = [...species.values()].filter(s => s.count > 0 || s.hist.some(v => v > 0));
+  list.sort((a,b) => b.count - a.count);
+  const top = list.slice(0, 12);
+  $('splist').innerHTML = top.map(s => `<li class="${s.count ? '' : 'gone'}"><span class="dot" style="background:hsl(${s.hue},85%,62%)"></span><span>${s.name}</span><span class="mono">${s.count || 'utdöd'}</span></li>`).join('');
+  const w = chart.clientWidth, h = chart.clientHeight, d = Math.min(2, window.devicePixelRatio || 1);
+  if (chart.width !== Math.round(w*d)){ chart.width = Math.round(w*d); chart.height = Math.round(h*d); }
+  cctx.setTransform(d, 0, 0, d, 0, 0); cctx.clearRect(0, 0, w, h);
+  cctx.strokeStyle = K.line; cctx.lineWidth = 1; cctx.beginPath(); cctx.moveTo(0, h-0.5); cctx.lineTo(w, h-0.5); cctx.stroke();
+  let mx = 4; for (const s of top) for (const v of s.hist) mx = Math.max(mx, v);
+  for (const s of top.slice(0, 8)){
+    if (s.hist.length < 2) continue;
+    cctx.strokeStyle = `hsl(${s.hue},85%,62%)`; cctx.lineWidth = 1.6; cctx.beginPath();
+    s.hist.forEach((v, i) => { const x = w - (s.hist.length - 1 - i) * (w/239), y = h - 3 - v/mx*(h-10); i ? cctx.lineTo(x, y) : cctx.moveTo(x, y); });
+    cctx.stroke();
+  }
+  cctx.fillStyle = K.muted; cctx.font = '10px "IBM Plex Mono", monospace'; cctx.fillText(String(mx), 2, 10);
+}
+
+/* ---------- start ---------- */
+function seed(){
+  spots = [0,1,2].map(() => ({ a:rr(0,6.28), r:rr(60,250), v:rr(-0.0009,0.0009) }));
+  const W0 = { food:1, hunt:1, flee:1, wander:1, hand:0.6, build:1, raid:0.3, mob:0.6, call:1 };
+  for (const [name, rows, n, w] of FOUNDERS){
+    const sp = addSpecies(name, parse(rows), null);
+    for (let k=0;k<n;k++){ const a = rr(0,6.28), r = rr(0, R-40);
+      make({ sp:sp.id, x:CX+Math.cos(a)*r, y:CY+Math.sin(a)*r, target:sp.founder, body:sp.founder, w:mutW({...W0, ...w}), energy:rr(15,30), age:(rnd()*200)|0 }); }
+  }
+  for (let k=0;k<170;k++) spawnFood();
+  log(`Skålen är sådd med ${FOUNDERS.length} grundformer. Ljuset är starkast i mitten.`, 'n');
+  sample();
+}
+function ser(){
+  return { tick, nextId, foodRate, spots, food, hueI, nests, firsts:[...firsts],
+    creatures: creatures.map(c => ({ ...c, target:[...c.target], body:[...c.body], goal:null, st:null, home:null })),
+    species: [...species.values()].map(s => ({ ...s, founder:[...s.founder] })), selected: selected ? selected.id : null };
+}
+function des(d){
+  tick = d.tick; nextId = d.nextId; foodRate = d.foodRate; spots = d.spots; food = d.food; hueI = d.hueI || 0; nests = d.nests || []; signals = []; firsts = new Set(d.firsts || []);
+  species = new Map(d.species.map(s => [s.id, { ...s, founder:Uint8Array.from(s.founder) }]));
+  creatures = d.creatures.map(o => { const c = { ...o, target:Uint8Array.from(o.target), body:Uint8Array.from(o.body) }; recalc(c); return c; });
+  selected = creatures.find(c => c.id === d.selected) || null;
+  $('rate').value = foodRate; $('rateV').textContent = foodRate + '/s';
+}
+let frame = 0;
+function loop(){
+  if (running) for (let k=0;k<speed;k++) step();
+  draw();
+  if (++frame % 8 === 0){ updInspector(false); updStats(); }
+  if (frame % 30 === 0) updSpecies();
+  requestAnimationFrame(loop);
+}
+function start(data){
+  try { if (data && data.state) des(data.state); else seed(); } catch (e) { creatures = []; food = []; species = new Map(); seed(); }
+  resize(); setTool('valj'); updSpecies(); updStats(); loop();
+}
+window.claude?.hot?.snapshot?.(() => ({ state: ser() }));
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+})();
+</script>
+</body></html>

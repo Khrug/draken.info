@@ -1012,6 +1012,7 @@ function build() {
   if (fs.existsSync(staleBak)) fs.rmSync(staleBak);
   copyDirSync(path.join(STATIC_DIR, 'images'), path.join(DIST_DIR, 'images'));
   if (fs.existsSync(path.join(STATIC_DIR, 'vendor'))) copyDirSync(path.join(STATIC_DIR, 'vendor'), path.join(DIST_DIR, 'vendor'));   // third-party libraries, self-hosted (pdf.js for the analyzer)
+  if (fs.existsSync(path.join(STATIC_DIR, 'volut'))) copyDirSync(path.join(STATIC_DIR, 'volut'), path.join(DIST_DIR, 'volut'));   // dold sida (påskägg) — inte i nav eller sitemap; nås bara via länk i ett DRK-inlägg
   fs.copyFileSync(path.join(__dirname, 'style.css'), path.join(DIST_DIR, 'style.css'));
   const redirects = path.join(STATIC_DIR, '_redirects');
   if (fs.existsSync(redirects)) fs.copyFileSync(redirects, path.join(DIST_DIR, '_redirects'));
