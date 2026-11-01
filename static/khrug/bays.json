@@ -1,0 +1,20 @@
+{
+  "_readme": "Fack 1-14 på khrug.draken.info. Fack 15 är arkivet (arkiv.json). Lägg filer i static/khrug/files/ och miniatyrer i static/khrug/thumbs/. Tomt fack: {}. Typer: file (PDF/bild), link (webbsida). thumb är valfri; utan den ritas ett typkort.",
+  "updated": "2026-11-01",
+  "bays": [
+    { "title": "CV (svenska)", "kind": "file", "url": "/khrug/files/Kai_Khrug_Roininen_CV_sv_20261024.pdf", "thumb": "/khrug/thumbs/cv-sv.jpg", "type": "PDF", "date": "2026-10-24", "menu": "CV" },
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {},
+    {}
+  ]
+}

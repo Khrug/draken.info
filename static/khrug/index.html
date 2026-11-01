@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Kai Roininen · Jobbsök</title>
+<meta name="description" content="Kai Roininen, konstruktör inom fordon (CATIA, ytmodellering, kolfiber). CV och underlag för jobbsök i Göteborg, Mölndal och Kungsbacka.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Layout: equipment rack — hazard-taped outer frame, carbon-fibre panel, command bar, 5×3 document bays; bay 15 is the archive locker. Single dark theme by design.
+   Content lives in bays.json and arkiv.json next to this file. */
+:root{
+  color-scheme:dark;
+  --void:#0a0b0c; --panel:#141618; --plate:#1c1f22; --edge:#33383d; --steel:#8a949c;
+  --ink:#e6e9eb; --mut:#9aa3aa; --hazard:#f2c230; --hazard-ink:#14120a; --signal:#5ec2ff;
+  --display:"Oxanium","Eurostile","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Share Tech Mono",ui-monospace,Consolas,monospace;
+  --carbon:
+    linear-gradient(27deg,#151719 5px,transparent 5px) 0 5px,
+    linear-gradient(207deg,#151719 5px,transparent 5px) 10px 0,
+    linear-gradient(27deg,#1b1d20 5px,transparent 5px) 0 10px,
+    linear-gradient(207deg,#1b1d20 5px,transparent 5px) 10px 5px,
+    linear-gradient(90deg,#17191b 10px,transparent 10px),
+    linear-gradient(#1a1c1f 25%,#181a1d 25%,#181a1d 50%,transparent 50%,transparent 75%,#1d1f22 75%,#1d1f22);
+  --brushed:linear-gradient(180deg,#2a2e32,#1b1e21 55%,#23272b);
+}
+*{box-sizing:border-box}
+html{background:var(--void)}
+body{margin:0;background:var(--void);color:var(--ink);font:15px/1.5 var(--body);padding-left:max(10px,env(safe-area-inset-left,0px));padding-right:max(10px,env(safe-area-inset-right,0px));padding-block:max(10px,env(safe-area-inset-top,0px)) max(24px,env(safe-area-inset-bottom,0px))}
+.frame{max-width:1240px;margin:0 auto;padding:10px;background:repeating-linear-gradient(-45deg,var(--hazard) 0 14px,var(--hazard-ink) 14px 28px);border-radius:6px}
+.rack{background:var(--carbon);background-color:#16181a;background-size:20px 20px;border-radius:3px;box-shadow:inset 0 0 0 1px #000,inset 0 0 40px rgba(0,0,0,.6);padding:clamp(14px,3vw,28px)}
+header.top{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:flex-end;justify-content:space-between;padding-bottom:16px;border-bottom:1px solid var(--edge)}
+.id{min-width:0}
+.tagline{font:13px/1 var(--mono);color:var(--hazard);letter-spacing:.14em;text-transform:uppercase}
+h1{font:800 clamp(28px,6vw,48px)/1 var(--display);letter-spacing:.02em;margin:8px 0 6px;text-wrap:balance;text-transform:uppercase}
+.sub{color:var(--mut);max-width:62ch}
+.plate{font:12px/1.6 var(--mono);color:var(--steel);background:var(--brushed);border:1px solid var(--edge);border-radius:3px;padding:8px 12px;text-transform:uppercase;letter-spacing:.06em}
+.plate b{color:var(--ink);font-weight:400}
+nav.cmd{display:flex;flex-wrap:wrap;gap:6px;padding-block:14px}
+nav.cmd button,nav.cmd a{font:600 13px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:var(--ink);background:var(--brushed);border:1px solid var(--edge);border-radius:3px;padding:11px 14px;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px}
+nav.cmd button:hover,nav.cmd a:hover{border-color:var(--steel)}
+nav.cmd .ext{margin-left:auto;border-color:var(--hazard);color:var(--hazard)}
+nav.cmd .led{width:7px;height:7px;border-radius:50%;background:var(--signal);box-shadow:0 0 6px var(--signal)}
+:focus-visible{outline:2px solid var(--hazard);outline-offset:2px}
+.status{font:12px var(--mono);color:var(--mut);min-height:1.5em}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-top:6px}
+.bay{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--edge);border-radius:4px;overflow:hidden;min-width:0;color:inherit;text-decoration:none}
+a.bay:hover{border-color:var(--steel)}
+.bay .no{position:absolute;top:8px;left:8px;z-index:2;font:12px/1 var(--mono);color:var(--hazard-ink);background:var(--hazard);padding:3px 5px;border-radius:2px}
+.thumb{aspect-ratio:4/3;max-width:100%;background:#0d0f10;display:grid;place-items:center;overflow:hidden;border-bottom:1px solid var(--edge)}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+.ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:14px;text-align:center;width:100%;height:100%}
+.ph .big{font:700 30px/1 var(--display);letter-spacing:.06em;color:var(--steel)}
+.ph .small{font:12px var(--mono);color:var(--mut);word-break:break-all}
+.empty .thumb{background:repeating-linear-gradient(-45deg,transparent 0 10px,rgba(242,194,48,.05) 10px 20px),#0d0f10}
+.empty .ph .big{font-size:38px;color:var(--edge)}
+.cap{padding:10px 10px 12px}
+.cap .title{font:600 14px/1.3 var(--body);overflow-wrap:anywhere}
+.cap .meta{font:11.5px var(--mono);color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-top:3px}
+.locker{border-color:#5a4d1c;cursor:pointer;font:inherit;text-align:left;padding:0}
+.locker .thumb{background:var(--brushed)}
+.locker .big{color:var(--hazard)!important}
+dialog{background:var(--panel);color:var(--ink);border:1px solid var(--edge);border-top:4px solid var(--hazard);border-radius:4px;padding:0;width:min(640px,calc(100vw - 24px));max-height:calc(100vh - 40px)}
+dialog::backdrop{background:rgba(0,0,0,.7)}
+.dlg{padding:18px;display:flex;flex-direction:column;gap:12px}
+.dlg h2{font:700 20px/1.2 var(--display);letter-spacing:.05em;text-transform:uppercase;margin:0}
+.row2{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn{font:600 13px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;padding:11px 14px;border-radius:3px;border:1px solid var(--edge);background:var(--brushed);color:var(--ink);cursor:pointer}
+.btn.pri{background:var(--hazard);color:var(--hazard-ink);border-color:var(--hazard)}
+.alist{display:flex;flex-direction:column;border-top:1px solid var(--edge)}
+.aitem{display:flex;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px solid var(--edge)}
+.aitem a{color:var(--ink);font-weight:500;overflow-wrap:anywhere;flex:1;min-width:0}
+.aitem .cat{font:11px var(--mono);color:var(--hazard);text-transform:uppercase;flex:0 0 7.5em}
+.aitem .d{font:11px var(--mono);color:var(--mut)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:12px var(--mono);padding:5px 8px;border:1px solid var(--edge);border-radius:3px;background:none;color:var(--mut);cursor:pointer;text-transform:uppercase}
+.chip[aria-pressed="true"]{border-color:var(--hazard);color:var(--hazard)}
+.contact{font:15px var(--mono);user-select:all}
+footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--edge);font:12px var(--mono);color:var(--mut);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
+@media (max-width:460px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ph .big{font-size:22px}.cap .title{font-size:13px}nav.cmd .ext{margin-left:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="frame"><div class="rack">
+  <header class="top">
+    <div class="id">
+      <div class="tagline">Khrug Engineering · Göteborg / Kungsbacka</div>
+      <h1>Kai Roininen</h1>
+      <div class="sub">Konstruktör inom fordon. Ytmodellering i CATIA, kolfiber och exteriör (Koenigsegg Agera), dörrstruktur (Volvo SPA), stridsfordon (BAE Hägglunds CV90).</div>
+    </div>
+    <div class="plate">Söker: <b>konstruktör / CAD</b><br>Även: <b>montör · QA · mätteknik</b><br>Ort: <b>Göteborg · Mölndal · Kungsbacka</b></div>
+  </header>
+
+  <nav class="cmd" aria-label="Huvudmeny" id="cmd">
+    <button id="contactBtn"><span class="led"></span>Kontakt</button>
+    <button id="archBtn">Arkiv</button>
+    <a class="ext" href="https://draken.info/">Draken ↗</a>
+  </nav>
+  <div class="status" id="status" aria-live="polite">Laddar…</div>
+  <div class="grid" id="grid"></div>
+  <footer><span>Kai Roininen · kai@draken.info</span><span id="upd"></span></footer>
+</div></div>
+
+<dialog id="dlg"><div class="dlg" id="dlgBody"></div></dialog>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var host=function(u){try{return new URL(u,location.href).hostname.replace(/^www\./,'')}catch(e){return u}};
+var dlg=$('#dlg'),body=$('#dlgBody'),archive=[],aFilter='';
+var CATS=['Ansökningsbrev','Annons','Länk','Intyg','Övrigt'];
+
+function thumb(b){
+  if(b.thumb) return '<img src="'+esc(b.thumb)+'" alt="" loading="lazy">';
+  if(b.kind==='file'&&/\.(png|jpe?g|webp|gif)$/i.test(b.url||'')) return '<img src="'+esc(b.url)+'" alt="" loading="lazy">';
+  if(b.kind==='link') return '<div class="ph"><div class="big">WEB</div><div class="small">'+esc(host(b.url))+'</div></div>';
+  return '<div class="ph"><div class="big">'+esc(b.type||'FIL')+'</div></div>';
+}
+function render(bays){
+  var g=$('#grid'),html='';
+  for(var i=0;i<14;i++){
+    var b=bays[i]||{},n=('0'+(i+1)).slice(-2);
+    if(!b.kind){html+='<div class="bay empty"><span class="no">'+n+'</span><div class="thumb"><div class="ph"><div class="big">—</div><div class="small">ledigt fack</div></div></div><div class="cap"><div class="title">Ledigt</div><div class="meta">&nbsp;</div></div></div>';continue}
+    var ext=/^https?:/.test(b.url)&&host(b.url)!==location.hostname;
+    html+='<a class="bay" id="bay'+n+'" href="'+esc(b.url)+'"'+(ext?' target="_blank" rel="noopener"':'')+'><span class="no">'+n+'</span><div class="thumb">'+thumb(b)+'</div><div class="cap"><div class="title">'+esc(b.title)+'</div><div class="meta">'+esc(b.kind==='link'?'Webbsida · '+host(b.url):(b.type||'Fil'))+(b.date?' · '+esc(b.date):'')+'</div></div></a>';
+  }
+  html+='<button class="bay locker" id="locker"><span class="no">15</span><div class="thumb"><div class="ph"><div class="big">ARKIV</div><div class="small">'+archive.length+' poster · brev, länkar, annonser</div></div></div><div class="cap"><div class="title">Arkiv</div><div class="meta">Mapp</div></div></button>';
+  g.innerHTML=html;
+  $('#locker').onclick=openArchive;
+  // menu shortcuts for bays that set "menu"
+  var cmd=$('#cmd'),first=cmd.firstChild;
+  bays.forEach(function(b,i){if(b&&b.kind&&b.menu){var a=document.createElement('a');a.href=b.url;a.textContent=b.menu;if(/^https?:/.test(b.url)&&host(b.url)!==location.hostname){a.target='_blank';a.rel='noopener'}cmd.insertBefore(a,first)}});
+}
+function close(){dlg.close()}
+function openArchive(){
+  var list=archive.filter(function(a){return !aFilter||a.cat===aFilter});
+  body.innerHTML='<h2>Arkiv</h2><div class="chips" id="aChips">'+[''].concat(CATS).map(function(c){return '<button class="chip" aria-pressed="'+(aFilter===c)+'" data-c="'+c+'">'+(c||'Alla')+'</button>'}).join('')+'</div>'+
+   '<div class="alist">'+(list.length?list.map(function(a){return '<div class="aitem"><span class="cat">'+esc(a.cat)+'</span><a href="'+esc(a.url)+'" target="_blank" rel="noopener">'+esc(a.title)+'</a><span class="d">'+esc(a.date||'')+'</span></div>'}).join(''):'<div class="aitem" style="color:var(--mut)">Inget arkiverat här ännu.</div>')+'</div>'+
+   '<div class="row2"><button class="btn pri" id="aClose">Stäng</button></div>';
+  $('#aChips').onclick=function(e){var b=e.target.closest('.chip');if(b){aFilter=b.dataset.c;openArchive()}};
+  $('#aClose').onclick=close;
+  if(!dlg.open)dlg.showModal();
+}
+function openContact(){
+  body.innerHTML='<h2>Kontakt</h2><p>Kai Roininen · Kungsbacka</p><div class="contact" id="em">kai@draken.info</div><div class="contact">0720 404 179</div><div class="row2"><button class="btn" id="cpE">Kopiera e-post</button><button class="btn pri" id="cClose">Stäng</button></div>';
+  $('#cClose').onclick=close;
+  $('#cpE').onclick=function(){var b=this;(navigator.clipboard?navigator.clipboard.writeText('kai@draken.info'):Promise.reject()).then(function(){b.textContent='Kopierad'},function(){var r=document.createRange();r.selectNodeContents($('#em'));getSelection().removeAllRanges();getSelection().addRange(r)})};
+  dlg.showModal();
+}
+dlg.addEventListener('click',function(e){if(e.target===dlg)close()});
+$('#contactBtn').onclick=openContact;
+$('#archBtn').onclick=openArchive;
+
+Promise.all([
+  fetch('/khrug/bays.json',{cache:'no-cache'}).then(function(r){return r.json()}),
+  fetch('/khrug/arkiv.json',{cache:'no-cache'}).then(function(r){return r.json()}).catch(function(){return {items:[]}})
+]).then(function(r){
+  archive=(r[1].items||[]).slice().sort(function(a,b){return String(b.date||'').localeCompare(String(a.date||''))});
+  render(r[0].bays||[]);
+  $('#status').textContent='';
+  if(r[0].updated)$('#upd').textContent='Uppdaterad '+r[0].updated;
+}).catch(function(){$('#status').textContent='Kunde inte läsa innehållet. Ladda om sidan.';render([])});
+})();
+</script>
+</body>
+</html>
