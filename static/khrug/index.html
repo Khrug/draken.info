@@ -117,7 +117,7 @@ var link=function(n){return location.origin+location.pathname+'#fack-'+pad(n)};
 function thumb(b){
   if(b.thumb) return '<img src="'+esc(b.thumb)+'" alt="" loading="lazy">';
   if(b.kind==='file'&&/\.(png|jpe?g|webp|gif)$/i.test(b.url||'')) return '<img src="'+esc(b.url)+'" alt="" loading="lazy">';
-  if(b.kind==='link') return '<div class="ph"><div class="big">WEB</div><div class="small">'+esc(host(b.url))+'</div></div>';
+  if(b.kind==='link') return '<div class="ph"><div class="big">'+esc(b.type||'WEB')+'</div><div class="small">'+esc(host(b.url))+'</div></div>';
   return '<div class="ph"><div class="big">'+esc(b.type||'FIL')+'</div></div>';
 }
 function metaOf(b){return (b.kind==='link'?'Webbsida':(b.type||'Fil'))+(b.date?' · '+b.date:'')}

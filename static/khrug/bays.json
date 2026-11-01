@@ -29,12 +29,12 @@
       "menu": "Nätverk"
     },
     {
-      "title": "SitRep 30 okt (PDF)",
-      "kind": "file",
-      "url": "/khrug/files/SitRep_2026-10-30.pdf",
-      "thumb": "/khrug/thumbs/sitrep.jpg",
-      "type": "PDF",
-      "date": "2026-10-30"
+      "title": "Outreach-register",
+      "kind": "link",
+      "url": "https://claude.ai/artifact/Mvzw8GRUuQ6ZiPMozddmhR",
+      "type": "OUTREACH",
+      "date": "2026-11-01",
+      "menu": "Outreach"
     },
     {},
     {},

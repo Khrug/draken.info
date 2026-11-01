@@ -1,4 +1,11 @@
 {
   "_readme": "Arkivet (fack 15). Kategorier: Ansökningsbrev, Annons, Länk, Intyg, Övrigt. url kan vara /khrug/files/... eller en extern adress.",
-  "items": []
+  "items": [
+    {
+      "title": "SitRep 30 okt (PDF)",
+      "cat": "Övrigt",
+      "url": "/khrug/files/SitRep_2026-10-30.pdf",
+      "date": "2026-10-30"
+    }
+  ]
 }
