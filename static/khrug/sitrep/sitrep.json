@@ -1,0 +1,2356 @@
+{
+"updated": "2026-11-01",
+"jobs": [
+{
+"id": "af31335881",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31335881",
+"t": "Mekanisk konstruktör Göteborg",
+"co": "TK Tech",
+"m": "Göteborg",
+"dl": "2027-02-06",
+"step": 2,
+"cat": "CAD",
+"sc": 12,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"Inventor",
+"fordon",
+"montering",
+"ritningar",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31460871",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31460871",
+"t": "Studio Engineer",
+"co": "Arbetsgivare anges i annonsen",
+"m": "Göteborg",
+"dl": "2027-02-01",
+"step": 2,
+"cat": "CAD",
+"sc": 12,
+"k": [
+"CATIA",
+"ytmodellering",
+"fordon",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31335907",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31335907",
+"t": "Maskinkonstruktör Automation Göteborg",
+"co": "TK Tech",
+"m": "Göteborg",
+"dl": "2027-02-06",
+"step": 2,
+"cat": "CAD",
+"sc": 11,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"Inventor",
+"fordon",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31599394",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31599394",
+"t": "Mekanikkonstruktör – Produktutveckling",
+"co": "Knightec Group Sweden",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 2,
+"cat": "CAD",
+"sc": 10,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"fordon",
+"ritningar",
+"försvar"
+],
+"net": [
+"Anders Mauritsson Hedkvist"
+],
+"career": "https://career.knightecgroup.com/"
+},
+{
+"id": "af31570053",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31570053",
+"t": "Mättekniker",
+"co": "WRKFRC",
+"m": "Göteborg",
+"dl": "2027-04-06",
+"step": 1,
+"cat": "QA",
+"sc": 10,
+"k": [
+"komposit",
+"fordon",
+"plast",
+"mätteknik",
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31659417",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31659417",
+"t": "Mekanikkonstruktör/Mechanical Design Engineer - Fordonsindustrin",
+"co": "AVL MTC Motortestcenter AB",
+"m": "Göteborg",
+"dl": "2026-11-28",
+"step": 2,
+"cat": "CAD",
+"sc": 9,
+"k": [
+"CATIA",
+"DFMEA",
+"Creo",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": "https://www.avl.com/en/career"
+},
+{
+"id": "af31643547",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31643547",
+"t": "Mechanical Engineer",
+"co": "Nevita",
+"m": "Göteborg",
+"dl": "2027-04-24",
+"step": 2,
+"cat": "CAD",
+"sc": 9,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"Inventor",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31335979",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31335979",
+"t": "Mekanikingenjör Marin Göteborg",
+"co": "TK Tech",
+"m": "Göteborg",
+"dl": "2027-02-06",
+"step": 2,
+"cat": "CAD",
+"sc": 9,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"plåt",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31659401",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31659401",
+"t": "Lead Design Engineer/Technical Lead Engineer - Fordonsindustrin",
+"co": "AVL MTC Motortestcenter AB",
+"m": "Göteborg",
+"dl": "2026-11-28",
+"step": 2,
+"cat": "CAD",
+"sc": 9,
+"k": [
+"CATIA",
+"DFMEA",
+"Creo",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": "https://www.avl.com/en/career"
+},
+{
+"id": "af31515360",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31515360",
+"t": "Senior Automotive Design/Mechanical Engineer",
+"co": "EDAG Engineering Scandinavia AB",
+"m": "Göteborg",
+"dl": "2027-02-26",
+"step": 2,
+"cat": "CAD",
+"sc": 8,
+"k": [
+"CATIA",
+"Creo",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": "https://www.edag.com/en/career/vacancies"
+},
+{
+"id": "af31619000",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31619000",
+"t": "Kablagekonstruktör",
+"co": "Knightec Group Sweden",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 2,
+"cat": "CAD",
+"sc": 8,
+"k": [
+"CATIA",
+"Creo",
+"fordon",
+"försvar"
+],
+"net": [
+"Anders Mauritsson Hedkvist"
+],
+"career": "https://career.knightecgroup.com/"
+},
+{
+"id": "af31205181",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31205181",
+"t": "Design Engineer - Interior/Exterior/BIW",
+"co": "Bertrandt Sverige AB",
+"m": "Göteborg",
+"dl": "2026-12-17",
+"step": 2,
+"cat": "CAD",
+"sc": 7,
+"k": [
+"CATIA",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": "https://www.bertrandt.com/en/career/career-opportunities"
+},
+{
+"id": "af31585519",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31585519",
+"t": "Design Engineer",
+"co": "Alten Sverige AB",
+"m": "Göteborg",
+"dl": "2026-11-11",
+"step": 2,
+"cat": "CAD",
+"sc": 7,
+"k": [
+"CATIA",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": "https://www.alten.se/karriar/"
+},
+{
+"id": "af31645751",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31645751",
+"t": "Maskinkonstruktör",
+"co": "Knightec Group Sweden",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 2,
+"cat": "CAD",
+"sc": 7,
+"k": [
+"CATIA",
+"Creo",
+"SolidWorks",
+"Inventor"
+],
+"net": [
+"Anders Mauritsson Hedkvist"
+],
+"career": "https://career.knightecgroup.com/"
+},
+{
+"id": "af31662389",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31662389",
+"t": "Wiring Harness Engineer",
+"co": "Arbetsgivare anges i annonsen",
+"m": "Göteborg",
+"dl": "2026-11-28",
+"step": 2,
+"cat": "CAD",
+"sc": 7,
+"k": [
+"CATIA",
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31622291",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31622291",
+"t": "Mechanical Engineer",
+"co": "Frost Unmanned",
+"m": "Stenungsund",
+"dl": "2027-04-18",
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [
+"komposit",
+"montering",
+"ritningar",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31667075",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31667075",
+"t": "Wiring & Harness Engineer",
+"co": "Condesign Engineering AB",
+"m": "Göteborg",
+"dl": "2026-11-29",
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [
+"CATIA",
+"fordon"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31370657",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31370657",
+"t": "Svetsande montör",
+"co": "Electro Heat Sweden AB",
+"m": "Göteborg",
+"dl": "2027-02-15",
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [
+"plåt",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31377406",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31377406",
+"t": "Ingenjörer till AQ Engineering Göteborg",
+"co": "AQ Engineering",
+"m": "Göteborg",
+"dl": "2027-02-16",
+"step": 2,
+"cat": "CAD",
+"sc": 5,
+"k": [
+"fordon",
+"kvalitet",
+"ritningar",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31667931",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31667931",
+"t": "Lastbilsmontör till verksamhet i Göteborg",
+"co": "Posti logistics staffing",
+"m": "Göteborg",
+"dl": "2026-11-13",
+"step": 1,
+"cat": "MONT",
+"sc": 5,
+"k": [
+"fordon",
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31640186",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31640186",
+"t": "Customer Quality Engineer",
+"co": "Harman International",
+"m": "Göteborg",
+"dl": "2026-11-08",
+"step": 1,
+"cat": "QA",
+"sc": 5,
+"k": [
+"DFMEA",
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31618785",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31618785",
+"t": "Quality Assurance Engineer to Beyond Gravity Gothenburg",
+"co": "Beyond Gravity Sweden AB",
+"m": "Göteborg",
+"dl": "2026-11-19",
+"step": 1,
+"cat": "QA",
+"sc": 5,
+"k": [
+"DFMEA",
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31656831",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31656831",
+"t": "Mättekniker till väletablerad svensk verkstadsindustri",
+"co": "Academic Work Sweden AB",
+"m": "Göteborg",
+"dl": "2027-04-26",
+"step": 1,
+"cat": "QA",
+"sc": 5,
+"k": [
+"fordon",
+"mätteknik",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31637433",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31637433",
+"t": "Förbättringsingenjör - Elektronik till TYRI Lights",
+"co": "Academic Work Sweden AB",
+"m": "Göteborg",
+"dl": "2027-04-21",
+"step": 2,
+"cat": "CAD",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31658417",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31658417",
+"t": "Engineer Advanced Visualization, Simulation & Vehicle Packaging",
+"co": "Volvo Group",
+"m": "Göteborg",
+"dl": "2026-11-12",
+"step": 2,
+"cat": "CAD",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [
+"Kristia Pinchot",
+"Joakim Alpsten",
+"Tobias Ljungberg",
+"Mahyar Saffari",
+"José Ferreira",
+"David Kjellén",
+"Markus Kifeldt",
+"Per Johansson",
+"Kristofer Ferm",
+"Wassim Marouki"
+],
+"career": "https://www.volvogroup.com/se/careers.html"
+},
+{
+"id": "af31604783",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31604783",
+"t": "Montör med C-körkortsbehörighet",
+"co": "Adecco",
+"m": "Göteborg",
+"dl": "2026-11-09",
+"step": 1,
+"cat": "MONT",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31141374",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31141374",
+"t": "Montör till Nordic Auto El i Göteborg",
+"co": "Bravura",
+"m": "Göteborg",
+"dl": "2026-12-01",
+"step": 1,
+"cat": "MONT",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31613954",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31613954",
+"t": "Elektronikmontörer till Saab Surveillance",
+"co": "Saab Surveillance",
+"m": "Göteborg",
+"dl": "2026-11-18",
+"step": 1,
+"cat": "MONT",
+"sc": 4,
+"k": [
+"kvalitet",
+"montering",
+"ritningar",
+"försvar"
+],
+"net": [
+"Anders Arpteg",
+"Susanne Carlsson",
+"Andreas Grimberg",
+"Tobias Berntsson"
+],
+"career": "https://www.saab.com/career/job-opportunities"
+},
+{
+"id": "af31494742",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31494742",
+"t": "Montörer till fordonsindustrin",
+"co": "Adecco",
+"m": "Göteborg",
+"dl": "2026-11-09",
+"step": 1,
+"cat": "MONT",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31578086",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31578086",
+"t": "Kvalitetsingenjör inom fordonsindustrin",
+"co": "Friday",
+"m": "Göteborg",
+"dl": "2026-12-31",
+"step": 1,
+"cat": "QA",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31637211",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31637211",
+"t": "Kvalitetstekniker till Saab",
+"co": "Skill Kompetenspartner AB",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 1,
+"cat": "QA",
+"sc": 4,
+"k": [
+"DFMEA",
+"Creo",
+"kvalitet",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31258306",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31258306",
+"t": "CMF Designer",
+"co": "Eccoci AB",
+"m": "Göteborg",
+"dl": "2026-12-31",
+"step": 2,
+"cat": "CAD",
+"sc": 4,
+"k": [
+"fordon",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31484868",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31484868",
+"t": "Konstruktör till Tekniskt Bolag i Göteborg",
+"co": "Friday",
+"m": "Göteborg",
+"dl": "2026-11-16",
+"step": 2,
+"cat": "CAD",
+"sc": 3,
+"k": [
+"SolidWorks",
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31555792",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31555792",
+"t": "Mekanisk konstruktör",
+"co": "FMR Rekrytering och Bemanning AB",
+"m": "Mölndal",
+"dl": "2026-11-04",
+"step": 2,
+"cat": "CAD",
+"sc": 3,
+"k": [
+"Inventor",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31661885",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31661885",
+"t": "Maskinkonstruktör",
+"co": "FMR Rekrytering och Bemanning AB",
+"m": "Mölndal",
+"dl": "2026-11-28",
+"step": 2,
+"cat": "CAD",
+"sc": 3,
+"k": [
+"Inventor",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31655432",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31655432",
+"t": "Mechanical Engineer – Customer Adaptation",
+"co": "Agile Resources AB",
+"m": "Göteborg",
+"dl": "2026-11-27",
+"step": 2,
+"cat": "CAD",
+"sc": 3,
+"k": [
+"Creo",
+"fordon"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31498831",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31498831",
+"t": "Production Engineer",
+"co": "Wellspect AB",
+"m": "Mölndal",
+"dl": "2026-11-21",
+"step": 2,
+"cat": "CAD",
+"sc": 3,
+"k": [
+"Inventor",
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31629989",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31629989",
+"t": "Produktionstekniker med fokus på testkablage till försvarsindustrin",
+"co": "Friday",
+"m": "Göteborg",
+"dl": "2026-12-22",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"ritningar",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31628069",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31628069",
+"t": "Kvalitetstekniker inom produktion till försvarsindustrin",
+"co": "Friday",
+"m": "Göteborg",
+"dl": "2026-12-21",
+"step": 1,
+"cat": "QA",
+"sc": 3,
+"k": [
+"DFMEA",
+"kvalitet",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31367855",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31367855",
+"t": "Montör",
+"co": "Randstad",
+"m": "Göteborg",
+"dl": "2026-11-16",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31596807",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31596807",
+"t": "Montör till kund i Mölnlycke",
+"co": "OnePartnerGroup",
+"m": "Göteborg",
+"dl": "2026-11-07",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31173159",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31173159",
+"t": "Montör, Lernia, Alingsås",
+"co": "Lernia Bemanning & Rekrytering",
+"m": "Alingsås",
+"dl": "2026-12-09",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31644028",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31644028",
+"t": "Montör till produktionsenhet strax utanför Göteborg",
+"co": "Uniflex AB",
+"m": "Göteborg",
+"dl": "2026-11-08",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31619991",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31619991",
+"t": "Vi söker händiga elektronikmontörer",
+"co": "Jovi",
+"m": "Göteborg",
+"dl": "2026-11-30",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31595699",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31595699",
+"t": "Erfaren elektronikmontör till vår kund i Göteborg",
+"co": "Eterni Sweden",
+"m": "Göteborg",
+"dl": "2026-11-16",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31584811",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31584811",
+"t": "Elektronikmontör till Lumibird Photonics",
+"co": "Lumibird Photonics",
+"m": "Göteborg",
+"dl": "2026-11-23",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"montering",
+"ritningar",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31568347",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31568347",
+"t": "Elektronikmontör sökes till spännande företag i Göteborg",
+"co": "WRKFRC",
+"m": "Göteborg",
+"dl": "2027-04-05",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31559339",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31559339",
+"t": "Inspektör/avsynare till Beyond Gravity i Göteborg",
+"co": "Skill Kompetenspartner AB",
+"m": "Göteborg",
+"dl": "2026-11-08",
+"step": 1,
+"cat": "QA",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31433393",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31433393",
+"t": "Elektronikmontör - RF- & mikrovågsteknik",
+"co": "Ranatec",
+"m": "Göteborg",
+"dl": "2027-03-02",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31618601",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31618601",
+"t": "Resande montör till PIVAB",
+"co": "Effektiv",
+"m": "Varberg",
+"dl": "2026-11-10",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31316952",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31316952",
+"t": "Montör, Lernia, Varberg",
+"co": "Lernia Bemanning & Rekrytering",
+"m": "Varberg",
+"dl": "2027-01-31",
+"step": 1,
+"cat": "MONT",
+"sc": 3,
+"k": [
+"kvalitet",
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31561239",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31561239",
+"t": "Kvalitetsingenjör inom Automotive",
+"co": "Academic Work Sweden AB",
+"m": "Göteborg",
+"dl": "2027-04-04",
+"step": 1,
+"cat": "QA",
+"sc": 3,
+"k": [
+"fordon",
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31636834",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31636834",
+"t": "Kvalitetstekniker, Göteborg",
+"co": "Jefferson Wells",
+"m": "Göteborg",
+"dl": "2026-11-12",
+"step": 1,
+"cat": "QA",
+"sc": 3,
+"k": [
+"DFMEA",
+"Creo",
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31652331",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31652331",
+"t": "Junior kvalitetstekniker inom produktion",
+"co": "Agile Resources AB",
+"m": "Göteborg",
+"dl": "2026-11-26",
+"step": 1,
+"cat": "QA",
+"sc": 3,
+"k": [
+"DFMEA",
+"Creo",
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31654803",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31654803",
+"t": "Strukturkonstruktör, konsultuppdrag till Göteborg",
+"co": "Intenso Interim",
+"m": "Göteborg",
+"dl": "2026-11-27",
+"step": 2,
+"cat": "CAD",
+"sc": 2,
+"k": [
+"Inventor",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31571541",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31571541",
+"t": "Application & Project Engineer till Dpower i Kungsbacka",
+"co": "Diesel Power",
+"m": "Göteborg",
+"dl": "2026-11-09",
+"step": 2,
+"cat": "CAD",
+"sc": 2,
+"k": [
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31631177",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31631177",
+"t": "Produktionstekniker inom elektronikproduktion",
+"co": "Friday Väst AB",
+"m": "Göteborg",
+"dl": "2026-12-10",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31618162",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31618162",
+"t": "Produktionstekniker sökes till Mölnlycke",
+"co": "Saab",
+"m": "Härryda",
+"dl": "2026-11-17",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"Creo",
+"kvalitet"
+],
+"net": [
+"Anders Arpteg",
+"Susanne Carlsson",
+"Andreas Grimberg",
+"Tobias Berntsson"
+],
+"career": "https://www.saab.com/career/job-opportunities"
+},
+{
+"id": "af31615004",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31615004",
+"t": "Teknisk montör",
+"co": "Berlex",
+"m": "Kungälv",
+"dl": "2026-11-18",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31615676",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31615676",
+"t": "Montör sökes till Mölnlycke",
+"co": "Job&Talent",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31643891",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31643891",
+"t": "Resande montör till företag i stor tillväxt",
+"co": "Jovi",
+"m": "Göteborg",
+"dl": "2027-04-24",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"montering",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31665753",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31665753",
+"t": "Tekniker inom produktion med fokus på handlödning",
+"co": "Omnisys Instruments AB",
+"m": "Göteborg",
+"dl": "2026-11-29",
+"step": 1,
+"cat": "MONT",
+"sc": 2,
+"k": [
+"kvalitet",
+"montering"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31441082",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31441082",
+"t": "Kvalitetskontrollant sökes till kund i Kungsbacka",
+"co": "Jovi",
+"m": "Kungsbacka",
+"dl": "2027-03-03",
+"step": 1,
+"cat": "QA",
+"sc": 2,
+"k": [
+"kvalitet",
+"ritningar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31639845",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31639845",
+"t": "Project Quality Manager inom konstruktion till globalt försvarsbolag",
+"co": "Framtiden AB",
+"m": "Göteborg",
+"dl": "2026-11-23",
+"step": 1,
+"cat": "QA",
+"sc": 2,
+"k": [
+"kvalitet",
+"försvar"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31663458",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31663458",
+"t": "Produktionstekniker inom tillverkande industri",
+"co": "Friday Väst AB",
+"m": "Göteborg",
+"dl": "2026-11-19",
+"step": 1,
+"cat": "MONT",
+"sc": 1,
+"k": [
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31649914",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31649914",
+"t": "Händig och noggrann? Vi söker dig till industrin",
+"co": "WRKFRC",
+"m": "Härryda",
+"dl": "2027-04-25",
+"step": 1,
+"cat": "MONT",
+"sc": 1,
+"k": [
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31638501",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31638501",
+"t": "Praktiskt lagd? Utvecklas inom industriell tillverkning",
+"co": "WRKFRC",
+"m": "Härryda",
+"dl": "2027-04-21",
+"step": 1,
+"cat": "MONT",
+"sc": 1,
+"k": [
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31515381",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31515381",
+"t": "Supplier Quality Engineer",
+"co": "EDAG Engineering Scandinavia AB",
+"m": "Göteborg",
+"dl": "2027-02-25",
+"step": 1,
+"cat": "QA",
+"sc": 1,
+"k": [
+"kvalitet"
+],
+"net": [],
+"career": "https://www.edag.com/en/career/vacancies"
+},
+{
+"id": "af31633367",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31633367",
+"t": "Mätingenjör till ackrediterade mätartjänster",
+"co": "Oneco Networks",
+"m": "Göteborg",
+"dl": "2026-11-22",
+"step": 1,
+"cat": "QA",
+"sc": 1,
+"k": [
+"kvalitet"
+],
+"net": [],
+"career": null
+},
+{
+"id": "af31564605",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31564605",
+"t": "Riggingenjör till Professionals Nord Göteborg",
+"co": "Volvo Lastvagnar (via SIGMA)",
+"m": "Göteborg",
+"dl": "2026-11-06",
+"step": 1,
+"cat": "QA",
+"sc": 1,
+"k": [],
+"net": [
+"Kristia Pinchot",
+"Joakim Alpsten",
+"Tobias Ljungberg",
+"Mahyar Saffari",
+"José Ferreira",
+"David Kjellén",
+"Markus Kifeldt",
+"Per Johansson",
+"Kristofer Ferm",
+"Wassim Marouki"
+],
+"career": "https://www.volvogroup.com/se/careers.html"
+},
+{
+"id": "li4482059479",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4482059479/",
+"t": "Senior Mechanical Design Engineer – Exterior Plastic Trim & Bumpers",
+"co": "Expleo Group",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [
+"Johan Fröjd"
+],
+"career": "https://careers.expleo.com/en/"
+},
+{
+"id": "li4476010674",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4476010674/",
+"t": "Mechanical Design Engineer – Battery Enclosure",
+"co": "ALTEN",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.alten.se/karriar/"
+},
+{
+"id": "li4484854712",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4484854712/",
+"t": "Design Engineer – Automotive Seating Systems",
+"co": "Bertrandt Group",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.bertrandt.com/en/career/career-opportunities"
+},
+{
+"id": "li4428436335",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4428436335/",
+"t": "Model Geometry Engineer",
+"co": "Justera Group",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4481121479",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4481121479/",
+"t": "Exterior/Interior Lighting Studio Engineer",
+"co": "Contechs",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4468673286",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4468673286/",
+"t": "Automotive Studio Engineer – Exterior/Interior Lighting",
+"co": "Technicon Design",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4476692057",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4476692057/",
+"t": "Clay Modeler – Automotive",
+"co": "FD Group",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4481418235",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4481418235/",
+"t": "Mekanikkonstruktör, kompositmaterial, försvarsindustrin",
+"co": "ALTEN",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.alten.se/karriar/"
+},
+{
+"id": "li4470171136",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4470171136/",
+"t": "Creo Design Engineer – Automotive",
+"co": "ALTEN",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.alten.se/karriar/"
+},
+{
+"id": "li4477374616",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4477374616/",
+"t": "Kablagekonstruktör till försvarsindustrin",
+"co": "ALTEN",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.alten.se/karriar/"
+},
+{
+"id": "li4483002900",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4483002900/",
+"t": "Mekanikkonstruktör – Fordonsindustrin",
+"co": "AVL in Sweden",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.avl.com/en/career"
+},
+{
+"id": "li4483003908",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4483003908/",
+"t": "Lead Design Engineer/Technical Lead – Fordonsindustrin",
+"co": "AVL in Sweden",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.avl.com/en/career"
+},
+{
+"id": "li4482875007",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4482875007/",
+"t": "Mechanical Engineer",
+"co": "Tata Technologies",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.tatatechnologies.com/careers/"
+},
+{
+"id": "li4481569805",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4481569805/",
+"t": "Design Engineer – Exhaust Aftertreatment Systems",
+"co": "Tata Technologies",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.tatatechnologies.com/careers/"
+},
+{
+"id": "li4475486167",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4475486167/",
+"t": "CAD-konstruktör / Resident Engineer – fordonsindustrin",
+"co": "ESSIQ AB",
+"m": "Mölndal",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [
+"Pär Wallin",
+"Jonas Sohtell"
+],
+"career": "https://essiq.teamtailor.com/"
+},
+{
+"id": "li4463544768",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4463544768/",
+"t": "Konstruktör chassi – Design Engineer",
+"co": "ESSIQ AB",
+"m": "Mölndal",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [
+"Pär Wallin",
+"Jonas Sohtell"
+],
+"career": "https://essiq.teamtailor.com/"
+},
+{
+"id": "li4484800541",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4484800541/",
+"t": "Maskinkonstruktör",
+"co": "FMR Rekrytering & Bemanning",
+"m": "Mölndal",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4474662444",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4474662444/",
+"t": "Mekanisk konstruktör",
+"co": "FMR Rekrytering & Bemanning",
+"m": "Mölndal",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4451441314",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4451441314/",
+"t": "Maskinkonstruktör Automation",
+"co": "TK Tech AB",
+"m": "Västra Frölunda",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4451430414",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4451430414/",
+"t": "Mekanisk konstruktör",
+"co": "TK Tech AB",
+"m": "Västra Frölunda",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4432617540",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4432617540/",
+"t": "Mekanikkonstruktör – Specialmaskiner & produktutveckling",
+"co": "CONSAT",
+"m": "Partille",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4483214628",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4483214628/",
+"t": "Strukturkonstruktör – konsultuppdrag",
+"co": "Intenso Interim",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4481191217",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4481191217/",
+"t": "Customer Adaptation Engineer – Chassi",
+"co": "Integro Consulting AB",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4480653527",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4480653527/",
+"t": "Harness Design Engineer",
+"co": "Astek",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4485374485",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4485374485/",
+"t": "Mechanical Design Engineer",
+"co": "iXceed Solutions",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4475555331",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4475555331/",
+"t": "Ingenjör inom mekanik och produktutveckling",
+"co": "Capgemini Engineering",
+"m": "Göteborg",
+"dl": null,
+"step": 2,
+"cat": "CAD",
+"sc": 6,
+"k": [],
+"net": [
+"Ola Skogsfors",
+"Irene Di Marco",
+"Elena Manca"
+],
+"career": "https://www.capgemini.com/se-en/careers/"
+},
+{
+"id": "li4479293269",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4479293269/",
+"t": "Produktionstekniker",
+"co": "LUE Engineering AB",
+"m": "Mölndal",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4468737127",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4468737127/",
+"t": "Production Engineer",
+"co": "Wellspect HealthCare",
+"m": "Mölndal",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4483130395",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4483130395/",
+"t": "Montör Giraffe 1X",
+"co": "Saab",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [
+"Anders Arpteg",
+"Susanne Carlsson",
+"Andreas Grimberg",
+"Tobias Berntsson"
+],
+"career": "https://www.saab.com/career/job-opportunities"
+},
+{
+"id": "li4485379193",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4485379193/",
+"t": "Heavy Repair Operator Batterifabriken",
+"co": "Volvo Cars",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [
+"Alexander Petrofski",
+"Terje Bull",
+"Sandra Jodlovsky",
+"Stefan Molén",
+"Jennie Lembäck",
+"Francisco Alfaro",
+"Antonio Barisic",
+"Sajjad Al-Karawe",
+"Sam Gullman",
+"Nils-Magnus Karlsson",
+"Zeljko Madzo"
+],
+"career": "https://jobs.volvocars.com/go/Exp-Level-Professionals/3749101/"
+},
+{
+"id": "li4477053296",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4477053296/",
+"t": "Industrial Technician",
+"co": "ASSA ABLOY Group",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4480139655",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4480139655/",
+"t": "Automotive Hardware & Electrical Troubleshooting Engineer",
+"co": "SEGULA Technologies",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://sverige.segulatechnologies.com/en"
+},
+{
+"id": "li4440137710",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4440137710/",
+"t": "Felsökare/Tekniker",
+"co": "Alstom",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4484426998",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4484426998/",
+"t": "Servicetekniker Hisingen",
+"co": "Scania Group",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [
+"Kevin Mulligan",
+"Gabrielson Ola",
+"Erik Hånell"
+],
+"career": "https://www.scania.com/se/sv/home/about-scania/career/available-positions.html"
+},
+{
+"id": "li4484442470",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4484442470/",
+"t": "Servicetekniker Arendal",
+"co": "Scania Group",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [
+"Kevin Mulligan",
+"Gabrielson Ola",
+"Erik Hånell"
+],
+"career": "https://www.scania.com/se/sv/home/about-scania/career/available-positions.html"
+},
+{
+"id": "li4480356048",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4480356048/",
+"t": "Montör med C-körkort",
+"co": "Adecco",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4475541189",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4475541189/",
+"t": "Portservicetekniker / Montör",
+"co": "Wm El och Solskydd",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4476173577",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4476173577/",
+"t": "Junior servicetekniker",
+"co": "KOMFOVENT Sverige",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4479617695",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4479617695/",
+"t": "Fordonstekniker",
+"co": "Hedin Automotive",
+"m": "Mölndal",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4475224101",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4475224101/",
+"t": "Bilmekaniker",
+"co": "Moberg Bil AB",
+"m": "Kungsbacka",
+"dl": null,
+"step": 1,
+"cat": "MONT",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4480025961",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4480025961/",
+"t": "Mätingenjör till ackrediterade mätartjänster",
+"co": "OneCo Sverige",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4366615304",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4366615304/",
+"t": "Senior Design Quality Specialist",
+"co": "AFRY",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [
+"Olof Stenlund"
+],
+"career": "https://careers.smartrecruiters.com/afry"
+},
+{
+"id": "li4483036654",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4483036654/",
+"t": "Kvalitets-, säkerhets- och miljöingenjör till fordonskund",
+"co": "Poolia Sverige",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4480496040",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4480496040/",
+"t": "Verification & Validation Engineer",
+"co": "AVL in Sweden",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.avl.com/en/career"
+},
+{
+"id": "li4479502848",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4479502848/",
+"t": "Test Engineer",
+"co": "Tata Technologies",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://www.tatatechnologies.com/careers/"
+},
+{
+"id": "li4468508013",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4468508013/",
+"t": "Quality Control Specialist",
+"co": "Plejd",
+"m": "Mölndal",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4478613537",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4478613537/",
+"t": "Industrial Quality Inspector",
+"co": "Alstom",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": null
+},
+{
+"id": "li4457508183",
+"src": "LinkedIn",
+"url": "https://www.linkedin.com/jobs/view/4457508183/",
+"t": "Testing & Commissioning-ingenjör, spårfordon",
+"co": "SEGULA Technologies",
+"m": "Göteborg",
+"dl": null,
+"step": 1,
+"cat": "QA",
+"sc": 6,
+"k": [],
+"net": [],
+"career": "https://sverige.segulatechnologies.com/en"
+}
+],
+"companies": [
+{
+"name": "Volvo Group",
+"career": "https://www.volvogroup.com/se/careers.html",
+"home": null,
+"n": 10,
+"jobs": 2
+},
+{
+"name": "Volvo Cars",
+"career": "https://jobs.volvocars.com/go/Exp-Level-Professionals/3749101/",
+"home": "https://www.volvocars.com/se/l/karriar/",
+"n": 11,
+"jobs": 1
+},
+{
+"name": "AVL",
+"career": "https://www.avl.com/en/career",
+"home": null,
+"n": 0,
+"jobs": 5
+},
+{
+"name": "Alten",
+"career": "https://www.alten.se/karriar/",
+"home": null,
+"n": 0,
+"jobs": 5
+},
+{
+"name": "Saab",
+"career": "https://www.saab.com/career/job-opportunities",
+"home": null,
+"n": 4,
+"jobs": 3
+},
+{
+"name": "TK Tech",
+"career": null,
+"home": null,
+"n": 0,
+"jobs": 5
+},
+{
+"name": "Knightec",
+"career": "https://career.knightecgroup.com/",
+"home": null,
+"n": 1,
+"jobs": 3
+},
+{
+"name": "Scania",
+"career": "https://www.scania.com/se/sv/home/about-scania/career/available-positions.html",
+"home": null,
+"n": 3,
+"jobs": 2
+},
+{
+"name": "ESSIQ",
+"career": "https://essiq.teamtailor.com/",
+"home": null,
+"n": 2,
+"jobs": 2
+},
+{
+"name": "Tata Technologies",
+"career": "https://www.tatatechnologies.com/careers/",
+"home": null,
+"n": 0,
+"jobs": 3
+},
+{
+"name": "Zeekr Tech Europe / Geely",
+"career": "https://career.zeekrtech.eu/",
+"home": null,
+"n": 6,
+"jobs": 0
+},
+{
+"name": "Capgemini",
+"career": "https://www.capgemini.com/se-en/careers/",
+"home": null,
+"n": 3,
+"jobs": 1
+},
+{
+"name": "Bertrandt",
+"career": "https://www.bertrandt.com/en/career/career-opportunities",
+"home": null,
+"n": 0,
+"jobs": 2
+},
+{
+"name": "EDAG",
+"career": "https://www.edag.com/en/career/vacancies",
+"home": "https://www.edag.com/en/international/sweden",
+"n": 0,
+"jobs": 2
+},
+{
+"name": "Koenigsegg",
+"career": "https://careers.koenigsegg.com/",
+"home": null,
+"n": 4,
+"jobs": 0
+},
+{
+"name": "Segula",
+"career": "https://sverige.segulatechnologies.com/en",
+"home": null,
+"n": 0,
+"jobs": 2
+},
+{
+"name": "Sigma",
+"career": "https://www.sigma.se/career/jobs/",
+"home": null,
+"n": 4,
+"jobs": 0
+},
+{
+"name": "AFRY",
+"career": "https://careers.smartrecruiters.com/afry",
+"home": null,
+"n": 1,
+"jobs": 1
+},
+{
+"name": "Expleo",
+"career": "https://careers.expleo.com/en/",
+"home": null,
+"n": 1,
+"jobs": 1
+},
+{
+"name": "BAE Systems Hägglunds",
+"career": "https://jobs.baesystems.com/",
+"home": null,
+"n": 2,
+"jobs": 0
+},
+{
+"name": "CM Hammar",
+"career": null,
+"home": "https://www.cmhammar.com",
+"n": 1,
+"jobs": 0
+},
+{
+"name": "Camatec",
+"career": "https://camatec.teamtailor.com/",
+"home": null,
+"n": 1,
+"jobs": 0
+},
+{
+"name": "Einride",
+"career": "https://careers.einride.tech/",
+"home": null,
+"n": 1,
+"jobs": 0
+},
+{
+"name": "HiQ",
+"career": "https://hiq.se/karriar/",
+"home": null,
+"n": 1,
+"jobs": 0
+},
+{
+"name": "Nexer",
+"career": "https://nexergroup.com/career/open-positions/",
+"home": null,
+"n": 1,
+"jobs": 0
+},
+{
+"name": "Colibrium Additive (Arcam)",
+"career": "https://www.geaerospace.com/company/careers",
+"home": null,
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Combitech",
+"career": "https://www.combitech.se/lediga-jobb/",
+"home": null,
+"n": 0,
+"jobs": 0
+},
+{
+"name": "GKN Aerospace",
+"career": "https://joinus.gknaerospace.com/",
+"home": null,
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Lab.gruppen",
+"career": null,
+"home": "https://www.labgruppen.com",
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Polestar",
+"career": "https://www.polestar.com/global/about/careers/",
+"home": null,
+"n": 0,
+"jobs": 0
+}
+]
+}

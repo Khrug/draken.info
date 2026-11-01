@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Jobbsitrep · Kai Roininen</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@600;800&family=IBM+Plex+Sans:wght@400;500;600&family=Share+Tech+Mono&display=swap">
+<style>
+/* Layout: a work order — sticky progress bar, then one row per job to read, apply and tick off. Same dark-metal identity as /khrug/. Data in sitrep.json. */
+:root{
+  color-scheme:dark;
+  --void:#0a0b0c; --panel:#141618; --plate:#1c1f22; --edge:#33383d; --steel:#8a949c;
+  --ink:#e6e9eb; --mut:#9aa3aa; --hazard:#f2c230; --hazard-ink:#14120a; --ok:#58c48a; --warn:#ff7a59; --signal:#5ec2ff;
+  --display:"Oxanium","Eurostile","Arial Narrow",sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Share Tech Mono",ui-monospace,Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{background:var(--void)}
+body{margin:0;background:var(--void);color:var(--ink);font:15px/1.5 var(--body);padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px));padding-block:0 40px}
+.wrap{max-width:980px;margin:0 auto}
+a{color:var(--ink)}
+.back{display:inline-block;margin-top:14px;font:13px var(--mono);color:var(--mut)}
+header{padding-block:10px 6px;border-bottom:4px solid transparent;border-image:repeating-linear-gradient(-45deg,var(--hazard) 0 10px,var(--hazard-ink) 10px 20px) 4}
+.tag{font:13px var(--mono);color:var(--hazard);letter-spacing:.14em;text-transform:uppercase}
+h1{font:800 clamp(26px,6vw,40px)/1.05 var(--display);text-transform:uppercase;letter-spacing:.02em;margin:6px 0 4px}
+.sub{color:var(--mut);max-width:65ch;margin:0 0 10px}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--void);padding-block:10px;border-bottom:1px solid var(--edge);display:flex;flex-direction:column;gap:8px}
+.prog{display:flex;align-items:center;gap:10px;font:13px var(--mono);color:var(--mut)}
+.track{flex:1;height:8px;background:var(--plate);border:1px solid var(--edge);border-radius:2px;overflow:hidden}
+.fill{height:100%;background:var(--ok);width:0}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.seg{display:flex;border:1px solid var(--edge);border-radius:3px;overflow:hidden}
+.seg button{font:600 12px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;background:var(--plate);color:var(--mut);border:0;padding:9px 11px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--hazard);color:var(--hazard-ink)}
+.ctl label{font-size:13px;color:var(--mut);display:flex;gap:6px;align-items:center}
+:focus-visible{outline:2px solid var(--hazard);outline-offset:2px}
+h2{font:700 15px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin:22px 0 6px}
+.list{display:flex;flex-direction:column;border-top:1px solid var(--edge)}
+.job{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;padding:12px 2px;border-bottom:1px solid var(--edge)}
+.job>div{min-width:0}
+.job.done{opacity:.45}
+.job.done .t a{text-decoration:line-through}
+.chk{width:26px;height:26px;margin-top:2px;accent-color:var(--ok);cursor:pointer}
+.t{font-weight:600;font-size:15.5px;line-height:1.3}
+.t a{text-decoration:none;border-bottom:1px solid var(--edge)}
+.t a:visited{color:#c7ccd0}
+.meta{font:12.5px var(--mono);color:var(--mut);margin-top:3px;display:flex;flex-wrap:wrap;gap:4px 12px}
+.due{color:var(--ink)}
+.due.soon{color:var(--warn)}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.chip{font:11.5px/1 var(--mono);padding:4px 6px;border:1px solid var(--edge);border-radius:2px;color:var(--mut);text-transform:uppercase}
+.chip.hi{border-color:var(--hazard);color:var(--hazard)}
+.chip.net{border-color:var(--signal);color:var(--signal)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:13px}
+.links a{color:var(--signal)}
+.st{font:11px var(--mono);color:var(--ok);text-transform:uppercase}
+.cos{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.co{background:var(--panel);border:1px solid var(--edge);border-radius:3px;padding:10px 12px;min-width:0}
+.co b{display:block;font-size:14.5px}
+.co .meta{margin:2px 0 6px}
+.co a{color:var(--signal);font-size:13px;margin-right:10px}
+.note{font-size:13px;color:var(--mut);max-width:65ch}
+.empty{color:var(--mut);padding:14px 0}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="/khrug/">← Jobbsöket</a>
+<header>
+  <div class="tag">Jobbsitrep · Göteborg, Mölndal, Kungsbacka</div>
+  <h1>Ansök rad för rad</h1>
+  <p class="sub">Läs annonsen, klicka, ansök, bocka av. Nästa rad. Steg 1 är instegsjobb (montör, tekniker, kvalitetskontroll). Steg 2 är konstruktion, CAD och kvalitet. Blå märkning betyder att du har kontakter hos arbetsgivaren.</p>
+</header>
+<div class="bar">
+  <div class="prog"><span id="pTxt">0 / 0 sökta</span><div class="track"><div class="fill" id="pFill"></div></div><span id="upd"></span></div>
+  <div class="ctl">
+    <div class="seg" id="stepSeg"><button aria-pressed="true" data-v="">Alla</button><button aria-pressed="false" data-v="1">Steg 1</button><button aria-pressed="false" data-v="2">Steg 2</button></div>
+    <label><input type="checkbox" id="hideDone"> Dölj avbockade</label>
+    <label><input type="checkbox" id="netOnly"> Bara där jag har kontakter</label>
+  </div>
+</div>
+
+<h2 id="hSoon">Snart sista dag</h2>
+<div class="list" id="soon"></div>
+<h2>Alla annonser</h2>
+<div class="list" id="all"></div>
+
+<h2>Karriärsidor</h2>
+<p class="note">Arbetsgivarnas egna jobbsidor. Många annonserar där först. Siffran visar hur många av dina LinkedIn-kontakter som arbetar där.</p>
+<div class="cos" id="cos"></div>
+
+<p class="note" style="margin-top:22px">Bockarna sparas i den här webbläsaren. Bockar du av i mobilen syns det inte på datorn.</p>
+</div>
+
+<script>
+(function(){
+var $=function(s){return document.querySelector(s)};
+var esc=function(s){return String(s==null?'':s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+var KEY='khrug-sitrep-v1',S={},step='',D=null;
+try{S=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){S={}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+var today=new Date(new Date().toDateString());
+function days(d){if(!d)return null;return Math.round((new Date(d)-today)/864e5)}
+var HI=/CATIA|ytmodellering|komposit|DFMEA|mätteknik/;
+function row(j){
+  var st=S[j.id]||{},dd=days(j.dl);
+  var dueTxt=j.dl?(dd<0?'utgången':dd===0?'sista dag i dag':dd===1?'sista dag i morgon':dd+' dagar kvar')+' · '+j.dl:'ingen sista dag angiven';
+  var net=j.net&&j.net.length?'<span class="chip net">'+j.net.length+' kontakt'+(j.net.length>1?'er':'')+': '+esc(j.net.slice(0,3).join(', '))+(j.net.length>3?' …':'')+'</span>':'';
+  return '<div class="job'+(st.done?' done':'')+'" data-id="'+esc(j.id)+'"><input type="checkbox" class="chk" aria-label="Sökt" '+(st.done?'checked':'')+'>'+
+   '<div><div class="t"><a href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.t)+'</a></div>'+
+   '<div class="meta"><span>'+esc(j.co)+'</span><span>'+esc(j.m)+'</span><span class="due'+(dd!==null&&dd<=7?' soon':'')+'">'+esc(dueTxt)+'</span><span>'+(j.step===1?'Steg 1':'Steg 2')+' · '+esc(j.src)+'</span>'+(st.done?'<span class="st">Sökt '+esc(st.done)+'</span>':(st.read?'<span class="st" style="color:var(--mut)">Läst</span>':''))+'</div>'+
+   '<div class="chips">'+(j.k||[]).map(function(k){return '<span class="chip'+(HI.test(k)?' hi':'')+'">'+esc(k)+'</span>'}).join('')+net+'</div>'+
+   (j.career?'<div class="links"><a href="'+esc(j.career)+'" target="_blank" rel="noopener">Arbetsgivarens jobbsida ↗</a></div>':'')+
+   '</div></div>';
+}
+function visible(j){if(step&&String(j.step)!==step)return false;if($('#hideDone').checked&&S[j.id]&&S[j.id].done)return false;if($('#netOnly').checked&&!(j.net&&j.net.length))return false;var d=days(j.dl);if(d!==null&&d<0)return false;return true}
+function render(){
+  var jobs=D.jobs.filter(visible);
+  var soon=jobs.filter(function(j){var d=days(j.dl);return d!==null&&d<=14}).sort(function(a,b){return a.dl.localeCompare(b.dl)});
+  var rest=jobs.filter(function(j){return soon.indexOf(j)<0}).sort(function(a,b){return (b.sc-a.sc)||String(a.dl||'9').localeCompare(String(b.dl||'9'))});
+  $('#soon').innerHTML=soon.length?soon.map(row).join(''):'<div class="empty">Inget med sista dag inom två veckor.</div>';
+  $('#all').innerHTML=rest.length?rest.map(row).join(''):'<div class="empty">Inga fler annonser med de här filtren.</div>';
+  var live=D.jobs.filter(function(j){var d=days(j.dl);return d===null||d>=0}),done=live.filter(function(j){return S[j.id]&&S[j.id].done}).length;
+  $('#pTxt').textContent=done+' / '+live.length+' sökta';$('#pFill').style.width=(live.length?100*done/live.length:0)+'%';
+}
+document.addEventListener('change',function(e){var c=e.target.closest('.chk');if(!c)return;var id=c.closest('.job').dataset.id;S[id]=S[id]||{};if(c.checked)S[id].done=new Date().toISOString().slice(0,10);else delete S[id].done;save();render()});
+document.addEventListener('click',function(e){var a=e.target.closest('.t a');if(!a)return;var id=a.closest('.job').dataset.id;S[id]=S[id]||{};S[id].read=1;save();setTimeout(render,50)});
+$('#stepSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;step=b.dataset.v;[].forEach.call($('#stepSeg').children,function(x){x.setAttribute('aria-pressed',x===b)});render()});
+$('#hideDone').addEventListener('change',render);$('#netOnly').addEventListener('change',render);
+fetch('/khrug/sitrep/sitrep.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){D=d;$('#upd').textContent='Uppdaterad '+d.updated;render();
+  $('#cos').innerHTML=d.companies.map(function(c){return '<div class="co"><b>'+esc(c.name)+'</b><div class="meta">'+(c.n?c.n+' kontakter':'inga kontakter')+(c.jobs?' · '+c.jobs+' annonser här':'')+'</div>'+(c.career?'<a href="'+esc(c.career)+'" target="_blank" rel="noopener">Jobbsida ↗</a>':'<span class="note">Ingen jobbsida hittad</span>')+(c.home?'<a href="'+esc(c.home)+'" target="_blank" rel="noopener">Webbplats ↗</a>':'')+'</div>'}).join('');
+}).catch(function(){$('#all').innerHTML='<div class="empty">Kunde inte läsa sitrep.json. Ladda om sidan.</div>'});
+})();
+</script>
+</body>
+</html>

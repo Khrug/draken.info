@@ -12,12 +12,12 @@
       "menu": "CV"
     },
     {
-      "title": "Jobbsitrep 30 okt",
-      "kind": "file",
-      "url": "/khrug/files/Jobbsitrep_2026-10-30.pdf",
-      "thumb": "/khrug/thumbs/sitrep.jpg",
-      "type": "PDF",
-      "date": "2026-10-30",
+      "title": "Jobbsitrep: ansök rad för rad",
+      "kind": "link",
+      "url": "/khrug/sitrep/",
+      "thumb": "/khrug/thumbs/sitrep-live.jpg",
+      "type": "LISTA",
+      "date": "2026-11-01",
       "menu": "Jobbsitrep"
     },
     {
@@ -28,7 +28,14 @@
       "date": "2026-11-01",
       "menu": "Nätverk"
     },
-    {},
+    {
+      "title": "Jobbsitrep 30 okt (PDF)",
+      "kind": "file",
+      "url": "/khrug/files/Jobbsitrep_2026-10-30.pdf",
+      "thumb": "/khrug/thumbs/sitrep.jpg",
+      "type": "PDF",
+      "date": "2026-10-30"
+    },
     {},
     {},
     {},
