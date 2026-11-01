@@ -5,3 +5,6 @@
 # Dragon Digest retired 2026-10-02
 /digest/*  /  301
 /digest    /  301
+# Jobbsöksida
+/khrug          /khrug/          301
+/khrug/natverk  /khrug/natverk/  301
