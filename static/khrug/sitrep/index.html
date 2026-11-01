@@ -54,6 +54,7 @@ h2{font:700 15px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase
 .chip{font:11.5px/1 var(--mono);padding:4px 6px;border:1px solid var(--edge);border-radius:2px;color:var(--mut);text-transform:uppercase}
 .chip.hi{border-color:var(--hazard);color:var(--hazard)}
 .chip.net{border-color:var(--signal);color:var(--signal)}
+.act{font-size:13.5px;color:var(--ink);margin-top:6px;padding-left:8px;border-left:2px solid var(--steel)}
 .links{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px;font-size:13px}
 .links a{color:var(--signal)}
 .st{font:11px var(--mono);color:var(--ok);text-transform:uppercase}
@@ -73,7 +74,7 @@ h2{font:700 15px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase
 <header>
   <div class="tag">Göteborg · Mölndal · Kungsbacka</div>
   <h1>SitRep</h1>
-  <p class="sub">Läs annonsen, klicka, ansök, bocka av. Nästa rad. Steg 1 är instegsjobb (montör, tekniker, kvalitetskontroll). Steg 2 är konstruktion, CAD och kvalitet. Blå märkning betyder att du har kontakter hos arbetsgivaren.</p>
+  <p class="sub">Överst ligger de tio åtgärder som ger mest per insatt minut: sannolikhet × värde × hävstång ÷ tid. Gör dem uppifrån, bocka av, nästa. Finns en kontakt på företaget är första steget att fråga den personen, inte att ansöka.</p>
 </header>
 <div class="bar">
   <div class="prog"><span id="pTxt">0 / 0 sökta</span><div class="track"><div class="fill" id="pFill"></div></div><span id="upd"></span></div>
@@ -81,13 +82,18 @@ h2{font:700 15px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase
     <div class="seg" id="stepSeg"><button aria-pressed="true" data-v="">Alla</button><button aria-pressed="false" data-v="1">Steg 1</button><button aria-pressed="false" data-v="2">Steg 2</button></div>
     <label><input type="checkbox" id="hideDone"> Dölj avbockade</label>
     <label><input type="checkbox" id="netOnly"> Bara där jag har kontakter</label>
+    <label><input type="checkbox" id="showAll"> Visa alla annonser</label>
   </div>
 </div>
 
+<h2>Rekommenderat</h2>
+<div class="list" id="top"></div>
+<div id="allWrap" hidden>
 <h2 id="hSoon">Snart sista dag</h2>
 <div class="list" id="soon"></div>
 <h2>Alla annonser</h2>
 <div class="list" id="all"></div>
+</div>
 
 <h2>Karriärsidor</h2>
 <p class="note">Arbetsgivarnas egna jobbsidor. Många annonserar där först. Siffran visar hur många av dina LinkedIn-kontakter som arbetar där.</p>
@@ -114,12 +120,16 @@ function row(j){
    '<div><div class="t"><a href="'+esc(j.url)+'" target="_blank" rel="noopener">'+esc(j.t)+'</a></div>'+
    '<div class="meta"><span>'+esc(j.co)+'</span><span>'+esc(j.m)+'</span><span class="due'+(dd!==null&&dd<=7?' soon':'')+'">'+esc(dueTxt)+'</span><span>'+(j.step===1?'Steg 1':'Steg 2')+' · '+esc(j.src)+'</span>'+(st.done?'<span class="st">Sökt '+esc(st.done)+'</span>':(st.read?'<span class="st" style="color:var(--mut)">Läst</span>':''))+'</div>'+
    '<div class="chips">'+(j.k||[]).map(function(k){return '<span class="chip'+(HI.test(k)?' hi':'')+'">'+esc(k)+'</span>'}).join('')+net+'</div>'+
+   (j.act?'<div class="act">Nästa steg: '+esc(j.act)+'</div>':'')+
    (j.career?'<div class="links"><a href="'+esc(j.career)+'" target="_blank" rel="noopener">Arbetsgivarens jobbsida ↗</a></div>':'')+
    '</div></div>';
 }
 function visible(j){if(step&&String(j.step)!==step)return false;if($('#hideDone').checked&&S[j.id]&&S[j.id].done)return false;if($('#netOnly').checked&&!(j.net&&j.net.length))return false;var d=days(j.dl);if(d!==null&&d<0)return false;return true}
 function render(){
   var jobs=D.jobs.filter(visible);
+  var all=$('#showAll').checked;$('#allWrap').hidden=!all;
+  var top=jobs.filter(function(j){return !j.gated&&!(S[j.id]&&S[j.id].done)}).map(function(j){var d=days(j.dl);return {j:j,s:j.score*((d!==null&&d<=2)?3:1)}}).sort(function(a,b){return b.s-a.s||String(a.j.dl||'9').localeCompare(String(b.j.dl||'9'))}).filter(function(x){var c=x.j.co;this[c]=(this[c]||0)+1;return this[c]<=2},{}).slice(0,10).map(function(x){return x.j});
+  $('#top').innerHTML=top.length?top.map(row).join(''):'<div class="empty">Inga rekommenderade åtgärder kvar med de här filtren. Visa alla annonser för att se resten.</div>';
   var soon=jobs.filter(function(j){var d=days(j.dl);return d!==null&&d<=14}).sort(function(a,b){return a.dl.localeCompare(b.dl)});
   var rest=jobs.filter(function(j){return soon.indexOf(j)<0}).sort(function(a,b){return (b.sc-a.sc)||String(a.dl||'9').localeCompare(String(b.dl||'9'))});
   $('#soon').innerHTML=soon.length?soon.map(row).join(''):'<div class="empty">Inget med sista dag inom två veckor.</div>';
@@ -130,6 +140,8 @@ function render(){
 document.addEventListener('change',function(e){var c=e.target.closest('.chk');if(!c)return;var id=c.closest('.job').dataset.id;S[id]=S[id]||{};if(c.checked)S[id].done=new Date().toISOString().slice(0,10);else delete S[id].done;save();render()});
 document.addEventListener('click',function(e){var a=e.target.closest('.t a');if(!a)return;var id=a.closest('.job').dataset.id;S[id]=S[id]||{};S[id].read=1;save();setTimeout(render,50)});
 $('#stepSeg').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;step=b.dataset.v;[].forEach.call($('#stepSeg').children,function(x){x.setAttribute('aria-pressed',x===b)});render()});
+try{$('#showAll').checked=localStorage.getItem('khrug-sitrep-all')==='1'}catch(e){}
+$('#showAll').addEventListener('change',function(){try{localStorage.setItem('khrug-sitrep-all',this.checked?'1':'0')}catch(e){}render()});
 $('#hideDone').addEventListener('change',render);$('#netOnly').addEventListener('change',render);
 fetch('/khrug/sitrep/sitrep.json',{cache:'no-cache'}).then(function(r){return r.json()}).then(function(d){D=d;$('#upd').textContent='Uppdaterad '+d.updated;render();
   $('#cos').innerHTML=d.companies.map(function(c){return '<div class="co"><b>'+esc(c.name)+'</b><div class="meta">'+(c.n?c.n+' kontakter':'inga kontakter')+(c.jobs?' · '+c.jobs+' annonser här':'')+'</div>'+(c.career?'<a href="'+esc(c.career)+'" target="_blank" rel="noopener">Jobbsida ↗</a>':'<span class="note">Ingen jobbsida hittad</span>')+(c.home?'<a href="'+esc(c.home)+'" target="_blank" rel="noopener">Webbplats ↗</a>':'')+'</div>'}).join('');
