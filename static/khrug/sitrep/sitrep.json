@@ -24,10 +24,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31460871",
@@ -49,10 +52,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31335907",
@@ -76,10 +82,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31599394",
@@ -104,10 +113,13 @@
 "Anders Mauritsson Hedkvist"
 ],
 "career": "https://career.knightecgroup.com/",
-"score": 7.875,
-"act": "Varm väg först: fråga Anders Mauritsson Hedkvist om rollen och vem som anställer",
-"strong": true,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31570053",
@@ -131,10 +143,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31659417",
@@ -156,10 +171,13 @@
 ],
 "net": [],
 "career": "https://www.avl.com/en/career",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31643547",
@@ -182,10 +200,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.9,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31335979",
@@ -208,10 +229,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31659401",
@@ -233,10 +257,13 @@
 ],
 "net": [],
 "career": "https://www.avl.com/en/career",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31515360",
@@ -257,10 +284,13 @@
 ],
 "net": [],
 "career": "https://www.edag.com/en/career/vacancies",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": true,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31619000",
@@ -283,10 +313,13 @@
 "Anders Mauritsson Hedkvist"
 ],
 "career": "https://career.knightecgroup.com/",
-"score": 7.875,
-"act": "Varm väg först: fråga Anders Mauritsson Hedkvist om rollen och vem som anställer",
-"strong": true,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": true
 },
 {
 "id": "af31205181",
@@ -306,10 +339,13 @@
 ],
 "net": [],
 "career": "https://www.bertrandt.com/en/career/career-opportunities",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31585519",
@@ -329,10 +365,13 @@
 ],
 "net": [],
 "career": "https://www.alten.se/karriar/",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31645751",
@@ -355,10 +394,13 @@
 "Anders Mauritsson Hedkvist"
 ],
 "career": "https://career.knightecgroup.com/",
-"score": 7.875,
-"act": "Varm väg först: fråga Anders Mauritsson Hedkvist om rollen och vem som anställer",
-"strong": true,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31662389",
@@ -378,10 +420,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31622291",
@@ -402,10 +447,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31667075",
@@ -424,10 +472,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31370657",
@@ -447,10 +498,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31377406",
@@ -471,10 +525,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31667931",
@@ -495,10 +552,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31640186",
@@ -508,7 +568,7 @@
 "co": "Harman International",
 "m": "Göteborg",
 "dl": "2026-11-08",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 5,
 "k": [
@@ -519,10 +579,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31618785",
@@ -532,7 +595,7 @@
 "co": "Beyond Gravity Sweden AB",
 "m": "Göteborg",
 "dl": "2026-11-19",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 5,
 "k": [
@@ -543,10 +606,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31656831",
@@ -567,10 +633,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31637433",
@@ -590,10 +659,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.9,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31658417",
@@ -612,6 +684,7 @@
 "montering"
 ],
 "net": [
+"Alexander Littorin",
 "Kristia Pinchot",
 "Joakim Alpsten",
 "Tobias Ljungberg",
@@ -624,10 +697,13 @@
 "Wassim Marouki"
 ],
 "career": "https://www.volvogroup.com/se/careers.html",
-"score": 7.875,
-"act": "Varm väg först: fråga Kristia Pinchot om rollen och vem som anställer",
-"strong": true,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31604783",
@@ -647,10 +723,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31141374",
@@ -670,10 +749,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.09,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31613954",
@@ -699,10 +781,13 @@
 "Tobias Berntsson"
 ],
 "career": "https://www.saab.com/career/job-opportunities",
-"score": 1.75,
-"act": "Varm väg först: fråga Anders Arpteg om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 1.0,
+"act": "Fråga Anders Arpteg hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont",
+"phys": true,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31494742",
@@ -722,10 +807,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.09,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31578086",
@@ -735,7 +823,7 @@
 "co": "Friday",
 "m": "Göteborg",
 "dl": "2026-12-31",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 4,
 "k": [
@@ -745,10 +833,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31637211",
@@ -769,10 +860,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31258306",
@@ -792,10 +886,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.9,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31484868",
@@ -815,10 +912,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31555792",
@@ -838,10 +938,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31661885",
@@ -861,10 +964,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31655432",
@@ -883,10 +989,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.9,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31498831",
@@ -906,10 +1015,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31629989",
@@ -929,10 +1041,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31628069",
@@ -952,10 +1067,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31367855",
@@ -975,10 +1093,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31596807",
@@ -998,10 +1119,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.09,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31173159",
@@ -1021,10 +1145,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31644028",
@@ -1044,10 +1171,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31619991",
@@ -1067,10 +1197,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31595699",
@@ -1090,10 +1223,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.12,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31584811",
@@ -1113,10 +1249,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.4,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31568347",
@@ -1136,10 +1275,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31559339",
@@ -1159,10 +1301,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31433393",
@@ -1182,10 +1327,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.4,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31618601",
@@ -1205,10 +1353,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31316952",
@@ -1228,10 +1379,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31561239",
@@ -1241,7 +1395,7 @@
 "co": "Academic Work Sweden AB",
 "m": "Göteborg",
 "dl": "2027-04-04",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 3,
 "k": [
@@ -1250,10 +1404,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31636834",
@@ -1273,10 +1430,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31652331",
@@ -1296,10 +1456,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31654803",
@@ -1318,10 +1481,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": true,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31571541",
@@ -1340,10 +1506,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31631177",
@@ -1362,10 +1531,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31618162",
@@ -1389,10 +1561,13 @@
 "Tobias Berntsson"
 ],
 "career": "https://www.saab.com/career/job-opportunities",
-"score": 1.75,
-"act": "Varm väg först: fråga Anders Arpteg om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.5,
+"act": "Fråga Anders Arpteg hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "af31615004",
@@ -1411,10 +1586,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31615676",
@@ -1433,10 +1611,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31643891",
@@ -1455,10 +1636,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31665753",
@@ -1477,10 +1661,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.4,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31441082",
@@ -1499,10 +1686,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31639845",
@@ -1521,10 +1711,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.03,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "other",
+"phys": false,
+"senior": true,
+"sec": true
 },
 {
 "id": "af31663458",
@@ -1542,10 +1735,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31649914",
@@ -1563,10 +1759,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.15,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "other",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31638501",
@@ -1584,10 +1783,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.15,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "other",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31515381",
@@ -1597,7 +1799,7 @@
 "co": "EDAG Engineering Scandinavia AB",
 "m": "Göteborg",
 "dl": "2027-02-25",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 1,
 "k": [
@@ -1605,10 +1807,13 @@
 ],
 "net": [],
 "career": "https://www.edag.com/en/career/vacancies",
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": true,
+"senior": false,
+"sec": false
 },
 {
 "id": "af31633367",
@@ -1618,7 +1823,7 @@
 "co": "Oneco Networks",
 "m": "Göteborg",
 "dl": "2026-11-22",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 1,
 "k": [
@@ -1626,10 +1831,13 @@
 ],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "af31564605",
@@ -1639,11 +1847,12 @@
 "co": "Volvo Lastvagnar (via SIGMA)",
 "m": "Göteborg",
 "dl": "2026-11-06",
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 1,
 "k": [],
 "net": [
+"Alexander Littorin",
 "Kristia Pinchot",
 "Joakim Alpsten",
 "Tobias Ljungberg",
@@ -1656,10 +1865,13 @@
 "Wassim Marouki"
 ],
 "career": "https://www.volvogroup.com/se/careers.html",
-"score": 3.5,
-"act": "Varm väg först: fråga Kristia Pinchot om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.25,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4482059479",
@@ -1677,10 +1889,13 @@
 "Johan Fröjd"
 ],
 "career": "https://careers.expleo.com/en/",
-"score": 7.875,
-"act": "Varm väg först: fråga Johan Fröjd om rollen och vem som anställer",
-"strong": true,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4476010674",
@@ -1696,10 +1911,13 @@
 "k": [],
 "net": [],
 "career": "https://www.alten.se/karriar/",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4484854712",
@@ -1715,10 +1933,13 @@
 "k": [],
 "net": [],
 "career": "https://www.bertrandt.com/en/career/career-opportunities",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4428436335",
@@ -1734,10 +1955,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4481121479",
@@ -1753,10 +1977,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.9,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": true,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4468673286",
@@ -1772,10 +1999,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4476692057",
@@ -1791,10 +2021,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4481418235",
@@ -1810,10 +2043,13 @@
 "k": [],
 "net": [],
 "career": "https://www.alten.se/karriar/",
-"score": 0.09,
-"act": "Ansök",
-"strong": true,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "li4470171136",
@@ -1829,10 +2065,13 @@
 "k": [],
 "net": [],
 "career": "https://www.alten.se/karriar/",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4477374616",
@@ -1848,10 +2087,13 @@
 "k": [],
 "net": [],
 "career": "https://www.alten.se/karriar/",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "li4483002900",
@@ -1867,10 +2109,13 @@
 "k": [],
 "net": [],
 "career": "https://www.avl.com/en/career",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4483003908",
@@ -1886,10 +2131,13 @@
 "k": [],
 "net": [],
 "career": "https://www.avl.com/en/career",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4482875007",
@@ -1905,10 +2153,13 @@
 "k": [],
 "net": [],
 "career": "https://www.tatatechnologies.com/careers/",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4481569805",
@@ -1924,10 +2175,13 @@
 "k": [],
 "net": [],
 "career": "https://www.tatatechnologies.com/careers/",
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4475486167",
@@ -1937,7 +2191,7 @@
 "co": "ESSIQ AB",
 "m": "Mölndal",
 "dl": null,
-"step": 2,
+"step": 1,
 "cat": "CAD",
 "sc": 6,
 "k": [],
@@ -1946,10 +2200,13 @@
 "Jonas Sohtell"
 ],
 "career": "https://essiq.teamtailor.com/",
-"score": 5.25,
-"act": "Varm väg först: fråga Pär Wallin om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.45,
+"act": "Fråga Pär Wallin hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "desk",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4463544768",
@@ -1968,10 +2225,13 @@
 "Jonas Sohtell"
 ],
 "career": "https://essiq.teamtailor.com/",
-"score": 5.25,
-"act": "Varm väg först: fråga Pär Wallin om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4484800541",
@@ -1987,10 +2247,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4474662444",
@@ -2006,10 +2269,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4451441314",
@@ -2025,10 +2291,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4451430414",
@@ -2044,10 +2313,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4432617540",
@@ -2063,10 +2335,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4483214628",
@@ -2082,10 +2357,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.05,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4481191217",
@@ -2101,10 +2379,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4480653527",
@@ -2120,10 +2401,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.06,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4485374485",
@@ -2139,10 +2423,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.6,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4475555331",
@@ -2162,10 +2449,13 @@
 "Elena Manca"
 ],
 "career": "https://www.capgemini.com/se-en/careers/",
-"score": 5.25,
-"act": "Varm väg först: fråga Ola Skogsfors om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4479293269",
@@ -2181,10 +2471,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4468737127",
@@ -2200,10 +2493,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.06,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4483130395",
@@ -2224,10 +2520,13 @@
 "Tobias Berntsson"
 ],
 "career": "https://www.saab.com/career/job-opportunities",
-"score": 1.75,
-"act": "Varm väg först: fråga Anders Arpteg om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.5,
+"act": "Fråga Anders Arpteg hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
 },
 {
 "id": "li4485379193",
@@ -2255,10 +2554,13 @@
 "Zeljko Madzo"
 ],
 "career": "https://jobs.volvocars.com/go/Exp-Level-Professionals/3749101/",
-"score": 1.75,
-"act": "Varm väg först: fråga Alexander Petrofski om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.5,
+"act": "Fråga Alexander Petrofski hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4477053296",
@@ -2274,10 +2576,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4480139655",
@@ -2293,10 +2598,13 @@
 "k": [],
 "net": [],
 "career": "https://sverige.segulatechnologies.com/en",
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.06,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4440137710",
@@ -2312,10 +2620,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4484426998",
@@ -2335,10 +2646,13 @@
 "Erik Hånell"
 ],
 "career": "https://www.scania.com/se/sv/home/about-scania/career/available-positions.html",
-"score": 1.75,
-"act": "Varm väg först: fråga Kevin Mulligan om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.5,
+"act": "Fråga Kevin Mulligan hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4484442470",
@@ -2358,10 +2672,13 @@
 "Erik Hånell"
 ],
 "career": "https://www.scania.com/se/sv/home/about-scania/career/available-positions.html",
-"score": 1.75,
-"act": "Varm väg först: fråga Kevin Mulligan om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.5,
+"act": "Fråga Kevin Mulligan hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4480356048",
@@ -2377,10 +2694,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.2,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4475541189",
@@ -2396,10 +2716,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4476173577",
@@ -2415,10 +2738,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4479617695",
@@ -2434,10 +2760,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4475224101",
@@ -2453,10 +2782,13 @@
 "k": [],
 "net": [],
 "career": null,
-"score": 0.02,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4480025961",
@@ -2466,16 +2798,19 @@
 "co": "OneCo Sverige",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4366615304",
@@ -2485,7 +2820,7 @@
 "co": "AFRY",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
@@ -2493,10 +2828,13 @@
 "Olof Stenlund"
 ],
 "career": "https://careers.smartrecruiters.com/afry",
-"score": 3.5,
-"act": "Varm väg först: fråga Olof Stenlund om rollen och vem som anställer",
-"strong": false,
-"gated": false
+"score": 0.075,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4483036654",
@@ -2506,16 +2844,19 @@
 "co": "Poolia Sverige",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": null,
-"score": 0.4,
-"act": "Ansök kort och be rekryteraren matcha dig mot fler uppdrag",
-"strong": false,
-"gated": false
+"score": 0.015,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4480496040",
@@ -2525,16 +2866,19 @@
 "co": "AVL in Sweden",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": "https://www.avl.com/en/career",
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4479502848",
@@ -2544,16 +2888,19 @@
 "co": "Tata Technologies",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": "https://www.tatatechnologies.com/careers/",
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4468508013",
@@ -2563,16 +2910,19 @@
 "co": "Plejd",
 "m": "Mölndal",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": null,
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
 },
 {
 "id": "li4478613537",
@@ -2582,16 +2932,19 @@
 "co": "Alstom",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": null,
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.033,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": false,
+"sec": false
 },
 {
 "id": "li4457508183",
@@ -2601,16 +2954,376 @@
 "co": "SEGULA Technologies",
 "m": "Göteborg",
 "dl": null,
-"step": 1,
+"step": 2,
 "cat": "QA",
 "sc": 6,
 "k": [],
 "net": [],
 "career": "https://sverige.segulatechnologies.com/en",
-"score": 0.04,
-"act": "Ansök",
-"strong": false,
-"gated": true
+"score": 0.01,
+"act": "Steg 2, senare: kvalificerad roll",
+"gated": true,
+"track": "qual",
+"phys": false,
+"senior": true,
+"sec": false
+},
+{
+"id": "af31628833",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31628833",
+"t": "Produktionstekniker inom elektronikproduktion",
+"co": "Friday Väst AB",
+"m": "Göteborg",
+"dl": "2026-12-09",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": true
+},
+{
+"id": "af31545204",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31545204",
+"t": "Produktionstekniker Utbildare",
+"co": "TeknikAkademin Norden AB",
+"m": "Göteborg",
+"dl": "2027-03-31",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": false,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31614560",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31614560",
+"t": "Elektronikmontör till Beyond Gravity",
+"co": "NearYou Sverige AB",
+"m": "Göteborg",
+"dl": "2026-11-18",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont",
+"phys": true,
+"senior": false,
+"sec": true
+},
+{
+"id": "af31650791",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31650791",
+"t": "Vi söker elektronik montörer till vår kund",
+"co": "NearYou Sverige AB",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31645037",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31645037",
+"t": "Nu söker vi slutavsynare till produktionsenhet utanför Göteborg!",
+"co": "Uniflex AB",
+"m": "Göteborg",
+"dl": "2026-11-08",
+"step": 1,
+"cat": "QA",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": true
+},
+{
+"id": "af31637092",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31637092",
+"t": "Ytmontör på heltid sökes omgående till Mölndal",
+"co": "StudentConsulting Sweden AB (publ)",
+"m": "Mölndal",
+"dl": "2026-11-06",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31622567",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31622567",
+"t": "Ytmontörer sökes till växande kund i Göteborg",
+"co": "Jovi Konsult AB",
+"m": "Göteborg",
+"dl": "2026-11-30",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31601836",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31601836",
+"t": "Vi söker elektronik montörer till Landvetter",
+"co": "NearYou Sverige AB",
+"m": "Göteborg",
+"dl": "2026-11-08",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31569262",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31569262",
+"t": "Avsynare till SAAB i Göteborg | Heltid",
+"co": "Manpower Aktiebolag",
+"m": "Göteborg",
+"dl": "2026-11-07",
+"step": 1,
+"cat": "QA",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.9,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "qa",
+"phys": false,
+"senior": false,
+"sec": true
+},
+{
+"id": "af31637057",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31637057",
+"t": "Elektronikmontör på heltid sökes omgående till Mölndal",
+"co": "StudentConsulting Sweden AB (publ)",
+"m": "Mölndal",
+"dl": "2026-11-06",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": false,
+"track": "mont",
+"phys": false,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31603120",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31603120",
+"t": "CNC-Operatör till RZ Finmekanik i Mölndal",
+"co": "StudentConsulting Sweden AB (publ)",
+"m": "Mölndal",
+"dl": "2026-11-05",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont",
+"phys": true,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31442174",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31442174",
+"t": "Teknisk Montör",
+"co": "Charlie AB",
+"m": "Kungsbacka",
+"dl": "2027-03-04",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.2,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31643616",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31643616",
+"t": "Teknisk skribent med mjukvarufokus",
+"co": "SAAB Aktiebolag",
+"m": "Göteborg",
+"dl": "2026-11-02",
+"step": 1,
+"cat": "DESK",
+"sc": 0,
+"k": [],
+"net": [
+"Anders Arpteg",
+"Susanne Carlsson",
+"Andreas Grimberg",
+"Tobias Berntsson"
+],
+"career": "https://www.saab.com/career/job-opportunities",
+"score": 1.5,
+"act": "Fråga Anders Arpteg hur det är att jobba där, och ta sedan med rollen till David",
+"gated": true,
+"track": "desk",
+"phys": false,
+"senior": false,
+"sec": true
+},
+{
+"id": "af31570617",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31570617",
+"t": "Undertaksmontör",
+"co": "TeknikAkademin Norden AB",
+"m": "Göteborg",
+"dl": "2027-04-06",
+"step": 1,
+"cat": "MONT",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.3,
+"act": "Ansök kort via bemanningsbolaget och be dem matcha dig mot fler instegsuppdrag; säg till David",
+"gated": true,
+"track": "mont-gen",
+"phys": true,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31403970",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31403970",
+"t": "Teknisk support",
+"co": "Mullvad VPN AB",
+"m": "Göteborg",
+"dl": "2027-02-23",
+"step": 1,
+"cat": "DESK",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": false,
+"track": "desk",
+"phys": false,
+"senior": false,
+"sec": false
+},
+{
+"id": "af31609228",
+"src": "Platsbanken",
+"url": "https://arbetsformedlingen.se/platsbanken/annonser/31609228",
+"t": "Teknisk Support inom fordonsteknik",
+"co": "MSX International Ltd. England, Filial",
+"m": "Göteborg",
+"dl": "2026-11-15",
+"step": 1,
+"cat": "DESK",
+"sc": 0,
+"k": [],
+"net": [],
+"career": null,
+"score": 0.6,
+"act": "Ta med till David: be honom kontakta arbetsgivaren (lönebidrag är ett argument)",
+"gated": false,
+"track": "desk",
+"phys": false,
+"senior": false,
+"sec": false
 }
 ],
 "companies": [
@@ -2618,7 +3331,7 @@
 "name": "Volvo Group",
 "career": "https://www.volvogroup.com/se/careers.html",
 "home": null,
-"n": 10,
+"n": 11,
 "jobs": 2
 },
 {
@@ -2627,6 +3340,13 @@
 "home": "https://www.volvocars.com/se/l/karriar/",
 "n": 11,
 "jobs": 1
+},
+{
+"name": "Saab",
+"career": "https://www.saab.com/career/job-opportunities",
+"home": null,
+"n": 4,
+"jobs": 4
 },
 {
 "name": "AVL",
@@ -2641,13 +3361,6 @@
 "home": null,
 "n": 0,
 "jobs": 5
-},
-{
-"name": "Saab",
-"career": "https://www.saab.com/career/job-opportunities",
-"home": null,
-"n": 4,
-"jobs": 3
 },
 {
 "name": "TK Tech",
@@ -2671,6 +3384,13 @@
 "jobs": 2
 },
 {
+"name": "Zeekr Tech Europe / Geely",
+"career": "https://career.zeekrtech.eu/",
+"home": null,
+"n": 7,
+"jobs": 0
+},
+{
 "name": "ESSIQ",
 "career": "https://essiq.teamtailor.com/",
 "home": null,
@@ -2683,13 +3403,6 @@
 "home": null,
 "n": 0,
 "jobs": 3
-},
-{
-"name": "Zeekr Tech Europe / Geely",
-"career": "https://career.zeekrtech.eu/",
-"home": null,
-"n": 6,
-"jobs": 0
 },
 {
 "name": "Capgemini",
@@ -2769,6 +3482,13 @@
 "jobs": 0
 },
 {
+"name": "Combitech",
+"career": "https://www.combitech.se/lediga-jobb/",
+"home": null,
+"n": 1,
+"jobs": 0
+},
+{
 "name": "Einride",
 "career": "https://careers.einride.tech/",
 "home": null,
@@ -2792,13 +3512,6 @@
 {
 "name": "Colibrium Additive (Arcam)",
 "career": "https://www.geaerospace.com/company/careers",
-"home": null,
-"n": 0,
-"jobs": 0
-},
-{
-"name": "Combitech",
-"career": "https://www.combitech.se/lediga-jobb/",
 "home": null,
 "n": 0,
 "jobs": 0
