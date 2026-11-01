@@ -44,7 +44,18 @@ section{padding-top:14px}
 .seg button{font:500 13px var(--body);background:var(--surface);color:var(--mut);border:0;padding:8px 10px;cursor:pointer}
 .seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
 #net{height:min(70vh,620px);background:var(--surface);border:1px solid var(--line);border-radius:8px}
-#info{margin-top:10px;min-height:3em;font-size:14px}
+#info{margin-top:10px;font-size:14px}
+#netwrap{position:relative}
+.pcard{position:absolute;z-index:4;width:min(310px,calc(100% - 16px));max-height:calc(100% - 16px);overflow:auto;background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);border-radius:8px;box-shadow:0 10px 28px rgba(0,0,0,.28);padding:12px 14px 14px;font-size:14px}
+.pcard .x{position:absolute;top:6px;right:6px;background:none;border:0;color:var(--mut);font:18px/1 var(--body);padding:4px 7px;cursor:pointer;border-radius:4px}
+.pcard .x:hover{color:var(--ink)}
+.pcard h3{font:700 16px/1.25 var(--display);margin:0 22px 2px 0}
+.pcard .lbl{font:500 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--mut);margin:12px 0 4px}
+.pcard ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px}
+.pcard li button{width:100%;text-align:left;background:none;border:0;border-radius:4px;color:var(--ink);font:14px var(--body);padding:5px 6px;cursor:pointer;display:flex;gap:8px;align-items:baseline}
+.pcard li button:hover{background:var(--bg)}
+.pcard li .s{color:var(--mut);font-size:12.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pcard .li-link{display:inline-block;margin-top:10px;font-weight:600;color:var(--accent)}
 .legend{display:flex;flex-wrap:wrap;gap:6px 12px;margin-top:10px;font-size:12px;color:var(--mut)}
 .legend i{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:0}
 .list{display:flex;flex-direction:column;border-top:1px solid var(--line)}
@@ -105,8 +116,8 @@ h2{font:700 18px/1.25 var(--display);margin:22px 0 6px}
     <input id="q" type="search" placeholder="Sök namn, företag, titel">
     <div class="seg" id="mapSeg"><button aria-pressed="true" data-v="clu">Företagskluster</button><button aria-pressed="false" data-v="all">Alla 417</button></div>
   </div>
-  <div id="net" role="img" aria-label="Nätverksgraf över kontakter och företag"></div>
-  <div id="info" class="meta">Tryck på en nod för detaljer.</div>
+  <div id="netwrap"><div id="net" role="img" aria-label="Nätverksgraf över kontakter och företag"></div><div class="pcard" id="pcard" hidden></div></div>
+  <div id="info" class="meta">Klicka på en person eller ett företag för profilkort.</div>
   <div class="legend" id="legend"></div>
 </section>
 
@@ -168,16 +179,40 @@ function build(){
     if(mode==='clu'&&!hasCo&&!p.t)return;
     if(q&&!(p.n+' '+p.co+' '+p.h).toLowerCase().includes(q))return;
     const tc=p.t?css('--t'+p.t):css('--c-'+p.c);
-    nodes.push({id:i,label:p.t?p.n:'',size:p.t==='A'?14:p.t?11:7,shape:'dot',borderWidth:p.t?3:1,color:{background:css('--c-'+p.c),border:tc},font:{color:css('--ink'),size:18}});
-    if(hasCo){const cid='c:'+p.co;if(!seen.has(cid)){seen.add(cid);nodes.push({id:cid,label:p.co,shape:'box',color:{background:css('--c-co'),border:css('--c-co')},font:{color:css('--bg'),size:26,face:'IBM Plex Sans'}});edges.push({from:'me',to:cid,width:1.5})}edges.push({from:i,to:cid})}
+    nodes.push({id:i,label:p.t||mode==='clu'?p.n:'',size:p.t==='A'?14:p.t?11:7,shape:'dot',borderWidth:p.t?3:1,color:{background:css('--c-'+p.c),border:tc},font:{color:css('--ink'),size:11}});
+    if(hasCo){const cid='c:'+p.co;if(!seen.has(cid)){seen.add(cid);nodes.push({id:cid,label:p.co,shape:'box',color:{background:css('--c-co'),border:css('--c-co')},font:{color:css('--bg'),size:12}});edges.push({from:'me',to:cid,width:1.5})}edges.push({from:i,to:cid})}
     else edges.push({from:'me',to:i,dashes:true});
   });
   const opt={edges:{color:{color:css('--line')},smooth:false},physics:{solver:'forceAtlas2Based',forceAtlas2Based:{gravitationalConstant:-45,springLength:55},stabilization:{iterations:200}},interaction:{hover:true,dragNodes:true}};
   if(net)net.destroy();
   net=new vis.Network($('#net'),{nodes,edges},opt);
-  net.on('click',e=>{const id=e.nodes[0];if(id===undefined){return}
-    if(typeof id==='number'){const p=P[id];$('#info').innerHTML=`<div class="name"><a href="${prof(p)}" target="_blank" rel="noopener">${esc(p.n)}</a>${p.t?' · mål '+p.t:''}</div><div class="meta">${esc(p.co||D.cat[p.c])} · ${p.y}</div><div class="why">${esc(p.w||p.h)}</div>`}
-    else if(id.startsWith('c:')){const co=id.slice(2);const jn=D.j.filter(j=>j.co.toLowerCase().startsWith(co.split('/')[0].toLowerCase().slice(0,5))).length;$('#info').innerHTML=`<div class="name">${esc(co)}</div><div class="meta">${cnt[co]||0} kontakter${jn?' · '+jn+' öppna annonser':''}</div>`}});
+  net.on('click',e=>{const id=e.nodes[0];if(id===undefined){hideCard();return}showCard(id,e.pointer.DOM)});
+  net.on('dragStart',hideCard);net.on('zoom',hideCard);
+}
+const jobsAt=co=>{const k=co.split('/')[0].toLowerCase().slice(0,5);return D.j.filter(j=>j.co.toLowerCase().startsWith(k))};
+const peersOf=co=>P.map((p,i)=>[p,i]).filter(([p])=>p.co===co);
+function hideCard(){$('#pcard').hidden=true}
+function personRow([p,i]){return `<li><button data-i="${i}"><span>${esc(p.n)}${p.t?' <b class="t'+p.t+'">'+p.t+'</b>':''}</span><span class="s">${esc(p.h)}</span></button></li>`}
+function showCard(id,pt){
+  const c=$('#pcard');let h='';
+  if(typeof id==='number'){
+    const p=P[id];const peers=p.co?peersOf(p.co).filter(([,i])=>i!==id):[];
+    h=`<h3>${esc(p.n)}</h3><div class="meta">${esc(D.cat[p.c])} · kontakt sedan ${p.y}${p.t?' · <span class="t'+p.t+'">mål '+p.t+'</span>':''}</div><div class="why">${esc(p.h)}</div>`+
+      (p.w?`<div class="lbl">Varför</div><div class="why">${esc(p.w)}</div>`:'')+
+      (p.co?`<div class="lbl">${esc(p.co)} · ${peers.length?peers.length+' till du känner där':'ingen mer du känner där'}</div>`+(peers.length?`<ul>${peers.map(personRow).join('')}</ul>`:''):'')+
+      (p.co&&jobsAt(p.co).length?`<div class="lbl">Öppna annonser där</div><ul>${jobsAt(p.co).map(j=>`<li><a href="https://www.linkedin.com/jobs/view/${j.i}/" target="_blank" rel="noopener">${esc(j.t)}</a></li>`).join('')}</ul>`:'')+
+      `<a class="li-link" href="${prof(p)}" target="_blank" rel="noopener">Öppna på LinkedIn ↗</a>`;
+  }else if(String(id).startsWith('c:')){
+    const co=id.slice(2),peers=peersOf(co),js=jobsAt(co);
+    h=`<h3>${esc(co)}</h3><div class="meta">${peers.length} kontakter${js.length?' · '+js.length+' öppna annonser':''}</div><div class="lbl">Du känner</div><ul>${peers.sort((a,b)=>(a[0].t||'Z').localeCompare(b[0].t||'Z')).map(personRow).join('')}</ul>`+
+      (js.length?`<div class="lbl">Öppna annonser</div><ul>${js.map(j=>`<li><a href="https://www.linkedin.com/jobs/view/${j.i}/" target="_blank" rel="noopener">${esc(j.t)}</a></li>`).join('')}</ul>`:'');
+  }else return hideCard();
+  c.innerHTML='<button class="x" aria-label="Stäng">×</button>'+h;c.hidden=false;
+  const W=$('#netwrap').clientWidth,H=$('#netwrap').clientHeight,cw=c.offsetWidth,ch=c.offsetHeight;
+  let x=pt?pt.x+14:(W-cw)/2,y=pt?pt.y-20:16;if(x+cw>W-8)x=Math.max(8,(pt?pt.x-cw-14:8));if(x<8)x=8;if(y+ch>H-8)y=Math.max(8,H-ch-8);if(y<8)y=8;
+  c.style.left=x+'px';c.style.top=y+'px';
+  c.querySelector('.x').onclick=hideCard;
+  c.querySelectorAll('button[data-i]').forEach(b=>b.onclick=()=>{const i=+b.dataset.i;if(net.body.data.nodes.get(i)){net.selectNodes([i]);const pos=net.canvasToDOM(net.getPosition(i));showCard(i,pos)}else showCard(i,null)});
 }
 $('#legend').innerHTML=Object.entries(D.cat).map(([k,v])=>`<span><i style="background:var(--c-${k})"></i>${v}</span>`).join('')+'<span>Ring: mål A/B/C</span>';
 seg('#mapSeg',v=>{mode=v;build()});
