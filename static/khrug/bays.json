@@ -1,5 +1,5 @@
 {
-  "_readme": "Fack 1-14 på khrug.draken.info. Fack 15 är arkivet (arkiv.json). Lägg filer i static/khrug/files/ och miniatyrer i static/khrug/thumbs/. Tomt fack: {}. Typer: file (PDF/bild), link (webbsida). thumb är valfri; utan den ritas ett typkort.",
+  "_readme": "Fack 1-14 i Portalen (/khrug/). Fack 15 är arkivet (arkiv.json). Delningslänk till ett fack: /khrug/#fack-NN. Lägg filer i static/khrug/files/ och miniatyrer i static/khrug/thumbs/. Tomt fack: {}. Typer: file (PDF/bild, får nedladdningsknapp), link (webbsida). thumb är valfri.",
   "updated": "2026-11-01",
   "bays": [
     {
@@ -12,13 +12,13 @@
       "menu": "CV"
     },
     {
-      "title": "Jobbsitrep: ansök rad för rad",
+      "title": "SitRep",
       "kind": "link",
       "url": "/khrug/sitrep/",
       "thumb": "/khrug/thumbs/sitrep-live.jpg",
       "type": "LISTA",
       "date": "2026-11-01",
-      "menu": "Jobbsitrep"
+      "menu": "SitRep"
     },
     {
       "title": "Nätverkskarta LinkedIn",
@@ -29,9 +29,9 @@
       "menu": "Nätverk"
     },
     {
-      "title": "Jobbsitrep 30 okt (PDF)",
+      "title": "SitRep 30 okt (PDF)",
       "kind": "file",
-      "url": "/khrug/files/Jobbsitrep_2026-10-30.pdf",
+      "url": "/khrug/files/SitRep_2026-10-30.pdf",
       "thumb": "/khrug/thumbs/sitrep.jpg",
       "type": "PDF",
       "date": "2026-10-30"
