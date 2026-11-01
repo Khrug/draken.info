@@ -31,3 +31,5 @@
   X-Robots-Tag: noindex
 /posts/*/index.md
   X-Robots-Tag: noindex
+/khrug/*
+  X-Robots-Tag: noindex, nofollow
