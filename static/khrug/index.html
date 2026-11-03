@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oxanium:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=Share+Tech+Mono&display=swap">
 <style>
 /* Layout: equipment rack — thin hazard-taped frame, carbon panel, monochrome command bar, 5×3 bays; bay 15 is the archive.
-   Every bay has a shareable deep link (#fack-01 … #fack-15) that opens its detail panel with open/download/copy-link.
+   Every bay has a shareable deep link (#fack-01 … #fack-15). Clicking an internal bay opens a full-screen viewer (PDF via vendored pdf.js with clickable links, pages in an iframe) with download/new-tab/copy-link; external bays open in a new tab.
    Content lives in bays.json and arkiv.json next to this file. Single dark theme by design. */
 :root{
   color-scheme:dark;
@@ -77,6 +77,20 @@ dialog::backdrop{background:rgba(0,0,0,.75)}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
 .chip{font:12px var(--mono);padding:5px 8px;border:1px solid var(--edge);border-radius:2px;background:none;color:var(--mut);cursor:pointer;text-transform:uppercase}
 .chip[aria-pressed="true"]{border-color:var(--steel);color:var(--ink)}
+dialog.full{width:100vw;height:100vh;height:100dvh;max-width:100vw;max-height:100vh;max-height:100dvh;margin:0;border:0;border-radius:0}
+.view{display:flex;flex-direction:column;height:100%}
+.vbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px max(12px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--edge);background:var(--brushed)}
+.vbar .vt{flex:1 1 12em;min-width:0;font:700 15px/1.2 var(--display);letter-spacing:.05em;text-transform:uppercase;overflow-wrap:anywhere}
+.vbar .vt small{display:block;font:11px var(--mono);color:var(--mut);letter-spacing:.12em;margin-bottom:2px}
+.vbar .btn{padding:10px 12px}
+.vbody{flex:1;overflow:auto;background:#0d0f10;-webkit-overflow-scrolling:touch}
+.vbody iframe{display:block;width:100%;height:100%;border:0;background:#fff}
+.vbody .pg{position:relative;max-width:900px;margin:12px auto;box-shadow:0 0 0 1px #000,0 4px 18px rgba(0,0,0,.5)}
+.vbody .pg canvas{display:block;width:100%;height:auto;background:#fff}
+.vbody .pg a{position:absolute;display:block}
+.vbody .pg a:hover{background:rgba(26,77,143,.15)}
+.vbody>img{display:block;max-width:100%;margin:12px auto}
+.vmsg{padding:24px;font:13px var(--mono);color:var(--mut);text-align:center}
 footer{margin-top:20px;padding-top:12px;border-top:1px solid var(--edge);font:12px var(--mono);color:var(--mut);display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:space-between}
 @media (max-width:460px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.ph .big{font-size:22px}.cap .title{font-size:13px}nav.cmd .ext{margin-left:0}}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -126,7 +140,8 @@ function render(){
   for(var i=0;i<14;i++){
     var b=BAYS[i]||{},n=pad(i+1);
     if(!b.kind){html+='<div class="bay empty"><span class="no">'+n+'</span><div class="thumb"><div class="ph"><div class="big">—</div><div class="small">ledigt fack</div></div></div><div class="cap"><div class="title">Ledigt</div><div class="meta">&nbsp;</div></div></div>';continue}
-    html+='<a class="bay" href="'+'#'+'fack-'+n+'"><span class="no">'+n+'</span><div class="thumb">'+thumb(b)+'</div><div class="cap"><div class="title">'+esc(b.title)+'</div><div class="meta">'+esc(metaOf(b))+'</div></div></a>';
+    var ex=isExt(b.url);
+    html+='<a class="bay" href="'+(ex?esc(b.url)+'" target="_blank" rel="noopener':'#'+'fack-'+n)+'"><span class="no">'+n+'</span><div class="thumb">'+thumb(b)+'</div><div class="cap"><div class="title">'+esc(b.title)+'</div><div class="meta">'+esc(metaOf(b))+'</div></div></a>';
   }
   html+='<a class="bay locker" href="#fack-15"><span class="no">15</span><div class="thumb"><div class="ph"><div class="big">ARKIV</div><div class="small">'+archive.length+' poster</div></div></div><div class="cap"><div class="title">Arkiv</div><div class="meta">Mapp</div></div></a>';
   g.innerHTML=html;
@@ -134,11 +149,38 @@ function render(){
   BAYS.forEach(function(b){if(b&&b.kind&&b.menu){var a=document.createElement('a');a.href=b.url;a.textContent=b.menu;if(isExt(b.url)){a.target='_blank';a.rel='noopener'}cmd.insertBefore(a,first)}});
 }
 function copyBtn(id,text){var el=$(id);el.onclick=function(){(navigator.clipboard?navigator.clipboard.writeText(text):Promise.reject()).then(function(){el.textContent='Länk kopierad'},function(){prompt('Kopiera länken:',text)})}}
-function show(html){body.innerHTML=html;if(!dlg.open)dlg.showModal()}
+function show(html,full){dlg.classList.toggle('full',!!full);body.className=full?'view':'dlg';body.innerHTML=html;if(!dlg.open)dlg.showModal()}
+var isPdf=function(u){return /\.pdf$/i.test(u||'')},isImg=function(u){return /\.(png|jpe?g|webp|gif)$/i.test(u||'')};
+function loadScript(src){return new Promise(function(ok,no){var s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+var pdfReady=null;
+function pdfLib(){return pdfReady||(pdfReady=loadScript('/khrug/vendor/pdf.min.js').then(function(){pdfjsLib.GlobalWorkerOptions.workerSrc='/khrug/vendor/pdf.worker.min.js';return pdfjsLib}))}
+function renderPdf(url,box){
+  box.innerHTML='<div class="vmsg">Laddar dokument…</div>';
+  pdfLib().then(function(lib){return lib.getDocument(url).promise}).then(function(doc){
+    box.innerHTML='';var dpr=Math.min(window.devicePixelRatio||1,2),w=Math.min(box.clientWidth-24,900)||800,chain=Promise.resolve();
+    for(var i=1;i<=doc.numPages;i++)(function(i){chain=chain.then(function(){return doc.getPage(i)}).then(function(p){
+      var v0=p.getViewport({scale:1}),vp=p.getViewport({scale:w/v0.width*dpr}),pg=document.createElement('div'),c=document.createElement('canvas');
+      pg.className='pg';c.width=vp.width;c.height=vp.height;pg.appendChild(c);box.appendChild(pg);
+      var V=p.view,W=V[2]-V[0],H=V[3]-V[1];
+      p.getAnnotations().then(function(an){an.forEach(function(a){if(!a.url)return;var r=a.rect,l=document.createElement('a');l.href=a.url;l.target='_blank';l.rel='noopener';l.title=a.url;
+        l.style.left=(r[0]-V[0])/W*100+'%';l.style.top=(V[3]-r[3])/H*100+'%';l.style.width=(r[2]-r[0])/W*100+'%';l.style.height=(r[3]-r[1])/H*100+'%';pg.appendChild(l)})});
+      return p.render({canvasContext:c.getContext('2d'),viewport:vp}).promise})})(i);
+  }).catch(function(){box.innerHTML='<div class="vmsg">Kunde inte visa dokumentet här. Använd Ladda ner eller Öppna i ny flik.</div>'});
+}
 function openBay(n){
   if(n===15)return openArchive();
   var b=BAYS[n-1];if(!b||!b.kind)return;
-  var ext=isExt(b.url),tgt=ext||isFile(b)?' target="_blank" rel="noopener"':'';
+  var ex=isExt(b.url),pdf=isPdf(b.url),img=isImg(b.url),page=b.kind==='link'||/\/$|\.html?$/i.test(b.url||'');
+  if(!ex&&(pdf||img||page)){
+    show('<div class="vbar"><div class="vt"><small>FACK '+pad(n)+' · '+esc(metaOf(b))+'</small>'+esc(b.title)+'</div>'+
+      (isFile(b)?'<a class="btn pri" href="'+esc(b.url)+'" download="'+esc(fname(b.url))+'">Ladda ner</a>':'')+
+      '<a class="btn" href="'+esc(b.url)+'" target="_blank" rel="noopener">Ny flik</a><button class="btn" id="cpL">Kopiera länk</button><button class="btn" id="xClose">Stäng</button></div>'+
+      '<div class="vbody" id="vbody">'+(page&&!pdf&&!img?'<iframe src="'+esc(b.url)+'" title="'+esc(b.title)+'"></iframe>':img?'<img src="'+esc(b.url)+'" alt="'+esc(b.title)+'">':'')+'</div>',true);
+    copyBtn('#cpL',link(n));$('#xClose').onclick=close;
+    if(pdf)renderPdf(b.url,$('#vbody'));
+    return;
+  }
+  var ext=ex,tgt=ext||isFile(b)?' target="_blank" rel="noopener"':'';
   show('<div class="no">FACK '+pad(n)+'</div><h2>'+esc(b.title)+'</h2><div class="meta">'+esc(metaOf(b))+'</div>'+
     (b.thumb?'<a class="prev" href="'+esc(b.url)+'"'+tgt+'><img src="'+esc(b.thumb)+'" alt=""></a>':'')+
     '<div class="row2"><a class="btn pri" href="'+esc(b.url)+'"'+tgt+'>Öppna</a>'+
