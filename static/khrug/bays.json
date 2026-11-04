@@ -1,6 +1,6 @@
 {
   "_readme": "Fack 1-14 i Portalen (/khrug/). Fack 15 är arkivet (arkiv.json). Delningslänk till ett fack: /khrug/#fack-NN. Lägg filer i static/khrug/files/ och miniatyrer i static/khrug/thumbs/. Tomt fack: {}. Typer: file (PDF/bild, får nedladdningsknapp), link (webbsida). thumb är valfri.",
-  "updated": "2026-11-01",
+  "updated": "2026-11-04",
   "bays": [
     {
       "title": "CV (svenska)",
@@ -44,7 +44,15 @@
       "type": "PDF",
       "date": "2026-11-01"
     },
-    {},
+    {
+      "title": "Praktikplatser, topp 5 för IPS",
+      "kind": "file",
+      "url": "/khrug/files/Praktik_topp5_2026-11-04.pdf",
+      "thumb": "/khrug/thumbs/praktik-topp5.jpg",
+      "type": "PDF",
+      "date": "2026-11-04",
+      "menu": "Praktik"
+    },
     {},
     {},
     {},

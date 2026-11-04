@@ -3394,6 +3394,41 @@
 ],
 "companies": [
 {
+"name": "Brose Sweden (praktik, topp 5)",
+"career": "https://www.brose.com/de-en/automotive-jobs-at-brose/",
+"home": "https://www.brose.com/de-en/company/locations/gothenburg.html",
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Shiloh Industries / Dura-Shiloh (praktik, topp 5)",
+"career": "https://durashiloh.com/careers/open-positions",
+"home": "https://durashiloh.com/europe/",
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Plasman (praktik, topp 5)",
+"career": "https://plasman.com/careers/",
+"home": "https://plasman.com/about-us/locations/",
+"n": 0,
+"jobs": 0
+},
+{
+"name": "HAVD Group (praktik, topp 5)",
+"career": "https://www.havdgroup.com/career/",
+"home": "https://www.havdgroup.com/",
+"n": 0,
+"jobs": 0
+},
+{
+"name": "Nolato Plastteknik (praktik, topp 5)",
+"career": null,
+"home": "https://www.nolato.com/group-companies/nolato-plastteknik/",
+"n": 0,
+"jobs": 0
+},
+{
 "name": "Volvo Group",
 "career": "https://www.volvogroup.com/se/careers.html",
 "home": null,
