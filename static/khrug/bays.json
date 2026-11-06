@@ -29,12 +29,12 @@
       "menu": "Nätverk"
     },
     {
-      "title": "Outreach-register",
+      "title": "Kontrollpanel",
       "kind": "link",
       "url": "https://claude.ai/artifact/Mvzw8GRUuQ6ZiPMozddmhR",
-      "type": "OUTREACH",
+      "type": "PANEL",
       "date": "2026-11-01",
-      "menu": "Outreach"
+      "menu": "Kontrollpanel"
     },
     {
       "title": "Instegsjobb, urval för IPS",
