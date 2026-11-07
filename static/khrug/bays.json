@@ -1,6 +1,6 @@
 {
   "_readme": "Fack 1-14 i Portalen (/khrug/). Fack 15 är arkivet (arkiv.json). Delningslänk till ett fack: /khrug/#fack-NN. Lägg filer i static/khrug/files/ och miniatyrer i static/khrug/thumbs/. Tomt fack: {}. Typer: file (PDF/bild, får nedladdningsknapp), link (webbsida). thumb är valfri.",
-  "updated": "2026-11-04",
+  "updated": "2026-11-07",
   "bays": [
     {
       "title": "CV (svenska)",
@@ -53,7 +53,13 @@
       "date": "2026-11-04",
       "menu": "Praktik"
     },
-    {},
+    {
+      "title": "Khrug Engineering – Projektbeskrivning",
+      "kind": "file",
+      "url": "/khrug/files/Khrug_Engineering_Projektbeskrivning_20261107.pdf",
+      "type": "PDF",
+      "date": "2026-11-07"
+    },
     {},
     {},
     {},
